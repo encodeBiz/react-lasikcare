@@ -6,7 +6,7 @@ import './appointments.style.css'
 function Appointments({routes}){
 	return (
 	<div>
-		<h1>Hola Appointments</h1>
+		<h1>Appointments</h1>
 		<Switch>
 			{routes.map((route, i) => (
 			  <RouteWithSubRoutes key={i} {...route} />
