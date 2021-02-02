@@ -1,0 +1,1 @@
+export { default as router_reducer } from './router/router.reducer'
