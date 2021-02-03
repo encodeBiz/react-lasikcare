@@ -3,15 +3,18 @@
 }
 
 
-.card{
+.home-card{
     display: flex;
     text-align: center;
     justify-content: center;
     flex-direction: column;
     align-content: center;
     
+    
 
     .home-card-image{
-        width: 100px
+        width: 100px;
+        display: block;
+        margin: 0 auto; 
     }
 }

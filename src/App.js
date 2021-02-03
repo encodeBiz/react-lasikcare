@@ -1,8 +1,9 @@
 import React from "react"
-import logo from './logo.svg';
+import { connect } from "react-redux";
 import './styles/App.scss';
 
-function App() {
+function App({store, errors}) {
+  console.log(store, errors)
   return (
     <div className="App">
       <header className="App-header">
@@ -12,4 +13,8 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = ( state )=> ({
+  errors: state.errors
+})
+
+export default connect(mapStateToProps)(App);

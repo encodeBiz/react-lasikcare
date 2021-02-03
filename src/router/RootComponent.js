@@ -16,6 +16,7 @@ import ConfirmOnlinePage from "../page_modules/video_call/ConfirmOnlinePage/Conf
 import ThankOnlinePage from "../page_modules/video_call/ThankOnlinePage/ThankOnlinePage";
 import Home from "../page_modules/home/Home";
 import Navbar from "../shared_modules/Navbar/Navbar";
+import { connect } from "react-redux";
 
 const routes = [
 	{
@@ -25,6 +26,7 @@ const routes = [
 			{
 				path: "/videollamadas/calendar",
 				component: CalendarOnlinePage,
+
 			},
 			{
 				path: "/videollamadas/confirm",
@@ -43,22 +45,27 @@ const routes = [
 			{
 				path: "/appointments/type",
 				component: TypeAppointmentPage,
+				stepNumber: 0
 			},
 			{
 				path: "/appointments/city",
 				component: CityAppointmentPage,
+				stepNumber: 1
 			},
 			{
 				path: "/appointments/calendar",
 				component: CalendarAppointmentPage,
+				stepNumber: 2
 			},
 			{
 				path: "/appointments/confirm",
 				component: ConfirmAppointmentPage,
+				stepNumber: 3
 			},
 			{
 				path: "/appointments/thank",
 				component: ThankAppointmentPage,
+				stepNumber: 4
 			},
 		],
 	},
@@ -68,7 +75,8 @@ const routes = [
 	},
 ];
 
-const Root = ({ store }) => {
+const Root = ({ errors }) => {
+	console.log(errors);
 	return (
 		<React.Fragment>
 			<Navbar></Navbar>
@@ -82,7 +90,11 @@ const Root = ({ store }) => {
 };
 
 Root.propTypes = {
-	// store: PropTypes.object.isRequired,
+	store: PropTypes.object.isRequired,
 };
 
-export default Root;
+const mapStateToProps = (state) => ({
+	errors: state.errors,
+});
+
+export default connect(mapStateToProps)(Root);

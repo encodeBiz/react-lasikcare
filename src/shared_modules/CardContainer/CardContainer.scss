@@ -8,6 +8,10 @@
     text-align: left;
     border: 1px solid $brandBorderGrey;
     margin: 0 2rem;     
+    display: flex;
+    flex-wrap: nowrap;    
+}
 
-    
+.is-column{
+    flex-direction: column;
 }

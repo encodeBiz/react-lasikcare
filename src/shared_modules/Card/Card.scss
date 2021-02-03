@@ -1,5 +1,13 @@
+@import "../../assets/scss/fonts";
+@import "../../assets/scss/variables"; 
+@import "../../assets/scss/mixins";
+
 .card{
     display: flex;
     justify-content: center;
     align-content: center;
+    border: 1px solid $brandBorderGrey;
+    border-radius: $borderRadius;
+    
+
 }

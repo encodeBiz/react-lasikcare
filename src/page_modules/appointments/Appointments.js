@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Link } from "react-router-dom";
+import { Switch, Link, Route, Redirect } from "react-router-dom";
 import { RouteWithSubRoutes } from "../../router/RouterHelper";
 import "./appointments.style.css";
 
@@ -13,7 +13,7 @@ function Appointments({ routes }) {
 				<Link to="/appointments/city">City</Link>
 			</div>
 			<div>
-				<Link to="/appointments/calendar">CAlendar</Link>
+				<Link to="/appointments/calendar">Calendar</Link>
 			</div>
 			<div>
 				<Link to="/appointments/confirm">Confirm</Link>
@@ -25,6 +25,9 @@ function Appointments({ routes }) {
 				{routes.map((route, i) => (
 					<RouteWithSubRoutes key={i} {...route} />
 				))}
+				<Route to="/appointments">
+						<Redirect to="/appointments/type"></Redirect>
+				</Route>
 			</Switch>
 		</div>
 	);
