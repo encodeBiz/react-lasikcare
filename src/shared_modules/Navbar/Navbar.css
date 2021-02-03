@@ -1,0 +1,11 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  border-bottom: 1px solid grey; }
+  .navbar-container .hamburguer div {
+    width: 35px;
+    height: 5px;
+    background-color: grey;
+    margin: 6px 0;
+    border-radius: 2px; }

@@ -1,3 +1,4 @@
+import React from "react"
 import logo from './logo.svg';
 import './styles/App.css';
 import { getClinicas, getHuecos } from "./services/appointments.service";
