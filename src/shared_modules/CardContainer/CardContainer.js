@@ -1,13 +1,8 @@
-import React from 'react'
-import "./CardContainer.scss"
+import React from "react";
+import "./CardContainer.scss";
 
-const CardContainer = ({children}) => {
-    return (
-        <div>
-            CardContainer
-            {children}
-        </div>
-    )
-}
+const CardContainer = ({ children, customClass }) => {
+	return <div className={`card-container ${!customClass ? "" : customClass}`}>{children}</div>;
+};
 
-export default CardContainer
+export default CardContainer;

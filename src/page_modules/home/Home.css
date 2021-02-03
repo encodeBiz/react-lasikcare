@@ -1,0 +1,11 @@
+.home-title {
+  text-align: center; }
+
+.card {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center; }
+  .card .home-card-image {
+    width: 100px; }

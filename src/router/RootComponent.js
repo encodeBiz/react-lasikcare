@@ -15,6 +15,7 @@ import CalendarOnlinePage from "../page_modules/video_call/CalendarOnlinePage/Ca
 import ConfirmOnlinePage from "../page_modules/video_call/ConfirmOnlinePage/ConfirmOnlinePage";
 import ThankOnlinePage from "../page_modules/video_call/ThankOnlinePage/ThankOnlinePage";
 import Home from "../page_modules/home/Home";
+import Navbar from "../shared_modules/Navbar/Navbar";
 
 const routes = [
 	{
@@ -69,18 +70,19 @@ const routes = [
 
 const Root = ({ store }) => {
 	return (
-		// <Router history={history}>
-		<Switch>
-			{routes.map((route, i) => (
-				<RouteWithSubRoutes key={i} {...route} />
-			))}
-		</Switch>
-		// </Router>
+		<React.Fragment>
+			<Navbar></Navbar>
+			<Switch>
+				{routes.map((route, i) => (
+					<RouteWithSubRoutes key={i} {...route} />
+				))}
+			</Switch>
+		</React.Fragment>
 	);
 };
 
 Root.propTypes = {
-	store: PropTypes.object.isRequired,
+	// store: PropTypes.object.isRequired,
 };
 
 export default Root;
