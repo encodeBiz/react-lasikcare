@@ -13,7 +13,7 @@ import { setAppoinmentConfig } from "../../../redux/appointment_config/appointme
  * 
  * @param {Object} properties
  * @param {Function} properties.getAppointmentByType Envía al reducer el tipo de cita que se ha seleccionado. 
- *   
+ * 
  */
 
 const TypeAppointmentPage = (properties) => {
@@ -26,7 +26,6 @@ const TypeAppointmentPage = (properties) => {
 
 	useEffect(() => {
 		properties.setAppoinmentConfig('currentStep', {currentStep: 'type'})
-		
 	}, [])
 
 	const appointmentTypes = [
@@ -44,7 +43,6 @@ const TypeAppointmentPage = (properties) => {
 
 
 	const onAppointmentTypeSelection = (type) => {
-		console.log(type)
 		properties.setAppoinmentConfig('type', type)
 		history.push("/appointments/city")
 	}
@@ -67,6 +65,7 @@ const TypeAppointmentPage = (properties) => {
 	);
 };
 
+
 const mapDispatchToProps = (dispatch) => {
 	return {
 		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data))
@@ -74,9 +73,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (store) => {
 	return {
-		appointment: state.appointment
+		appointment: store.appointment
 	}
 }
 
