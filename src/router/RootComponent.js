@@ -27,6 +27,7 @@ const routes = [
 			{
 				path: "/videollamadas/calendar",
 				component: CalendarOnlinePage,
+
 			},
 			{
 				path: "/videollamadas/confirm",
@@ -45,22 +46,27 @@ const routes = [
 			{
 				path: "/appointments/type",
 				component: TypeAppointmentPage,
+				stepNumber: 0
 			},
 			{
 				path: "/appointments/city",
 				component: CityAppointmentPage,
+				stepNumber: 1
 			},
 			{
 				path: "/appointments/calendar",
 				component: CalendarAppointmentPage,
+				stepNumber: 2
 			},
 			{
 				path: "/appointments/confirm",
 				component: ConfirmAppointmentPage,
+				stepNumber: 3
 			},
 			{
 				path: "/appointments/thank",
 				component: ThankAppointmentPage,
+				stepNumber: 4
 			},
 		],
 	},
@@ -70,7 +76,8 @@ const routes = [
 	},
 ];
 
-const Root = ({ store }) => {
+const Root = ({ errors }) => {
+	console.log(errors);
 	return (
 		<React.Fragment>
 			<Navbar></Navbar>
@@ -86,5 +93,10 @@ const Root = ({ store }) => {
 Root.propTypes = {
 	store: PropTypes.object.isRequired,
 };
-const mapStateToProps = state => ({ store: state })
-export default connect(mapStateToProps)(Root) ;
+
+
+const mapStateToProps = (state) => ({
+	errors: state.errors,
+});
+
+export default connect(mapStateToProps)(Root);

@@ -3,4 +3,9 @@
   padding: 25px;
   text-align: left;
   border: 1px solid #e2e2e2;
-  margin: 0 2rem; }
+  margin: 0 2rem;
+  display: flex;
+  flex-wrap: nowrap; }
+
+.is-column {
+  flex-direction: column; }
