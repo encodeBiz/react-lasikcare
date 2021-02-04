@@ -1,25 +1,17 @@
-import React from "react"
+import React, { useEffect } from "react"
+import {connect} from 'react-redux'
 import logo from './logo.svg';
 import './styles/App.css';
 import { getClinicas, getHuecos } from "./services/appointments.service";
-function App() {
-  getClinicas()
-  .then(res => {
-    console.log('getClinicas', res)
-  })
-  .then(() => {
-    const params = {
-			keycli: 'GR021',
-			date: new Date().toLocaleDateString(),
-			type: 'BI'
-    };
-    
-    getHuecos(params)
-    .then(res => {
-      console.log('getHuecos', res)
-    })
-  })
+import { getClinicsAppointments, GET_CLINICS_APPOINTMENTS } from "./redux/clinics/clinics.actions";
+function App({store, getClinicsAppointments}) {
+  
+  useEffect(()=>{
+    getClinicsAppointments();
+  },[])
 
+  store.available_hours.then(_store => console.log(_store))
+  store.clinics.then(_store => console.log(_store))
   return (
     <div className="App">
       <header className="App-header">
@@ -29,4 +21,11 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {  
+    getClinicsAppointments: () => dispatch(getClinicsAppointments()),
+    getClinicsAppointments: () => dispatch(getClinicsAppointments())
+  }
+}
+const mapStateToProps = state => ({ store: {clinics: state.clinics, available_hours: state.available_hours} })
+export default connect(mapStateToProps, mapDispatchToProps)(App);

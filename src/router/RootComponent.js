@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch } from "react-router-dom";
+import { Switch } from "react-router";
 import PropTypes from "prop-types";
 
 import Appointments from "../page_modules/appointments/Appointments";
@@ -16,6 +16,8 @@ import ConfirmOnlinePage from "../page_modules/video_call/ConfirmOnlinePage/Conf
 import ThankOnlinePage from "../page_modules/video_call/ThankOnlinePage/ThankOnlinePage";
 import Home from "../page_modules/home/Home";
 import Navbar from "../shared_modules/Navbar/Navbar";
+import App from "../App";
+import { connect } from "react-redux";
 
 const routes = [
 	{
@@ -64,7 +66,7 @@ const routes = [
 	},
 	{
 		path: "/",
-		component: Home,
+		component: App,
 	},
 ];
 
@@ -82,7 +84,7 @@ const Root = ({ store }) => {
 };
 
 Root.propTypes = {
-	// store: PropTypes.object.isRequired,
+	store: PropTypes.object.isRequired,
 };
-
-export default Root;
+const mapStateToProps = state => ({ store: state })
+export default connect(mapStateToProps)(Root) ;
