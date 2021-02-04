@@ -2,7 +2,7 @@ import React from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import BackButton from "../../../shared_modules/BackButton/BackButton";
 import Calendar from "../../../shared_modules/Calendar/Calendar";
-import CalendarHour from "../../../shared_modules/CalendarHour/CalendarHour";
+import CalendarHour from "../../../shared_modules/Calendar/CalendarHour/CalendarHour";
 
 
 import "./CalendarOnlinePage.scss";

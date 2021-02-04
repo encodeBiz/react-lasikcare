@@ -1,7 +1,5 @@
 import React from "react";
 import { Switch } from "react-router";
-import PropTypes from "prop-types";
-
 import Appointments from "../page_modules/appointments/Appointments";
 import Video_call from "../page_modules/video_call/VideoCall";
 import { RouteWithSubRoutes } from "./RouterHelper";
@@ -10,14 +8,13 @@ import CityAppointmentPage from "../page_modules/appointments/CityAppointmentPag
 import CalendarAppointmentPage from "../page_modules/appointments/CalendarAppointmentPage/CalendarAppointmentPage";
 import ConfirmAppointmentPage from "../page_modules/appointments/ConfirmAppointmentPage/ConfirmAppointmentPage";
 import ThankAppointmentPage from "../page_modules/appointments/ThankAppointmentPage/ThankAppointmentPage";
-
 import CalendarOnlinePage from "../page_modules/video_call/CalendarOnlinePage/CalendarOnlinePage";
 import ConfirmOnlinePage from "../page_modules/video_call/ConfirmOnlinePage/ConfirmOnlinePage";
 import ThankOnlinePage from "../page_modules/video_call/ThankOnlinePage/ThankOnlinePage";
 import Home from "../page_modules/home/Home";
 import Navbar from "../shared_modules/Navbar/Navbar";
-import App from "../App";
 import { connect } from "react-redux";
+
 
 const routes = [
 	{
@@ -76,8 +73,15 @@ const routes = [
 	},
 ];
 
-const Root = ({ errors }) => {
-	console.log(errors);
+/**
+ * 
+ * Enrutador principal de la plataforma
+ * @param {Object} properties 
+ * @param {Object} properties.errors Estado del controlador de errores 
+ * @param {String} properties.errors.type Tipo de error
+ * @param {String} properties.errors.message Mensaje del error
+ */
+const Root = (properties) => {
 	return (
 		<React.Fragment>
 			<Navbar></Navbar>
@@ -90,9 +94,7 @@ const Root = ({ errors }) => {
 	);
 };
 
-Root.propTypes = {
-	errors: PropTypes.object.isRequired,
-};
+
 
 
 const mapStateToProps = (state) => ({

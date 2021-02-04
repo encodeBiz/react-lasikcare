@@ -5,13 +5,14 @@ import "./StepTitle.scss";
  *
  * @param {object} properties
  * @param {string} properties.text
+ * @param {string} properties.type
  */
 
-const StepTitle = (properties) => {
+const Title = (properties) => {
 	const { text, number } = properties;
 
 	return (
-		<div className="stepper-title">
+		<div className={`stepper-title ${properties.type}`}>
 			<h1>
 				{number && `${number}.`} {text}
 			</h1>
@@ -19,4 +20,4 @@ const StepTitle = (properties) => {
 	);
 };
 
-export default StepTitle;
+export default Title;
