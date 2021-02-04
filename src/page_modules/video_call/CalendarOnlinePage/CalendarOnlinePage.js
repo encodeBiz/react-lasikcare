@@ -5,7 +5,6 @@ import CalendarHour from "../../../shared_modules/Calendar/CalendarHour/Calendar
 
 import "./CalendarOnlinePage.scss";
 import StepTitle from "../../../shared_modules/StepTitle/StepTitle";
-import RoundedButton from "../../../shared_modules/RoundedButton/RoundedButton";
 import Button from "../../../shared_modules/Button/Button";
 import { useHistory } from "react-router";
 
@@ -23,7 +22,7 @@ const CalendarOnlinePage = () => {
 			<Calendar>
 				<CalendarHour></CalendarHour>
 			</Calendar>
-			<RoundedButton></RoundedButton>
+			<Button type={'rounded-button'} label={'Rounded button'}/>
 		</React.Fragment>
 	);
 };

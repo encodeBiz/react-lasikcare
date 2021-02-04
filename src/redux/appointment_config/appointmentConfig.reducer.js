@@ -23,7 +23,6 @@ const appoinmentConfig = (state = initialState, action) => {
         case GET_APPOINTMENT_CONFIG:
             return state
         case SET_APPOINTMENT_CONFIG: 
-            console.log(action, state)
             return {...state, [action.property] : action.data }
         default:
             return state;

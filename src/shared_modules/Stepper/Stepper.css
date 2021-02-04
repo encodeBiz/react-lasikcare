@@ -1,6 +1,8 @@
 .step-container {
   display: flex;
   justify-content: space-evenly; }
+  .step-container .is-active {
+    background: #7dbcea; }
   .step-container .step {
     width: 15px;
     height: 15px;
