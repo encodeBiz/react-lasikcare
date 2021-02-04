@@ -24,7 +24,6 @@ const routes = [
 			{
 				path: "/videollamadas/calendar",
 				component: CalendarOnlinePage,
-
 			},
 			{
 				path: "/videollamadas/confirm",
@@ -43,27 +42,27 @@ const routes = [
 			{
 				path: "/appointments/type",
 				component: TypeAppointmentPage,
-				stepNumber: 0
+				stepNumber: 0,
 			},
 			{
 				path: "/appointments/city",
 				component: CityAppointmentPage,
-				stepNumber: 1
+				stepNumber: 1,
 			},
 			{
 				path: "/appointments/calendar",
 				component: CalendarAppointmentPage,
-				stepNumber: 2
+				stepNumber: 2,
 			},
 			{
 				path: "/appointments/confirm",
 				component: ConfirmAppointmentPage,
-				stepNumber: 3
+				stepNumber: 3,
 			},
 			{
 				path: "/appointments/thank",
 				component: ThankAppointmentPage,
-				stepNumber: 4
+				stepNumber: 4,
 			},
 		],
 	},
@@ -96,12 +95,8 @@ const Root = (properties) => {
 
 
 
-
 const mapStateToProps = (state) => ({
-	store: {
-		errors: state.errors, 
-		
-	},
+	errors: state.errors,
 });
 
 export default connect(mapStateToProps)(Root);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./TypeAppointmentPage.scss";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import StepTitle from "../../../shared_modules/StepTitle/StepTitle";
@@ -16,10 +16,18 @@ import { setAppoinmentConfig } from "../../../redux/appointment_config/appointme
  *   
  */
 
-
 const TypeAppointmentPage = (properties) => {
 
 	const history = useHistory()
+
+	/**
+	 * @description Setea el currentStep del store. 
+	 */
+
+	useEffect(() => {
+		properties.setAppoinmentConfig('currentStep', {currentStep: 'type'})
+		
+	}, [])
 
 	const appointmentTypes = [
 		{
@@ -37,15 +45,13 @@ const TypeAppointmentPage = (properties) => {
 
 	const onAppointmentTypeSelection = (type) => {
 		console.log(type)
-
+		properties.setAppoinmentConfig('type', type)
 		history.push("/appointments/city")
-		// properties.getAppointmentByType(type)
-
 	}
 
 	return (
 		<React.Fragment>
-			<Stepper />
+			<Stepper  />
 			<StepTitle text={'Terminart wählen'} number={1}/>		
 			<CardContainer isColumn={true}>
 				{appointmentTypes.map((typeItem, index) => {
@@ -68,6 +74,11 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
+const mapStateToProps = (state) => {
+	return {
+		appointment: state.appointment
+	}
+}
 
 
-export default connect(undefined, mapDispatchToProps)(TypeAppointmentPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TypeAppointmentPage);
