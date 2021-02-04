@@ -26,10 +26,10 @@ const Stepper = () => {
 
     return (
          <React.Fragment>
-             <div className="">
+             <div className="step-container">
              {steps.map((step, index) => {
                  return (
-                     <div key={index} className={`${isActive(step)}`} >
+                     <div key={index} className={`${isActive(step)} step`} >
                         {step.stepNumber + 1}
                      </div>
                  )

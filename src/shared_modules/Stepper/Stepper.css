@@ -1,0 +1,5 @@
+.step-container {
+  display: flex;
+  justify-content: space-evenly; }
+  .step-container .step {
+    border: 1px solid #0e4b93; }
