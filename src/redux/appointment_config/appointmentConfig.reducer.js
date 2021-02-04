@@ -1,6 +1,7 @@
 import { GET_APPOINTMENT_CONFIG, SET_APPOINTMENT_CONFIG } from "./appointmentConfig.actions";
 
 const initialState = {
+    currentStep: 0, 
     type: "", 
     city: "", 
     calendar_date: "", 
@@ -17,11 +18,12 @@ const initialState = {
 }
 
 
-const appoinmentConfig = async (state = initialState, action) => {
+const appoinmentConfig = (state = initialState, action) => {
     switch (action.type) {
         case GET_APPOINTMENT_CONFIG:
             return state
         case SET_APPOINTMENT_CONFIG: 
+            console.log(action, state)
             return {...state, [action.property] : action.data }
         default:
             return state;
