@@ -6,8 +6,11 @@ import "./Home.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-const Home = () => {
+function Home() {
 	
+	
+
+
 	const homeLinksConfig = [
 		{
 			title: "Zu Hause",

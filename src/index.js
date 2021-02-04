@@ -2,20 +2,21 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/index.scss";
 import Root from "./router/RootComponent";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import * as reducers from "./redux";
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router";
 import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
+import thunk from "redux-thunk";
 
-let store = createStore(combineReducers(reducers));
+let store = createStore(combineReducers(reducers), applyMiddleware(thunk));
 const history = createBrowserHistory();
 
 ReactDOM.render(
 	<Provider store={store}>
-		<BrowserRouter history={history}>
+		<Router history={history}>
 			<Root />
-		</BrowserRouter>
+		</Router>
 	</Provider>,
 	document.getElementById("root")
 );
