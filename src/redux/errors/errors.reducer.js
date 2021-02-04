@@ -9,7 +9,7 @@ const errorInitialState = {};
  * @param {Object} action.error Acción 
  */
 
-const errorReducer = async (state= errorInitialState, action) => {
+const errorReducer = async (state= {error : "Ha ocurrido un error"}, action) => {
     switch (action.type) {
         case SET_ERROR:
             return {...state, error: action.error}
@@ -19,7 +19,7 @@ const errorReducer = async (state= errorInitialState, action) => {
             const filteredErrors =  state.filter((error) => error !== action.error)
             return {state: filteredErrors}    
         default:
-            break;
+            return state;
     }
 }
 

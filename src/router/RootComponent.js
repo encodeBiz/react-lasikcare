@@ -96,7 +96,9 @@ Root.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-	errors: state.errors,
+	store: {
+		errors: state.errors
+	},
 });
 
 export default connect(mapStateToProps)(Root);
