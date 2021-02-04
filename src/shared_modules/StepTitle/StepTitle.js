@@ -1,12 +1,22 @@
-import React from 'react'
-import "./Stepper.scss"
+import React from "react";
+import "./StepTitle.scss";
 
-const StepTitle = () => {
-    return (
-        <div>
-            StepperTitle
-        </div>
-    )
-}
+/**
+ *
+ * @param {object} properties
+ * @param {string} properties.text
+ */
 
-export default StepTitle
+const StepTitle = (properties) => {
+	const { text, number } = properties;
+
+	return (
+		<div className="stepper-title">
+			<h1>
+				{number && `${number}.`} {text}
+			</h1>
+		</div>
+	);
+};
+
+export default StepTitle;

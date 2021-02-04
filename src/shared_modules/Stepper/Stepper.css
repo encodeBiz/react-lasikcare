@@ -7,3 +7,5 @@
     padding: 5px;
     border: 1px solid #0e4b93;
     border-radius: 50%; }
+    .step-container .step:hover {
+      cursor: pointer; }

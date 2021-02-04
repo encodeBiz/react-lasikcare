@@ -11,6 +11,9 @@
         padding: 5px; 
         border: 1px solid $brandDeepblue;
         border-radius: 50%;
+        &:hover{
+            cursor: pointer;
+        }
     
     }
 

@@ -72,7 +72,7 @@ const routes = [
 	},
 	{
 		path: "/",
-		component: App,
+		component: Home,
 	},
 ];
 
@@ -97,7 +97,8 @@ Root.propTypes = {
 
 const mapStateToProps = (state) => ({
 	store: {
-		errors: state.errors
+		errors: state.errors, 
+		
 	},
 });
 

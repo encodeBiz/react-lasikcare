@@ -13,9 +13,6 @@ function App({store, getClinicsAppointments}) {
   console.log(store)
 
 
-
-  // store.available_hours.then(_store => console.log(_store))
-  // store.clinics.then(_store => console.log(_store))
   return (
     <div className="App">
       <header className="App-header">

@@ -1,9 +1,12 @@
 import React from 'react'
 import "./Card.scss"
 
-const Card = ({children}) => {
+const Card = ({children, handleClick, clickParam}) => {
+
+    const onClick = () => handleClick ? handleClick(clickParam) : null; 
+
     return (
-        <div className="card">
+        <div className="card" onClick={onClick}>
             {children}
         </div>
     )

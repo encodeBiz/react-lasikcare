@@ -6,20 +6,24 @@ const Stepper = () => {
     const currentStepIndex = 3
     const steps = [
         {
-            stepNumber: 0
+            stepNumber: 0, 
+            stepText: "Terminart"
         }, 
         {
-            stepNumber: 1
+            stepNumber: 1, 
+            stepText: "Standart"
+
         }, 
         {
-            stepNumber: 2
+            stepNumber: 2, 
+            stepText: "Datum"
+
         }, 
         {
-            stepNumber: 3
+            stepNumber: 3, 
+            stepText: "Ikontakdaten"
+
         }, 
-        {
-            stepNumber: 4
-        }
     ]
 
     const isActive = (step) => currentStepIndex === step.stepNumber ? 'is-active' : ''

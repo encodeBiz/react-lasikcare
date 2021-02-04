@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CardContainer from "../../shared_modules/CardContainer/CardContainer";
 import Card from "../../shared_modules/Card/Card";
 import image from "../../assets/images/icons/doctor-color-icon.svg";
@@ -7,9 +7,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 function Home() {
-	
-	
-
+	const [clientCity, setClientCity] = useState(null);
 
 	const homeLinksConfig = [
 		{
@@ -26,26 +24,24 @@ function Home() {
 		},
 	];
 
-
 	useEffect(() => {
-		
-		/// GET APPOINTMENTS 
+		/// GET APPOINTMENTS
+		const city = localStorage.getItem("city");
 
-		getAppointmentHours()
+		if (city) {
+			setClientCity(city);
+			getAppointmentHours(clientCity);
+		}
+		// eslint-disable-next-line 
+	}, []);
 
-	}, [])
 
 
 	const getAppointmentHours = async () => {
 		try {
 			/// GET APPOINTMENTS DISPATCH
-		} catch (error) {
-			
-		}
-	}
-
-
-
+		} catch (error) {}
+	};
 
 	return (
 		<React.Fragment>
@@ -71,6 +67,6 @@ function Home() {
 			</CardContainer>
 		</React.Fragment>
 	);
-};
+}
 
-export default connect()(Home) ;
+export default connect()(Home);
