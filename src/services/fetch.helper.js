@@ -20,7 +20,6 @@ const parseQueryParams = (query_params)=>{
  * @param {Object} query_params Query params obj
  */
 export const fetch_helper = async (url,method,headers,body,query_params) => {
-  console.log('fetch_helper', query_params)
   if(query_params) query_params = parseQueryParams(query_params)
   url = query_params ? `${url}?${query_params.reduce((pre,current)=>`${pre}&${current}`)}` : url;
   let config = {
@@ -35,7 +34,7 @@ export const fetch_helper = async (url,method,headers,body,query_params) => {
     ).then(res => res.json())
     return response
   } catch (error) {
-    alert('Error en el metodo helper fetch')
+    //alert('Error en el metodo helper fetch')
     console.error(error, 'ENDPOINT=>', url)
   }
 }

@@ -1,9 +1,7 @@
 import { getClinicas } from "../../services/appointments.service";
 import { getClinicsAppointments, GET_CLINICS_APPOINTMENTS } from "./clinics.actions";
 
-const initState = {
-  status: 'pending'
-}
+const initState ={status: 'pending', clinics: []}
 /**
  * @param {Object} state Estado actual
  * @param {Object} action Acción 

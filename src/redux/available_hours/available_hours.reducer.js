@@ -20,8 +20,20 @@ const fn = async (state = initialState, action)=>{
         date: new Date(new Date().setMonth(2)).toLocaleDateString(),
         type: action.clinic_data.appointments_type
       };
-      const res = await getHuecos(params)
-      return {...state, [action.clinic_data.keycli]: { status: 'finish', data: res }}
+
+      const res = await Promise.all([state, getHuecos(params)])  
+   
+      
+      const data = res[0][action.clinic_data.keycli]?.data ? res[0][action.clinic_data.keycli]?.data : {}
+      
+      return {...res[0], [action.clinic_data.keycli]: { 
+          status: 'finish', 
+          data:{
+            ...data,
+            [action.clinic_data.appointments_type]: res[1].huecos
+          }  
+        }
+      }
       
   
     default:

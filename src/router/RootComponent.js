@@ -91,7 +91,7 @@ const Root = ({ errors }) => {
 };
 
 Root.propTypes = {
-	store: PropTypes.object.isRequired,
+	errors: PropTypes.object.isRequired,
 };
 
 
