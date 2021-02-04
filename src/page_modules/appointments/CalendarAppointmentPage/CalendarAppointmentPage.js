@@ -2,7 +2,7 @@ import React from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import StepTitle from "../../../shared_modules/StepTitle/StepTitle";
 import Calendar from "../../../shared_modules/Calendar/Calendar";
-import CalendarHour from "../../../shared_modules/CalendarHour/CalendarHour";
+import CalendarHour from "../../../shared_modules/Calendar/CalendarHour/CalendarHour";
 
 import "./CalendarAppointmentPage.scss";
 import RoundedButton from "../../../shared_modules/RoundedButton/RoundedButton";

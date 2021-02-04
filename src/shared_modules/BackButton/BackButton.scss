@@ -2,15 +2,14 @@
 @import "../../assets/scss/variables"; 
 @import "../../assets/scss/mixins"; 
 
-.top-content {
-    margin-bottom: 20px;
-    margin-left: -10px;
+
     .back {
         display: inline-block;
         color: $brandMediumGrey;
-        background-color: transparent;
+        background-color: $brandOrange;
         text-align: left;
-        border: none;
+        border:none;
+        border-radius: 5px;
         cursor: pointer;
         // font-family: $text;
         font-size: 1.1rem;
@@ -38,14 +37,13 @@
             margin-left: 20px;
         }
         &:hover {
-            background-color: transparent;
-            color: $brandOrange;
+            color: #ffffff;
         }
         &:focus {
             outline: 0px;
         }
     }
-}
+
 
 .forgot-card,
 .setpassword-card {
@@ -57,3 +55,4 @@
         text-align: left;
     }
 }
+

@@ -1,18 +1,18 @@
 import React from 'react'
-import { useHistory } from 'react-router'
 import "./BackButton.scss"
 
-
-const BackButton = () => {
-    const history = useHistory()
-
+/**
+ * Componente reutilizable de btn lasikcare
+ * @param {Object} properties
+ * @param {Function} properties.onClick CallBack del clikc
+ * @param {Function} properties.type Tipo de boton a pintar [btn, backbtn, etc]
+ */
+const Button =(properties) => {
     return (
-        <div className="top-content">
-            <button onClick={() => history.goBack()} className="back">
-                Volver
-            </button>
-        </div>
+        <button onClick={properties.onClick} className={properties.type || 'btn'}>
+            Volver
+        </button>
     )
 }
 
-export default BackButton
+export default Button
