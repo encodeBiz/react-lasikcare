@@ -26,7 +26,6 @@ export const getHuecos = async (query_param)=>{
   const headers = { 
     'Origin' : '*',
   }
-  console.log('getHuecos', query_param)
   const response = await fetch_helper(url,'GET', headers, null, query_param)
   return response
 }

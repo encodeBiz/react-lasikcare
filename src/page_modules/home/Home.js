@@ -1,27 +1,14 @@
-import React, { useEffect } from "react";
+import React,{ useEffect } from "react";
 import CardContainer from "../../shared_modules/CardContainer/CardContainer";
 import Card from "../../shared_modules/Card/Card";
 import image from "../../assets/images/icons/doctor-color-icon.svg";
 import "./Home.scss";
 import { getClinicas, getHuecos } from "../../services/appointments.service";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Home() {
-	getClinicas()
-  .then(res => {
-    console.log('getClinicas', res)
-  })
-  .then(() => {
-    const params = {
-			keycli: 'GR021',
-			date: new Date(new Date().setMonth(2)).toLocaleDateString(),
-			type: 'BIDI'
-    };
-    
-    getHuecos(params)
-    .then(res => {
-      console.log('getHuecos', res)
-    })
-  })
+	
 
 	const homeLinksConfig = [
 		{
