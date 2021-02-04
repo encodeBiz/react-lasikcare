@@ -4,7 +4,7 @@ import "./Stepper.scss"
 const StepTitle = () => {
     return (
         <div>
-            Stepper
+            StepperTitle
         </div>
     )
 }

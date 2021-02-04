@@ -10,6 +10,7 @@ const TypeAppointmentPage = () => {
 		<React.Fragment>
 			<h1>TypeAppointmentPage</h1> 
 			<StepTitle/>
+			
 			<CardContainer>
                 <Card></Card>
                 <Card></Card>

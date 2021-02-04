@@ -2,4 +2,8 @@
   display: flex;
   justify-content: space-evenly; }
   .step-container .step {
-    border: 1px solid #0e4b93; }
+    width: 15px;
+    height: 15px;
+    padding: 5px;
+    border: 1px solid #0e4b93;
+    border-radius: 50%; }

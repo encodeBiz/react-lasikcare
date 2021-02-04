@@ -6,8 +6,11 @@
     display: flex;
     justify-content: space-evenly;
     .step{
+        width: 15px; 
+        height: 15px; 
+        padding: 5px; 
         border: 1px solid $brandDeepblue;
-    
+        border-radius: 50%;
     
     }
 
