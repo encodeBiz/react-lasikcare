@@ -41,6 +41,11 @@ function Appointments(properties) {
 			setClinics(clinicsState.clinics.clinics)
     } 
   })
+
+	properties.available_hours.then(
+    (_store) => {
+      console.log('available_hours', _store)
+  })
 	return (
 		<div>
 			<div>

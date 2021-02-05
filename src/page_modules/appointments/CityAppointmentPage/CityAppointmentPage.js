@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import Button from "../../../shared_modules/Button/Button";
 import { componentDidUpdate } from "../../../redux/redux.helper";
-
+import Select from 'react-select';
 /**
  * 
  * @param {Object} properties 
