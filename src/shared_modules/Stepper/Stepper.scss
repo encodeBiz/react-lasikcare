@@ -5,6 +5,9 @@
 .step-container{
     display: flex;
     justify-content: space-evenly;
+    .is-active{
+        background: $brandMediumLightBlue;
+    }
     .step{
         width: 15px; 
         height: 15px; 

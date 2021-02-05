@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Switch, Link, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { getHoursById } from "../../redux/available_hours/available_hours.actions";
 import { getClinicsAppointments } from "../../redux/clinics/clinics.actions";
 import { RouteWithSubRoutes } from "../../router/RouterHelper";
@@ -47,31 +47,14 @@ function Appointments(properties) {
       console.log('available_hours', _store)
   })
 	return (
-		<div>
-			<div>
-				<Link to="/appointments/type">Type</Link>
-			</div>
-			<div>
-				<Link to="/appointments/city">City</Link>
-			</div>
-			<div>
-				<Link to="/appointments/calendar">Calendar</Link>
-			</div>
-			<div>
-				<Link to="/appointments/confirm">Confirm</Link>
-			</div>
-			<div>
-				<Link to="/appointments/thank">Thank</Link>
-			</div>
-			<Switch>
-				{properties.routes.map((route, i) => (
-					<RouteWithSubRoutes key={i} {...route} />
-				))}
-				<Route to="/appointments">
-						<Redirect to="/appointments/type"></Redirect>
-				</Route>
-			</Switch>
-		</div>
+		<Switch>
+			{routes.map((route, i) => (
+				<RouteWithSubRoutes key={i} {...route} />
+			))}
+			<Route to="/appointments">
+				<Redirect to="/appointments/type"></Redirect>
+			</Route>
+		</Switch>
 	);
 }
 
