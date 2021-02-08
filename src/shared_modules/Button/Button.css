@@ -1,4 +1,4 @@
-.back-button {
+.button .back-button {
   display: inline-block;
   color: #808080;
   background-color: transparent;
@@ -9,19 +9,25 @@
   display: flex;
   align-items: center;
   max-width: 100px; }
-  .back-button:before {
+  .button .back-button:before {
     content: "";
     display: inline-block;
     background: url(../../assets/images/icons/arrow-left-g.svg) no-repeat;
     width: 22px;
     height: 28px;
     margin-right: 8px; }
-  .back-button:hover:before {
+  .button .back-button:hover:before {
     background: url(../../assets/images/icons/arrow-left-o.svg) no-repeat; }
-  .back-button .button-label {
+  .button .back-button .button-label {
     margin-left: 20px; }
-  .back-button:hover {
+  .button .back-button:hover {
     background-color: transparent;
     color: #fd7e1c; }
-  .back-button:focus {
+  .button .back-button:focus {
     outline: 0px; }
+
+.button .rounded-button {
+  background-color: coral; }
+
+.button .link-button {
+  background-color: blue; }

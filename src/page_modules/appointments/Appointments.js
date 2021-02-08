@@ -42,13 +42,10 @@ function Appointments(properties) {
     } 
   })
 
-	properties.available_hours.then(
-    (_store) => {
-      console.log('available_hours', _store)
-  })
+	
 	return (
 		<Switch>
-			{routes.map((route, i) => (
+			{properties.routes.map((route, i) => (
 				<RouteWithSubRoutes key={i} {...route} />
 			))}
 			<Route to="/appointments">

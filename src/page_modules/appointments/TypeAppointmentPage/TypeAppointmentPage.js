@@ -97,7 +97,7 @@ const mapDispatchToProps = (dispatch) => {
 
 /**
  *
- * @param {Object} state
+ * @param {Object} store
  * @returns {Object} appointment
  * @description Transforma el appointments reducer a props
  * que serán consumidas por el componente y sus hijos.
@@ -105,7 +105,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (store) => {
 	return {
-		appointment: state.appointment,
+		appointment: store.appointment,
 	};
 };
 
