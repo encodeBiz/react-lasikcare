@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./styles/index.scss";
 import Root from "./router/RootComponent";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import * as reducers from "./redux";
