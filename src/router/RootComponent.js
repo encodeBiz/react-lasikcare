@@ -11,7 +11,7 @@ import ThankAppointmentPage from "../page_modules/appointments/ThankAppointmentP
 import CalendarOnlinePage from "../page_modules/video_call/CalendarOnlinePage/CalendarOnlinePage";
 import ConfirmOnlinePage from "../page_modules/video_call/ConfirmOnlinePage/ConfirmOnlinePage";
 import ThankOnlinePage from "../page_modules/video_call/ThankOnlinePage/ThankOnlinePage";
-import Home from "../page_modules/home/Home";
+import App from "../page_modules/home/App";
 import Navbar from "../shared_modules/Navbar/Navbar";
 import { connect } from "react-redux";
 
@@ -68,7 +68,7 @@ const routes = [
 	},
 	{
 		path: "/",
-		component: Home,
+		component: App,
 	},
 ];
 
