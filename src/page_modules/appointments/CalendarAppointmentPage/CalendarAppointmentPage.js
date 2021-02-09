@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
-import StepTitle from "../../../shared_modules/StepTitle/StepTitle";
 import Calendar from "../../../shared_modules/Calendar/Calendar";
 
 
@@ -118,7 +117,7 @@ const CalendarAppointmentPage = (properties) => {
 					type={"back-button"} 
 					label={"Zurück"} />
 			</div>
-			<StepTitle></StepTitle>
+		
 			<Calendar 
 				datesList={dataCalendar} 
 				setFocused={setFocused} 

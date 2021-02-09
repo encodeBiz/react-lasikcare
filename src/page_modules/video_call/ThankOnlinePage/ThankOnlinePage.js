@@ -1,7 +1,6 @@
 import React from "react";
 import "./ThankOnlinePage.scss";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
-import StepTitle from "../../../shared_modules/StepTitle/StepTitle";
 
 const ThankOnlinePage = () => {
 	return (
@@ -10,7 +9,7 @@ const ThankOnlinePage = () => {
 
 			<CardContainer>Danke</CardContainer>
 			<CardContainer>Appointment data</CardContainer>
-			<StepTitle></StepTitle>
+		
 			<CardContainer>Information</CardContainer>
 		</React.Fragment>
 	);

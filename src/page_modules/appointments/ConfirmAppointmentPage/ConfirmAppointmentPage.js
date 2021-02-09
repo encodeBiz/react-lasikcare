@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
-import StepTitle from "../../../shared_modules/StepTitle/StepTitle";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import Button from "../../../shared_modules/Button/Button";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
@@ -25,9 +24,9 @@ const ConfirmPage = (properties) => {
 	return (
 		<div>
 			<Stepper currentStepIndex={properties.appointment.currentStep} navigateTo={navigateTo}></Stepper>
-			<StepTitle></StepTitle>
+			
 			<CardContainer>Appointment data</CardContainer>
-			<StepTitle></StepTitle>
+			
 			<CardContainer>Form</CardContainer>
 			<Button type={"rounded-button"} label={"Rounded"} />
 		</div>

@@ -49,8 +49,8 @@ const CityAppointmentPage = (properties) => {
 		else return <h1>LOADING</h1>
 	}
 
-	const hendleEventSelect = ($event)=> selectClinic($event.value);
-	const hendleEventAccept = () => {
+	const handleEventSelect = ($event)=> selectClinic($event.value);
+	const handleEventAccept = () => {
 		if(selectedClinic != null) properties.setAppoinmentConfig('city', selectedClinic)
 	};
 
@@ -58,13 +58,13 @@ const CityAppointmentPage = (properties) => {
 		<React.Fragment>
 			<Stepper currentStepIndex = {properties.appointment.currentStep} navigateTo={navigateTo}/>
 			<div className="top-content">
-				<Button action={history.goBack} type={"back-button"} label={"Züruch"} />
+				<Button action={history.goBack} styleType={"back-button"} label={"Züruch"} />
 			</div>
 			<CardContainer>
-			 <SelectComponent options={paintCities()} hendleEvent={hendleEventSelect}></SelectComponent>
+			 <SelectComponent options={paintCities()} handleEvent={handleEventSelect}></SelectComponent>
 			</CardContainer>
 			<div className="container-row">
-				<Button action={hendleEventAccept} type={"rounded-button"} label={"fortsetzen"} />
+				<Button action={handleEventAccept} styleType={"rounded-button"} label={"fortsetzen"} />
 			</div>
 			
 		</React.Fragment>

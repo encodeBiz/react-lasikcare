@@ -34,14 +34,14 @@ const formatGroupLabel = data => (
 /**
  * @param {Object} properties
  * @param {Array.<{value:String, label:String}>} properties.options
- * @param {Function} properties.hendleEvent
+ * @param {Function} properties.handleEvent
  */
  const SelectComponent = (properties) => (
   <Select
     className={'SelectComponent'}
     options={properties.options}
     formatGroupLabel={formatGroupLabel}
-    onChange={properties.hendleEvent}
+    onChange={properties.handleEvent}
   />
 );
 

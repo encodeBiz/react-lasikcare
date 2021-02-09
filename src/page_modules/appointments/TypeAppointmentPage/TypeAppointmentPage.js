@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "./TypeAppointmentPage.scss";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
-import StepTitle from "../../../shared_modules/StepTitle/StepTitle";
 import Card from "../../../shared_modules/Card/Card";
 import testImage from "../../../assets/images/icons/doctor-color-icon.svg";
 import { connect } from "react-redux";
@@ -61,7 +60,7 @@ const TypeAppointmentPage = (properties) => {
 	return (
 		<React.Fragment>
 			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
-			<StepTitle text={"Terminart wählen"} number={1} />
+		
 			<CardContainer isColumn={true}>
 				{appointmentTypes.map((typeItem, index) => {
 					return (
