@@ -1,5 +1,5 @@
 import { getClinicas } from "../../services/appointments.service";
-import { getClinicsAppointments, GET_CLINICS_APPOINTMENTS } from "./clinics.actions";
+import { GET_CLINICS_APPOINTMENTS, SET_CLINICS_APPOINTMENTS } from "./clinics.actions";
 
 const initState ={status: 'pending', clinics: []}
 /**
@@ -8,12 +8,13 @@ const initState ={status: 'pending', clinics: []}
  * @param {STRING} action.type 
  * @param {Object} action.clinics Acción 
  */
-  const fn = async (state=initState, action)=>{
+  const fn = (state = initState, action) => {
   switch (action.type) {
-    case GET_CLINICS_APPOINTMENTS:
-      const clinics = await getClinicas()
-      return {...state, clinics: {status: 'finish', clinics: clinics}}
-  
+    case SET_CLINICS_APPOINTMENTS:
+      const {clinics} = action.action
+      return {...state, clinics, status: "finish"}
+    case GET_CLINICS_APPOINTMENTS: 
+      return state
     default:
       return state
   }
