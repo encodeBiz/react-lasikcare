@@ -1,69 +1,71 @@
-import React, { useEffect, useState } from "react"
-import {connect} from 'react-redux'
-import logo from './logo.svg';
-import './styles/App.css';
-import { getClinicas, getHuecos } from "./services/appointments.service";
-import { getClinicsAppointments } from "./redux/clinics/clinics.actions";
-import { getHoursById } from "./redux/available_hours/available_hours.actions";
-import  PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import CardContainer from "./shared_modules/CardContainer/CardContainer";
+import Card from "./shared_modules/Card/Card";
+import "./styles/App.scss";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-/**
- * Página de ejemplo 
- * @param {Object} properties Properties para la página
- * @param {Object} properties.store Store de redux 
- * @param {Function} properties.getClinicsAppointments Acción para obtener las clínicas
- * @param {Function} properties.getHoursById  Acción para obtener los huecos dado una clinica y un tipo de cita
- */
-function App(properties) {
-  const [init, setInit] = useState(false)
-  const [clinics, setClinics] = useState([])
+function Home() {
+	const [clientCity, setClientCity] = useState(null);
 
-  useEffect(()=>{
-    properties.getClinicsAppointments()
-  },[])
+	const homeLinksConfig = [
+		{
+			title: "Zu Hause",
+			image: null,
+			subtitle: "Online video-beratung von zu hause aus",
+			url: "/videollamadas",
+		},
+		{
+			title: "Vor Ort",
+			image: null,
+			subtitle: "Vor-ort beratung im nächstgelegenen Lasik Care standort",
+			url: "/appointments",
+		},
+	];
 
-  properties.store.clinics.then( clinicsState => {
-    if(clinicsState.clinics.status === 'finish' && !init ){
-      setInit(true)
-      const cli = clinicsState.clinics.clinics
-      for (let index = 0; index < cli.length; index++) {
-        const {keycli} = cli[index];
-        properties.getHoursById(keycli,'BI')
-        properties.getHoursById(keycli,'BIDI')
-      }
-    }
-  })
+	useEffect(() => {
+		/// GET APPOINTMENTS
+		const city = localStorage.getItem("city");
 
-  /* properties.store.available_hours.then(
-    (_store) => {
-      console.log('available_hours', _store)
-  }) */
-  properties.store.clinics.then( clinicsState => {
-    if (clinicsState.clinics.status === 'finish'){
-      setClinics(clinicsState.clinics.clinics)
-    } 
-  })
-  
-  return (
-    <div className="App">
-      <header className="App-header">
-        {
-          clinics.map((clinic, index)=>{
-            return  <h1 id={clinic.keycli} key={clinic.keycli}>{clinic.name}</h1>
-          })
-        }
-      </header>
-    </div>
-  );
+		if (city) {
+			setClientCity(city);
+			getAppointmentHours(clientCity);
+		}
+		// eslint-disable-next-line 
+	}, []);
+
+
+
+	const getAppointmentHours = async () => {
+		try {
+			/// GET APPOINTMENTS DISPATCH
+		} catch (error) {}
+	};
+
+	return (
+		<React.Fragment>
+			<h1 className="home-title">
+				Bitte wählen Sie Ihren <br /> Wunschtermin
+			</h1>
+			<CardContainer isColumn={false}>
+				{homeLinksConfig.map((link, index) => {
+					return (
+						<Link to={link.url} key={index}>
+							<Card>
+								<div className="home-card">
+									<h3>{link.title}</h3>
+									<div>
+										<img className="home-card-image" src="" alt="..." />
+									</div>
+									<p>{link.subtitle}</p>
+								</div>
+							</Card>
+						</Link>
+					);
+				})}
+			</CardContainer>
+		</React.Fragment>
+	);
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {  
-    getClinicsAppointments: () => dispatch(getClinicsAppointments()), 
-    getHoursById: (keycli, appointments_type) => dispatch(getHoursById(keycli, appointments_type))
-  }
-}
-const mapStateToProps = state => ({ store: {clinics: state.clinics, available_hours: state.available_hours} })
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect()(Home);

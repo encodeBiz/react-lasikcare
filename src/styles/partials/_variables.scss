@@ -1,32 +1,16 @@
 /////////////////////////////
 /////*****COLORS*****////
 /////////////////////////////
-$mainColor: #38b3b6; //lassik green;
-$mainColorBg: #c4e7e8; //lassik green background
+$primaryColor: #38b3b6; //lassik green;
+$primaryColorBg: #c4e7e8; //lassik green background
 $secondaryColor: #00619e; //lassik blue
 $tertiaryColor: #ff9900; //lassikOrange
 $warning: red;
+$dark: #000000;
+$light: #ffffff;
 
 
 /////////////////////////////
 /////*****FONTS*****////
 /////////////////////////////
-$text: 'Gotham Book';
-$title: 'Gotham';
-$menu: 'Gotham';
-
-
-/////////////////////////////
-/////*****DEVICES*****////
-/////////////////////////////
-$mobileSmall: 320;
-$mobileLarge: 414;
-
-$tabletSmall: 540;
-$tabletMedium: 768;
-
-$desktopSmall: 1098;
-$desktopMedium: 1400;
-$desktopLarge: 1900;
-
-
+$primaryFont: 'Gilroy';

@@ -1,8 +1,48 @@
-//RESET
+@import "./partials/fonts";
+@import "./partials/variables"; 
+@import "./partials/mixins";
+
+/////////////////////////////
+/////*****RESET*****////
+/////////////////////////////
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+}
+/////////
 
 
+/////////////////////////////
+/////*****MAIN LAYOUT*****////
+/////////////////////////////
+html {
+	font-size: 15px;
 
+	@include desktop-small {
+		font-size: 20px;
+	}
+}
 
 body {
-	background-color: red;
+	background-color: grey;
+	font-family: $primaryFont;
+	font-size: 1rem;
+	color: lighten($dark,80%);
+
+	@include tablet-small {
+		background-color: yellow;
+	}
+
+	@include desktop-small {
+		background-color: azure;
+	}
 }
+

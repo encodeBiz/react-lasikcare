@@ -3,10 +3,9 @@
 @import "../../styles/partials/mixins";
 
 .card-container{
-    border-radius: $borderRadius;
     padding: 25px; 
     text-align: left;
-    border: 1px solid $brandBorderGrey;
+    border: 1px solid;
     margin: 0 2rem;     
     display: flex;
     flex-wrap: nowrap;    
