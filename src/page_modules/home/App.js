@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CardContainer from "../../shared_modules/CardContainer/CardContainer";
 import Card from "../../shared_modules/Card/Card";
 import image from "../../assets/images/icons/doctor-color-icon.svg";
-import "./Home.scss";
+import "./App.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
