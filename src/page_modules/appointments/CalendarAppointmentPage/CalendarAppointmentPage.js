@@ -43,6 +43,8 @@ const CalendarAppointmentPage = (properties) => {
 	const [selectedCity, setCity] = useState(null)
 	const [dataCalendar, setDataCalendar] = useState([])
 
+
+	console.log(properties.appointment)
 	
 
 	/**
@@ -61,6 +63,8 @@ const CalendarAppointmentPage = (properties) => {
 				/**
 				 * @type {Array.<String>}
 				 */
+
+				 
 				const data = selectedCity && selectedType ? available_hours[selectedCity].data[selectedType].hueco : []
 				
 				setDataCalendar(
