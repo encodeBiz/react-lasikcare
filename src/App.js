@@ -4,6 +4,7 @@ import Card from "./shared_modules/Card/Card";
 import "./styles/App.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import doctorIcon from "./assets/images/icons/doctor-color-icon.svg";
 
 function Home() {
 	const [clientCity, setClientCity] = useState(null);
@@ -44,7 +45,7 @@ function Home() {
 
 	return (
 		<React.Fragment>
-			<h1 className="home-title">
+			<h1 className="main-title">
 				Bitte wählen Sie Ihren <br /> Wunschtermin
 			</h1>
 			<CardContainer isColumn={false}>
@@ -55,7 +56,7 @@ function Home() {
 								<div className="home-card">
 									<h3>{link.title}</h3>
 									<div>
-										<img className="home-card-image" src="" alt="..." />
+										<img className="home-card-image" src={doctorIcon} alt="..." />
 									</div>
 									<p>{link.subtitle}</p>
 								</div>

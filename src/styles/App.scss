@@ -36,6 +36,7 @@ body {
 	font-family: $primaryFont;
 	font-size: 1rem;
 	color: lighten($dark,80%);
+	//color: $primaryColor;
 
 	@include tablet-small {
 		background-color: yellow;
@@ -43,6 +44,18 @@ body {
 
 	@include desktop-small {
 		background-color: azure;
+	}
+
+	.main-title {
+		@include mainTitle('bold');
+	}
+
+	h3 {
+		@include mainTitle(300);
+
+		@include tablet-small {
+			font-weight: bold;
+		}
 	}
 }
 
