@@ -24,7 +24,8 @@
 
 .step-container ul {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  margin: 0px; }
   .step-container ul .step {
     display: flex;
     flex-direction: column; }
@@ -33,15 +34,17 @@
       border-radius: 50px;
       width: 28px;
       height: 28px;
-      margin: auto;
-      position: relative; }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto; }
       .step-container ul .step .circle-num .num {
+        font-size: 0.8rem;
         color: #ffffff;
-        position: absolute;
-        top: 7px;
-        left: 38%;
-        font-size: 0.8rem; }
+        vertical-align: middle; }
     .step-container ul .step .text-step {
       color: #00619e;
       font-weight: 300;
-      font-size: 0.8rem; }
+      font-size: 0.8rem;
+      box-sizing: border-box;
+      padding-top: 5px; }

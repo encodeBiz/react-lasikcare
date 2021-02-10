@@ -26,15 +26,15 @@ const CityAppointmentPage = (properties) => {
 	const goBack = useHistory().goBack;
 	const cities = [
 		{
-			name: 'Madrid',
+			name: 'Münich',
 			icon: madridIcon
 		},
 		{
-			name: 'Albacete',
+			name: 'Augsburg',
 			icon: albaceteIcon
 		},
 		{
-			name: 'Toledo',
+			name: 'Rosenheim',
 			icon: toledoIcon
 		}
 	];
@@ -74,19 +74,21 @@ const CityAppointmentPage = (properties) => {
 
 	return (
 		<div className="city-appointment">
-			<Stepper currentStepIndex = {properties.appointment.currentStep} navigateTo={navigateTo}/>
+			{/* <Stepper currentStepIndex = {properties.appointment.currentStep} navigateTo={navigateTo}/>
 			<div className="top-content">
 				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
-			</div>
+			</div> */}
 			<div className="title-seccion">
-			<h1>2. Standort wählen</h1>	
+			<h1>Standort wählen</h1>	
 			</div>
-			<div className="content-city">
+			<div className="content-select-comun">
 				<CardContainer>
 					<ul>
 						{cities.map((city) => 
-						<li>
-							<img src={city.icon} alt={city.icon}/>
+						<li key={city.name}>
+							<div className="img-li">
+								<img src={city.icon} alt={city.icon}/>
+							</div>
 							<span>
 								{city.name}
 							</span>
@@ -96,9 +98,9 @@ const CityAppointmentPage = (properties) => {
 					</ul>
 				{/* <SelectComponent options={paintCities()} handleEvent={handleEventSelect}></SelectComponent> */}
 				</CardContainer>
-				<div className="container-row">
+				{/* <div className="container-row">
 					<Button action={handleEventAccept} styleType={"rounded-button"} label={"fortsetzen"} />
-				</div>
+				</div> */}
 			</div>
 			
 		</div>

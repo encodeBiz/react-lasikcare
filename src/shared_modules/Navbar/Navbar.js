@@ -1,11 +1,15 @@
 import React from 'react'
-import "./Navbar.scss"
+import Button from '../Button/Button';
+import "./Navbar.scss";
+import logoLasik from "../../assets/images/icons/logo_lasik.jpg";
 
 const Navbar = () => {
+const handleEventAccept = () => '';
+
     return (
         <div className="navbar-container" >
-            <div>Logo</div>
-            <button>0800 8888 60 60</button>
+            <div className="logo"><img src={logoLasik}></img></div>
+            <Button action={handleEventAccept} styleType={"nav-number"} label={"0800 8888 60 60"} />
             <div className="hamburguer">
                 <div></div>
                 <div></div>

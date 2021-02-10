@@ -54,3 +54,17 @@ body {
     @media (min-width: 1080px) {
       body .title-seccion h1 {
         font-size: 1.3rem; } }
+
+.content-select-comun ul {
+  width: 100%; }
+  .content-select-comun ul li {
+    display: flex;
+    align-items: center; }
+    .content-select-comun ul li .img-li {
+      width: 25%; }
+      .content-select-comun ul li .img-li img {
+        width: 100%;
+        height: auto; }
+    .content-select-comun ul li span {
+      color: #808080;
+      font-weight: bold; }

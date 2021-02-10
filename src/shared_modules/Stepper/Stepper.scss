@@ -7,25 +7,26 @@
     ul{
     display: flex;
     justify-content: space-between;
+    margin:0px;
 
       .step{
       display: flex;
       flex-direction: column;
         
          .circle-num{
-          background-color:$secondaryColor;
+            background-color:$secondaryColor;
           border-radius: 50px;
           width: 28px;
           height: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           margin: auto;
-          position: relative;
 
           .num{
-           color: $light;
-           position: absolute;
-           top: 7px;
-           left: 38%;
            font-size: 0.8rem;
+           color: $light;
+           vertical-align: middle;
            }
          }
 
@@ -33,11 +34,10 @@
           color:$secondaryColor;
           font-weight: 300;
           font-size: 0.8rem;
+          box-sizing: border-box;
+          padding-top: 5px;
         }
       }
-    }
-
-    .is-active{
     }
 
 }

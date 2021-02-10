@@ -47,6 +47,7 @@
         text-transform: initial;
         box-sizing: border-box;
         padding: 10px 25px 10px 36px;
+        margin-top:0px;
 
         &:after{
         content: "";
@@ -68,6 +69,26 @@
     font-size: 0.7rem;
     }
 
+   }
+
+   &.nav-number{
+    border-radius: 0px;
+    margin: 0px;
+    width: max-content;
+    font-size: 0.9rem;
+    padding: 12px 12px 12px 30px;
+    position: relative;
+
+      &:after{
+      content: "";
+      background-image: url(../../assets/images/icons/telf.svg);
+      background-repeat: no-repeat;
+      width: 20px;
+      height:20px;
+      position: absolute;
+      left: 6px;
+      top: 10px;
+      }
    }
 
 }
