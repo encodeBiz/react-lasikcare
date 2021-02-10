@@ -7,20 +7,37 @@
     ul{
     display: flex;
     justify-content: space-between;
+
+      .step{
+      display: flex;
+      flex-direction: column;
+        
+         .circle-num{
+          background-color:$secondaryColor;
+          border-radius: 50px;
+          width: 28px;
+          height: 28px;
+          margin: auto;
+          position: relative;
+
+          .num{
+           color: $light;
+           position: absolute;
+           top: 7px;
+           left: 38%;
+           font-size: 0.8rem;
+           }
+         }
+
+         .text-step{
+          color:$secondaryColor;
+          font-weight: 300;
+          font-size: 0.8rem;
+        }
+      }
     }
 
     .is-active{
-    }
-    .step{
-        width: 15px; 
-        height: 15px; 
-        padding: 5px; 
-
-        border-radius: 50%;
-        &:hover{
-            cursor: pointer;
-        }
-    
     }
 
 }

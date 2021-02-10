@@ -25,11 +25,23 @@
 .step-container ul {
   display: flex;
   justify-content: space-between; }
-
-.step-container .step {
-  width: 15px;
-  height: 15px;
-  padding: 5px;
-  border-radius: 50%; }
-  .step-container .step:hover {
-    cursor: pointer; }
+  .step-container ul .step {
+    display: flex;
+    flex-direction: column; }
+    .step-container ul .step .circle-num {
+      background-color: #00619e;
+      border-radius: 50px;
+      width: 28px;
+      height: 28px;
+      margin: auto;
+      position: relative; }
+      .step-container ul .step .circle-num .num {
+        color: #ffffff;
+        position: absolute;
+        top: 7px;
+        left: 38%;
+        font-size: 0.8rem; }
+    .step-container ul .step .text-step {
+      color: #00619e;
+      font-weight: 300;
+      font-size: 0.8rem; }
