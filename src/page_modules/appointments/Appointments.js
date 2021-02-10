@@ -73,6 +73,7 @@ function Appointments(properties) {
 		});
 	};
 
+	console.log(properties.routes)
 	return (
 		<Switch>
 			{properties.routes.map((route, i) => (

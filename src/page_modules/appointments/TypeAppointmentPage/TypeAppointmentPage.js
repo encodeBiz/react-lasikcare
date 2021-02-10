@@ -4,9 +4,10 @@ import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import Card from "../../../shared_modules/Card/Card";
 import testImage from "../../../assets/images/icons/doctor-color-icon.svg";
 import { connect } from "react-redux";
-import { useHistory } from "react-router";
+import { Switch, useHistory } from "react-router";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
+import { RouteWithSubRoutes } from "../../../router/RouterHelper";
 
 /**
  *
@@ -16,8 +17,6 @@ import { setAppoinmentConfig } from "../../../redux/appointment_config/appointme
  */
 
 const TypeAppointmentPage = (properties) => {
-	
-	
 	/**@description Configuración cards */
 
 	const appointmentTypes = [
@@ -35,7 +34,7 @@ const TypeAppointmentPage = (properties) => {
 
 	const history = useHistory();
 
-	const navigateTo = (url) => history.push(url)
+	const navigateTo = (url) => history.push(url);
 
 	/**
 	 * @description Setea el currentStep del store.
@@ -54,13 +53,13 @@ const TypeAppointmentPage = (properties) => {
 
 	const onAppointmentTypeSelection = (type) => {
 		properties.setAppoinmentConfig("type", type);
-		history.push("/appointments/city");
+		history.push("/appointments/calendar");
 	};
 
 	return (
 		<React.Fragment>
 			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
-		
+
 			<CardContainer isColumn={true}>
 				{appointmentTypes.map((typeItem, index) => {
 					return (
@@ -71,6 +70,7 @@ const TypeAppointmentPage = (properties) => {
 					);
 				})}
 			</CardContainer>
+		
 		</React.Fragment>
 	);
 };

@@ -12,17 +12,17 @@ const Stepper = ({ currentStepIndex, navigateTo }) => {
 		{
 			stepNumber: 1,
 			stepText: "Standart",
-			url: "/appointments/city",
+			url: "/appointments/calendar",
 		},
 		{
 			stepNumber: 2,
 			stepText: "Datum",
-			url: "/appointments/calendar",
+			url: "/appointments/confirm",
 		},
 		{
 			stepNumber: 3,
 			stepText: "Ikontakdaten",
-			url: "/appointments/confirm",
+			url: "/appointments/thanks",
 		},
 	];
 
