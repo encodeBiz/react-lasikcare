@@ -60,3 +60,30 @@ body {
 	}
 }
 
+.content-select-comun{
+
+	ul{
+	width: 100%;
+
+		li{
+		display: flex;
+		align-items: center;
+		   
+		    .img-li{
+			 width: 25%;
+			  
+			   img{
+			   width: 100%;
+			   height: auto;
+			   }
+			}
+			
+			span{
+			color: $texto;
+			font-weight: bold;
+			}
+		}
+	}
+  
+}
+

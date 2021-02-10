@@ -10,6 +10,10 @@ import { componentDidUpdate } from "../../../redux/redux.helper";
 
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
 import SelectComponent from "../../../shared_modules/Select/Select.component";
+import madridIcon from "../../../assets/images/icons/one.jpg";
+import albaceteIcon from "../../../assets/images/icons/dos.jpg";
+import toledoIcon from "../../../assets/images/icons/tres.jpg";
+
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store
  * @param {Object} properties 
@@ -20,6 +24,20 @@ const CityAppointmentPage = (properties) => {
 	const [clinicsState, setClinics] = useState({status: 'pending', clinics: []})
 	const [selectedClinic, selectClinic] = useState(null)
 	const goBack = useHistory().goBack;
+	const cities = [
+		{
+			name: 'Münich',
+			icon: madridIcon
+		},
+		{
+			name: 'Augsburg',
+			icon: albaceteIcon
+		},
+		{
+			name: 'Rosenheim',
+			icon: toledoIcon
+		}
+	];
 
 	useEffect(() => {
 		properties.clinics
@@ -56,20 +74,33 @@ const CityAppointmentPage = (properties) => {
 
 	return (
 		<div className="city-appointment">
-			<Stepper currentStepIndex = {properties.appointment.currentStep} navigateTo={navigateTo}/>
+			{/* <Stepper currentStepIndex = {properties.appointment.currentStep} navigateTo={navigateTo}/>
 			<div className="top-content">
 				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
-			</div>
+			</div> */}
 			<div className="title-seccion">
-			<h1>2. Standort wählen</h1>	
+			<h1>Standort wählen</h1>	
 			</div>
-			<div className="content-city">
+			<div className="content-select-comun">
 				<CardContainer>
-				<SelectComponent options={paintCities()} handleEvent={handleEventSelect}></SelectComponent>
+					<ul>
+						{cities.map((city) => 
+						<li key={city.name}>
+							<div className="img-li">
+								<img src={city.icon} alt={city.icon}/>
+							</div>
+							<span>
+								{city.name}
+							</span>
+						</li>)
+					}
+
+					</ul>
+				{/* <SelectComponent options={paintCities()} handleEvent={handleEventSelect}></SelectComponent> */}
 				</CardContainer>
-				<div className="container-row">
+				{/* <div className="container-row">
 					<Button action={handleEventAccept} styleType={"rounded-button"} label={"fortsetzen"} />
-				</div>
+				</div> */}
 			</div>
 			
 		</div>
