@@ -33,7 +33,7 @@ const Stepper = ({ currentStepIndex, navigateTo }) => {
 			<ul>
 			{steps.map((step, index) => {
 				return (
-					<li key={index} className={`${isActive(step)} step`} onClick={() => navigateTo(step.url)}>
+					<li key={index} className={`${isActive(step)} is-active step`} onClick={() => navigateTo(step.url)}>
 						<div className="circle-num"><span className="num">{step.stepNumber + 1}</span></div>
 						<span className="text-step">{step.stepText}</span>
 					</li>

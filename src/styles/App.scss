@@ -45,7 +45,21 @@ body {
 	font-size: 1rem;
 	color: lighten($dark,80%);
 
-	.title-seccion{
+	.wrapper-general{
+     max-width: 87%;
+	 margin: auto;
+	   
+			@include tablet-medium{
+			max-width: 80%;
+			}
+	   
+			@include tablet-large{
+			max-width: 50%;
+			}
+	   
+			@include desktop-medium{
+			max-width: 50%;
+		   }
 
 		h1{
 		font-size:1.6rem;
@@ -58,32 +72,5 @@ body {
 		}
 
 	}
-}
-
-.content-select-comun{
-
-	ul{
-	width: 100%;
-
-		li{
-		display: flex;
-		align-items: center;
-		   
-		    .img-li{
-			 width: 25%;
-			  
-			   img{
-			   width: 100%;
-			   height: auto;
-			   }
-			}
-			
-			span{
-			color: $texto;
-			font-weight: bold;
-			}
-		}
-	}
-  
 }
 

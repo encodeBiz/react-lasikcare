@@ -1,3 +1,5 @@
+@import "../../styles/partials/mixins";
+
 .navbar-container{
     background-color: white;
     display: flex;
@@ -7,20 +9,44 @@
     box-sizing: border-box;
     padding: 15px 10px;
     box-shadow: 0px 2px 12px 0px rgba(237, 237, 237, 0.50);
-    
-    .hamburguer{
-        div{
-            width: 30px;
-            height: 2px;
-            background-color: grey;
-            margin: 6px 0;
-            border-radius: 2px;
-        }
 
-    } 
+    @include tablet-medium{
+    padding: 15px; 
+    }
+    
+    .second-nav{
+        display: flex;
+        align-items: center;
+
+        .hamburguer{
+         margin-left: 10px;
+
+           @include phone-large{
+           margin-left: 20px;
+           }
+
+           @include tablet-small{
+           width: 20%;
+           }
+
+            div{
+                width: 30px;
+                height: 2px;
+                background-color: grey;
+                margin: 6px 0;
+                border-radius: 2px;
+            }
+    
+        } 
+    }
+
 
     .logo{
-     width: 35%;
+     max-width: 30%;
+
+     @include phone-large{
+     max-width: 50%;
+     }
 
       img{
       width: 100%;

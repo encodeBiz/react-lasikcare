@@ -74,7 +74,6 @@
    &.nav-number{
     border-radius: 0px;
     margin: 0px;
-    width: max-content;
     font-size: 0.9rem;
     padding: 12px 12px 12px 30px;
     position: relative;
@@ -88,6 +87,14 @@
       position: absolute;
       left: 6px;
       top: 10px;
+      }
+
+      @include tablet-medium{
+      width: 100%;
+      }
+
+      @include tablet-medium{
+      font-size: 0.7rem;
       }
    }
 

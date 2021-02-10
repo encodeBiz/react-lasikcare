@@ -2,12 +2,19 @@
 @import "../../styles/partials/variables"; 
 @import "../../styles/partials/mixins";
 
-.card{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    padding: 30px; 
-    margin: 10px 0; 
-    
 
-}
+.card{
+    border: 1px solid lighten(#979797,30%);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    }
+
+     p{
+     color: $texto;
+     font-weight: bold;
+     font-size: 0.9rem;
+     margin-left: 15px;
+     }
+

@@ -73,7 +73,7 @@ const CityAppointmentPage = (properties) => {
 	};
 
 	return (
-		<div className="city-appointment">
+		<div className="wrapper-general">
 			{/* <Stepper currentStepIndex = {properties.appointment.currentStep} navigateTo={navigateTo}/>
 			<div className="top-content">
 				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
@@ -81,7 +81,7 @@ const CityAppointmentPage = (properties) => {
 			<div className="title-seccion">
 			<h1>Standort wählen</h1>	
 			</div>
-			<div className="content-select-comun">
+			<div className="city-appointment-container">
 				<CardContainer>
 					<ul>
 						{cities.map((city) => 
