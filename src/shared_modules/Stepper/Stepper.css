@@ -22,13 +22,14 @@
   font-style: normal;
   font-display: swap; }
 
-.step-container {
+.step-container ul {
   display: flex;
-  justify-content: space-evenly; }
-  .step-container .step {
-    width: 15px;
-    height: 15px;
-    padding: 5px;
-    border-radius: 50%; }
-    .step-container .step:hover {
-      cursor: pointer; }
+  justify-content: space-between; }
+
+.step-container .step {
+  width: 15px;
+  height: 15px;
+  padding: 5px;
+  border-radius: 50%; }
+  .step-container .step:hover {
+    cursor: pointer; }

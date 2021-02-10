@@ -1,7 +1,8 @@
 @import "./partials/fonts";
 @import "./partials/variables";
-@import "./partials/placeholders"; 
 @import "./partials/mixins";
+@import "./partials/placeholders"; 
+
 
 /////////////////////////////
 /////*****RESET*****////
@@ -17,6 +18,11 @@ body {
 
 a {
 	text-decoration: none;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0px;
 }
 /////////
 
@@ -34,29 +40,23 @@ html {
 
 
 body {
-	background-color: grey;
+	background: lighten($primaryColorBg,12%);
 	font-family: $primaryFont;
 	font-size: 1rem;
 	color: lighten($dark,80%);
 
-	@include tablet-small {
-		background-color: yellow;
-	}
+	.title-seccion{
 
-	@include desktop-small {
-		background-color: azure;
-	}
+		h1{
+		font-size:1.6rem;
+		color: $texto ;
+		margin-bottom: 10px;
 
-	.main-title {
-		@extend %mainTitle;
-	}
-
-	h3 {
-		@extend %mainTitle;
-
-		@include tablet-small {
-			font-weight: bold;
+		@include desktop-small{
+		font-size: 1.3rem;
 		}
+		}
+
 	}
 }
 

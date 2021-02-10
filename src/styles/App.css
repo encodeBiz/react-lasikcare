@@ -22,11 +22,6 @@
   font-style: normal;
   font-display: swap; }
 
-body .main-title, body h3 {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: #00619e; }
-
 body {
   margin: 0px;
   padding: 0px; }
@@ -37,6 +32,10 @@ body {
 a {
   text-decoration: none; }
 
+ul {
+  list-style-type: none;
+  padding: 0px; }
+
 html {
   font-size: 15px; }
   @media (min-width: 1080px) {
@@ -44,16 +43,14 @@ html {
       font-size: 20px; } }
 
 body {
-  background-color: grey;
+  background: #f0f9f9;
   font-family: "Gilroy";
   font-size: 1rem;
   color: #cccccc; }
-  @media (min-width: 540px) {
-    body {
-      background-color: yellow; } }
-  @media (min-width: 1080px) {
-    body {
-      background-color: azure; } }
-  @media (min-width: 540px) {
-    body h3 {
-      font-weight: bold; } }
+  body .title-seccion h1 {
+    font-size: 1.6rem;
+    color: #808080;
+    margin-bottom: 10px; }
+    @media (min-width: 1080px) {
+      body .title-seccion h1 {
+        font-size: 1.3rem; } }

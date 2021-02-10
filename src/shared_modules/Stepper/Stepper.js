@@ -29,17 +29,18 @@ const Stepper = ({ currentStepIndex, navigateTo }) => {
 	const isActive = (step) => (currentStepIndex === step.stepNumber ? "is-active" : "");
 
 	return (
-		<React.Fragment>
-			<div className="step-container">
-				{steps.map((step, index) => {
-					return (
-						<div key={index} className={`${isActive(step)} step`} onClick={() => navigateTo(step.url)}>
-							{step.stepNumber + 1}
-						</div>
-					);
-				})}
-			</div>
-		</React.Fragment>
+		<div className="step-container">
+			<ul>
+			{steps.map((step, index) => {
+				return (
+					<li key={index} className={`${isActive(step)} step`} onClick={() => navigateTo(step.url)}>
+						<span>{step.stepNumber + 1}</span>
+						<span>{step.stepText}</span>
+					</li>
+				);
+			})}
+			</ul>
+		</div>
 	);
 };
 

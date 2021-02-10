@@ -1,0 +1,73 @@
+@import "../../styles/partials/variables";
+@import"../../styles/partials/mixins";
+
+.main-btn {
+    background-color: $tertiaryColor;
+    width: 100%;
+    height: max-content;
+    padding: 15px;
+    margin: auto;
+    font-family: $primaryFont;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: $light;
+    border: 1.7px solid $tertiaryColor;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 30px;
+    text-transform: uppercase;
+
+    &:hover{
+    color: $tertiaryColor;
+    background-color: transparent;
+    }
+
+    @include tablet-medium{
+    width: 70%;
+    }
+
+    @include tablet-large{
+    width: 80%;
+    }
+
+    @include desktop-small{
+    font-size: 0.8rem;
+    }
+
+    @include desktop-medium{
+    width: 65%;
+    }
+
+    &.back-button {
+        position: relative;
+        font-size: 1rem;
+        background-color: transparent;
+        color: $tertiaryColor;
+        width: max-content;
+        text-transform: initial;
+        box-sizing: border-box;
+        padding: 10px 25px 10px 36px;
+
+        &:after{
+        content: "";
+        position: absolute;
+        left: 13px;
+        background-image: url(../../assets/images/icons/back.svg);
+        background-repeat: no-repeat;
+        width: 35px;
+        height: 35px;
+
+        @include desktop-small{
+        top: 8px;
+        width: 35px;
+        height: 35px;
+        }
+    }
+
+    @include desktop-small{
+    font-size: 0.7rem;
+    }
+
+   }
+
+}
