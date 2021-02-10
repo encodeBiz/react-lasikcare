@@ -1,0 +1,35 @@
+// @import "./variables"; 
+
+@mixin phone-large {
+  @media (min-width: 414px) { @content; }
+}
+
+//TABLET
+@mixin tablet-small {
+  @media (min-width: 540px) { @content; }
+}
+
+@mixin tablet-small-landscape {
+  @media (min-width: 540px) and (orientation: landscape) { @content; }
+}
+
+@mixin tablet-medium {
+  @media (min-width: 768px) { @content; }
+}
+
+@mixin tablet-large {
+  @media (min-width: 980px) { @content; }
+}
+
+//DESKTOP
+@mixin desktop-small {
+  @media (min-width: 1080px) { @content; }
+}
+
+@mixin desktop-medium {
+  @media (min-width: 1280px) { @content; }
+}
+
+@mixin desktop-large {
+  @media (min-width: 1500px) { @content; }
+}

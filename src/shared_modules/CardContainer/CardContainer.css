@@ -1,11 +1,54 @@
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Regular.eot");
+  src: url("../../assets/fonts/Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Regular.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Regular.woff") format("woff"), url("../../assets/fonts/Gilroy-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Bold.eot");
+  src: url("../../assets/fonts/Gilroy-Bold.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Bold.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Bold.woff") format("woff"), url("../../assets/fonts/Gilroy-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Light.eot");
+  src: url("../../assets/fonts/Gilroy-Light.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Light.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Light.woff") format("woff"), url("../../assets/fonts/Gilroy-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap; }
+
 .card-container {
-  border-radius: 15px;
-  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
   text-align: left;
-  border: 1px solid #e2e2e2;
-  margin: 0 2rem;
   display: flex;
-  flex-wrap: nowrap; }
+  flex-wrap: nowrap;
+  box-shadow: 0px 2px 12px 0px rgba(239, 239, 239, 0.5); }
+  .card-container .SelectComponent {
+    width: 90%;
+    margin: auto; }
+    @media (min-width: 1280px) {
+      .card-container .SelectComponent {
+        width: 70%; } }
+    .card-container .SelectComponent .css-yk16xz-control {
+      height: 50px;
+      border-color: lighten #808080, 0.25%; }
+      .card-container .SelectComponent .css-yk16xz-control .css-1wa3eu0-placeholder {
+        color: #B9B9B9;
+        font-weight: bold;
+        font-size: 0.9rem;
+        top: 52%; }
+        @media (min-width: 1080px) {
+          .card-container .SelectComponent .css-yk16xz-control .css-1wa3eu0-placeholder {
+            font-size: 0.7rem; } }
+      .card-container .SelectComponent .css-yk16xz-control .css-1okebmr-indicatorSeparator {
+        background-color: transparent; }
 
 .is-column {
   flex-direction: column; }

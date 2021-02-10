@@ -1,36 +1,17 @@
-////////////COLORS
-$brandDarkishblue: #0e4b93;
-$brandDeepblue: #0e4b93;
-$brandLightBlue: #e3f2fd;
-$brandHoverBlue: #3370a9;
-$brandMediumLightBlue: #7dbcea;
-$brandOrange: #fd7e1c;
-$brandDarkOrange: #f56d1e;
-$brandMediumGrey: #808080;
-$brandDarkGrey: #333333;
-$brandLightGrey: #f2f2f2;
-$brandBorderGrey: #e2e2e2;
-$brandWhite: #fff;
-$brandCorrect: #40cc9e;
-$tintColor: black;
-$brandGrey:"#cccccc";
-$brandError:"#f11414";
-$boxBackColor: #f9f9f9;
-$shadowColor: rgba(0,0,0,.15);
-$tabBar: #fefefe;
-$errorText: #fff;
-$warningBackground: #EAEB5E;
-$warningText: #666804;
-$noticeText: #fff;
+/////////////////////////////
+/////*****COLORS*****////
+/////////////////////////////
+$primaryColor: #38b3b6; //lassik green;
+$primaryColorBg: #c4e7e8; //lassik green background
+$secondaryColor: #00619e; //lassik blue
+$tertiaryColor: #FF9900; //lassikOrange
+$warning: red;
+$dark: #000000;
+$light: #ffffff;
+$texto: #808080;
 
-$separation: 20px;
 
-$borderRadius: 15px;
-
-//FONTS
-$text: 'Gotham Book';
-$title: 'Gotham';
-$menu: 'Gotham';
-
-//DEVICES
-$largeScreen: 1140px;
+/////////////////////////////
+/////*****FONTS*****////
+/////////////////////////////
+$primaryFont: 'Gilroy';

@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Regular.eot");
+  src: url("../../assets/fonts/Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Regular.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Regular.woff") format("woff"), url("../../assets/fonts/Gilroy-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Bold.eot");
+  src: url("../../assets/fonts/Gilroy-Bold.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Bold.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Bold.woff") format("woff"), url("../../assets/fonts/Gilroy-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Light.eot");
+  src: url("../../assets/fonts/Gilroy-Light.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Light.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Light.woff") format("woff"), url("../../assets/fonts/Gilroy-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap; }
+
+body {
+  margin: 0px;
+  padding: 0px; }
+
+* {
+  box-sizing: border-box; }
+
+a {
+  text-decoration: none; }
+
+ul {
+  list-style-type: none;
+  padding: 0px; }
+
+html {
+  font-size: 15px; }
+  @media (min-width: 1080px) {
+    html {
+      font-size: 20px; } }
+
+body {
+  background: #f0f9f9;
+  font-family: "Gilroy";
+  font-size: 1rem;
+  color: #cccccc; }
+  body .title-seccion h1 {
+    font-size: 1.6rem;
+    color: #808080;
+    margin-bottom: 10px; }
+    @media (min-width: 1080px) {
+      body .title-seccion h1 {
+        font-size: 1.3rem; } }

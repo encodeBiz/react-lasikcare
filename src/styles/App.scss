@@ -1,2 +1,62 @@
+@import "./partials/fonts";
+@import "./partials/variables";
+@import "./partials/mixins";
+@import "./partials/placeholders"; 
+
+
+/////////////////////////////
+/////*****RESET*****////
+/////////////////////////////
 body {
+	margin: 0px;
+	padding: 0px;
 }
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0px;
+}
+/////////
+
+
+/////////////////////////////
+/////*****MAIN LAYOUT*****////
+/////////////////////////////
+html {
+	font-size: 15px;
+
+	@include desktop-small {
+		font-size: 20px;
+	}
+}
+
+
+body {
+	background: lighten($primaryColorBg,12%);
+	font-family: $primaryFont;
+	font-size: 1rem;
+	color: lighten($dark,80%);
+
+	.title-seccion{
+
+		h1{
+		font-size:1.6rem;
+		color: $texto ;
+		margin-bottom: 10px;
+
+		@include desktop-small{
+		font-size: 1.3rem;
+		}
+		}
+
+	}
+}
+

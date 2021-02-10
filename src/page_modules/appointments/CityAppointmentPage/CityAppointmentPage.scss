@@ -1,4 +1,52 @@
-.top-content {
-    margin-bottom: 20px;
-    margin-left: -10px;
+@import "../../../styles/partials/mixins";
+
+
+.city-appointment{
+ max-width: 85%;
+ margin: auto;
+
+     @include tablet-medium{
+     max-width: 80%;
+     }
+
+     @include tablet-large{
+     max-width: 50%;
+     }
+
+     @include desktop-medium{
+    max-width: 50%;
+    }
+
+    .top-content{
+        margin: 26px 0px 30px 0px;
+    }
+
+    .container-row {
+        display: flex;
+        justify-content: center;
+    }
+
+    .content-city{
+      
+        @include desktop-small{
+            background-color: white;
+            min-height: 400px;
+            box-sizing: border-box;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .card-container{
+
+            @include desktop-small{
+            box-shadow: none;
+            padding: 0px;
+            }
+        }
+    }
+
 }
+
+
+
+

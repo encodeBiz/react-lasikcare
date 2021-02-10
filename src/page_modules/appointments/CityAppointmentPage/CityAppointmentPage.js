@@ -55,19 +55,24 @@ const CityAppointmentPage = (properties) => {
 	};
 
 	return (
-		<React.Fragment>
+		<div className="city-appointment">
 			<Stepper currentStepIndex = {properties.appointment.currentStep} navigateTo={navigateTo}/>
 			<div className="top-content">
-				<Button action={history.goBack} styleType={"back-button"} label={"Züruch"} />
+				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
 			</div>
-			<CardContainer>
-			 <SelectComponent options={paintCities()} handleEvent={handleEventSelect}></SelectComponent>
-			</CardContainer>
-			<div className="container-row">
-				<Button action={handleEventAccept} styleType={"rounded-button"} label={"fortsetzen"} />
+			<div className="title-seccion">
+			<h1>2. Standort wählen</h1>	
+			</div>
+			<div className="content-city">
+				<CardContainer>
+				<SelectComponent options={paintCities()} handleEvent={handleEventSelect}></SelectComponent>
+				</CardContainer>
+				<div className="container-row">
+					<Button action={handleEventAccept} styleType={"rounded-button"} label={"fortsetzen"} />
+				</div>
 			</div>
 			
-		</React.Fragment>
+		</div>
 	);
 };
 

@@ -9,11 +9,11 @@ import "./Button.scss";
  * @param {String} properties.styleType Tipo del botón para llamar a su correcto style
  */
 const Button = (properties) => {
-    return (
-            <button onClick={() => properties.action()} className={`btn ${properties.styleType}`}>
-                {properties.label}
-            </button>
-    )
+	return (
+		<button onClick={() => properties.action()} className={`main-btn ${properties.styleType}`}>
+			{properties.label}
+		</button>
+	)
 }
 
 export default Button

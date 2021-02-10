@@ -3,16 +3,19 @@
 @import "../../styles/partials/mixins";
 
 .step-container{
+
+    ul{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    }
+
     .is-active{
-        background: $brandMediumLightBlue;
     }
     .step{
         width: 15px; 
         height: 15px; 
         padding: 5px; 
-        border: 1px solid $brandDeepblue;
+
         border-radius: 50%;
         &:hover{
             cursor: pointer;
