@@ -1,5 +1,6 @@
 @import "./partials/fonts";
-@import "./partials/variables"; 
+@import "./partials/variables";
+@import "./partials/placeholders"; 
 @import "./partials/mixins";
 
 /////////////////////////////
@@ -31,12 +32,12 @@ html {
 	}
 }
 
+
 body {
 	background-color: grey;
 	font-family: $primaryFont;
 	font-size: 1rem;
 	color: lighten($dark,80%);
-	//color: $primaryColor;
 
 	@include tablet-small {
 		background-color: yellow;
@@ -47,11 +48,11 @@ body {
 	}
 
 	.main-title {
-		@include mainTitle('bold');
+		@extend %mainTitle;
 	}
 
 	h3 {
-		@include mainTitle(300);
+		@extend %mainTitle;
 
 		@include tablet-small {
 			font-weight: bold;
