@@ -9,6 +9,22 @@
     padding: 10px;
     display: flex;
     align-items: center;
+    position: relative;
+
+    &:active{
+    border: 1.2px solid $tertiaryColor;
+        
+       &:after{
+       content: "";
+       position: absolute;
+       top: -15px;
+       right: 0;
+       background-image:url(../../assets/images/icons/tick.svg);
+       background-repeat: no-repeat;
+       width: 35px;
+       height: 35px;
+       }
+    }
 
 
      p{

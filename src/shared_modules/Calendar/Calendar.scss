@@ -1,8 +1,19 @@
 @import "../../styles/partials/variables";
+@import "../../styles/partials/mixins";
 
+
+
+
+
+.calendar-container {
+
+   @include phone-large{
+   margin: auto;
+   }
 
 .DayPicker__withBorder{
     box-shadow: none !important;
+    border-radius: 100px;
 
      .DayPicker_weekHeader{
       top: 72px;
@@ -43,6 +54,11 @@
         strong{
         font-size: 1.1rem;
         color: $secondaryColor;
+           
+          @include desktop-small{
+          font-size: 0.9rem;
+          }
+
         }
 
      }
@@ -56,6 +72,10 @@
             font-weight: 300;
             font-size: 0.8rem;
 
+               @include desktop-small{
+               font-size: 0.7rem;
+               }
+
                &:hover{
                background-color: transparent;
                }
@@ -68,4 +88,6 @@
           border-radius: 50px;
          }
      }
+}
+
 }

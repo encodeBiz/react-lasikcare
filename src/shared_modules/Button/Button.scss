@@ -16,10 +16,16 @@
     cursor: pointer;
     margin-top: 30px;
     text-transform: uppercase;
+    transition: all 300ms ease-in-out;
+
 
     &:hover{
     color: $tertiaryColor;
     background-color: transparent;
+    }
+
+    &:focus{
+    outline: 0;
     }
 
     @include tablet-medium{
@@ -48,6 +54,16 @@
         box-sizing: border-box;
         padding: 10px 25px 10px 36px;
         margin-top:0px;
+
+        &:hover{
+        background-color: $tertiaryColor;
+        color: white;
+           
+           &:after{
+           background-image: url(../../assets/images/icons/arrow-white.svg);
+           }
+
+        }
 
         &:after{
         content: "";
@@ -93,9 +109,10 @@
       width: 100%;
       }
 
-      @include tablet-medium{
+      @include desktop-small{
       font-size: 0.7rem;
       }
+
    }
 
 }

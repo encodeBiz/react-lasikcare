@@ -2,8 +2,19 @@
 @import "../../styles/partials/variables"; 
 @import "../../styles/partials/mixins";
 
+
+
 .step-container{
  margin-bottom: 20px;
+
+ %stepLine {
+  content: "";
+  width: 70px;
+  height: 1px;
+  position: absolute;
+  top: 12px;
+  left: 31px;
+ }
 
     ul{
     display: flex;
@@ -13,9 +24,32 @@
       .step{
       display: flex;
       flex-direction: column;
+
+        &:not(:last-child) {
+        position:relative;
+
+        &.is-solid {
+
+          &:after{
+            @extend %stepLine;
+            border-top: 1px solid $secondaryColor;
+          }
+        }
+
+        &.is-dotted {
+
+          &:after{
+            @extend %stepLine;
+            border-top: 1px dashed $secondaryColor;
+          }
+        }
+
+
+
+}
         
          .circle-num{
-            background-color:$secondaryColor;
+          background-color:$secondaryColor;
           border-radius: 50px;
           width: 28px;
           height: 28px;
@@ -24,10 +58,12 @@
           justify-content: center;
           margin: auto;
 
+
           .num{
            font-size: 0.8rem;
            color: $light;
            vertical-align: middle;
+           
            }
          }
 

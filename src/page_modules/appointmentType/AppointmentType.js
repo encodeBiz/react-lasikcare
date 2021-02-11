@@ -22,7 +22,7 @@ const AppointmentType = (properties) => {
 		{
 			title: "Vor Ort",
 			image: iconPresencial,
-			subtitle: "Vor-ort beratung im nächstgelegenen Lasik Care standort",
+			subtitle: "Vor-ort baratung im nächstgegenen Lasik Care standort",
 			url: "/appointments",
 		},
 	];
@@ -40,12 +40,13 @@ const AppointmentType = (properties) => {
 			<h1>
 			1. Bitte wählen Sie Ihren Wunschtermin:
 			</h1>
+			<div className="presencial-online-wrapper">
 			<CardContainer isColumn={false}>
 				{homeLinksConfig.map((link, index) => {
 					return (
-						<Link to={link.url} key={index}>
+						<Link to={link.url} key={index} className="card-link">
 							<Card>
-								<div className="home-card">
+								<div className="first-step-card">
 									<h3>{link.title}</h3>
 									<div>
 										<img className="home-card-image" src={link.image} alt="..." />
@@ -57,6 +58,7 @@ const AppointmentType = (properties) => {
 					);
 				})}
 			</CardContainer>
+			</div>
 		</div>
 	);
 };

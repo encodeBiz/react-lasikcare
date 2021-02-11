@@ -24,6 +24,13 @@
 
 .step-container {
   margin-bottom: 20px; }
+  .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+    content: "";
+    width: 70px;
+    height: 1px;
+    position: absolute;
+    top: 12px;
+    left: 31px; }
   .step-container ul {
     display: flex;
     justify-content: space-between;
@@ -31,6 +38,12 @@
     .step-container ul .step {
       display: flex;
       flex-direction: column; }
+      .step-container ul .step:not(:last-child) {
+        position: relative; }
+        .step-container ul .step:not(:last-child).is-solid:after {
+          border-top: 1px solid #00619e; }
+        .step-container ul .step:not(:last-child).is-dotted:after {
+          border-top: 1px dashed #00619e; }
       .step-container ul .step .circle-num {
         background-color: #00619e;
         border-radius: 50px;

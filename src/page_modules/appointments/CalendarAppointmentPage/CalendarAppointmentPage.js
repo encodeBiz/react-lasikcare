@@ -132,11 +132,12 @@ const CalendarAppointmentPage = (properties) => {
 			>
 			</Calendar>
 			</CardContainer>
+			<div class="container-button">
 			<Button 
-			    styleType= {"main-button"}
 				type={"rounded-button"} 
 				label={"TERMIN WÄHLEN"} ç
 			/>
+			</div>
 			</div>
 		</div>
 	);
