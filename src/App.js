@@ -44,6 +44,7 @@ function App(properties) {
 		}
 
 		getAsyncData();
+		// eslint-disable-next-line
 	}, [clinics]);
 
 	const getAsyncData = async () => {

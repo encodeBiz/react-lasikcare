@@ -14,6 +14,8 @@ import SelectComponent from "../../../shared_modules/Select/Select.component";
 import madridIcon from "../../../assets/images/icons/one.jpg";
 import albaceteIcon from "../../../assets/images/icons/dos.jpg";
 import toledoIcon from "../../../assets/images/icons/tres.jpg";
+import { setClinicAppointments } from "../../../redux/clinics/clinics.actions";
+import { fetchAvailableHours } from "../../../redux/available_hours/available_hours.actions";
 
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store
@@ -22,9 +24,12 @@ import toledoIcon from "../../../assets/images/icons/tres.jpg";
  */
 const CityAppointmentPage = (properties) => {
 	const history = useHistory();
-	const [clinicsState, setClinics] = useState({ status: "pending", clinics: [] });
+	const [clinics, setClinics] = useState([]);
 	const [selectedClinic, selectClinic] = useState(null);
+	const [clientCity, setClientCity] = useState(null);
+
 	const goBack = useHistory().goBack;
+
 	const cities = [
 		{
 			name: "Münich",
@@ -39,14 +44,6 @@ const CityAppointmentPage = (properties) => {
 			icon: toledoIcon,
 		},
 	];
-
-	useEffect(() => {
-		// properties.clinics
-		// .then(_c => {
-		// 	setClinics(_c.clinics)
-		// })
-	}, [clinicsState]);
-
 	/**
 	 * Setea el currentStep del store.
 	 */
@@ -55,31 +52,61 @@ const CityAppointmentPage = (properties) => {
 		// eslint-disable-next-line
 	}, []);
 
+	useEffect(() => {
+		
+
+		const city = localStorage.getItem('city')
+
+
+		setClinics(properties.clinics)
+		if(city){
+			setClientCity(city)
+		}
+
+
+		getAsyncData()
+
+
+
+		// eslint-disable-next-line
+	}, [clinics]);
+
+
+
+	const getAsyncData = async () => {
+		try {
+			const res = await properties.setClinicAppointments()
+			console.log(res)
+			// await getAllClinicsHours();
+
+		} catch (error) {
+			console.log(error)
+		}
+
+	}
+
+
+
+	const getAllClinicsHours = () => {
+		clinics.clinics.forEach((clinic) => {
+			console.log("Hola");
+			properties.fetchAvailableHours(clinic.keycli, "BI");
+			properties.fetchAvailableHours(clinic.keycli, "BIDI");
+		});
+	}
+ 
 	const navigateTo = (url) => history.push(url); //
 
-	const paintCities = () => {
-		if (clinicsState.clinics)
-			return clinicsState.clinics.map((clinic, index) => {
-				return { value: clinic, label: clinic.name };
-			});
-		else return <h1>LOADING</h1>;
-	};
 
 	const handleEventSelect = ($event) => selectClinic($event.value);
 	const handleEventAccept = () => {
 		if (selectedClinic != null) properties.setAppoinmentConfig("city", selectedClinic);
 	};
 
-
-	const updateAppointment = (data) => {
-
-	}
-
-
+	const updateAppointment = (data) => {};
 
 	return (
 		<div className="city-appointment">
-			
 			<div className="title-seccion">
 				<h1>Standort wählen</h1>
 			</div>
@@ -87,16 +114,18 @@ const CityAppointmentPage = (properties) => {
 				<CardContainer>
 					<ul>
 						{cities.map((city) => (
-							<li key={city.name} onClick={() =>  {
-									properties.setAppoinmentConfig('city', city.name)
-									navigateTo('/type')
-
-								}}>
+							<Card
+								key={city.name}
+								onClick={() => {
+									properties.setAppoinmentConfig("city", city.name);
+									navigateTo("/type");
+								}}
+							>
 								<div className="img-li">
 									<img src={city.icon} alt={city.icon} />
 								</div>
 								<span>{city.name}</span>
-							</li>
+							</Card>
 						))}
 					</ul>
 				</CardContainer>
@@ -116,12 +145,27 @@ const mapDispatchToProps = (dispatch) => ({
 	 * @description Actualiza un campo del objeto de appointment
 	 */
 	setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
+
+	/**
+	 *
+	 */
+	setClinicAppointments: () => dispatch(setClinicAppointments()),
+
+	/**
+	 * 
+	 * @param {String} keycli Código de la ciudad
+	 * @param {('BI' | 'BIDI')} appointments_type Tipo de cita BI = Gratis | BIDI = Pago 
+	 */
+
+	fetchAvailableHours: (keycli, appointments_type) =>
+		dispatch(fetchAvailableHours(keycli, appointments_type)),
 });
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (state) => {
 	return {
-		appointment: store.appointment,
-		clinics: store.clinics,
+		clinics: state.clinics,
+		appointment: state.appointment,
+		available_hours: state.available_hours,
 	};
 };
 

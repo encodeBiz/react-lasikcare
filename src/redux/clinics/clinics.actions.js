@@ -17,6 +17,7 @@ export const setClinicAppointments = () => {
                 status: "finish",
 				clinics,
 			};
+			console.log(clinicsData)
 			return dispatch(setClinicsAppointments(clinicsData));
 		} catch (error) {
 			console.log(error);
