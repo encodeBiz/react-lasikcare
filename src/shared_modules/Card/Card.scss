@@ -9,12 +9,22 @@
     padding: 10px;
     display: flex;
     align-items: center;
-    }
+
 
      p{
      color: $texto;
      font-weight: bold;
      font-size: 0.9rem;
      margin-left: 15px;
+
+       @include tablet-small{
+        font-size: 1.1rem;
+       }
+
+       @include desktop-small{
+       font-size: 0.9rem;
+       }
+
      }
 
+}

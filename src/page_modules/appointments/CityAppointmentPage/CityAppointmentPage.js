@@ -13,6 +13,7 @@ import SelectComponent from "../../../shared_modules/Select/Select.component";
 import madridIcon from "../../../assets/images/icons/one.jpg";
 import albaceteIcon from "../../../assets/images/icons/dos.jpg";
 import toledoIcon from "../../../assets/images/icons/tres.jpg";
+import Card from "../../../shared_modules/Card/Card";
 
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store
@@ -82,20 +83,17 @@ const CityAppointmentPage = (properties) => {
 			<h1>Standort wählen</h1>	
 			</div>
 			<div className="city-appointment-container">
-				<CardContainer>
-					<ul>
+				<CardContainer isColumn={true}>
 						{cities.map((city) => 
-						<li key={city.name}>
-							<div className="img-li">
-								<img src={city.icon} alt={city.icon}/>
-							</div>
-							<span>
+							<Card>
+							   <img src={city.icon} alt={city.icon} className="type-image-city"/>
+								<p>
 								{city.name}
-							</span>
-						</li>)
+								</p>
+							</Card>
+						)
 					}
 
-					</ul>
 				{/* <SelectComponent options={paintCities()} handleEvent={handleEventSelect}></SelectComponent> */}
 				</CardContainer>
 				{/* <div className="container-row">

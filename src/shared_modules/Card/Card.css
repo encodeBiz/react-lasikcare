@@ -28,9 +28,14 @@
   padding: 10px;
   display: flex;
   align-items: center; }
-
-p {
-  color: #808080;
-  font-weight: bold;
-  font-size: 0.9rem;
-  margin-left: 15px; }
+  .card p {
+    color: #808080;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-left: 15px; }
+    @media (min-width: 540px) {
+      .card p {
+        font-size: 1.1rem; } }
+    @media (min-width: 1080px) {
+      .card p {
+        font-size: 0.9rem; } }
