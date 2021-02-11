@@ -64,7 +64,7 @@ const CityAppointmentPage = (properties) => {
 	 * Setea el currentStep del store.
 	 */
 	useEffect(() => {
-		if (properties.clinics.clinics.length > 0) {
+		if (properties.clinics.clinics?.length > 0) {
 			const cities = JSON.parse(localStorage.getItem("cities"));
 			if (cities) {
 				getClinicsHours(cities);

@@ -9,7 +9,6 @@ import { setAppoinmentConfig } from "../../../redux/appointment_config/appointme
 import { connect } from "react-redux";
 import moment from "moment";
 import useWindowSize from "../../../hooks/useWindowSize";
-
 /**
  *
  * @param {Object} properties
@@ -23,35 +22,33 @@ const CalendarAppointmentPage = (properties) => {
 	const history = useHistory();
 	const navigateTo = (url) => history.push(url);
 	const today = moment();
+	const { available_hours } = properties;
 
 	/////////////////////////////
 	// Configuración del componente
 	/////////////////////////////
 
-	const [dataTimes, setDataTimes] = useState([]);
-	const [dataDates, setDataDates] = useState(null);
-	const [chosenAppointment, setChosenAppointment] = useState({});
-	const [selectedDateString, setSelectedDateString] = useState(null);
+	// const [dataTimes, setDataTimes] = useState([]);
+	// const [dataDates, setDataDates] = useState(null);
+	// const [chosenAppointment, setChosenAppointment] = useState({});
+	// const [selectedDateString, setSelectedDateString] = useState(null);
 	const [calendarWidth, setCalendarWidth] = useState(null);
 	const [focused, setFocused] = useState(false);
 	const [initialDate, setInitialDate] = useState(today);
-	const [datesToString, setDatesToString] = useState("");
 	const { width } = useWindowSize();
 	const [selectedType, setType] = useState(null);
 	const [selectedCity, setCity] = useState(null);
 	const [dataCalendar, setDataCalendar] = useState([]);
-
+	const [selectedDate, setDate] = useState(null);
 
 	/**
 	 * Seteo del current step y de la ciudad y el tipo de consulta seleccionada
 	 */
 
-
-
 	useEffect(() => {
 		properties.setAppoinmentConfig("currentStep", 2);
-		setType(properties.appointment.type)
-		setType(properties.appointment.city.keycli)
+		setType(properties.appointment.type);
+		setCity(properties.appointment.city.keycli);
 		// eslint-disable-next-line
 	}, []);
 
@@ -59,22 +56,19 @@ const CalendarAppointmentPage = (properties) => {
 	 * @description Setea el currentStep del store
 	 */
 	useEffect(() => {
+		const data =
+			selectedCity && selectedType
+				? properties.available_hours[selectedCity].data[selectedType]
+				: [];
 
-		const data = selectedCity && selectedType ? properties.available_hours[selectedCity].data[selectedType].hueco : []
-
-		const filteredData = data.map((item) => {
-			const date = item.fecha.split("/")
-			const formattedDate = new Date( parseInt(date[2]) , parseInt(date[1]) - 1, parseInt(date[0]) ); 
-			return {...item, formattedDate: moment(formattedDate)}
-		})
-
-		setDataCalendar(filteredData)
-
-	}, [selectedType, selectedCity]);
-
-
-	console.log(dataCalendar)
-
+		const filteredData = data?.map((item) => {
+			const date = item.fecha.split("/");
+			const formattedDate = new Date(parseInt(date[2]), parseInt(date[1]) - 1, parseInt(date[0]));
+			return { ...item, formattedDate: moment(formattedDate) };
+		});
+		setDataCalendar(filteredData);
+		// eslint-disable-next-line
+	}, [available_hours, selectedType, selectedCity]);
 
 	/**
 	 * @description Setea la anchura del calendario
@@ -96,9 +90,16 @@ const CalendarAppointmentPage = (properties) => {
 	// Gestión de eventos
 	/////////////////////////////
 
-	const formatDateToString = (date) => {
-		return moment(date).format("DD/MM/yyyy").split("/").join("");
+	const handleDateChange = (date) => {
+		const finded = dataCalendar.filter((item) => {
+			return item.formattedDate.format("DD-MM-yyyy") === date.format("DD-MM-yyyy");
+		});
+		setDate(finded);
+		console.log(date);
+		properties.setAppoinmentConfig("calendar_date", date);
 	};
+
+	const handleSelectedHour = (hour) => properties.setAppoinmentConfig("calendar_hour", hour);
 
 	/////////////////////////////
 	// Renderizado del componente
@@ -119,6 +120,9 @@ const CalendarAppointmentPage = (properties) => {
 				setFocused={setFocused}
 				initialDate={initialDate}
 				width={width}
+				selectedDate={selectedDate}
+				handleSelectedHour={handleSelectedHour}
+				handleDateChange={handleDateChange}
 			></Calendar>
 			<Button type={"rounded-button"} label={"Rounded button"} ç />
 		</React.Fragment>
