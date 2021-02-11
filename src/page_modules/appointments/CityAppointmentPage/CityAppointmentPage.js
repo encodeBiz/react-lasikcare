@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
-import Card from "../../../shared_modules/Card/Card";
-
 import "./CityAppointmentPage.scss";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";

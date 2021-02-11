@@ -1,0 +1,71 @@
+@import "../../styles/partials/variables";
+
+
+.DayPicker__withBorder{
+    box-shadow: none !important;
+
+     .DayPicker_weekHeader{
+      top: 72px;
+
+        ul{
+
+            li{
+
+              small{
+              color: $texto;  
+              font-weight: bold;
+              }
+
+            }
+        }
+        
+     }
+
+     .DayPicker_focusRegion{
+
+        .DayPickerNavigation_button__default{
+         width: 38px;
+         height: 38px;
+         border: 0px;
+         border-radius: 50px;
+         background-color: $secondaryColor;
+
+             .DayPickerNavigation_svg__horizontal{
+             fill: $light;  
+             margin-top: 3px; 
+             }
+        }
+         
+     }
+
+     .CalendarMonth_caption{
+
+        strong{
+        font-size: 1.1rem;
+        color: $secondaryColor;
+        }
+
+     }
+
+     .CalendarMonth_table{
+        margin-top: 15px;
+      
+         .CalendarDay__default{
+            border-color: transparent;
+            color:$texto ;
+            font-weight: 300;
+            font-size: 0.8rem;
+
+               &:hover{
+               background-color: transparent;
+               }
+         }
+
+         .CalendarDay__selected{
+          background: $tertiaryColor;
+          color: $light;
+          font-weight: 800;
+          border-radius: 50px;
+         }
+     }
+}

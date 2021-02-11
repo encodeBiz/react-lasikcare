@@ -10,6 +10,7 @@ import { setAppoinmentConfig } from "../../../redux/appointment_config/appointme
 import { connect } from "react-redux";
 import moment from "moment";
 import useWindowSize from "../../../hooks/useWindowSize";
+import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 
 
 /**
@@ -110,18 +111,19 @@ const CalendarAppointmentPage = (properties) => {
 
 
 	return (
-		<React.Fragment>
+		<div className="wrapper-general">
 			<Stepper
 				currentStepIndex={properties.appointment?.currentStep}
 				navigateTo={navigateTo}
 			></Stepper>
 			<div className="top-content">
-				<Button 
-					action={history.goBack} 
-					type={"back-button"} 
-					label={"Zurück"} />
+				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
 			</div>
-		
+
+			<div class="calendar-appointment-page">
+			<h1>3. Datum wählen</h1>
+
+			<CardContainer>
 			<Calendar 
 				datesList={dataCalendar} 
 				setFocused={setFocused} 
@@ -129,11 +131,14 @@ const CalendarAppointmentPage = (properties) => {
 				width={width} 
 			>
 			</Calendar>
+			</CardContainer>
 			<Button 
+			    styleType= {"main-button"}
 				type={"rounded-button"} 
-				label={"Rounded button"} ç
+				label={"TERMIN WÄHLEN"} ç
 			/>
-		</React.Fragment>
+			</div>
+		</div>
 	);
 };
 

@@ -25,24 +25,7 @@ const routes = [
 		path: "/type",
 		component: AppointmentType,
 	},
-	{
-		path: "/videollamadas",
-		component: Video_call,
-		routes: [
-			{
-				path: "/videollamadas/calendar",
-				component: CalendarOnlinePage,
-			},
-			{
-				path: "/videollamadas/confirm",
-				component: ConfirmOnlinePage,
-			},
-			{
-				path: "/videollamadas/thank",
-				component: ThankOnlinePage,
-			},
-		],
-	},
+
 	{
 		path: "/appointments",
 		component: Appointments,
@@ -66,6 +49,24 @@ const routes = [
 				path: "/appointments/thank",
 				component: ThankAppointmentPage,
 				stepNumber: 4,
+			},
+		],
+	},
+	{
+		path: "/videollamadas",
+		component: Video_call,
+		routes: [
+			{
+				path: "/videollamadas/calendar",
+				component: CalendarOnlinePage,
+			},
+			{
+				path: "/videollamadas/confirm",
+				component: ConfirmOnlinePage,
+			},
+			{
+				path: "/videollamadas/thank",
+				component: ThankOnlinePage,
 			},
 		],
 	},
