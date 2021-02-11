@@ -19,15 +19,21 @@ import "./appointments.style.css";
 function Appointments(properties) {
 	const [init, setInit] = useState(false);
 	const [clinics, setClinics] = useState([]);
-
+	
 	useEffect(() => {
-    properties.getClinicsAppointments();
-    getClinics(); 
-    getHours(); 
+		
+		properties.getClinicsAppointments();
+
+		
+
 	}, []);
 
 
-	const getHours = () => {
+	useEffect(() => {
+
+	}, [])
+
+	const getHours =  () => {
 		properties.clinics.then((clinicsState) => {
 			if (clinicsState.clinics.status === "finish" && !init) {
 				setInit(true);
@@ -41,6 +47,24 @@ function Appointments(properties) {
 		});
 	};
 
+	// properties.clinics.then((clinicsState) => {
+	// 	if (clinicsState.clinics.status === "finish" && !init) {
+	// 		setInit(true);
+	// 		const cli = clinicsState.clinics.clinics;
+	// 		for (let index = 0; index < cli.length; index++) {
+	// 			const { keycli } = cli[index];
+	// 			properties.getHoursById(keycli, "BI");
+	// 			properties.getHoursById(keycli, "BIDI");
+	// 		}
+	// 	}
+	// });
+
+	// properties.clinics.then((clinicsState) => {
+	// 	if (clinicsState.clinics.status === "finish") {
+	// 		setClinics(clinicsState.clinics.clinics);
+	// 	}
+	// });
+
 	const getClinics = () => {
 		properties.clinics.then((clinicsState) => {
 			if (clinicsState.clinics.status === "finish") {
@@ -49,6 +73,7 @@ function Appointments(properties) {
 		});
 	};
 
+	console.log(properties.routes)
 	return (
 		<Switch>
 			{properties.routes.map((route, i) => (

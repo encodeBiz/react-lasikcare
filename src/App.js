@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from "react";
-import CardContainer from "./shared_modules/CardContainer/CardContainer";
-import Card from "./shared_modules/Card/Card";
-import "./styles/App.scss";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import doctorIcon from "./assets/images/icons/doctor-color-icon.svg";
+import "./styles/App.scss";
+import image from "./assets/images/icons/doctor-color-icon.svg";
+import { setClinicAppointments } from "./redux/clinics/clinics.actions";
+import { fetchAvailableHours } from "./redux/available_hours/available_hours.actions";
+import CardContainer from "./shared_modules/CardContainer/CardContainer";
+import { Link } from "react-router-dom";
+import Card from "./shared_modules/Card/Card";
 
-function Home() {
+/**
+ * Página de ejemplo
+ * @param {Object} properties Properties para la página
+ * @param {Object} properties.store Store de redux
+ * @param {Function} properties.getClinicsAppointments Acción para obtener las clínicas
+ * @param {Function} properties.getHoursById  Acción para obtener los huecos dado una clinica y un tipo de cita
+ */
+function App(properties) {
+	const [init, setInit] = useState(false);
+	const [clinics, setClinics] = useState([]);
 	const [clientCity, setClientCity] = useState(null);
 
 	const homeLinksConfig = [
@@ -25,23 +37,60 @@ function Home() {
 	];
 
 	useEffect(() => {
-		/// GET APPOINTMENTS
 		const city = localStorage.getItem("city");
-
+		setClinics(properties.clinics);
 		if (city) {
 			setClientCity(city);
-			getAppointmentHours(clientCity);
 		}
-		// eslint-disable-next-line 
-	}, []);
 
+		getAsyncData();
+		// eslint-disable-next-line
+	}, [clinics]);
 
-
-	const getAppointmentHours = async () => {
+	const getAsyncData = async () => {
 		try {
-			/// GET APPOINTMENTS DISPATCH
-		} catch (error) {}
+			await properties.setClinicAppointments();
+
+			await getAllClinicsHours();
+		} catch (error) {
+			console.log(error);
+		}
 	};
+
+	/**
+	 *
+	 */
+
+	const getAllClinicsHours = () => {
+		clinics.clinics.forEach((clinic) => {
+			console.log("Hola");
+			properties.fetchAvailableHours(clinic.keycli, "BI");
+			properties.fetchAvailableHours(clinic.keycli, "BIDI");
+		});
+	};
+
+	// properties.store.clinics.then( clinicsState => {
+	//   if(clinicsState.clinics.status === 'finish' && !init ){
+	//     setInit(true)
+	//     const cli = clinicsState.clinics.clinics
+	//     for (let index = 0; index < cli.length; index++) {
+	//       const {keycli} = cli[index];
+	//       properties.getHoursById(keycli,'BI')
+	//       properties.getHoursById(keycli,'BIDI')
+	//     }
+	//   }
+	// })
+
+	// /* properties.store.available_hours.then(
+	//   (_store) => {
+	//     console.log('available_hours', _store)
+	// }) */
+	// properties.store.clinics.then( clinicsState => {
+	//   if (clinicsState.clinics.status === 'finish'){
+	//     setClinics(clinicsState.clinics.clinics)
+	//   }
+	// })
+
 
 	return (
 		<React.Fragment>
@@ -69,4 +118,17 @@ function Home() {
 	);
 }
 
-export default connect()(Home);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		setClinicAppointments: () => dispatch(setClinicAppointments()),
+		fetchAvailableHours: (keycli, appointments_type) =>
+			dispatch(fetchAvailableHours(keycli, appointments_type)),
+	};
+};
+
+const mapStateToProps = (state) => ({
+	clinics: state.clinics,
+	available_hours: state.available_hours,
+});
+
+export default connect(mapDispatchToProps, mapStateToProps)(App);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
+import Card from "../../../shared_modules/Card/Card";
 
 import "./CityAppointmentPage.scss";
 import { connect } from "react-redux";
@@ -14,41 +15,36 @@ import madridIcon from "../../../assets/images/icons/one.jpg";
 import albaceteIcon from "../../../assets/images/icons/dos.jpg";
 import toledoIcon from "../../../assets/images/icons/tres.jpg";
 import Card from "../../../shared_modules/Card/Card";
+import { setClinicAppointments } from "../../../redux/clinics/clinics.actions";
+import { fetchAvailableHours } from "../../../redux/available_hours/available_hours.actions";
 
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store
- * @param {Object} properties 
+ * @param {Object} properties
  * @param {Promise} properties.clinics Clínicas disponibles
  */
 const CityAppointmentPage = (properties) => {
-	const history = useHistory()
-	const [clinicsState, setClinics] = useState({status: 'pending', clinics: []})
-	const [selectedClinic, selectClinic] = useState(null)
+	const history = useHistory();
+	const [clinics, setClinics] = useState([]);
+	const [selectedClinic, selectClinic] = useState(null);
+	const [clientCity, setClientCity] = useState(null);
+
 	const goBack = useHistory().goBack;
+
 	const cities = [
 		{
-			name: 'Münich',
-			icon: madridIcon
+			name: "Münich",
+			icon: madridIcon,
 		},
 		{
-			name: 'Augsburg',
-			icon: albaceteIcon
+			name: "Augsburg",
+			icon: albaceteIcon,
 		},
 		{
-			name: 'Rosenheim',
-			icon: toledoIcon
-		}
+			name: "Rosenheim",
+			icon: toledoIcon,
+		},
 	];
-
-	useEffect(() => {
-		properties.clinics
-		.then(_c => {
-			setClinics(_c.clinics)
-		})
-	}, [clinicsState])
-
-	
-
 	/**
 	 * Setea el currentStep del store.
 	 */
@@ -57,30 +53,64 @@ const CityAppointmentPage = (properties) => {
 		// eslint-disable-next-line
 	}, []);
 
-	const navigateTo = (url) => history.push(url)//
+	useEffect(() => {
+		
+
+		const city = localStorage.getItem('city')
 
 
-	const paintCities = ()=>{
-		if(clinicsState.clinics)
-		 return clinicsState.clinics.map((clinic, index)=>{
-				return  {value: clinic ,label: clinic.name }
-			})
-		else return <h1>LOADING</h1>
+		setClinics(properties.clinics)
+		if(city){
+			setClientCity(city)
+		}
+
+
+		getAsyncData()
+
+
+
+		// eslint-disable-next-line
+	}, [clinics]);
+
+
+
+	const getAsyncData = async () => {
+		try {
+			const res = await properties.setClinicAppointments()
+			console.log(res)
+			// await getAllClinicsHours();
+
+		} catch (error) {
+			console.log(error)
+		}
+
 	}
 
-	const handleEventSelect = ($event)=> selectClinic($event.value);
+
+
+	const getAllClinicsHours = () => {
+		clinics.clinics.forEach((clinic) => {
+			console.log("Hola");
+			properties.fetchAvailableHours(clinic.keycli, "BI");
+			properties.fetchAvailableHours(clinic.keycli, "BIDI");
+		});
+	}
+ 
+	const navigateTo = (url) => history.push(url); //
+
+
+	const handleEventSelect = ($event) => selectClinic($event.value);
 	const handleEventAccept = () => {
-		if(selectedClinic != null) properties.setAppoinmentConfig('city', selectedClinic)
+		if (selectedClinic != null) properties.setAppoinmentConfig("city", selectedClinic);
 	};
+
+	const updateAppointment = (data) => {};
 
 	return (
 		<div className="wrapper-general">
-			{/* <Stepper currentStepIndex = {properties.appointment.currentStep} navigateTo={navigateTo}/>
-			<div className="top-content">
-				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
-			</div> */}
+
 			<div className="title-seccion">
-			<h1>Standort wählen</h1>	
+				<h1>Standort wählen</h1>
 			</div>
 			<div className="city-appointment-container">
 				<CardContainer isColumn={true}>
@@ -94,13 +124,11 @@ const CityAppointmentPage = (properties) => {
 						)
 					}
 
-				{/* <SelectComponent options={paintCities()} handleEvent={handleEventSelect}></SelectComponent> */}
 				</CardContainer>
 				{/* <div className="container-row">
 					<Button action={handleEventAccept} styleType={"rounded-button"} label={"fortsetzen"} />
 				</div> */}
 			</div>
-			
 		</div>
 	);
 };
@@ -113,12 +141,27 @@ const mapDispatchToProps = (dispatch) => ({
 	 * @description Actualiza un campo del objeto de appointment
 	 */
 	setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
+
+	/**
+	 *
+	 */
+	setClinicAppointments: () => dispatch(setClinicAppointments()),
+
+	/**
+	 * 
+	 * @param {String} keycli Código de la ciudad
+	 * @param {('BI' | 'BIDI')} appointments_type Tipo de cita BI = Gratis | BIDI = Pago 
+	 */
+
+	fetchAvailableHours: (keycli, appointments_type) =>
+		dispatch(fetchAvailableHours(keycli, appointments_type)),
 });
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (state) => {
 	return {
-		appointment: store.appointment,
-		clinics: store.clinics
+		clinics: state.clinics,
+		appointment: state.appointment,
+		available_hours: state.available_hours,
 	};
 };
 

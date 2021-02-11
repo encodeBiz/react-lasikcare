@@ -4,12 +4,13 @@ import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import Card from "../../../shared_modules/Card/Card";
 import testImage from "../../../assets/images/icons/doctor-color-icon.svg";
 import { connect } from "react-redux";
-import { useHistory } from "react-router";
+import { Switch, useHistory } from "react-router";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
 import Button from "../../../shared_modules/Button/Button";
 import iconFree from "../../../assets/images/icons/type-pay.svg"
 import iconPay from "../../../assets/images/icons/type-free.svg"
+import { RouteWithSubRoutes } from "../../../router/RouterHelper";
 
 /**
  *
@@ -19,8 +20,6 @@ import iconPay from "../../../assets/images/icons/type-free.svg"
  */
 
 const TypeAppointmentPage = (properties) => {
-	
-	
 	/**@description Configuración cards */
 
 	const appointmentTypes = [
@@ -38,7 +37,7 @@ const TypeAppointmentPage = (properties) => {
 
 	const history = useHistory();
 
-	const navigateTo = (url) => history.push(url)
+	const navigateTo = (url) => history.push(url);
 
 	/**
 	 * @description Setea el currentStep del store.
@@ -57,7 +56,7 @@ const TypeAppointmentPage = (properties) => {
 
 	const onAppointmentTypeSelection = (type) => {
 		properties.setAppoinmentConfig("type", type);
-		history.push("/appointments/city");
+		history.push("/appointments/calendar");
 	};
 
 	return (

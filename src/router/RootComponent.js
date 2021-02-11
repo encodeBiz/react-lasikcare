@@ -14,9 +14,17 @@ import ThankOnlinePage from "../page_modules/video_call/ThankOnlinePage/ThankOnl
 import App from "../App";
 import Navbar from "../shared_modules/Navbar/Navbar";
 import { connect } from "react-redux";
-
+import AppointmentType from "../page_modules/appointmentType/AppointmentType";
 
 const routes = [
+	{
+		path: "/city",
+		component: CityAppointmentPage,
+	},
+	{
+		path: "/type",
+		component: AppointmentType,
+	},
 	{
 		path: "/videollamadas",
 		component: Video_call,
@@ -42,11 +50,6 @@ const routes = [
 			{
 				path: "/appointments/type",
 				component: TypeAppointmentPage,
-				stepNumber: 0,
-			},
-			{
-				path: "/appointments/city",
-				component: CityAppointmentPage,
 				stepNumber: 1,
 			},
 			{
@@ -68,15 +71,15 @@ const routes = [
 	},
 	{
 		path: "/",
-		component: App,
+		component: CityAppointmentPage,
 	},
 ];
 
 /**
- * 
+ *
  * Enrutador principal de la plataforma
- * @param {Object} properties 
- * @param {Object} properties.errors Estado del controlador de errores 
+ * @param {Object} properties
+ * @param {Object} properties.errors Estado del controlador de errores
  * @param {String} properties.errors.type Tipo de error
  * @param {String} properties.errors.message Mensaje del error
  */
@@ -92,8 +95,6 @@ const Root = (properties) => {
 		</React.Fragment>
 	);
 };
-
-
 
 const mapStateToProps = (state) => ({
 	errors: state.errors,
