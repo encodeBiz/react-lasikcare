@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
-import Stepper from "../../../shared_modules/Stepper/Stepper";
-import Card from "../../../shared_modules/Card/Card";
-
 import "./CityAppointmentPage.scss";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
-import Button from "../../../shared_modules/Button/Button";
-import { componentDidUpdate } from "../../../redux/redux.helper";
 
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
-import SelectComponent from "../../../shared_modules/Select/Select.component";
 import madridIcon from "../../../assets/images/icons/one.jpg";
 import albaceteIcon from "../../../assets/images/icons/dos.jpg";
 import toledoIcon from "../../../assets/images/icons/tres.jpg";
-import { setClinicAppointments } from "../../../redux/clinics/clinics.actions";
+import Card from "../../../shared_modules/Card/Card";
+import { fetchClinics } from "../../../redux/clinics/clinics.actions";
 import { fetchAvailableHours } from "../../../redux/available_hours/available_hours.actions";
 
 /**
@@ -24,15 +19,12 @@ import { fetchAvailableHours } from "../../../redux/available_hours/available_ho
  */
 const CityAppointmentPage = (properties) => {
 	const history = useHistory();
-	const [clinics, setClinics] = useState([]);
-	const [selectedClinic, selectClinic] = useState(null);
-	const [clientCity, setClientCity] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
 
-	const goBack = useHistory().goBack;
-
+	
 	const cities = [
 		{
-			name: "Münich",
+			name: "München",
 			icon: madridIcon,
 		},
 		{
@@ -44,94 +36,97 @@ const CityAppointmentPage = (properties) => {
 			icon: toledoIcon,
 		},
 	];
+
+	/**
+	 * Se ejecuta la función que se encarga de conseguir las clínicas
+	 */
+
+	useEffect(() => {
+		getClinics();
+		// eslint-disable-next-line
+	}, []);
+
+	/**
+	 *  Se gestiona la llamada para conseguir la lista de clínicas
+	 * 	Cuando se termina la llamada se setea el loading a false
+	 */
+
+	const getClinics = async () => {
+		try {
+			await properties.fetchClinics();
+			setIsLoading(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	/**
 	 * Setea el currentStep del store.
 	 */
 	useEffect(() => {
-		properties.setAppoinmentConfig("currentStep", 1);
-		// eslint-disable-next-line
-	}, []);
+		if (properties.clinics.clinics.length > 0) {
+			const cities = JSON.parse(localStorage.getItem("cities"));
+			if (cities) {
+				getClinicsHours(cities);
+			}
 
-	useEffect(() => {
-		
-
-		const city = localStorage.getItem('city')
-
-
-		setClinics(properties.clinics)
-		if(city){
-			setClientCity(city)
+			properties.setAppoinmentConfig("currentStep", 0);
 		}
-
-
-		getAsyncData()
-
-
-
 		// eslint-disable-next-line
-	}, [clinics]);
+	}, [isLoading]);
 
+	/**
+	 * @param {Object} selectedCities
+	 * Por cada uno de las clínicas se hace una llamada para conseguir
+	 * los huecos tanto en "BI" (gratis) como en "BIDI" (de pago)
+	 */
 
-
-	const getAsyncData = async () => {
-		try {
-			const res = await properties.setClinicAppointments()
-			console.log(res)
-			// await getAllClinicsHours();
-
-		} catch (error) {
-			console.log(error)
-		}
-
-	}
-
-
-
-	const getAllClinicsHours = () => {
-		clinics.clinics.forEach((clinic) => {
-			console.log("Hola");
+	const getClinicsHours = (selectedCities) => {
+		selectedCities.forEach((clinic) => {
 			properties.fetchAvailableHours(clinic.keycli, "BI");
 			properties.fetchAvailableHours(clinic.keycli, "BIDI");
 		});
-	}
- 
-	const navigateTo = (url) => history.push(url); //
-
-
-	const handleEventSelect = ($event) => selectClinic($event.value);
-	const handleEventAccept = () => {
-		if (selectedClinic != null) properties.setAppoinmentConfig("city", selectedClinic);
 	};
 
-	const updateAppointment = (data) => {};
+	/**
+	 *
+	 * @param {String} keycli
+	 * @param {String} name
+	 * @param {String} address
+	 *
+	 * El usuario selecciona la ciudad en la que quiere la consulta,
+	 * Se le redirige a la vista de selección de tipo de cita
+	 * Si hay ciudades en el local storage se realiza una llamada para conseguir los huecos
+	 * de las ciudades del local storage y de la selección del usuario.
+	 * Si no, se limita a hacer una llamada por la ciudad seleccionada.
+	 *
+	 */
+	const handleCitySelect = ({ keycli, name, address }) => {
+		if (keycli) {
+			properties.setAppoinmentConfig("city", { keycli, name, address });
+			history.push("/type");
+			getClinicsHours([{ keycli, name }]);
+		}
+	};
 
 	return (
-		<div className="city-appointment">
+		<div className="wrapper-general">
 			<div className="title-seccion">
 				<h1>Standort wählen</h1>
 			</div>
-			<div className="content-select-comun">
-				<CardContainer>
-					<ul>
-						{cities.map((city) => (
-							<Card
-								key={city.name}
-								onClick={() => {
-									properties.setAppoinmentConfig("city", city.name);
-									navigateTo("/type");
-								}}
-							>
-								<div className="img-li">
-									<img src={city.icon} alt={city.icon} />
-								</div>
-								<span>{city.name}</span>
-							</Card>
-						))}
-					</ul>
+			<div className="city-appointment-container">
+				<CardContainer isColumn={true}>
+					{properties.clinics.clinics?.length > 0 &&
+						properties.clinics.clinics.map((city, index) => {
+							const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
+							return (
+								<Card key={index} handleClick={handleCitySelect} clickParam={city}>
+									<img src={cityIcon?.icon} alt={cityIcon?.icon} className="type-image-city" />
+									<p>{city.name}</p>
+								</Card>
+							);
+						})}
 				</CardContainer>
-				{/* <div className="container-row">
-					<Button action={handleEventAccept} styleType={"rounded-button"} label={"fortsetzen"} />
-				</div> */}
 			</div>
 		</div>
 	);
@@ -148,17 +143,18 @@ const mapDispatchToProps = (dispatch) => ({
 
 	/**
 	 *
-	 */
-	setClinicAppointments: () => dispatch(setClinicAppointments()),
-
-	/**
-	 * 
 	 * @param {String} keycli Código de la ciudad
-	 * @param {('BI' | 'BIDI')} appointments_type Tipo de cita BI = Gratis | BIDI = Pago 
+	 * @param {('BI' | 'BIDI')} appointments_type Tipo de cita BI = Gratis | BIDI = Pago
 	 */
 
 	fetchAvailableHours: (keycli, appointments_type) =>
 		dispatch(fetchAvailableHours(keycli, appointments_type)),
+
+	/**
+	 * @description Devuelve una lista de clínicas
+	 */
+
+	fetchClinics: () => dispatch(fetchClinics()),
 });
 
 const mapStateToProps = (state) => {

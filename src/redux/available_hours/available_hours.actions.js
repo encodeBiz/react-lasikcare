@@ -1,9 +1,9 @@
 import { getHuecos } from "../../services/appointments.service";
 
-export const GET_HOURS_BY_ID = "get_hours_by_id";
+export const SET_HOURS = "SET_HOURS";
 export const GET_HOURS = "get_hours";
 
-export const getHoursById = (keycli, appointments_type, data) => ({ type: GET_HOURS_BY_ID, clinic_data: { keycli: keycli, appointments_type: appointments_type }, data, });
+export const getHoursById = (keycli, appointments_type, data) => ({ type: SET_HOURS, clinic_data: { keycli: keycli, appointments_type: appointments_type }, data, });
 export const getHours = ({ keycli, appointments_type }) => ({ type: GET_HOURS, clinic_data: { appointments_type: appointments_type }, });
 
 /**
@@ -18,19 +18,15 @@ export const getHours = ({ keycli, appointments_type }) => ({ type: GET_HOURS, c
 
 
 export const fetchAvailableHours = (keycli, type) => {
-	return async (dispatch, getState) => {
+	return async (dispatch) => {
 
         try {
-            const currentState = getState();
             const date = new Date(new Date().setMonth(2)).toLocaleDateString()
 
-            console.log(currentState)
-    
-            const res = await Promise.all([currentState, getHuecos({ keycli, date, type })]);
+            const res = await Promise.all([getHuecos({ keycli, date, type })]);
+ 
+            const data = res[0].huecos ? {[keycli] : { [type] :  res[0].huecos } } : {};
 
-            
-            const data = res[0][keycli]?.data ? res[0][keycli]?.data : {};
-    
             return dispatch(getHoursById(keycli, type, data));
             
         } catch (error) {

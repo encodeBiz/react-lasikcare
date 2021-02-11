@@ -96,6 +96,8 @@ const Root = (properties) => {
 	);
 };
 
+
+
 const mapStateToProps = (state) => ({
 	errors: state.errors,
 });

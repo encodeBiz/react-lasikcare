@@ -4,10 +4,9 @@ import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import Card from "../../../shared_modules/Card/Card";
 import testImage from "../../../assets/images/icons/doctor-color-icon.svg";
 import { connect } from "react-redux";
-import { Switch, useHistory } from "react-router";
+import { useHistory } from "react-router";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
-import { RouteWithSubRoutes } from "../../../router/RouterHelper";
 
 /**
  *
@@ -41,7 +40,7 @@ const TypeAppointmentPage = (properties) => {
 	 */
 
 	useEffect(() => {
-		properties.setAppoinmentConfig("currentStep", 0);
+		properties.setAppoinmentConfig("currentStep", 2);
 		// eslint-disable-next-line
 	}, []);
 
@@ -74,6 +73,8 @@ const TypeAppointmentPage = (properties) => {
 		</React.Fragment>
 	);
 };
+
+
 
 /**
  *

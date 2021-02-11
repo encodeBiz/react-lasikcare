@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import Calendar from "../../../shared_modules/Calendar/Calendar";
 
-
 import "./CalendarAppointmentPage.scss";
 import Button from "../../../shared_modules/Button/Button";
 import { useHistory } from "react-router";
@@ -11,13 +10,12 @@ import { connect } from "react-redux";
 import moment from "moment";
 import useWindowSize from "../../../hooks/useWindowSize";
 
-
 /**
- * 
+ *
  * @param {Object} properties
  * @param {Object} properties.appointment Configuración de la cita hasta el momento desde redux
  * @param {Object} properties.available_hours Horas disponibles por tipo y ciudad desde redux
- *  
+ *
  * Pagina de calendario y selección de hora
  */
 
@@ -38,53 +36,53 @@ const CalendarAppointmentPage = (properties) => {
 	const [focused, setFocused] = useState(false);
 	const [initialDate, setInitialDate] = useState(today);
 	const [datesToString, setDatesToString] = useState("");
-	const {width} = useWindowSize()
-	const [selectedType, setType] = useState(null)
-	const [selectedCity, setCity] = useState(null)
-	const [dataCalendar, setDataCalendar] = useState([])
+	const { width } = useWindowSize();
+	const [selectedType, setType] = useState(null);
+	const [selectedCity, setCity] = useState(null);
+	const [dataCalendar, setDataCalendar] = useState([]);
 
-
-	console.log(properties.appointment)
-	
 
 	/**
-	* @description Setea el currentStep del store
-	*/
+	 * Seteo del current step y de la ciudad y el tipo de consulta seleccionada
+	 */
+
+
+
 	useEffect(() => {
-		properties.available_hours
-			.then((available_hours)=>{
-				properties.setAppoinmentConfig("currentStep", 2);
-				setType(properties.appointment.type)
-				setCity(properties.appointment.city.keycli)
+		properties.setAppoinmentConfig("currentStep", 2);
+		setType(properties.appointment.type)
+		setType(properties.appointment.city.keycli)
+		// eslint-disable-next-line
+	}, []);
 
-				return available_hours
-			})
-			.then((available_hours) => {
-				/**
-				 * @type {Array.<String>}
-				 */
+	/**
+	 * @description Setea el currentStep del store
+	 */
+	useEffect(() => {
 
-				 
-				const data = selectedCity && selectedType ? available_hours[selectedCity].data[selectedType].hueco : []
-				
-				setDataCalendar(
-					data.map(item =>{
-						const date =  item.fecha.split('/')
-						const formatedDate = new Date( parseInt(date[2]) , parseInt(date[1]) - 1, parseInt(date[0]) )
-				  	return {...item, formatedDate : moment(formatedDate)}	
-					})
-				)
+		const data = selectedCity && selectedType ? properties.available_hours[selectedCity].data[selectedType].hueco : []
+
+		const filteredData = data.map((item) => {
+			const date = item.fecha.split("/")
+			const formattedDate = new Date( parseInt(date[2]) , parseInt(date[1]) - 1, parseInt(date[0]) ); 
+			return {...item, formattedDate: moment(formattedDate)}
 		})
-	}, [selectedType,selectedCity]);
+
+		setDataCalendar(filteredData)
+
+	}, [selectedType, selectedCity]);
+
+
+	console.log(dataCalendar)
 
 
 	/**
-	* @description Setea la anchura del calendario 
-	* para adaptarlo a diferentes tamaños de pantalla. 
-	*/
+	 * @description Setea la anchura del calendario
+	 * para adaptarlo a diferentes tamaños de pantalla.
+	 */
 	useEffect(() => {
-		setCalendarWidth(formatCalendarWidth(width))
-	}, [width])
+		setCalendarWidth(formatCalendarWidth(width));
+	}, [width]);
 
 	const formatCalendarWidth = (width) => {
 		//a partir de 1080 no debe ejecutarse la función
@@ -92,22 +90,19 @@ const CalendarAppointmentPage = (properties) => {
 		else if (width <= 414 || width <= 1080) return 40;
 		else if (width <= 980) return 50;
 		else return 50;
-	  };
-		
+	};
+
 	/////////////////////////////
 	// Gestión de eventos
 	/////////////////////////////
 
 	const formatDateToString = (date) => {
 		return moment(date).format("DD/MM/yyyy").split("/").join("");
-	  };
-
-
+	};
 
 	/////////////////////////////
 	// Renderizado del componente
 	/////////////////////////////
-
 
 	return (
 		<React.Fragment>
@@ -116,23 +111,16 @@ const CalendarAppointmentPage = (properties) => {
 				navigateTo={navigateTo}
 			></Stepper>
 			<div className="top-content">
-				<Button 
-					action={history.goBack} 
-					type={"back-button"} 
-					label={"Zurück"} />
+				<Button action={history.goBack} type={"back-button"} label={"Zurück"} />
 			</div>
-		
-			<Calendar 
-				datesList={dataCalendar} 
-				setFocused={setFocused} 
-				initialDate={initialDate} 
-				width={width} 
-			>
-			</Calendar>
-			<Button 
-				type={"rounded-button"} 
-				label={"Rounded button"} ç
-			/>
+
+			<Calendar
+				datesList={dataCalendar}
+				setFocused={setFocused}
+				initialDate={initialDate}
+				width={width}
+			></Calendar>
+			<Button type={"rounded-button"} label={"Rounded button"} ç />
 		</React.Fragment>
 	);
 };
@@ -168,7 +156,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (store) => {
 	return {
 		appointment: store.appointment,
-		available_hours : store.available_hours 
+		available_hours: store.available_hours,
 	};
 };
 

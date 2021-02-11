@@ -11,7 +11,6 @@ export const getClinicas = async ()=>{
     'Origin' : '*',
   }
   const response = await fetch_helper(url,'GET', headers)
-  console.log(response)
   return response
 }
 

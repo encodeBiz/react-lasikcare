@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { getHoursById } from "../../redux/available_hours/available_hours.actions";
-import { getClinicsAppointments } from "../../redux/clinics/clinics.actions";
 import { RouteWithSubRoutes } from "../../router/RouterHelper";
 import "./appointments.style.css";
 
@@ -17,63 +14,6 @@ import "./appointments.style.css";
  */
 
 function Appointments(properties) {
-	const [init, setInit] = useState(false);
-	const [clinics, setClinics] = useState([]);
-	
-	useEffect(() => {
-		
-		properties.getClinicsAppointments();
-
-		
-
-	}, []);
-
-
-	useEffect(() => {
-
-	}, [])
-
-	const getHours =  () => {
-		properties.clinics.then((clinicsState) => {
-			if (clinicsState.clinics.status === "finish" && !init) {
-				setInit(true);
-				const cli = clinicsState.clinics.clinics;
-				for (let index = 0; index < cli.length; index++) {
-					const { keycli } = cli[index];
-					properties.getHoursById(keycli, "BI");
-					properties.getHoursById(keycli, "BIDI");
-				}
-			}
-		});
-	};
-
-	// properties.clinics.then((clinicsState) => {
-	// 	if (clinicsState.clinics.status === "finish" && !init) {
-	// 		setInit(true);
-	// 		const cli = clinicsState.clinics.clinics;
-	// 		for (let index = 0; index < cli.length; index++) {
-	// 			const { keycli } = cli[index];
-	// 			properties.getHoursById(keycli, "BI");
-	// 			properties.getHoursById(keycli, "BIDI");
-	// 		}
-	// 	}
-	// });
-
-	// properties.clinics.then((clinicsState) => {
-	// 	if (clinicsState.clinics.status === "finish") {
-	// 		setClinics(clinicsState.clinics.clinics);
-	// 	}
-	// });
-
-	const getClinics = () => {
-		properties.clinics.then((clinicsState) => {
-			if (clinicsState.clinics.status === "finish") {
-				setClinics(clinicsState.clinics.clinics);
-			}
-		});
-	};
-
-	console.log(properties.routes)
 	return (
 		<Switch>
 			{properties.routes.map((route, i) => (
@@ -86,15 +26,6 @@ function Appointments(properties) {
 	);
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		getClinicsAppointments: () => dispatch(getClinicsAppointments()),
-		getHoursById: (keycli, appointments_type) => dispatch(getHoursById(keycli, appointments_type)),
-	};
-};
-const mapStateToProps = (state, routes) => ({
-	clinics: state.clinics,
-	available_hours: state.available_hours,
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Appointments);
+
+export default Appointments

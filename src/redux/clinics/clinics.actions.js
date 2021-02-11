@@ -1,15 +1,14 @@
 import { getClinicas } from "../../services/appointments.service";
 
-export const SET_CLINICS_APPOINTMENTS = "set_clinics";
-export const GET_CLINICS_APPOINTMENTS = "get_clinics";
+export const SET_CLINICS_APPOINTMENTS = "SET_CLINICS";
+export const GET_CLINICS_APPOINTMENTS = "GET_CLINICS";
 
 /**
  * Acción para lanzar el servicio de
  */
 export const setClinicsAppointments = (clinics) => ({ type: SET_CLINICS_APPOINTMENTS, action: clinics, });
-export const getClinicsAppointments = () => ({ type: GET_CLINICS_APPOINTMENTS });
 
-export const setClinicAppointments = () => {
+export const fetchClinics = () => {
     return async (dispatch) => {
         try {
             const clinics = await getClinicas();
@@ -17,7 +16,6 @@ export const setClinicAppointments = () => {
                 status: "finish",
 				clinics,
 			};
-			console.log(clinicsData)
 			return dispatch(setClinicsAppointments(clinicsData));
 		} catch (error) {
 			console.log(error);
@@ -25,9 +23,4 @@ export const setClinicAppointments = () => {
 	};
 };
 
-export const fetchClinicAppointments = () => {
-	return (dispatch) => {
-		return dispatch(getClinicsAppointments());
-	};
-};
 

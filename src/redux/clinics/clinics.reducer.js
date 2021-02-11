@@ -13,7 +13,8 @@ const initState ={status: 'pending', clinics: []}
     case SET_CLINICS_APPOINTMENTS:
       const {clinics} = action.action
       return {...state, clinics, status: "finish"}
-    case GET_CLINICS_APPOINTMENTS: 
+      case GET_CLINICS_APPOINTMENTS: 
+      console.log(action)
       return state
     default:
       return state

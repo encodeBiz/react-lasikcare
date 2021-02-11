@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import doctorIcon from "./assets/images/icons/doctor-color-icon.svg";
 import "./styles/App.scss";
 import image from "./assets/images/icons/doctor-color-icon.svg";
-import { setClinicAppointments } from "./redux/clinics/clinics.actions";
 import { fetchAvailableHours } from "./redux/available_hours/available_hours.actions";
 import CardContainer from "./shared_modules/CardContainer/CardContainer";
 import { Link } from "react-router-dom";
@@ -63,7 +62,6 @@ function App(properties) {
 
 	const getAllClinicsHours = () => {
 		clinics.clinics.forEach((clinic) => {
-			console.log("Hola");
 			properties.fetchAvailableHours(clinic.keycli, "BI");
 			properties.fetchAvailableHours(clinic.keycli, "BIDI");
 		});
@@ -120,7 +118,6 @@ function App(properties) {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		setClinicAppointments: () => dispatch(setClinicAppointments()),
 		fetchAvailableHours: (keycli, appointments_type) =>
 			dispatch(fetchAvailableHours(keycli, appointments_type)),
 	};
