@@ -13,36 +13,31 @@ import CalendarHour from "./CalendarHour/CalendarHour";
  * @param {Function} properties.setSelectedDate
  * @param {Function} properties.handleDateChange
  * @param {Function} properties.setFocused
- * @param 
- * @param {Array.<*>} properties.datesList 
- * @param {Date} properties.initialDate   
- * 
+ * @param
+ * @param {Array.<*>} properties.datesList
+ * @param {Date} properties.initialDate
+ *
  */
 
 const Calendar = (properties) => {
-	
-	
-
-
-
 	return (
-		<div>
+		<div className="calendar-container">
 			<DayPickerSingleDateController
 				numberOfMonths={1}
 				hideKeyboardShortcutsPanel={true}
-				// daySize={calendarWidth}
+				daySize={properties.calendarWidth}
 				isDayHighlighted={(day1) => properties.datesList.map((item) => item.formattedDate).some((day2) => isSameDay(day1, day2)) }
 				date={properties.initialDate} // momentPropTypes.momentObj or null
 				onDateChange={properties.handleDateChange} // PropTypes.func.isRequired
 				focused={false} // PropTypes.bool
 				onFocusChange={({ focused }) => properties.setFocused({ focused })} // PropTypes.func.isRequired
 			></DayPickerSingleDateController>
-			<CalendarHour free_hours={properties.selectedDate || []} selectHour= { properties.handleSelectedHour}></CalendarHour>
+			<CalendarHour
+				free_hours={properties.selectedDate || []}
+				selectHour={properties.handleSelectedHour}
+			></CalendarHour>
 		</div>
 	);
 };
 
-
-
-
-export default Calendar
+export default Calendar;

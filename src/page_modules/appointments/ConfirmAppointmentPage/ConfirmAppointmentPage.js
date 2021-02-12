@@ -5,6 +5,10 @@ import Button from "../../../shared_modules/Button/Button";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
+import locationUbi from "../../../assets/images/icons/location-icon.svg";
+import calendarUbi from "../../../assets/images/icons/calendar-icon.svg";
+import timeUbi from "../../../assets/images/icons/time-icon.svg"
+import "./ConfirmAppointmentPage.scss"
 
 const ConfirmPage = (properties) => {
 	const history = useHistory()
@@ -22,13 +26,43 @@ const ConfirmPage = (properties) => {
 	}, []);
 
 	return (
-		<div>
+		<div className="wrapper-general">
 			<Stepper currentStepIndex={properties.appointment.currentStep} navigateTo={navigateTo}></Stepper>
 			
-			<CardContainer>Appointment data</CardContainer>
+			<div class="appointment-summary">
+			<h2>Ihr Wunschtermin</h2>
+			<CardContainer>
+			<h3>unverbindliches Informationsgespräch</h3>
+
+            <div class="summary-icon">
 			
+			   <div class="child">
+			   <img src={locationUbi}/>
+			   <p>München</p>
+			   </div>
+
+			   <div class="child">
+				<img src={calendarUbi}/>
+				<p>29 Januar</p>
+			   </div>
+
+			   <div class="child">
+			   <img src={timeUbi}/>
+		       <p>12:00h</p>  
+			   </div>
+
+			</div>
+
+			</CardContainer>
+
+			</div>
+
+
+			<div class="form-summary">
+			<h2>Ihre Kontaktdaten</h2>
 			<CardContainer>Form</CardContainer>
-			<Button type={"rounded-button"} label={"Rounded"} />
+			</div>
+			<Button type={"rounded-button"} label={"JETZT TERMIN VEREINBAREN"} />
 		</div>
 	);
 };

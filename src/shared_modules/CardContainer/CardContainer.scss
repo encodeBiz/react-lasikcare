@@ -4,12 +4,16 @@
 
 .card-container{
     background-color: $light;
-    border-radius: 8px;
+    border-radius: 15px;
     padding: 20px; 
     text-align: left;
     display: flex;
     flex-wrap: nowrap;   
     box-shadow: 0px 2px 12px 0px rgba(239, 239, 239, 0.5) ;
+
+    @include desktop-small{
+    padding:30px;
+    }
 
 
     .SelectComponent{

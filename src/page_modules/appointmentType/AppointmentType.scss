@@ -1,0 +1,57 @@
+@import "../../styles/partials/variables";
+@import "../../styles/partials/mixins";
+
+
+.presencial-online-wrapper{
+  
+    .card-link {
+        width: 50%;
+
+          &:nth-child(1){
+          margin-right: 13px;
+
+             @include desktop-small{
+             margin-right: 20px;
+             }
+
+          }
+    }
+
+    .card{
+
+        .first-step-card{
+            text-align: center;
+            min-height: 250px;
+    
+            h3{
+            color: $secondaryColor;
+            font-size: 1.2rem;
+
+               @include tablet-medium{
+               font-size: 1.4rem;
+               }
+
+               @include desktop-small{
+               margin: 15px;
+               font-size: 1.1rem;
+               }
+            }
+
+            p{
+            margin: 15px 0px 0px 0px;
+
+               @include desktop-small{
+               font-size: 0.8rem;
+               max-width: 80%;
+               margin: auto;
+               padding-top: 15px;
+               }
+            }
+        }
+
+    }
+
+
+
+
+}

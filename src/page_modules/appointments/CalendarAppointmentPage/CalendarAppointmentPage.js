@@ -9,6 +9,9 @@ import { setAppoinmentConfig } from "../../../redux/appointment_config/appointme
 import { connect } from "react-redux";
 import moment from "moment";
 import useWindowSize from "../../../hooks/useWindowSize";
+import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
+
+
 /**
  *
  * @param {Object} properties
@@ -101,31 +104,43 @@ const CalendarAppointmentPage = (properties) => {
 
 	const handleSelectedHour = (hour) => properties.setAppoinmentConfig("calendar_hour", hour);
 
+
+	
 	/////////////////////////////
 	// Renderizado del componente
 	/////////////////////////////
 
 	return (
-		<React.Fragment>
+		<div className="wrapper-general">
 			<Stepper
 				currentStepIndex={properties.appointment?.currentStep}
 				navigateTo={navigateTo}
 			></Stepper>
 			<div className="top-content">
-				<Button action={history.goBack} type={"back-button"} label={"Zurück"} />
+				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
 			</div>
 
-			<Calendar
-				datesList={dataCalendar}
-				setFocused={setFocused}
-				initialDate={initialDate}
-				width={width}
-				selectedDate={selectedDate}
-				handleSelectedHour={handleSelectedHour}
-				handleDateChange={handleDateChange}
-			></Calendar>
-			<Button type={"rounded-button"} label={"Rounded button"} ç />
-		</React.Fragment>
+			<div class="calendar-appointment-page">
+			<h1>3. Datum wählen</h1>
+
+			<CardContainer>
+			<Calendar 
+				datesList={dataCalendar} 
+				setFocused={setFocused} 
+				initialDate={initialDate} 
+				width={width} 
+				calendarWidth={calendarWidth}
+			>
+			</Calendar>
+			</CardContainer>
+			<div class="container-button">
+			<Button 
+				type={"rounded-button"} 
+				label={"TERMIN WÄHLEN"} ç
+			/>
+			</div>
+			</div>
+		</div>
 	);
 };
 

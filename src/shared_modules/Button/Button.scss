@@ -16,10 +16,16 @@
     cursor: pointer;
     margin-top: 30px;
     text-transform: uppercase;
+    transition: all 300ms ease-in-out;
+
 
     &:hover{
     color: $tertiaryColor;
     background-color: transparent;
+    }
+
+    &:focus{
+    outline: 0;
     }
 
     @include tablet-medium{
@@ -49,6 +55,16 @@
         padding: 10px 25px 10px 36px;
         margin-top:0px;
 
+        &:hover{
+        background-color: $tertiaryColor;
+        color: white;
+           
+           &:after{
+           background-image: url(../../assets/images/icons/arrow-white.svg);
+           }
+
+        }
+
         &:after{
         content: "";
         position: absolute;
@@ -74,7 +90,6 @@
    &.nav-number{
     border-radius: 0px;
     margin: 0px;
-    width: max-content;
     font-size: 0.9rem;
     padding: 12px 12px 12px 30px;
     position: relative;
@@ -89,6 +104,15 @@
       left: 6px;
       top: 10px;
       }
+
+      @include tablet-medium{
+      width: 100%;
+      }
+
+      @include desktop-small{
+      font-size: 0.7rem;
+      }
+
    }
 
 }

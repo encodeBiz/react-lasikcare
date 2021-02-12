@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import "./TypeAppointmentPage.scss";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import Card from "../../../shared_modules/Card/Card";
-import testImage from "../../../assets/images/icons/doctor-color-icon.svg";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
+import Button from "../../../shared_modules/Button/Button";
+import iconFree from "../../../assets/images/icons/type-pay.svg"
+import iconPay from "../../../assets/images/icons/type-free.svg"
 
 /**
  *
@@ -21,17 +23,30 @@ const TypeAppointmentPage = (properties) => {
 	const appointmentTypes = [
 		{
 			text: "Unverbindliches Informationsgespräch + Ärltliche Voruntersuchung(ca. 40€)",
-			image: testImage,
+			image: iconPay,
 			type: "BIDI",
 		},
 		{
 			text: "Unverbindliches Informationsgespräch",
-			image: testImage,
+			image: iconFree,
 			type: "BI",
 		},
 	];
 
+
+	/**
+	 * 
+	 */
+
 	const history = useHistory();
+
+	/**
+	 * 
+	 * @param {String} url Dirección a la que se debe redirigir al usuario. Debe ser sustituido por redux
+	 */
+
+
+
 
 	const navigateTo = (url) => history.push(url);
 
@@ -56,9 +71,15 @@ const TypeAppointmentPage = (properties) => {
 	};
 
 	return (
-		<React.Fragment>
+		<div className="wrapper-general">
 			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
-
+			<div className="top-content">
+				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
+			</div> 
+			<div className="appointment-type-container">
+			<div>
+			<h1>2. Terminart wählen</h1>	
+			</div>
 			<CardContainer isColumn={true}>
 				{appointmentTypes.map((typeItem, index) => {
 					return (
@@ -68,9 +89,9 @@ const TypeAppointmentPage = (properties) => {
 						</Card>
 					);
 				})}
-			</CardContainer>
-		
-		</React.Fragment>
+			</CardContainer>	
+			</div>
+		</div>
 	);
 };
 

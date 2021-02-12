@@ -2,12 +2,45 @@
 @import "../../styles/partials/variables"; 
 @import "../../styles/partials/mixins";
 
+
 .card{
+    border: 1px solid lighten(#979797,30%);
+    border-radius: 10px;
+    padding: 10px;
     display: flex;
-    justify-content: center;
-    align-content: center;
-    padding: 30px; 
-    margin: 10px 0; 
-    
+    align-items: center;
+    position: relative;
+
+    &:active{
+    border: 1.2px solid $tertiaryColor;
+        
+       &:after{
+       content: "";
+       position: absolute;
+       top: -15px;
+       right: 0;
+       background-image:url(../../assets/images/icons/tick.svg);
+       background-repeat: no-repeat;
+       width: 35px;
+       height: 35px;
+       }
+    }
+
+
+     p{
+     color: $texto;
+     font-weight: bold;
+     font-size: 0.9rem;
+     margin-left: 15px;
+
+       @include tablet-small{
+        font-size: 1.1rem;
+       }
+
+       @include desktop-small{
+       font-size: 0.9rem;
+       }
+
+     }
 
 }

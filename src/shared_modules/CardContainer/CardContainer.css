@@ -24,12 +24,15 @@
 
 .card-container {
   background-color: #ffffff;
-  border-radius: 8px;
+  border-radius: 15px;
   padding: 20px;
   text-align: left;
   display: flex;
   flex-wrap: nowrap;
   box-shadow: 0px 2px 12px 0px rgba(239, 239, 239, 0.5); }
+  @media (min-width: 1080px) {
+    .card-container {
+      padding: 30px; } }
   .card-container .SelectComponent {
     width: 90%;
     margin: auto; }
