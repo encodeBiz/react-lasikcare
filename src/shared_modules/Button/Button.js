@@ -7,10 +7,11 @@ import "./Button.scss";
  * @param {Function} properties.action Acción que devuelve el evento click
  * @param {String} properties.label Label del botón 
  * @param {String} properties.styleType Tipo del botón para llamar a su correcto style
+ * @param {Boolean} properties.disabled Si es true se desabilita el botón si es false o falsy se activa
  */
 const Button = (properties) => {
 	return (
-		<button onClick={() => properties.action()} className={`main-btn ${properties.styleType}`}>
+		<button onClick={() => properties.action()} className={`main-btn ${properties.styleType}`} disabled={properties.disabled}>
 			{properties.label}
 		</button>
 	)

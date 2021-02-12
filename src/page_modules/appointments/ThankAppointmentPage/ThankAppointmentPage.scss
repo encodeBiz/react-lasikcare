@@ -1,0 +1,27 @@
+@import "../../../styles/partials/mixins"; 
+@import "../../../styles/partials/variables";
+
+
+.wrapper-general {
+	.thank-you-message {
+		display: flex;
+		flex-direction: column;
+	}
+	.card-container {
+        flex-direction: column;
+        
+        .summary-icon{
+            padding-top: 23px;
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+
+              p{
+              color: $texto;
+              margin: 0px;
+              padding-top: 5px;
+              font-weight: 300;
+              }
+           }
+	}
+}

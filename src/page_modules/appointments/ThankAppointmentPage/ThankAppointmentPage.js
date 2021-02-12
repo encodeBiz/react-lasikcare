@@ -1,19 +1,158 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import "./ThankAppointmentPage.scss";
+import moment from "moment";
+import locationUbi from "../../../assets/images/icons/location-icon.svg";
+import calendarUbi from "../../../assets/images/icons/calendar-icon.svg";
+import timeUbi from "../../../assets/images/icons/time-icon.svg";
+import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
 
-const ThankAppointmentPage = () => {
+/**
+ *
+ * @param {Object} properties
+ * @param {Object} properties.appointment
+ *
+ */
+
+const ThankAppointmentPage = (properties) => {
+	const { appointment } = properties;
+	const [children, setChildren] = useState([]);
+
+	const info = [
+		{
+			title: "Termininformation",
+			text:
+				"Sie erhalten eine automatisierte E-Mail mit der Zusammenfassung Ihrer Terminanfrage und der Adresse Ihres Termins.",
+		},
+		{
+			title: "Weiterleitung",
+			text:
+				"Wir leiten Ihren Terminwunsch an das Kundenzentrum und die Klinik weiter. Sollten noch weitere Informationen benötigt werden, melden wir uns telefonisch bei Ihren",
+		},
+	];
+
+	/**
+	 * @description Setea el currentStep del store.
+	 */
+
+	useEffect(() => {
+		properties.setAppoinmentConfig("currentStep", 4);
+		// eslint-disable-next-line
+	}, []);
+
+	/**
+	 * @see setChildrenInfo
+	 */
+
+	useEffect(() => {
+		if (appointment.calendar_hour && appointment.calendar_date) {
+			setChildrenInfo();
+		}
+		// eslint-disable-next-line
+	}, [appointment]);
+
+	/**
+	 * Setea la información que recibirá el appointment summary
+	 */
+
+	const setChildrenInfo = () => {
+		const hour = moment(appointment.calendar_hour.horaInicio, "HH:mm");
+		const formattedHour = hour.format("HH:mm");
+
+		const children = [
+			{
+				imgSource: locationUbi,
+				text: appointment.city.name,
+			},
+
+			{
+				imgSource: calendarUbi,
+				text: appointment.calendar_date.locale("de").format("dddd DD"),
+			},
+			{
+				imgSource: timeUbi,
+				text: formattedHour,
+			},
+		];
+
+		setChildren(children);
+	};
+	const thankYouTexts = {
+		BI: "Unverbindliches Informationsgespräch",
+		BIDI: "Unverbindliches Informationsgespräch + Ärltliche Voruntersuchung(ca. 40€)",
+	};
+
 	return (
-		<React.Fragment>
+		<div className="wrapper-general">
+			<h1>Thanks</h1>
 
-            <h1>Thanks</h1>
+			<CardContainer>
+				<div className="thank-you-message">
+					<img src="" alt="Thank you logo" />
+					<p>
+						Ihr Terminwusch für <strong> {thankYouTexts[appointment.type]} </strong> ist bei uns
+						eingegangen. Wir haben Ihnen eine Bestätigung an
+						<strong> {appointment.clientData.email} </strong>
+						gesendet.
+					</p>
+				</div>
+			</CardContainer>
 
-			<CardContainer>Danke</CardContainer>
-			<CardContainer>Appointment data</CardContainer>
-			
-			<CardContainer>Information</CardContainer>
-		</React.Fragment>
+			<div className="appointment-summary">
+				<CardContainer>
+					<h3>unverbindliches Informationsgespräch</h3>
+
+					<div className="summary-icon">
+						{children &&
+							children.map((child, index) => {
+								return (
+									<div className="child" key={index}>
+										<img src={child.imgSource} alt="..." />
+										<p>{child.text}</p>
+									</div>
+								);
+							})}
+					</div>
+				</CardContainer>
+			</div>
+
+			<h2>Wie es weiter geht</h2>
+			<CardContainer>
+				{info.map((item, index) => {
+					return (
+						<div className="info-item" key={index}>
+							<h5>{item.title}</h5>
+							<p>{item.text}</p>
+						</div>
+					);
+				})}
+			</CardContainer>
+		</div>
 	);
 };
 
-export default ThankAppointmentPage;
+/**
+ *
+ * @param {Function} dispatch
+ * @description Transforma las acciones de redux en props
+ *
+ */
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		/**
+		 *
+		 * @param {String} property  Propiedad del estado que se debe actualizar
+		 * @param {String || Object || number} data Datos con los que se actualizará la propiedad anterior
+		 * @description Actualiza un campo del objeto de appointment
+		 */
+		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
+	};
+};
+
+const mapStateToProps = (state) => ({
+	appointment: state.appointment,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ThankAppointmentPage);

@@ -68,7 +68,6 @@ const AppointmentType = (properties) => {
 										</div>
 										<p>{link.subtitle}</p>
 									</div>
-									<p>{link.subtitle}</p>
 								</Card>
 							</Link>
 						);

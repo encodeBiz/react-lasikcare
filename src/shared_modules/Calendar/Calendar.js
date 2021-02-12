@@ -13,7 +13,6 @@ import CalendarHour from "./CalendarHour/CalendarHour";
  * @param {Function} properties.setSelectedDate
  * @param {Function} properties.handleDateChange
  * @param {Function} properties.setFocused
- * @param
  * @param {Array.<*>} properties.datesList
  * @param {Date} properties.initialDate
  *

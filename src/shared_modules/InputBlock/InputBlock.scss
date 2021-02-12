@@ -1,0 +1,89 @@
+@import "../../styles/partials/_fonts.scss";
+@import "../../styles/partials/_variables.scss";
+@import "../../styles/partials/_mixins.scss";
+
+
+
+
+label, .label {
+	position: relative;
+	// color: $brandDeepblue;
+	font-weight: 500;
+	// font-family: $title;
+
+	& > span:first-child {
+			transform: translateX(12px);    
+	}
+
+	span {
+			display: block;
+			margin-bottom: 5px;
+	}
+}
+
+.label {
+  transform: translateX(12px);
+}    
+
+input {
+	// @include inputApp;
+	
+	&:focus {
+		 outline: 0px;
+		 box-shadow: 0 0 0px 2px #7dbcea;
+	}
+}
+
+.password-group {
+	label {
+		position: static;
+	}
+}
+
+.hide-password,.show-password {
+	position: absolute;
+	top: 38px;
+	right: 10px;
+	cursor: pointer;
+	width: 25px;
+	height: 25px;
+	background-repeat: no-repeat;
+	margin-bottom: 0px;
+
+	@include desktop-medium {
+		top: 35px;
+	}
+
+	@include tablet-small {
+		top: 28px;
+	}
+
+	@include phone-large {
+		top: 25px;
+	}
+}
+
+.hide-password {
+//   background-image: url(../../assets/images/icons/hide-g.svg);
+}
+
+.show-password {
+//   background-image: url(../../assets/images/icons/show-g.svg);
+}
+
+.signin-card, .forgot-card {
+	input[type=text]:first-of-type {
+		// background: url(../../assets/images/icons/card-g.svg) no-repeat $brandLightGrey;
+		background-size: 25px;
+		background-position: 96% 50%;
+	}
+
+	.password-input {
+		&>input[type=text] {
+			// background: $brandLightGrey;
+		}
+	}
+}
+
+
+
