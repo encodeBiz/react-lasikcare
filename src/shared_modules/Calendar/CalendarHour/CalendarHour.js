@@ -8,12 +8,12 @@ import "./CalendarHour.scss"
  */
 const CalendarHour = (properties) => {
     return (
-        <div>
+        <div className="hours-container">
            {
                properties.free_hours.map((item, index) =>{
                 const a = item.horaRealCita.slice(0,2)
                 const b = item.horaRealCita.slice(2,4)
-                return <p key={index} onClick={() => properties.selectHour(item)}>{`${a}:${b}`}</p>
+                return <div className="hour-item" key={index} onClick={() => properties.selectHour(item)}>{`${a}:${b}`}</div>
                }) 
            }
         </div>

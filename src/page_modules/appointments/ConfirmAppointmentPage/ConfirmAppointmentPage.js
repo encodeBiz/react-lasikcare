@@ -53,7 +53,6 @@ const ConfirmPage = (properties) => {
 				imgSource: locationUbi,
 				text: appointment.city.name,
 			},
-
 			{
 				imgSource: calendarUbi,
 				text: appointment.calendar_date.locale("de").format("dddd DD"),
@@ -115,6 +114,8 @@ const ConfirmPage = (properties) => {
 					</div>
 				</CardContainer>
 			</div>
+
+			
 			{/* Formulario */}
 
 			<ConfirmForm

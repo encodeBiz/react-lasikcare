@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import doctorIcon from "./assets/images/icons/doctor-color-icon.svg";
 import "./styles/App.scss";
-import image from "./assets/images/icons/doctor-color-icon.svg";
 import { fetchAvailableHours } from "./redux/available_hours/available_hours.actions";
 import CardContainer from "./shared_modules/CardContainer/CardContainer";
 import { Link } from "react-router-dom";
@@ -16,9 +15,8 @@ import Card from "./shared_modules/Card/Card";
  * @param {Function} properties.getHoursById  Acción para obtener los huecos dado una clinica y un tipo de cita
  */
 function App(properties) {
-	const [init, setInit] = useState(false);
 	const [clinics, setClinics] = useState([]);
-	const [clientCity, setClientCity] = useState(null);
+	// const [clientCity, setClientCity] = useState(null);
 
 	const homeLinksConfig = [
 		{
@@ -39,7 +37,7 @@ function App(properties) {
 		const city = localStorage.getItem("city");
 		setClinics(properties.clinics);
 		if (city) {
-			setClientCity(city);
+			// setClientCity(city);
 		}
 
 		getAsyncData();

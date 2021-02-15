@@ -25,7 +25,11 @@ const Calendar = (properties) => {
 				numberOfMonths={1}
 				hideKeyboardShortcutsPanel={true}
 				daySize={properties.calendarWidth}
-				isDayHighlighted={(day1) => properties.datesList.map((item) => item.formattedDate).some((day2) => isSameDay(day1, day2)) }
+				isDayHighlighted={(day1) =>
+					properties.datesList
+						.map((item) => item.formattedDate)
+						.some((day2) => isSameDay(day1, day2))
+				}
 				date={properties.initialDate} // momentPropTypes.momentObj or null
 				onDateChange={properties.handleDateChange} // PropTypes.func.isRequired
 				focused={false} // PropTypes.bool

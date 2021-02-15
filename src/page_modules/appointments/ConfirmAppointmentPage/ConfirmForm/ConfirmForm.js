@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Formik } from "formik";
+import { Form, Formik, Field } from "formik";
 import * as yup from "yup";
 import InputBlock from "../../../../shared_modules/InputBlock/InputBlock";
 import ErrorDialog from "../../../../shared_modules/ErrorDialog/ErrorDialog";
@@ -19,7 +19,7 @@ import Button from "../../../../shared_modules/Button/Button";
 
 const ConfirmForm = (properties) => {
 	const validationSchema = yup.object({
-		ageGroup: yup.boolean(),
+		ageGroup: yup.string(),
 		gender: yup.string(),
 		name: yup.string().required("Dieses Feld wird benötigt"),
 		surname: yup.string().required("Dieses Feld wird benötigt"),
@@ -46,7 +46,7 @@ const ConfirmForm = (properties) => {
 			<div className="form-summary">
 				<h2>Ihre Kontaktdaten</h2>
 				<Formik
-					// validationSchema={validationSchema}
+					validationSchema={validationSchema}
 					initialValues={{
 						ageGroup: "",
 						gender: "",
@@ -69,80 +69,76 @@ const ConfirmForm = (properties) => {
 							<Form onSubmit={props.handleSubmit}>
 								{/* Grupo de edad */}
 								<CardContainer isColumn={true}>
-									<div className="form-group" onClick={clearErrors}>
-										<label htmlFor="ageGroup">
-											<span>Altersgruppe</span>
-											<select
-												onChange={(e) => props.handleChange(e.target.value)}
-												onBlur={props.handleBlur}
-												value={props.values.ageGroup}
-											>
-												<option value={false}>weniger als 50 </option>
-												<option value={true}>50 +</option>
-											</select>
-										</label>
-										{props.touched.ageGroup && props.errors.ageGroup ? (
-											<ErrorDialog text={props.errors.ageGroup} />
-										) : null}
+									<div className="inline-form-group">
+										<div className="form-group" onClick={clearErrors}>
+											<label htmlFor="ageGroup">
+												<span>Altersgruppe</span>
+
+												<Field as="select" name="ageGroup">
+													<option value={"lessThan50"}>weniger als 50 </option>
+													<option value={"moreThan50"}>50 +</option>
+												</Field>
+											</label>
+											{props.touched.ageGroup && props.errors.ageGroup ? (
+												<ErrorDialog text={props.errors.ageGroup} />
+											) : null}
+										</div>
+
+										{/* Genero */}
+
+										<div className="form-group" onClick={clearErrors}>
+											<label htmlFor="gender">
+												<span>Geschlecht</span>
+
+												<Field as="select" name="gender">
+													<option value={"woman"}>Frau</option>
+													<option value={"man"}>Mann</option>
+												</Field>
+											</label>
+											{props.touched.gender && props.errors.gender ? (
+												<ErrorDialog text={props.errors.gender} />
+											) : null}
+										</div>
 									</div>
-
-									{/* Genero */}
-
-									<div className="form-group" onClick={clearErrors}>
-										<label htmlFor="gender">
-											<span>Geschlecht</span>
-											<select
-												onChange={(e) => props.handleChange(e.target.value)}
-												onBlur={props.handleBlur}
-												value={props.values.gender}
-											>
-												<option value={"woman"}>Frau</option>
-												<option value={"man"}>Mann</option>
-											</select>
-										</label>
-										{props.touched.gender && props.errors.gender ? (
-											<ErrorDialog text={props.errors.gender} />
-										) : null}
-									</div>
-
 									{/* Nombre */}
 
-									<div className="form-group" onClick={clearErrors}>
-										<InputBlock
-											label="Vorname"
-											placeholder="Vorname"
-											values={props.values.name}
-											handleBlur={props.handleBlur}
-											handleChange={props.handleChange}
-											paramChange="name"
-											paramBlur="name"
-											type={"text"}
-										/>
+									<div className="inline-form-group">
+										<div className="form-group" onClick={clearErrors}>
+											<InputBlock
+												label="Vorname"
+												placeholder="Vorname"
+												values={props.values.name}
+												handleBlur={props.handleBlur}
+												handleChange={props.handleChange}
+												paramChange="name"
+												paramBlur="name"
+												type={"text"}
+											/>
 
-										{props.touched.name && props.errors.name ? (
-											<ErrorDialog text={props.errors.name} />
-										) : null}
+											{props.touched.name && props.errors.name ? (
+												<ErrorDialog text={props.errors.name} />
+											) : null}
+										</div>
+
+										{/* Apellidos */}
+
+										<div className="form-group" onClick={clearErrors}>
+											<InputBlock
+												label="Nachnamen"
+												placeholder="Nachnamen"
+												values={props.values.surname}
+												handleBlur={props.handleBlur}
+												handleChange={props.handleChange}
+												paramChange="surname"
+												paramBlur="surname"
+												type={"text"}
+											/>
+
+											{props.touched.surname && props.errors.surname ? (
+												<ErrorDialog text={props.errors.surname} />
+											) : null}
+										</div>
 									</div>
-
-									{/* Apellidos */}
-
-									<div className="form-group" onClick={clearErrors}>
-										<InputBlock
-											label="Nachnamen"
-											placeholder="Nachnamen"
-											values={props.values.surname}
-											handleBlur={props.handleBlur}
-											handleChange={props.handleChange}
-											paramChange="surname"
-											paramBlur="surname"
-											type={"text"}
-										/>
-
-										{props.touched.surname && props.errors.surname ? (
-											<ErrorDialog text={props.errors.surname} />
-										) : null}
-									</div>
-
 									{/* Teléfono */}
 
 									<div className="form-group" onClick={clearErrors}>
@@ -184,14 +180,14 @@ const ConfirmForm = (properties) => {
 
 									<div className="form-group" onClick={clearErrors}>
 										<InputBlock
-											label="Email adresse"
-											placeholder="Email adresse"
-											values={props.values.email}
+											label="Nachricht"
+											placeholder="Nachricht"
+											values={props.values.message}
 											handleBlur={props.handleBlur}
 											handleChange={props.handleChange}
-											paramChange="email"
-											paramBlur="email"
-											type={"text"}
+											paramChange="message"
+											paramBlur="message"
+											type={"textarea"}
 										/>
 
 										{props.touched.email && props.errors.email ? (
@@ -204,7 +200,8 @@ const ConfirmForm = (properties) => {
 											<label htmlFor="accepted">
 												<input
 													type="checkbox"
-													value="accepted"
+													value={props.values.accepted}
+													// checked={props.values.accepted}
 													onChange={(e) => props.handleChange(e.target.value)}
 													onBlur={props.handleBlur}
 												/>

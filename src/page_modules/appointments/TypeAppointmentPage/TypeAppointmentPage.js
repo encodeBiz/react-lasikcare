@@ -1,15 +1,29 @@
 import React, { useEffect } from "react";
-import "./TypeAppointmentPage.scss";
+
+// Router
+
+import { useHistory } from "react-router";
+
+// Redux
+
+import { connect } from "react-redux";
+import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
+
+// Componentes 
+
+import Button from "../../../shared_modules/Button/Button";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import Card from "../../../shared_modules/Card/Card";
-import { connect } from "react-redux";
-import { useHistory } from "react-router";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
-import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
-import Button from "../../../shared_modules/Button/Button";
+
+//Assets
+
 import iconFree from "../../../assets/images/icons/type-pay.svg"
 import iconPay from "../../../assets/images/icons/type-free.svg"
 
+// Estilos
+
+import "./TypeAppointmentPage.scss";
 /**
  *
  * @param {Object} properties
@@ -19,6 +33,8 @@ import iconPay from "../../../assets/images/icons/type-free.svg"
 
 const TypeAppointmentPage = (properties) => {
 	/**@description Configuración cards */
+
+	console.log(properties.appointment)
 
 	const appointmentTypes = [
 		{
@@ -35,18 +51,15 @@ const TypeAppointmentPage = (properties) => {
 
 
 	/**
-	 * 
+	 * Hook para usar la funcionalidad de history de React Router
 	 */
 
 	const history = useHistory();
 
 	/**
-	 * 
+	 *
 	 * @param {String} url Dirección a la que se debe redirigir al usuario. Debe ser sustituido por redux
 	 */
-
-
-
 
 	const navigateTo = (url) => history.push(url);
 
@@ -75,10 +88,10 @@ const TypeAppointmentPage = (properties) => {
 			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
 			<div className="top-content">
 				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
-			</div> 
+			</div>
 			<div className="appointment-type-container">
 			<div>
-			<h1>2. Terminart wählen</h1>	
+			<h1>2. Terminart wählen</h1>
 			</div>
 			<CardContainer isColumn={true}>
 				{appointmentTypes.map((typeItem, index) => {
@@ -89,7 +102,7 @@ const TypeAppointmentPage = (properties) => {
 						</Card>
 					);
 				})}
-			</CardContainer>	
+			</CardContainer>
 			</div>
 		</div>
 	);

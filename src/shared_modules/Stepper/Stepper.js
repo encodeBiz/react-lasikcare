@@ -2,6 +2,8 @@ import React from "react";
 import "./Stepper.scss";
 
 const Stepper = ({ currentStepIndex, navigateTo }) => {
+	
+	
 
 	const steps = [
 		{
@@ -26,19 +28,26 @@ const Stepper = ({ currentStepIndex, navigateTo }) => {
 		},
 	];
 
-	const isActive = (step) => (currentStepIndex === step.stepNumber ? "is-active" : "");
-
 	return (
 		<div className="step-container">
 			<ul>
-			{steps.map((step, index) => {
-				return (
-					<li key={index} className={`${isActive(step)} is-active step is-solid`} onClick={() => navigateTo(step.url)}>
-						<div className="circle-num"><span className="num">{step.stepNumber + 1}</span></div>
-						<span className="text-step">{step.stepText}</span>
-					</li>
-				);
-			})}
+				{steps.map((step, index) => {
+
+					const isActive = step.stepNumber <= currentStepIndex ? "is-active is-solid" : "is-dotted";
+
+
+					console.log("________________________")
+					console.log(step.stepNumber, currentStepIndex,)
+					console.log(step.stepNumber <= currentStepIndex)
+					return (
+						<li key={index} className={`${isActive} step`} onClick={() => navigateTo(step.url)}>
+							<div className="circle-num">
+								<span className="num">{step.stepNumber + 1}</span>
+							</div>
+							<span className="text-step">{step.stepText}</span>
+						</li>
+					);
+				})}
 			</ul>
 		</div>
 	);

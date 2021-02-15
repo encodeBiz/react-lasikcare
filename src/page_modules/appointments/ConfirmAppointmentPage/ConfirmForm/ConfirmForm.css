@@ -1,4 +1,28 @@
-.form-group-inline {
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Regular.eot");
+  src: url("../../assets/fonts/Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Regular.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Regular.woff") format("woff"), url("../../assets/fonts/Gilroy-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Bold.eot");
+  src: url("../../assets/fonts/Gilroy-Bold.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Bold.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Bold.woff") format("woff"), url("../../assets/fonts/Gilroy-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Light.eot");
+  src: url("../../assets/fonts/Gilroy-Light.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Light.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Light.woff") format("woff"), url("../../assets/fonts/Gilroy-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap; }
+
+.inline-form-group {
   display: flex;
   justify-content: space-between; }
 
@@ -6,8 +30,22 @@
   max-width: 350px;
   margin: auto;
   margin-bottom: 40px; }
-  .form-group span {
-    text-align: left; }
+  .form-group input, .form-group select {
+    outline: 0;
+    margin: 0 10px;
+    border-width: 0 0 1px;
+    border-color: grey;
+    width: 95%;
+    padding: 12px;
+    background: none;
+    -webkit-appearance: none; }
+    .form-group input::placeholder, .form-group select::placeholder {
+      font-size: .8rem;
+      color: #808080;
+      margin: 30px 0px 10px 0px; }
 
 .checkbox {
   display: flex; }
+  .checkbox input[type='checkbox'] {
+    -webkit-appearance: checkbox !important;
+    background: darkgoldenrod; }
