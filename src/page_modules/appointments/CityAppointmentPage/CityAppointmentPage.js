@@ -1,18 +1,31 @@
 import React, { useEffect, useState } from "react";
-import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
-import Stepper from "../../../shared_modules/Stepper/Stepper";
-import "./CityAppointmentPage.scss";
-import { connect } from "react-redux";
+
+//Router
+
 import { useHistory } from "react-router";
 
+// Redux
+
+import { connect } from "react-redux";
+import { fetchAvailableHours } from "../../../redux/available_hours/available_hours.actions";
+import { fetchClinics } from "../../../redux/clinics/clinics.actions";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
+
+// Componentes
+
+import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
+import Card from "../../../shared_modules/Card/Card";
+
+// Assets
+
 import madridIcon from "../../../assets/images/icons/one.jpg";
 import albaceteIcon from "../../../assets/images/icons/dos.jpg";
 import toledoIcon from "../../../assets/images/icons/tres.jpg";
-import Card from "../../../shared_modules/Card/Card";
-import { fetchClinics } from "../../../redux/clinics/clinics.actions";
-import { fetchAvailableHours } from "../../../redux/available_hours/available_hours.actions";
-import { createLogicalOr } from "typescript";
+
+//Estilos
+
+import "./CityAppointmentPage.scss";
+
 
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store

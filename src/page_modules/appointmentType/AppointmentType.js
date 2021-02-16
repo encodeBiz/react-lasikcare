@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Card from "../../shared_modules/Card/Card";
 import CardContainer from "../../shared_modules/CardContainer/CardContainer";
-import doctorIcon from "../../assets/images/icons/doctor-color-icon.svg";
 import "./AppointmentType.scss";
 import { connect } from "react-redux";
 import { setAppoinmentConfig } from "../../redux/appointment_config/appointmentConfig.actions";
@@ -29,18 +28,27 @@ const AppointmentType = (properties) => {
 			type: "presencial",
 		},
 	];
+
+
+
 	const history = useHistory();
 
 	const navigateTo = (url) => history.push(url);
 
+	/**
+	 * Setea el paso del proceso en el que estamos
+	 */
+
 	useEffect(() => {
-		properties.setAppoinmentConfig("currentStep", 1);
+		properties.setAppoinmentConfig("currentStep", 0);
 		// eslint-disable-next-line
 	}, []);
 
 	/**
 	 *
 	 * @param {"online" | "presencial"} type Tipo de cita
+	 * Se encarga de setear en redux el tipo de cita elegido. 
+	 * Una vez hecho se redirige hacia el tipo de cita elegido
 	 */
 
 	const handleClick = (type) => {
@@ -56,7 +64,7 @@ const AppointmentType = (properties) => {
 			</div>
 			<h1>1. Bitte wählen Sie Ihren Wunschtermin:</h1>
 			<div className="presencial-online-wrapper">
-				<CardContainer isColumn={false}>
+				<CardContainer>
 					{homeLinksConfig.map((link, index) => {
 						return (
 							<Link to={link.url} key={index} className="card-link">
@@ -68,7 +76,6 @@ const AppointmentType = (properties) => {
 										</div>
 										<p>{link.subtitle}</p>
 									</div>
-	
 								</Card>
 							</Link>
 						);
@@ -89,4 +96,9 @@ const mapDispatchToProps = (dispatch) => ({
 	setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
 });
 
-export default connect(undefined, mapDispatchToProps)(AppointmentType);
+
+const mapStateToProps = (state) => ({
+	appointment: state.appointment
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppointmentType);

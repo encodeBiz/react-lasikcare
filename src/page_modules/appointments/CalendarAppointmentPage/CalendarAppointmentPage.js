@@ -11,7 +11,6 @@ import moment from "moment";
 import useWindowSize from "../../../hooks/useWindowSize";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 
-
 /**
  *
  * @param {Object} properties
@@ -25,7 +24,7 @@ const CalendarAppointmentPage = (properties) => {
 	const history = useHistory();
 	const navigateTo = (url) => history.push(url);
 	const today = moment();
-	const { available_hours } = properties;
+	const { available_hours, appointment } = properties;
 
 	/////////////////////////////
 	// Configuración del componente
@@ -36,8 +35,9 @@ const CalendarAppointmentPage = (properties) => {
 	// const [chosenAppointment, setChosenAppointment] = useState({});
 	// const [selectedDateString, setSelectedDateString] = useState(null);
 	const [calendarWidth, setCalendarWidth] = useState(null);
+	// eslint-disable-next-line
 	const [focused, setFocused] = useState(false);
-	const [initialDate, setInitialDate] = useState(today);
+	const [initialDate] = useState(today);
 	const { width } = useWindowSize();
 	const [selectedType, setType] = useState(null);
 	const [selectedCity, setCity] = useState(null);
@@ -69,6 +69,7 @@ const CalendarAppointmentPage = (properties) => {
 			const formattedDate = new Date(parseInt(date[2]), parseInt(date[1]) - 1, parseInt(date[0]));
 			return { ...item, formattedDate: moment(formattedDate) };
 		});
+
 		setDataCalendar(filteredData);
 		// eslint-disable-next-line
 	}, [available_hours, selectedType, selectedCity]);
@@ -77,10 +78,16 @@ const CalendarAppointmentPage = (properties) => {
 	 * @description Setea la anchura del calendario
 	 * para adaptarlo a diferentes tamaños de pantalla.
 	 */
+
 	useEffect(() => {
 		setCalendarWidth(formatCalendarWidth(width));
 	}, [width]);
 
+	/**
+	 *
+	 * @param {Number} width
+	 * Formatea la anchura del calendario para ajustarla a la anchura de la ventana
+	 */
 	const formatCalendarWidth = (width) => {
 		//a partir de 1080 no debe ejecutarse la función
 		if (width <= 320) return 35;
@@ -93,56 +100,59 @@ const CalendarAppointmentPage = (properties) => {
 	// Gestión de eventos
 	/////////////////////////////
 
+	/**
+	 *
+	 * @param {Object} date fecha de moment
+	 *
+	 */
+
 	const handleDateChange = (date) => {
 		const finded = dataCalendar.filter((item) => {
 			return item.formattedDate.format("DD-MM-yyyy") === date.format("DD-MM-yyyy");
 		});
 		setSelectedDate(finded);
-		console.log(date);
 		properties.setAppoinmentConfig("calendar_date", date);
 	};
 
+	/**
+	 *
+	 * @param {Object} hour
+	 */
+
 	const handleSelectedHour = (hour) => properties.setAppoinmentConfig("calendar_hour", hour);
 
+	const onConfirmHour = () => history.push("/appointments/confirm");
 
-	
 	/////////////////////////////
 	// Renderizado del componente
 	/////////////////////////////
 
 	return (
 		<div className="wrapper-general">
-			<Stepper
-				currentStepIndex={properties.appointment?.currentStep}
-				navigateTo={navigateTo}
-			></Stepper>
+			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
 			<div className="top-content">
 				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
 			</div>
+			<div className="calendar-appointment-page">
+				<h1>3. Datum wählen</h1>
+				<CardContainer>
+					<Calendar
+						datesList={dataCalendar}
+						setFocused={setFocused}
+						initialDate={initialDate}
+						width={width}
+						calendarWidth={calendarWidth}
+						handleDateChange={handleDateChange}
+						handleSelectedHour={handleSelectedHour}
+						selectedDate={selectedDate}
+					/>
+				</CardContainer>
 
-			<div class="calendar-appointment-page">
-			<h1>3. Datum wählen</h1>
-
-			<CardContainer>
-			<Calendar 
-				datesList={dataCalendar} 
-				setFocused={setFocused} 
-				initialDate={initialDate} 
-				width={width} 
-				calendarWidth={calendarWidth}
-				selectedDate={selectedDate}
-				handleDateChange={handleDateChange}
-				handleSelectedHour={handleSelectedHour}
-
-			>
-			</Calendar>
-			</CardContainer>
-			<div class="container-button">
-			<Button 
-				type={"rounded-button"} 
-				label={"TERMIN WÄHLEN"} ç
-			/>
-			</div>
+				{appointment.calendar_date && appointment.calendar_hour && (
+					<div className="container-button">
+						<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour}/>
+					</div>
+				)}
 			</div>
 		</div>
 	);

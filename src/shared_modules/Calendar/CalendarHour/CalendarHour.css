@@ -1,0 +1,11 @@
+.hours-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap; }
+  .hours-container .hour-item {
+    border: 1px solid #00619e;
+    border-radius: 5px;
+    padding: 12px;
+    margin: 10px; }
+    .hours-container .hour-item:hover {
+      cursor: pointer; }

@@ -1,0 +1,9 @@
+@import "../../styles/partials/_fonts.scss";
+@import "../../styles/partials/_variables.scss";
+@import "../../styles/partials/_mixins.scss";
+
+.form-error {
+  color: red !important;
+  font-size: 13px;
+  text-align: center;
+}

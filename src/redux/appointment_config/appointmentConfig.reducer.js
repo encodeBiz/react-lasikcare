@@ -7,13 +7,13 @@ const initialState = {
 	calendar_date: "",
 	calendar_hour: "",
 	clientData: {
+		isOlderThan50: false, // Altersgruppe
+		gender: "", // Geschlecht
 		name: "", //Vorname
 		lastName: "", // Nachnamen
-		ageGroup: "", // Altersgruppe
-		gender: "", // Geschlecht
 		phoneNumber: "", // Telefonnumber
 		email: "", // Email adresse
-		comment: "", // Nachricht
+		comment: false, // Nachricht
 	},
 };
 
