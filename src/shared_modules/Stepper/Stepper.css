@@ -26,11 +26,46 @@
   margin-bottom: 20px; }
   .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
     content: "";
-    width: 70px;
+    width: 80px;
     height: 1px;
     position: absolute;
     top: 12px;
     left: 31px; }
+    @media (min-width: 414px) {
+      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+        width: 105px; } }
+    @media (min-width: 540px) {
+      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+        width: 130px; } }
+    @media (min-width: 540px) and (orientation: landscape) {
+      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+        width: 180px; } }
+    @media (min-width: 590px) {
+      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+        width: 159px; } }
+    @media (min-width: 768px) {
+      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+        width: 190px; } }
+    @media (min-width: 860px) {
+      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+        width: 215px; } }
+    @media (min-width: 980px) {
+      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+        width: 140px; } }
+    @media (min-width: 1080px) {
+      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+        top: 22px;
+        left: 43px;
+        width: 150px; } }
+    @media (min-width: 1220px) {
+      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+        width: 213px; } }
+    @media (min-width: 1360px) {
+      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+        width: 240px; } }
+    @media (min-width: 1500px) {
+      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
+        width: 275px; } }
   .step-container ul {
     display: flex;
     justify-content: space-between;
@@ -53,10 +88,17 @@
         align-items: center;
         justify-content: center;
         margin: auto; }
+        @media (min-width: 1080px) {
+          .step-container ul .step .circle-num {
+            width: 45px;
+            height: 45px; } }
         .step-container ul .step .circle-num .num {
           font-size: 0.8rem;
           color: #ffffff;
           vertical-align: middle; }
+          @media (min-width: 1080px) {
+            .step-container ul .step .circle-num .num {
+              font-size: 0.9rem; } }
       .step-container ul .step .text-step {
         color: #00619e;
         font-weight: 300;

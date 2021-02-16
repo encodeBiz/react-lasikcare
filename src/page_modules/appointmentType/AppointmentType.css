@@ -8,7 +8,8 @@
 
 .presencial-online-wrapper .card .first-step-card {
   text-align: center;
-  min-height: 250px; }
+  min-height: 250px;
+  margin: auto; }
   .presencial-online-wrapper .card .first-step-card h3 {
     color: #00619e;
     font-size: 1.2rem; }

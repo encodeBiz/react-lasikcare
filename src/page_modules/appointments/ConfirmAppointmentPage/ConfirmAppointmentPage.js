@@ -11,6 +11,7 @@ import "./ConfirmAppointmentPage.scss";
 import moment from "moment";
 import "moment/locale/de";
 import ConfirmForm from "./ConfirmForm/ConfirmForm";
+import "../../../styles/App.scss"
 
 const ConfirmPage = (properties) => {
 	const [children, setChildren] = useState([]);
@@ -96,9 +97,11 @@ const ConfirmPage = (properties) => {
 
 			{/* Resumen de la cita */}
 
+			<div className="flex-responsive">
+				
 			<div className="appointment-summary">
 				<h2>Ihr Wunschtermin</h2>
-				<CardContainer>
+				<CardContainer className="change-h3">
 					<h3>unverbindliches Informationsgespräch</h3>
 
 					<div className="summary-icon">
@@ -117,12 +120,18 @@ const ConfirmPage = (properties) => {
 
 			
 			{/* Formulario */}
-
+            <div class="wrapper-form">
+				
 			<ConfirmForm
 				handleSubmit={handleSubmit}
 				errorMessage={errorMessage}
 				setErrorMessage={setErrorMessage}
 			/>
+
+			</div>
+
+			</div>
+
 		</div>
 	);
 };

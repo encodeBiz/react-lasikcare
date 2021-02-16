@@ -14,7 +14,7 @@
     border: 1.7px solid $tertiaryColor;
     border-radius: 50px;
     cursor: pointer;
-    margin-top: 30px;
+    margin: 30px 0px;
     text-transform: uppercase;
     transition: all 300ms ease-in-out;
 
@@ -41,7 +41,7 @@
     }
 
     @include desktop-medium{
-    width: 65%;
+    width: 50%;
     }
 
     &.back-button {
@@ -53,7 +53,7 @@
         text-transform: initial;
         box-sizing: border-box;
         padding: 10px 25px 10px 36px;
-        margin-top:0px;
+        margin:0px;
 
         &:hover{
         background-color: $tertiaryColor;

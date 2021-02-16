@@ -27,6 +27,13 @@
         font-size: 0.9rem; } }
   .calendar-container .DayPicker__withBorder .CalendarMonth_table {
     margin-top: 15px; }
+    .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay {
+      opacity: 0.3; }
+    .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay__highlighted_calendar {
+      opacity: 1;
+      background-color: transparent; }
+      .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay__highlighted_calendar:focus {
+        background: transparent; }
     .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay__default {
       border-color: transparent;
       color: #808080;
@@ -35,10 +42,12 @@
       @media (min-width: 1080px) {
         .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay__default {
           font-size: 0.7rem; } }
-      .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay__default:hover {
-        background-color: transparent; }
     .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay__selected {
-      background: #FF9900;
+      background-color: #FF9900;
       color: #ffffff;
-      font-weight: 800;
+      font-weight: bold;
       border-radius: 50px; }
+    .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay__today {
+      background-color: transparent;
+      color: #808080;
+      font-weight: 300; }

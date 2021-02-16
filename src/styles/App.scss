@@ -41,9 +41,22 @@ html {
 
 body {
 	background: lighten($primaryColorBg,12%);
+    background-image: url(../assets/images/icons/background-body.svg);
+    background-repeat: no-repeat;
+    background-size: 360px;
+	background-position-y: 500px;
+    background-position-x: right;
 	font-family: $primaryFont;
 	font-size: 1rem;
 	color: lighten($dark,80%);
+
+	@include tablet-medium{
+	background-size: 500px;
+	}
+
+	@include desktop-large{
+	background-size: 700px;
+	}
 
 	.wrapper-general{
      max-width: 87%;
@@ -58,7 +71,7 @@ body {
 			}
 	   
 			@include desktop-medium{
-			max-width: 50%;
+			max-width: 60%;
 		   }
 
 		h1{
@@ -77,5 +90,28 @@ body {
 .container-button{
  display: flex;
  justify-content: center;
+}
+
+.card-container{
+
+	.summary-icon{
+		padding-top: 23px;
+		display: flex;
+		justify-content: space-around;
+		text-align: center;
+	
+		  p{
+		  color: $texto;
+		  margin: 0px;
+		  padding-top: 5px;
+		  font-weight: 300;
+		  font-size: .9rem;
+	
+			 @include desktop-small{
+			 font-size: .7rem;
+			 }
+		  }
+	   }
+
 }
 

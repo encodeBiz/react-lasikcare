@@ -9,11 +9,57 @@
 
  %stepLine {
   content: "";
-  width: 70px;
+  width: 80px;
   height: 1px;
   position: absolute;
   top: 12px;
   left: 31px;
+     
+     @include phone-large{
+     width: 105px;
+     } 
+
+     @include tablet-small{
+     width: 130px ;
+     }
+
+     @include tablet-small-landscape{
+     width: 180px;
+     }
+
+     @include tablet-mix{
+      width: 159px;
+     }
+
+     @include tablet-medium{
+      width: 190px;
+     }
+
+     @include tablet-change-steppers{
+      width: 215px;
+     }
+
+     @include tablet-large{
+     width: 140px ;
+     }
+
+     @include desktop-small{
+     top: 22px;
+     left: 43px;
+     width: 150px;
+     }
+
+     @include desktop-change-steppers{
+     width:213px ;
+     }
+
+     @include desktop-medium-steppers{
+      width: 240px;
+     }
+
+     @include desktop-large{
+     width: 275px;
+     }
  }
 
     ul{
@@ -58,11 +104,20 @@
           justify-content: center;
           margin: auto;
 
+            @include desktop-small{
+            width: 45px;
+            height: 45px;
+            }
+
 
           .num{
            font-size: 0.8rem;
            color: $light;
            vertical-align: middle;
+             
+             @include desktop-small{
+             font-size: 0.9rem;
+             }
            
            }
          }

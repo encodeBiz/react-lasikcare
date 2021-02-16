@@ -7,6 +7,7 @@ import locationUbi from "../../../assets/images/icons/location-icon.svg";
 import calendarUbi from "../../../assets/images/icons/calendar-icon.svg";
 import timeUbi from "../../../assets/images/icons/time-icon.svg";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
+import iconThanks  from "../../../assets/images/icons/icon-thanks.svg"
 
 /**
  *
@@ -20,15 +21,20 @@ const ThankAppointmentPage = (properties) => {
 	const [children, setChildren] = useState([]);
 
 	const info = [
-		{
+		{ 
 			title: "Termininformation",
 			text:
-				"Sie erhalten eine automatisierte E-Mail mit der Zusammenfassung Ihrer Terminanfrage und der Adresse Ihres Termins.",
+				`Sie erhalten eine automatisierte <span> E-Mail</span> mit der Zusammenfassung Ihrer Terminanfrage und der <span> Adresse Ihres Termins</span>.`,
 		},
 		{
 			title: "Weiterleitung",
 			text:
-				"Wir leiten Ihren Terminwunsch an das Kundenzentrum und die Klinik weiter. Sollten noch weitere Informationen benötigt werden, melden wir uns telefonisch bei Ihren",
+				"Wir leiten <span>Ihren Terminwunsch</span> an das Kundenzentrum und die Klinik weiter. Sollten noch weitere Informationen benötigt werden, <span>melden wir uns telefonisch</span> bei Ihren",
+		},
+		{
+			title: "Terminbestätigung",
+			text:
+				"Nach positiver Prüfung Ihres <span>Terminwunsches</span> durch die Klinik erhalten Sie Ihre Terminbestätigung.",
 		},
 	];
 
@@ -85,13 +91,15 @@ const ThankAppointmentPage = (properties) => {
 
 	return (
 		<div className="wrapper-general">
-			<h1>Thanks</h1>
 
 			<CardContainer>
 				<div className="thank-you-message">
-					<img src="" alt="Thank you logo" />
+					<div class="icon-thanks">
+						<img src={iconThanks} alt="Thank you logo" />
+					</div>
+					<h3>Vielen Dank</h3>
 					<p>
-						Ihr Terminwusch für <strong> {thankYouTexts[appointment.type]} </strong> ist bei uns
+					    Ihr Terminwusch für <strong> {thankYouTexts[appointment.type]} </strong> ist bei uns
 						eingegangen. Wir haben Ihnen eine Bestätigung an
 						<strong> {appointment.clientData.email} </strong>
 						gesendet.
@@ -99,9 +107,12 @@ const ThankAppointmentPage = (properties) => {
 				</div>
 			</CardContainer>
 
+			<div class="flex-desktop">
+
 			<div className="appointment-summary">
-				<CardContainer>
-					<h3>unverbindliches Informationsgespräch</h3>
+
+				<CardContainer className="change-h3">
+					<h3>esto es dinamico</h3>
 
 					<div className="summary-icon">
 						{children &&
@@ -116,18 +127,30 @@ const ThankAppointmentPage = (properties) => {
 					</div>
 				</CardContainer>
 			</div>
-
-			<h2>Wie es weiter geht</h2>
-			<CardContainer>
+			
+            <div class="wrapper-instructions">
+			 <h2>Wie es weiter geht</h2>
+			    <CardContainer>
 				{info.map((item, index) => {
 					return (
+					  <div class="instructions">
+
 						<div className="info-item" key={index}>
 							<h5>{item.title}</h5>
-							<p>{item.text}</p>
+							<p dangerouslySetInnerHTML={{__html: item.text}}></p>
 						</div>
+
+					  </div>
+
 					);
 				})}
-			</CardContainer>
+			   </CardContainer>
+
+			</div>
+
+			</div>
+
+
 		</div>
 	);
 };
