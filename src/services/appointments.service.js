@@ -22,6 +22,7 @@ export const getClinicas = async ()=>{
  * @param {String} query_param.type Tipo de consulta BI | BIDI
  */
 export const getHuecos = async (query_param)=>{
+
   const url = get_huecos
   const headers = { 
     'Origin' : '*',

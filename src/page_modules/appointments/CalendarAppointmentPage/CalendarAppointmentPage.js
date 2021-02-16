@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import moment from "moment";
 import useWindowSize from "../../../hooks/useWindowSize";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
+import { fetchAvailableHours } from "../../../redux/available_hours/available_hours.actions";
 
 /**
  *
@@ -43,6 +44,7 @@ const CalendarAppointmentPage = (properties) => {
 	const [selectedCity, setCity] = useState(null);
 	const [dataCalendar, setDataCalendar] = useState([]);
 	const [selectedDate, setSelectedDate] = useState(null);
+	const [loading, setLoading] = useState(false)
 
 	/**
 	 * Seteo del current step y de la ciudad y el tipo de consulta seleccionada
@@ -55,10 +57,12 @@ const CalendarAppointmentPage = (properties) => {
 		// eslint-disable-next-line
 	}, []);
 
+	console.log("::::::::::::::::", properties.available_hours)
 	/**
 	 * @description Setea el currentStep del store
 	 */
 	useEffect(() => {
+
 		const data =
 			selectedCity && selectedType
 				? properties.available_hours[selectedCity].data[selectedType]
@@ -114,6 +118,25 @@ const CalendarAppointmentPage = (properties) => {
 		properties.setAppoinmentConfig("calendar_date", date);
 	};
 
+
+	/**
+	 * 
+	 * @param {Date} currentDate
+	 * Cuando se pulsa en el botón de siguiente mes del calendario se hace una 
+	 * llamada para conseguir los huecos del mes siguiente
+	 *  
+	 */
+
+	const onNextMonthClick = async (currentDate) => {
+		try {
+			setLoading(true);
+			const date = moment(currentDate).add(1, "month").format("DD/M/YYYY");
+			properties.fetchAvailableHours(appointment.city.keycli, appointment.type, date);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	/**
 	 *
 	 * @param {Object} hour
@@ -145,6 +168,7 @@ const CalendarAppointmentPage = (properties) => {
 						handleDateChange={handleDateChange}
 						handleSelectedHour={handleSelectedHour}
 						selectedDate={selectedDate}
+						onNextMonthClick={onNextMonthClick}
 					/>
 				</CardContainer>
 
@@ -174,6 +198,9 @@ const mapDispatchToProps = (dispatch) => {
 		 * @description Actualiza un campo del objeto de appointment
 		 */
 		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
+
+
+		fetchAvailableHours : (keycli, type, date) => dispatch(fetchAvailableHours(keycli, type, date)) 
 	};
 };
 

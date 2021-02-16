@@ -64,7 +64,6 @@ const ConfirmForm = (properties) => {
 					}}
 				>
 					{(props) => {
-						console.log(props.values, props.errors);
 						return (
 							<Form onSubmit={props.handleSubmit}>
 								{/* Grupo de edad */}

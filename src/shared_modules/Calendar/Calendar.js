@@ -18,6 +18,7 @@ import CalendarHour from "./CalendarHour/CalendarHour";
  *
  */
 
+
 const Calendar = (properties) => {
 	return (
 		<div className="calendar-container">
@@ -34,6 +35,7 @@ const Calendar = (properties) => {
 				onDateChange={properties.handleDateChange} // PropTypes.func.isRequired
 				focused={false} // PropTypes.bool
 				onFocusChange={({ focused }) => properties.setFocused({ focused })} // PropTypes.func.isRequired
+				onNextMonthClick={(e) =>properties.onNextMonthClick(e)}
 			></DayPickerSingleDateController>
 			<CalendarHour
 				free_hours={properties.selectedDate || []}

@@ -34,11 +34,6 @@ const Stepper = ({ currentStepIndex, navigateTo }) => {
 				{steps.map((step, index) => {
 
 					const isActive = step.stepNumber <= currentStepIndex ? "is-active is-solid" : "is-dotted";
-
-
-					console.log("________________________")
-					console.log(step.stepNumber, currentStepIndex,)
-					console.log(step.stepNumber <= currentStepIndex)
 					return (
 						<li key={index} className={`${isActive} step`} onClick={() => navigateTo(step.url)}>
 							<div className="circle-num">

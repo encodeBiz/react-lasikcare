@@ -34,7 +34,6 @@ import "./TypeAppointmentPage.scss";
 const TypeAppointmentPage = (properties) => {
 	/**@description Configuración cards */
 
-	console.log(properties.appointment)
 
 	const appointmentTypes = [
 		{

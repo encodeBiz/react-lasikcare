@@ -81,7 +81,6 @@ const ConfirmPage = (properties) => {
 	 */
 
 	const handleSubmit = (values) => {
-		console.log(values, "SUBMIT");
 
 		properties.setAppoinmentConfig("clientData", values);
 		history.push("/appointments/thank")

@@ -17,18 +17,24 @@ export const getHours = ({ keycli, appointments_type }) => ({ type: GET_HOURS, c
  */
 
 
-export const fetchAvailableHours = (keycli, type) => {
+export const fetchAvailableHours = (keycli, type, date) => {
 	return async (dispatch) => {
-
         try {
-            const date = new Date(new Date().setMonth(2)).toLocaleDateString()
+            let dateToSend = ""
+            if(date){
+                dateToSend = date
+            } else{
+                dateToSend = new Date(new Date().setMonth(2)).toLocaleDateString();
+            }
+            
+            const res = await Promise.all([getHuecos({ keycli, date: dateToSend, type })]);
 
-            const res = await Promise.all([getHuecos({ keycli, date, type })]);
- 
+            
             const data = res[0].huecos ? {[keycli] : { [type] :  res[0].huecos } } : {};
 
+
             return dispatch(getHoursById(keycli, type, data));
-            
+
         } catch (error) {
             console.log(error)
         }
