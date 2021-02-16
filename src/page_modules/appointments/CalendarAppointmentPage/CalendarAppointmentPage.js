@@ -42,7 +42,7 @@ const CalendarAppointmentPage = (properties) => {
 	const [selectedType, setType] = useState(null);
 	const [selectedCity, setCity] = useState(null);
 	const [dataCalendar, setDataCalendar] = useState([]);
-	const [selectedDate, setDate] = useState(null);
+	const [selectedDate, setSelectedDate] = useState(null);
 
 	/**
 	 * Seteo del current step y de la ciudad y el tipo de consulta seleccionada
@@ -97,7 +97,7 @@ const CalendarAppointmentPage = (properties) => {
 		const finded = dataCalendar.filter((item) => {
 			return item.formattedDate.format("DD-MM-yyyy") === date.format("DD-MM-yyyy");
 		});
-		setDate(finded);
+		setSelectedDate(finded);
 		console.log(date);
 		properties.setAppoinmentConfig("calendar_date", date);
 	};
@@ -130,6 +130,10 @@ const CalendarAppointmentPage = (properties) => {
 				initialDate={initialDate} 
 				width={width} 
 				calendarWidth={calendarWidth}
+				selectedDate={selectedDate}
+				handleDateChange={handleDateChange}
+				handleSelectedHour={handleSelectedHour}
+
 			>
 			</Calendar>
 			</CardContainer>

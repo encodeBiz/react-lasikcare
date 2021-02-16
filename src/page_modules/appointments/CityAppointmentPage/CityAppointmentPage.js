@@ -12,6 +12,7 @@ import toledoIcon from "../../../assets/images/icons/tres.jpg";
 import Card from "../../../shared_modules/Card/Card";
 import { fetchClinics } from "../../../redux/clinics/clinics.actions";
 import { fetchAvailableHours } from "../../../redux/available_hours/available_hours.actions";
+import { createLogicalOr } from "typescript";
 
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store
@@ -104,6 +105,7 @@ const CityAppointmentPage = (properties) => {
 	 */
 	const handleCitySelect = ({ keycli, name, address }) => {
 		if (keycli) {
+			console.log(keycli, name, address)
 			properties.setAppoinmentConfig("city", { keycli, name, address });
 			history.push("/type");
 			getClinicsHours([{ keycli, name }]);
@@ -117,6 +119,9 @@ const CityAppointmentPage = (properties) => {
 			</div>
 			<div className="city-appointment-container">
 				<CardContainer isColumn={true}>
+
+					{/* Sin servidor */}
+
 					{properties.clinics.clinics?.length > 0 &&
 						properties.clinics.clinics.map((city, index) => {
 							const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
@@ -127,6 +132,22 @@ const CityAppointmentPage = (properties) => {
 								</Card>
 							);
 						})}
+
+
+						{/*  Con servidor  */}
+
+
+						{/* {cities.length > 0 &&
+						cities.map((city, index) => {
+							return (
+								<Card key={index} handleClick={handleCitySelect} clickParam={city}>
+									<img src={city.icon} alt={city.icon} className="type-image-city" />
+									<p>{city.name}</p>
+								</Card>
+							);
+						})}  */}
+
+
 				</CardContainer>
 			</div>
 		</div>
