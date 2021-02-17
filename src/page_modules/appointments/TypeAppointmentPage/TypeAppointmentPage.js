@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 // Router
 
@@ -9,7 +9,7 @@ import { useHistory } from "react-router";
 import { connect } from "react-redux";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
 
-// Componentes 
+// Componentes
 
 import Button from "../../../shared_modules/Button/Button";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
@@ -18,8 +18,8 @@ import Stepper from "../../../shared_modules/Stepper/Stepper";
 
 //Assets
 
-import iconFree from "../../../assets/images/icons/type-pay.svg"
-import iconPay from "../../../assets/images/icons/type-free.svg"
+import iconFree from "../../../assets/images/icons/type-pay.svg";
+import iconPay from "../../../assets/images/icons/type-free.svg";
 
 // Estilos
 
@@ -28,12 +28,14 @@ import "./TypeAppointmentPage.scss";
  *
  * @param {Object} properties
  * @param {Function} properties.getAppointmentByType Envía al reducer el tipo de cita que se ha seleccionado.
- *
+ * @typedef {Object.<String: calendar_date, String: calendar_hour, Object:city, Object:clientData, Number: currentStep, String: type >} Appointment
+ * @param {Appointment} properties.appointment
  */
 
 const TypeAppointmentPage = (properties) => {
-	/**@description Configuración cards */
+	const [stateType, setStateType] = useState(null);
 
+	/**@description Configuración cards */
 
 	const appointmentTypes = [
 		{
@@ -48,6 +50,19 @@ const TypeAppointmentPage = (properties) => {
 		},
 	];
 
+	/**
+	 * Si hay un type ya guardado en appointment se activa hasType
+	 * que a su vez sirve para añadirle la clase activo
+	 */
+
+	useEffect(() => {
+		if (properties.appointment.type) {
+			setStateType(properties.appointment.type);
+		}
+		// eslint-disable-next-line
+	}, [stateType]);
+
+	console.log(stateType)
 
 	/**
 	 * Hook para usar la funcionalidad de history de React Router
@@ -67,7 +82,7 @@ const TypeAppointmentPage = (properties) => {
 	 */
 
 	useEffect(() => {
-		properties.setAppoinmentConfig("currentStep", 2);
+		properties.setAppoinmentConfig("currentStep", 1);
 		// eslint-disable-next-line
 	}, []);
 
@@ -89,25 +104,23 @@ const TypeAppointmentPage = (properties) => {
 				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
 			</div>
 			<div className="appointment-type-container">
-			<div>
-			<h1>2. Terminart wählen</h1>
-			</div>
-			<CardContainer isColumn={true}>
-				{appointmentTypes.map((typeItem, index) => {
-					return (
-						<Card key={index} handleClick={onAppointmentTypeSelection} clickParam={typeItem.type}>
-							<img src={typeItem.image} alt="..." className="type-image" />
-							<p>{typeItem.text}</p>
-						</Card>
-					);
-				})}
-			</CardContainer>
+				<div>
+					<h1>2. Terminart wählen</h1>
+				</div>
+				<CardContainer isColumn={true}>
+					{appointmentTypes.map((typeItem, index) => {
+						return (
+							<Card key={index} handleClick={onAppointmentTypeSelection} clickParam={typeItem.type} customClass={stateType === typeItem.type ? 'selected' : ''}>
+								<img src={typeItem.image} alt="..." className="type-image" />
+								<p>{typeItem.text}</p>
+							</Card>
+						);
+					})}
+				</CardContainer>
 			</div>
 		</div>
 	);
 };
-
-
 
 /**
  *

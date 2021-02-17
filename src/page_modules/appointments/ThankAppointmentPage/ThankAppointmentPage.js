@@ -7,7 +7,7 @@ import locationUbi from "../../../assets/images/icons/location-icon.svg";
 import calendarUbi from "../../../assets/images/icons/calendar-icon.svg";
 import timeUbi from "../../../assets/images/icons/time-icon.svg";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
-import iconThanks  from "../../../assets/images/icons/icon-thanks.svg"
+import iconThanks from "../../../assets/images/icons/icon-thanks.svg";
 
 /**
  *
@@ -20,11 +20,12 @@ const ThankAppointmentPage = (properties) => {
 	const { appointment } = properties;
 	const [children, setChildren] = useState([]);
 
+	console.log(appointment)
+
 	const info = [
-		{ 
+		{
 			title: "Termininformation",
-			text:
-				`Sie erhalten eine automatisierte <span> E-Mail</span> mit der Zusammenfassung Ihrer Terminanfrage und der <span> Adresse Ihres Termins</span>.`,
+			text: `Sie erhalten eine automatisierte <span> E-Mail</span> mit der Zusammenfassung Ihrer Terminanfrage und der <span> Adresse Ihres Termins</span>.`,
 		},
 		{
 			title: "Weiterleitung",
@@ -91,15 +92,14 @@ const ThankAppointmentPage = (properties) => {
 
 	return (
 		<div className="wrapper-general">
-
 			<CardContainer>
 				<div className="thank-you-message">
-					<div class="icon-thanks">
+					<div className="icon-thanks">
 						<img src={iconThanks} alt="Thank you logo" />
 					</div>
 					<h3>Vielen Dank</h3>
 					<p>
-					    Ihr Terminwusch für <strong> {thankYouTexts[appointment.type]} </strong> ist bei uns
+						Ihr Terminwusch für <strong> {thankYouTexts[appointment.type]} </strong> ist bei uns
 						eingegangen. Wir haben Ihnen eine Bestätigung an
 						<strong> {appointment.clientData.email} </strong>
 						gesendet.
@@ -107,50 +107,41 @@ const ThankAppointmentPage = (properties) => {
 				</div>
 			</CardContainer>
 
-			<div class="flex-desktop">
+			<div className="flex-desktop">
+				<div className="appointment-summary">
+					<CardContainer isColumn={true}>
+						<h3>{thankYouTexts[appointment.type]}</h3>
 
-			<div className="appointment-summary">
-
-				<CardContainer className="change-h3">
-					<h3>esto es dinamico</h3>
-
-					<div className="summary-icon">
-						{children &&
-							children.map((child, index) => {
-								return (
-									<div className="child" key={index}>
-										<img src={child.imgSource} alt="..." />
-										<p>{child.text}</p>
-									</div>
-								);
-							})}
-					</div>
-				</CardContainer>
-			</div>
-			
-            <div class="wrapper-instructions">
-			 <h2>Wie es weiter geht</h2>
-			    <CardContainer>
-				{info.map((item, index) => {
-					return (
-					  <div class="instructions">
-
-						<div className="info-item" key={index}>
-							<h5>{item.title}</h5>
-							<p dangerouslySetInnerHTML={{__html: item.text}}></p>
+						<div className="summary-icon">
+							{children &&
+								children.map((child, index) => {
+									return (
+										<div className="child" key={index}>
+											<img src={child.imgSource} alt="..." />
+											<p>{child.text}</p>
+										</div>
+									);
+								})}
 						</div>
+					</CardContainer>
+				</div>
 
-					  </div>
-
-					);
-				})}
-			   </CardContainer>
-
+				<div className="wrapper-instructions">
+					<h2>Wie es weiter geht</h2>
+					<CardContainer>
+						{info.map((item, index) => {
+							return (
+								<div className="instructions" key={index}>
+									<div className="info-item">
+										<h5>{item.title}</h5>
+										<p dangerouslySetInnerHTML={{ __html: item.text }}></p>
+									</div>
+								</div>
+							);
+						})}
+					</CardContainer>
+				</div>
 			</div>
-
-			</div>
-
-
 		</div>
 	);
 };

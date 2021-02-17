@@ -1,135 +1,140 @@
 @import "../../styles/partials/fonts";
-@import "../../styles/partials/variables"; 
+@import "../../styles/partials/variables";
 @import "../../styles/partials/mixins";
 
+.step-container {
+	margin-bottom: 20px;
 
+	%stepLine {
+		content: "";
+		width: 80px;
+		height: 1px;
+		position: absolute;
+		top: 12px;
+		left: 31px;
 
-.step-container{
- margin-bottom: 20px;
+		@include phone-large {
+			width: 105px;
+		}
 
- %stepLine {
-  content: "";
-  width: 80px;
-  height: 1px;
-  position: absolute;
-  top: 12px;
-  left: 31px;
-     
-     @include phone-large{
-     width: 105px;
-     } 
+		@include tablet-small {
+			width: 130px;
+		}
 
-     @include tablet-small{
-     width: 130px ;
-     }
+		@include tablet-small-landscape {
+			width: 180px;
+		}
 
-     @include tablet-small-landscape{
-     width: 180px;
-     }
+		@include tablet-mix {
+			width: 159px;
+		}
 
-     @include tablet-mix{
-      width: 159px;
-     }
+		@include tablet-medium {
+			width: 190px;
+		}
 
-     @include tablet-medium{
-      width: 190px;
-     }
+		@include tablet-change-steppers {
+			width: 215px;
+		}
 
-     @include tablet-change-steppers{
-      width: 215px;
-     }
+		@include tablet-large {
+			width: 140px;
+		}
 
-     @include tablet-large{
-     width: 140px ;
-     }
+		@include desktop-small {
+			top: 22px;
+			left: 43px;
+			width: 150px;
+		}
 
-     @include desktop-small{
-     top: 22px;
-     left: 43px;
-     width: 150px;
-     }
+		@include desktop-change-steppers {
+			width: 213px;
+		}
 
-     @include desktop-change-steppers{
-     width:213px ;
-     }
+		@include desktop-medium-steppers {
+			width: 240px;
+		}
 
-     @include desktop-medium-steppers{
-      width: 240px;
-     }
+		@include desktop-large {
+			width: 275px;
+		}
+	}
 
-     @include desktop-large{
-     width: 275px;
-     }
- }
+	ul {
+		display: flex;
+		justify-content: space-between;
+		margin: 0px;
 
-    ul{
-    display: flex;
-    justify-content: space-between;
-    margin:0px;
+		.step {
+			display: flex;
+			flex-direction: column;
 
-      .step{
-      display: flex;
-      flex-direction: column;
+			&:not(:last-child) {
+				position: relative;
 
-        &:not(:last-child) {
-        position:relative;
+				&.is-solid {
+					&:after {
+						@extend %stepLine;
+						border-top: 1px solid $secondaryColor;
+					}
+				}
 
-        &.is-solid {
+				&.is-dotted {
+					&:after {
+						@extend %stepLine;
+						border-top: 1px dashed $secondaryColor;
+					}
+				}
+			}
 
-          &:after{
-            @extend %stepLine;
-            border-top: 1px solid $secondaryColor;
-          }
-        }
+			.circle-num {
+				background-color: $secondaryColor;
+				border-radius: 50px;
+				width: 28px;
+				height: 28px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: auto;
 
-        &.is-dotted {
+				@include desktop-small {
+					width: 45px;
+					height: 45px;
+				}
 
-          &:after{
-            @extend %stepLine;
-            border-top: 1px dashed $secondaryColor;
-          }
-        }
+				.num {
+					font-size: 0.8rem;
+					vertical-align: middle;
 
+					@include desktop-small {
+						font-size: 0.9rem;
+					}
+				}
 
+				.num-active {
+					color: $light;
+				}
+				.num-inactive {
+					color: $secondaryColor;
+				}
+			}
 
-}
-        
-         .circle-num{
-          background-color:$secondaryColor;
-          border-radius: 50px;
-          width: 28px;
-          height: 28px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: auto;
+			.circle-num-active {
+				background-color: $secondaryColor;
+			}
 
-            @include desktop-small{
-            width: 45px;
-            height: 45px;
-            }
+			.circle-num-inactive {
+				background-color: transparent;
+				border: 1px solid $secondaryColor;
+			}
 
-
-          .num{
-           font-size: 0.8rem;
-           color: $light;
-           vertical-align: middle;
-             
-             @include desktop-small{
-             font-size: 0.9rem;
-             }
-           
-           }
-         }
-
-         .text-step{
-          color:$secondaryColor;
-          font-weight: 300;
-          font-size: 0.8rem;
-          box-sizing: border-box;
-          padding-top: 5px;
-        }
-      }
-    }
-
+			.text-step {
+				color: $secondaryColor;
+				font-weight: 300;
+				font-size: 0.8rem;
+				box-sizing: border-box;
+				padding-top: 5px;
+			}
+		}
+	}
 }

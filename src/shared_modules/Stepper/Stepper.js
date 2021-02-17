@@ -3,28 +3,28 @@ import "./Stepper.scss";
 
 const Stepper = ({ currentStepIndex, navigateTo }) => {
 	
-	
+	console.log(currentStepIndex)
 
 	const steps = [
 		{
 			stepNumber: 0,
 			stepText: "Terminart",
-			url: "/appointments/type",
+			url: "/type",
 		},
 		{
 			stepNumber: 1,
 			stepText: "Standart",
-			url: "/appointments/calendar",
+			url: "/appointments/type",
 		},
 		{
 			stepNumber: 2,
 			stepText: "Datum",
-			url: "/appointments/confirm",
+			url: "/appointments/calendar",
 		},
 		{
 			stepNumber: 3,
 			stepText: "Ikontakdaten",
-			url: "/appointments/thanks",
+			url: "/appointments/confirm",
 		},
 	];
 
@@ -33,11 +33,11 @@ const Stepper = ({ currentStepIndex, navigateTo }) => {
 			<ul>
 				{steps.map((step, index) => {
 
-					const isActive = step.stepNumber <= currentStepIndex ? "is-active is-solid" : "is-dotted";
+					const isActive = step.stepNumber < currentStepIndex ? "is-active is-solid" : "is-dotted";
 					return (
 						<li key={index} className={`${isActive} step`} onClick={() => navigateTo(step.url)}>
-							<div className="circle-num">
-								<span className="num">{step.stepNumber + 1}</span>
+							<div className={`circle-num ${step.stepNumber <= currentStepIndex ? 'circle-num-active' : 'circle-num-inactive'}`}>
+								<span className={`num ${step.stepNumber <= currentStepIndex ? 'num-active' : 'num-inactive'}`}>{step.stepNumber + 1}</span>
 							</div>
 							<span className="text-step">{step.stepText}</span>
 						</li>

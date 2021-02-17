@@ -18,13 +18,12 @@ import CalendarHour from "./CalendarHour/CalendarHour";
  *
  */
 
-
 const Calendar = (properties) => {
 	const [date, setFocused] = useState(properties.initialDate);
-	const onChange = (date)=>{
+	const onChange = (date) => {
 		properties.handleDateChange(date);
-		setFocused(date)
-	}
+		setFocused(date);
+	};
 
 	return (
 		<div className="calendar-container">
@@ -32,7 +31,13 @@ const Calendar = (properties) => {
 				numberOfMonths={1}
 				hideKeyboardShortcutsPanel={true}
 				daySize={properties.calendarWidth}
+
+				// Si hay datos de fechas se pintan los días seleccionados
+				// Si no se pone un condicional para comprobar que properties.datesList no llega undefined
+				// Calendar rompe la aplicación
+
 				isDayHighlighted={(day1) =>
+					properties.datesList?.length > 0 &&
 					properties.datesList
 						.map((item) => item.formattedDate)
 						.some((day2) => isSameDay(day1, day2))
@@ -41,9 +46,10 @@ const Calendar = (properties) => {
 				onDateChange={onChange} // PropTypes.func.isRequired
 				focused={false} // PropTypes.bool
 				onFocusChange={({ focused }) => properties.setFocused({ focused })} // PropTypes.func.isRequired
-				onNextMonthClick={(e) =>properties.onNextMonthClick(e)}
-			></DayPickerSingleDateController>
+				onNextMonthClick={(e) => properties.onNextMonthClick(e)}
+				></DayPickerSingleDateController>
 			<CalendarHour
+				activeIndex={properties.activeIndex}
 				free_hours={properties.selectedDate || []}
 				selectHour={properties.handleSelectedHour}
 			></CalendarHour>

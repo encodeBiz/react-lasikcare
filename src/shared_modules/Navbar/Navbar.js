@@ -1,24 +1,47 @@
-import React from 'react'
-import Button from '../Button/Button';
+import React, { useEffect } from "react";
+import Button from "../Button/Button";
 import "./Navbar.scss";
 import logoLasik from "../../assets/images/icons/logo_lasik.jpg";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-const handleEventAccept = () => '';
+	useEffect(() => {
+		// Devuelve los query parameters de la url
 
-    return (
-        <div className="navbar-container" >
-            <div className="logo"><img src={logoLasik}></img></div>
-            <div className="second-nav">
-            <Button action={handleEventAccept} styleType={"nav-number"} label={"0800 8888 60 60"} />
-            <div className="hamburguer">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            </div>
-        </div>
-    )
-}
+		const sPageURL = decodeURIComponent(window.location.search.substring(1));
+		const sURLVariables = sPageURL.split("&");
+		let i;
+		const sParameterName = [];
+		for (i = 0; i < sURLVariables.length; i++) {
+			let tmp = sURLVariables[i].split("=");
+			if (tmp[0] !== "" && tmp[1] !== undefined) {
+				sParameterName[tmp[0]] = tmp[1];
+			}
+		}
+		window.utm_source = sParameterName["utm_source"];
+	}, []);
 
-export default Navbar
+	// Se debe de añadir el TMR
+
+	const handleEventAccept = () => "";
+
+	return (
+		<div className="navbar-container">
+			<div className="logo">
+				<Link to="/">
+					<img src={logoLasik} alt="..."></img>
+				</Link>
+			</div>
+			<div className="second-nav">
+				<Button action={handleEventAccept} styleType={"nav-number"} label={"0800 8888 60 60"} />
+				<div className="hamburguer">
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default Navbar;

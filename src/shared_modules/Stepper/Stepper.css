@@ -94,11 +94,19 @@
             height: 45px; } }
         .step-container ul .step .circle-num .num {
           font-size: 0.8rem;
-          color: #ffffff;
           vertical-align: middle; }
           @media (min-width: 1080px) {
             .step-container ul .step .circle-num .num {
               font-size: 0.9rem; } }
+        .step-container ul .step .circle-num .num-active {
+          color: #ffffff; }
+        .step-container ul .step .circle-num .num-inactive {
+          color: #00619e; }
+      .step-container ul .step .circle-num-active {
+        background-color: #00619e; }
+      .step-container ul .step .circle-num-inactive {
+        background-color: transparent;
+        border: 1px solid #00619e; }
       .step-container ul .step .text-step {
         color: #00619e;
         font-weight: 300;

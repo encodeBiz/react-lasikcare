@@ -11,6 +11,7 @@ import moment from "moment";
 import useWindowSize from "../../../hooks/useWindowSize";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import { fetchAvailableHours } from "../../../redux/available_hours/available_hours.actions";
+import Card from "../../../shared_modules/Card/Card";
 
 /**
  *
@@ -26,6 +27,19 @@ const CalendarAppointmentPage = (properties) => {
 	const navigateTo = (url) => history.push(url);
 	const today = moment();
 	const { available_hours, appointment } = properties;
+
+	const buttonsConfig = [
+		{
+			action: "Erstberatung",
+			text: "Erstberatung",
+			label: "",
+		},
+		{
+			action: "Voruntersuchung",
+			text: "Voruntersuchung",
+			label: "40€",
+		},
+	];
 
 	/////////////////////////////
 	// Configuración del componente
@@ -44,7 +58,8 @@ const CalendarAppointmentPage = (properties) => {
 	const [selectedCity, setCity] = useState(null);
 	const [dataCalendar, setDataCalendar] = useState([]);
 	const [selectedDate, setSelectedDate] = useState(null);
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(false);
+	const [activeIndex, setActiveIndex] = useState(null);
 
 	/**
 	 * Seteo del current step y de la ciudad y el tipo de consulta seleccionada
@@ -57,12 +72,10 @@ const CalendarAppointmentPage = (properties) => {
 		// eslint-disable-next-line
 	}, []);
 
-	console.log("::::::::::::::::", properties.available_hours)
 	/**
 	 * @description Setea el currentStep del store
 	 */
 	useEffect(() => {
-
 		const data =
 			selectedCity && selectedType
 				? properties.available_hours[selectedCity].data[selectedType]
@@ -114,35 +127,39 @@ const CalendarAppointmentPage = (properties) => {
 		const finded = dataCalendar.filter((item) => {
 			return item.formattedDate.format("DD-MM-yyyy") === date.format("DD-MM-yyyy");
 		});
+
 		setSelectedDate(finded);
 		properties.setAppoinmentConfig("calendar_date", date);
 	};
 
-
 	/**
-	 * 
+	 *
 	 * @param {Date} currentDate
-	 * Cuando se pulsa en el botón de siguiente mes del calendario se hace una 
+	 * Cuando se pulsa en el botón de siguiente mes del calendario se hace una
 	 * llamada para conseguir los huecos del mes siguiente
-	 *  
+	 *
 	 */
 
 	const onNextMonthClick = async (currentDate) => {
-		try {
-			setLoading(true);
-			const date = moment(currentDate).add(1, "month").format("DD/M/YYYY");
-			properties.fetchAvailableHours(appointment.city.keycli, appointment.type, date);
-		} catch (error) {
-			console.log(error);
-		}
+		// try {
+		// 	setLoading(true);
+		// 	const date = moment(currentDate).add(1, "month").format("DD/M/YYYY");
+		// 	properties.fetchAvailableHours(appointment.city.keycli, appointment.type, date);
+		// } catch (error) {
+		// 	console.log(error);
+		// }
 	};
 
 	/**
 	 *
 	 * @param {Object} hour
+	 * @param {Number} index
 	 */
 
-	const handleSelectedHour = (hour) => properties.setAppoinmentConfig("calendar_hour", hour);
+	const handleSelectedHour = (hour, index) => {
+		properties.setAppoinmentConfig("calendar_hour", hour);
+		setActiveIndex(index);
+	};
 
 	const onConfirmHour = () => history.push("/appointments/confirm");
 
@@ -158,6 +175,20 @@ const CalendarAppointmentPage = (properties) => {
 			</div>
 			<div className="calendar-appointment-page">
 				<h1>3. Datum wählen</h1>
+				<CardContainer isColumn={true}>
+					<div className="button-container">
+						{buttonsConfig.map((button, index) => {
+							return (
+								<Card key={index}>
+									<label>
+										<input type="radio" />
+										{button.text}
+									</label>
+								</Card>
+							);
+						})}
+					</div>
+				</CardContainer>
 				<CardContainer>
 					<Calendar
 						datesList={dataCalendar}
@@ -169,12 +200,13 @@ const CalendarAppointmentPage = (properties) => {
 						handleSelectedHour={handleSelectedHour}
 						selectedDate={selectedDate}
 						onNextMonthClick={onNextMonthClick}
+						activeIndex={activeIndex}
 					/>
 				</CardContainer>
 
 				{appointment.calendar_date && appointment.calendar_hour && (
 					<div className="container-button">
-						<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour}/>
+						<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
 					</div>
 				)}
 			</div>
@@ -199,8 +231,7 @@ const mapDispatchToProps = (dispatch) => {
 		 */
 		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
 
-
-		fetchAvailableHours : (keycli, type, date) => dispatch(fetchAvailableHours(keycli, type, date)) 
+		fetchAvailableHours: (keycli, type, date) => dispatch(fetchAvailableHours(keycli, type, date)),
 	};
 };
 

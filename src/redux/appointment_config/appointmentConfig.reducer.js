@@ -1,4 +1,8 @@
-import { GET_APPOINTMENT_CONFIG, SET_APPOINTMENT_CONFIG } from "./appointmentConfig.actions";
+import {
+	GET_APPOINTMENT_CONFIG,
+	SET_APPOINTMENT_CONFIG,
+	FINISH_APPOINMENT_CONFIG,
+} from "./appointmentConfig.actions";
 
 const initialState = {
 	currentStep: 0,
@@ -7,13 +11,14 @@ const initialState = {
 	calendar_date: "",
 	calendar_hour: "",
 	clientData: {
-		isOlderThan50: false, // Altersgruppe
+		ageGroup: "", // Altersgruppe
 		gender: "", // Geschlecht
 		name: "", //Vorname
 		lastName: "", // Nachnamen
 		phoneNumber: "", // Telefonnumber
 		email: "", // Email adresse
-		comment: false, // Nachricht
+		comment: "", // Nachricht
+		accepted: false,
 	},
 };
 
@@ -24,6 +29,11 @@ const appoinmentConfig = (state = initialState, action) => {
 		case SET_APPOINTMENT_CONFIG:
 			const { property, data } = action;
 			return { ...state, [property]: data };
+		case FINISH_APPOINMENT_CONFIG:
+			return {
+				...state,
+				isAppointmentFinish: true,
+			};
 		default:
 			return state;
 	}

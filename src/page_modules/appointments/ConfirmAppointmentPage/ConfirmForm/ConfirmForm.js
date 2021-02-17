@@ -17,6 +17,8 @@ import Button from "../../../../shared_modules/Button/Button";
  *
  */
 
+
+
 const ConfirmForm = (properties) => {
 	const validationSchema = yup.object({
 		ageGroup: yup.string(),
@@ -41,6 +43,8 @@ const ConfirmForm = (properties) => {
 		}
 	};
 
+	const appointmentValues = properties.appointmentValues
+
 	return (
 		<>
 			<div className="form-summary">
@@ -48,33 +52,33 @@ const ConfirmForm = (properties) => {
 				<Formik
 					validationSchema={validationSchema}
 					initialValues={{
-						ageGroup: "",
-						gender: "",
-						name: "",
-						surname: "",
-						phoneNumber: "",
-						email: "",
-						message: "",
-						accepted: false,
+						ageGroup: appointmentValues.ageGroup,
+						gender: appointmentValues.gender,
+						name: appointmentValues.name,
+						surname: appointmentValues.surname,
+						phoneNumber: appointmentValues.phoneNumber,
+						email: appointmentValues.email,
+						message: appointmentValues.message,
+						accepted: appointmentValues.accepted,
 					}}
-					onSubmit={(values, actions) => {
-						actions.resetForm();
-						console.log("OnSubmit", values);
-						properties.handleSubmit(values);
+					onSubmit={async (values, actions) => {
+						await properties.handleSubmit(values);
 					}}
+					validateOnChange={false}
 				>
 					{(props) => {
+						console.log(props.initialValues)
 						return (
 							<Form onSubmit={props.handleSubmit}>
 								{/* Grupo de edad */}
 								<CardContainer isColumn={true}>
-									<div class="container-form">
+									<div className="container-form">
 									<div className="inline-form-group marg-from">
 										<div className="form-group" onClick={clearErrors}>
 											<label htmlFor="ageGroup">
 
 												<Field as="select" name="ageGroup">
-												    <option value="" selected disabled>Altersgruppe</option>
+												    <option  defaultValue disabled>Altersgruppe</option>
 													<option value={"lessThan50"}>weniger als 50 </option>
 													<option value={"moreThan50"}>50 +</option>
 												</Field>
@@ -91,7 +95,7 @@ const ConfirmForm = (properties) => {
 											<label htmlFor="gender">
 
 												<Field as="select" name="gender">
-												    <option value="" selected disabled>Geschlecht</option>
+												    <option value="" defaultValue disabled>Geschlecht</option>
 													<option value={"woman"}>Frau</option>
 													<option value={"man"}>Mann</option>
 												</Field>
@@ -191,8 +195,8 @@ const ConfirmForm = (properties) => {
 											type={"textarea"}
 										/>
 
-										{props.touched.email && props.errors.email ? (
-											<ErrorDialog text={props.errors.email} />
+										{props.touched.message && props.errors.message ? (
+											<ErrorDialog text={props.errors.message} />
 										) : null}
 									</div>
 
@@ -215,12 +219,13 @@ const ConfirmForm = (properties) => {
 									</div>
 									</div>
 								</CardContainer>
-								<div class="container-button">
+								<div className="container-button">
 
 								    <Button
 									type={"rounded-button"}
 									label={"JETZT TERMIN VEREINBAREN"}
 									action={props.handleSubmit}
+									disabled={!props.isValid}
 								   />
 								   
 								</div>

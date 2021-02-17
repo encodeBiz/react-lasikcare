@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
-import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
+import {
+	sendAppointmentData,
+	setAppoinmentConfig,
+} from "../../../redux/appointment_config/appointmentConfig.actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import locationUbi from "../../../assets/images/icons/location-icon.svg";
@@ -11,7 +14,7 @@ import "./ConfirmAppointmentPage.scss";
 import moment from "moment";
 import "moment/locale/de";
 import ConfirmForm from "./ConfirmForm/ConfirmForm";
-import "../../../styles/App.scss"
+import "../../../styles/App.scss";
 
 const ConfirmPage = (properties) => {
 	const [children, setChildren] = useState([]);
@@ -42,7 +45,7 @@ const ConfirmPage = (properties) => {
 	}, [appointment]);
 
 	/**
-	 * Setea la información que recibirá el appointment summary
+	 * Setea la información que recibirá el appointment summary 
 	 */
 
 	const setChildrenInfo = () => {
@@ -78,13 +81,25 @@ const ConfirmPage = (properties) => {
 	 * @param {Boolean} values.message
 	 * @param {Boolean} values.isOlderThan50
 	 *
+	 * Se setea en el estado global los datos del cliente y se llama a la acción de Redux que hará la llamada a la API
+	 * Una vez completada la llamada se setea el localStorage
+	 * Completado todo se redirecciona a la página de gracias.
 	 *
 	 */
 
-	const handleSubmit = (values) => {
-
-		properties.setAppoinmentConfig("clientData", values);
-		history.push("/appointments/thank")
+	const handleSubmit = async (values) => {
+		try {
+			await properties.setAppoinmentConfig("clientData", values);
+			// await properties.sendAppointmentData();
+			const city = appointment.city.name;
+			localStorage.setItem("city", city);
+			setTimeout(() => {
+				history.push("/appointments/thank");
+			}, 1000)
+			
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -97,40 +112,35 @@ const ConfirmPage = (properties) => {
 			{/* Resumen de la cita */}
 
 			<div className="flex-responsive">
-				
-			<div className="appointment-summary">
-				<h2>Ihr Wunschtermin</h2>
-				<CardContainer className="change-h3">
-					<h3>unverbindliches Informationsgespräch</h3>
+				<div className="appointment-summary">
+					<h2>Ihr Wunschtermin</h2>
+					<CardContainer className="change-h3">
+						<h3>unverbindliches Informationsgespräch</h3>
 
-					<div className="summary-icon">
-						{children &&
-							children.map((child, index) => {
-								return (
-									<div className="child" key={index}>
-										<img src={child.imgSource} alt="..." />
-										<p>{child.text}</p>
-									</div>
-								);
-							})}
-					</div>
-				</CardContainer>
+						<div className="summary-icon">
+							{children &&
+								children.map((child, index) => {
+									return (
+										<div className="child" key={index}>
+											<img src={child.imgSource} alt="..." />
+											<p>{child.text}</p>
+										</div>
+									);
+								})}
+						</div>
+					</CardContainer>
+				</div>
+
+				{/* Formulario */}
+				<div className="wrapper-form">
+					<ConfirmForm
+						handleSubmit={handleSubmit}
+						errorMessage={errorMessage}
+						setErrorMessage={setErrorMessage}
+						appointmentValues = {appointment.clientData}
+					/>
+				</div>
 			</div>
-
-			
-			{/* Formulario */}
-            <div class="wrapper-form">
-				
-			<ConfirmForm
-				handleSubmit={handleSubmit}
-				errorMessage={errorMessage}
-				setErrorMessage={setErrorMessage}
-			/>
-
-			</div>
-
-			</div>
-
 		</div>
 	);
 };
@@ -151,6 +161,13 @@ const mapDispatchToProps = (dispatch) => {
 		 * @description Actualiza un campo del objeto de appointment
 		 */
 		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
+
+		/**
+		 * Todos los parámetros se consiguen del estado
+		 * @see sendAppointmentData
+		 */
+
+		sendAppointmentData: () => dispatch(sendAppointmentData()),
 	};
 };
 

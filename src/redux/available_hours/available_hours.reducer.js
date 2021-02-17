@@ -15,7 +15,6 @@ const fn = (state = initialState, action) => {
 	switch (action.type) {
 		case SET_HOURS:
 			const { keycli, appointments_type } = action.clinic_data;
-			console.log(appointments_type)
 
 			return {
 				...state,

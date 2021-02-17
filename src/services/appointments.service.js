@@ -1,5 +1,5 @@
 import { fetch_helper } from "./fetch.helper";
-import { get_clinicas, get_huecos } from "../enpoints/enpoints.constants";
+import { get_clinicas, get_huecos, set_huecos } from "../enpoints/enpoints.constants";
 
 
 /**
@@ -29,4 +29,48 @@ export const getHuecos = async (query_param)=>{
   }
   const response = await fetch_helper(url,'GET', headers, null, query_param)
   return response
+}
+
+
+/**
+ * 
+ * @param {Object} params 
+ * @param {String} params.clinic_id
+ * @param {String} params.clinic_name
+ * @param {String} params.clinic_address
+ * @param {String} params.date
+ * @param {String} params.hour
+ * @param {String} params.horaFin
+ * @param {String} params.keymed
+ * @param {String} params.gender
+ * @param {String} params.first_name
+ * @param {String} params.last_name
+ * @param {String} params.email
+ * @param {String} params.phone
+ * @param {String} params.message
+ * @param {String} params.utm_source Procedencia del usuario. Se setea en el componente Navbar
+ * @param {String} params.tmr 
+ * @param {String} params.comentarios
+ * @param {String} params.sexo
+ * 
+ */
+
+export const setHuecos = async (query_params) => {
+
+
+
+  try {
+    const url = set_huecos; 
+    const headers = {
+      'Origin': "*"
+    }
+    const response = await fetch_helper(url, "GET", headers, null, query_params)
+    return response
+
+  } catch (error) {
+    throw new Error(error)
+  }
+
+
+
 }
