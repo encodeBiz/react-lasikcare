@@ -4,43 +4,132 @@
 @import "../../../../styles/partials/mixins"; 
 @import "../../../../styles/partials/placeholders"; 
 
+%texto-form{
+    color:#B9B9B9 ;
+    font-family: 'Gilroy';
+    font-weight: bold;
+    font-size:.9rem;
+    opacity: 0.9;
 
-.inline-form-group{
-    display: flex;
-    justify-content: space-between;
-   
+      @include desktop-small{
+      font-size: .7rem;
+      }
 }
 
+.card-container{
 
-.form-group {
-    max-width: 350px;
-    margin: auto;
-    margin-bottom: 40px;
+    .container-form{
 
-
-    input, select{
-        outline: 0;
-        margin:0 10px;
-        border-width: 0 0 1px;
-        border-color: grey;
-        width: 95%;
-        padding: 12px;
-        background: none;
-        -webkit-appearance: none;
-
-        &::placeholder{
-            font-size:.8rem;
-            color: $texto ;
-            margin: 30px 0px 10px 0px;
+        @include tablet-medium{
+            padding: 10px 0px 0px 20px;
         }
-    }
-}
 
-.checkbox{
-    display: flex;
-    input[type='checkbox']{
-        -webkit-appearance: checkbox !important;
-        background: darkgoldenrod;
+        @include desktop-small{
+        padding: 10px 0px 0px 15px;
+        }
+
+        .form-error{
+            text-align: left;
+            margin: 0px;
+            font-size: 0.85rem;
+
+               @include desktop-medium{
+               font-size: 0.6rem;
+               }
+           }
+       
+           .inline-form-group{
+               display: grid;
+               grid-template-columns: repeat(2, 1fr);
+       
+               input, select{
+               width: 93%;
+               }
+           }
+           
+           .form-group {
+       
+               input, select{
+                   outline: 0;
+                   margin:auto;
+                   border-width: 0 0 1px;
+                   border-color: rgba(151, 151, 151, 0.2);
+                   padding: 0px 0px 5px 0px;
+                   background: none;
+                   -webkit-appearance: none;
+       
+                   &:focus{
+                   box-shadow: none;
+                   }
+       
+                   @extend %texto-form;
+           
+                   &::placeholder{
+                   margin: 30px 0px 10px 0px;
+                     
+                      @extend %texto-form;
+                   }
+               }
+       
+               select{
+               background-image: url(../../../../assets/images/icons/arrow-select.svg);
+               background-repeat: no-repeat;
+               background-position: right;
+               }
+       
+               &.marg-from{
+               margin-bottom: 35px;
+               }
+           }
+       
+           .full-width{
+             
+               input{
+               width: 97%;
+               }
+           }
+           
+           .checkbox{
+            margin-top: 15px;
+           
+               label{
+               display: flex;
+           
+                   input[type='checkbox']{
+                       -webkit-appearance: checkbox !important;
+                       background: darkgoldenrod;
+                       width: 12%;
+                       border-color: $texto;
+                       opacity: 0.6;
+                       margin: 0;
+
+                         @include tablet-medium{
+                         width: 3%;
+                         }
+
+                         @include desktop-small{
+                         width: 5%;
+                         }
+                   }
+           
+                   span{
+                   font-size: .8rem;
+                   line-height: 15px;
+                   display: inline;
+                   margin-left: 5px;
+
+                      @include desktop-small{
+                      font-size: .6rem;
+                      }
+           
+                      span{
+                      color: $tertiaryColor;
+                      }
+                   }
+               }
+           
+               
+           }
+       }
+
     }
-    
-}

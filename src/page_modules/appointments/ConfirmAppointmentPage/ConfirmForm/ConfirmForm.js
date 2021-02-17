@@ -68,15 +68,17 @@ const ConfirmForm = (properties) => {
 							<Form onSubmit={props.handleSubmit}>
 								{/* Grupo de edad */}
 								<CardContainer isColumn={true}>
-									<div className="inline-form-group">
+									<div class="container-form">
+									<div className="inline-form-group marg-from">
 										<div className="form-group" onClick={clearErrors}>
 											<label htmlFor="ageGroup">
-												<span>Altersgruppe</span>
 
 												<Field as="select" name="ageGroup">
+												    <option value="" selected disabled>Altersgruppe</option>
 													<option value={"lessThan50"}>weniger als 50 </option>
 													<option value={"moreThan50"}>50 +</option>
 												</Field>
+
 											</label>
 											{props.touched.ageGroup && props.errors.ageGroup ? (
 												<ErrorDialog text={props.errors.ageGroup} />
@@ -85,11 +87,11 @@ const ConfirmForm = (properties) => {
 
 										{/* Genero */}
 
-										<div className="form-group" onClick={clearErrors}>
+										<div className="form-group  marg-from" onClick={clearErrors}>
 											<label htmlFor="gender">
-												<span>Geschlecht</span>
 
 												<Field as="select" name="gender">
+												    <option value="" selected disabled>Geschlecht</option>
 													<option value={"woman"}>Frau</option>
 													<option value={"man"}>Mann</option>
 												</Field>
@@ -101,10 +103,10 @@ const ConfirmForm = (properties) => {
 									</div>
 									{/* Nombre */}
 
-									<div className="inline-form-group">
+									<div className="inline-form-group  marg-from">
 										<div className="form-group" onClick={clearErrors}>
 											<InputBlock
-												label="Vorname"
+												label=""
 												placeholder="Vorname"
 												values={props.values.name}
 												handleBlur={props.handleBlur}
@@ -121,9 +123,9 @@ const ConfirmForm = (properties) => {
 
 										{/* Apellidos */}
 
-										<div className="form-group" onClick={clearErrors}>
+										<div className="form-group  marg-from" onClick={clearErrors}>
 											<InputBlock
-												label="Nachnamen"
+												// label="Nachnamen"
 												placeholder="Nachnamen"
 												values={props.values.surname}
 												handleBlur={props.handleBlur}
@@ -140,9 +142,9 @@ const ConfirmForm = (properties) => {
 									</div>
 									{/* Teléfono */}
 
-									<div className="form-group" onClick={clearErrors}>
+									<div className="form-group full-width  marg-from full" onClick={clearErrors}>
 										<InputBlock
-											label="Telefonnumber"
+											// label="Telefonnumber"
 											placeholder="Telefonnumber"
 											values={props.values.phoneNumber}
 											handleBlur={props.handleBlur}
@@ -158,9 +160,9 @@ const ConfirmForm = (properties) => {
 									</div>
 									{/* Email */}
 
-									<div className="form-group" onClick={clearErrors}>
+									<div className="form-group full-width  marg-from" onClick={clearErrors}>
 										<InputBlock
-											label="Email adresse"
+											// label="Email adresse"
 											placeholder="Email adresse"
 											values={props.values.email}
 											handleBlur={props.handleBlur}
@@ -177,9 +179,9 @@ const ConfirmForm = (properties) => {
 
 									{/* Mensaje */}
 
-									<div className="form-group" onClick={clearErrors}>
+									<div className="form-group full-width" onClick={clearErrors}>
 										<InputBlock
-											label="Nachricht"
+											// label="Nachricht"
 											placeholder="Nachricht"
 											values={props.values.message}
 											handleBlur={props.handleBlur}
@@ -211,12 +213,18 @@ const ConfirmForm = (properties) => {
 											</label>
 										</div>
 									</div>
+									</div>
 								</CardContainer>
-								<Button
+								<div class="container-button">
+
+								    <Button
 									type={"rounded-button"}
 									label={"JETZT TERMIN VEREINBAREN"}
 									action={props.handleSubmit}
-								/>
+								   />
+								   
+								</div>
+
 							</Form>
 						);
 					}}

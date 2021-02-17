@@ -13,8 +13,16 @@
   @media (min-width: 540px) and (orientation: landscape) { @content; }
 }
 
+@mixin tablet-mix {
+   @media (min-width:590px){@content;}
+}
+
 @mixin tablet-medium {
   @media (min-width: 768px) { @content; }
+}
+
+@mixin tablet-change-steppers {
+  @media (min-width: 860px) { @content; }
 }
 
 @mixin tablet-large {
@@ -26,8 +34,17 @@
   @media (min-width: 1080px) { @content; }
 }
 
+@mixin desktop-change-steppers {
+  @media (min-width: 1220px) { @content; }
+}
+
+
 @mixin desktop-medium {
   @media (min-width: 1280px) { @content; }
+}
+
+@mixin desktop-medium-steppers {
+  @media (min-width: 1360px) { @content; }
 }
 
 @mixin desktop-large {

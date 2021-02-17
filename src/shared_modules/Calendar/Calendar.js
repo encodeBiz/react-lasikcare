@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Calendar.scss";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
@@ -20,6 +20,12 @@ import CalendarHour from "./CalendarHour/CalendarHour";
 
 
 const Calendar = (properties) => {
+	const [date, setFocused] = useState(properties.initialDate);
+	const onChange = (date)=>{
+		properties.handleDateChange(date);
+		setFocused(date)
+	}
+
 	return (
 		<div className="calendar-container">
 			<DayPickerSingleDateController
@@ -31,8 +37,8 @@ const Calendar = (properties) => {
 						.map((item) => item.formattedDate)
 						.some((day2) => isSameDay(day1, day2))
 				}
-				date={properties.initialDate} // momentPropTypes.momentObj or null
-				onDateChange={properties.handleDateChange} // PropTypes.func.isRequired
+				date={date} // momentPropTypes.momentObj or null
+				onDateChange={onChange} // PropTypes.func.isRequired
 				focused={false} // PropTypes.bool
 				onFocusChange={({ focused }) => properties.setFocused({ focused })} // PropTypes.func.isRequired
 				onNextMonthClick={(e) =>properties.onNextMonthClick(e)}

@@ -22,30 +22,86 @@
   font-style: normal;
   font-display: swap; }
 
-.inline-form-group {
-  display: flex;
-  justify-content: space-between; }
+.card-container .container-form .form-group input, .card-container .container-form .form-group select, .card-container .container-form .form-group input::placeholder, .card-container .container-form .form-group select::placeholder {
+  color: #B9B9B9;
+  font-family: 'Gilroy';
+  font-weight: bold;
+  font-size: .9rem;
+  opacity: 0.9; }
+  @media (min-width: 1080px) {
+    .card-container .container-form .form-group input, .card-container .container-form .form-group select, .card-container .container-form .form-group input::placeholder, .card-container .container-form .form-group select::placeholder {
+      font-size: .7rem; } }
 
-.form-group {
-  max-width: 350px;
+@media (min-width: 768px) {
+  .card-container .container-form {
+    padding: 10px 0px 0px 20px; } }
+
+@media (min-width: 1080px) {
+  .card-container .container-form {
+    padding: 10px 0px 0px 15px; } }
+
+.card-container .container-form .form-error {
+  text-align: left;
+  margin: 0px;
+  font-size: 0.85rem; }
+  @media (min-width: 1280px) {
+    .card-container .container-form .form-error {
+      font-size: 0.6rem; } }
+
+.card-container .container-form .inline-form-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); }
+  .card-container .container-form .inline-form-group input, .card-container .container-form .inline-form-group select {
+    width: 93%; }
+
+.card-container .container-form .form-group input, .card-container .container-form .form-group select {
+  outline: 0;
   margin: auto;
-  margin-bottom: 40px; }
-  .form-group input, .form-group select {
-    outline: 0;
-    margin: 0 10px;
-    border-width: 0 0 1px;
-    border-color: grey;
-    width: 95%;
-    padding: 12px;
-    background: none;
-    -webkit-appearance: none; }
-    .form-group input::placeholder, .form-group select::placeholder {
-      font-size: .8rem;
-      color: #808080;
-      margin: 30px 0px 10px 0px; }
+  border-width: 0 0 1px;
+  border-color: rgba(151, 151, 151, 0.2);
+  padding: 0px 0px 5px 0px;
+  background: none;
+  -webkit-appearance: none; }
+  .card-container .container-form .form-group input:focus, .card-container .container-form .form-group select:focus {
+    box-shadow: none; }
+  .card-container .container-form .form-group input::placeholder, .card-container .container-form .form-group select::placeholder {
+    margin: 30px 0px 10px 0px; }
 
-.checkbox {
-  display: flex; }
-  .checkbox input[type='checkbox'] {
-    -webkit-appearance: checkbox !important;
-    background: darkgoldenrod; }
+.card-container .container-form .form-group select {
+  background-image: url(../../../../assets/images/icons/arrow-select.svg);
+  background-repeat: no-repeat;
+  background-position: right; }
+
+.card-container .container-form .form-group.marg-from {
+  margin-bottom: 35px; }
+
+.card-container .container-form .full-width input {
+  width: 97%; }
+
+.card-container .container-form .checkbox {
+  margin-top: 15px; }
+  .card-container .container-form .checkbox label {
+    display: flex; }
+    .card-container .container-form .checkbox label input[type='checkbox'] {
+      -webkit-appearance: checkbox !important;
+      background: darkgoldenrod;
+      width: 12%;
+      border-color: #808080;
+      opacity: 0.6;
+      margin: 0; }
+      @media (min-width: 768px) {
+        .card-container .container-form .checkbox label input[type='checkbox'] {
+          width: 3%; } }
+      @media (min-width: 1080px) {
+        .card-container .container-form .checkbox label input[type='checkbox'] {
+          width: 5%; } }
+    .card-container .container-form .checkbox label span {
+      font-size: .8rem;
+      line-height: 15px;
+      display: inline;
+      margin-left: 5px; }
+      @media (min-width: 1080px) {
+        .card-container .container-form .checkbox label span {
+          font-size: .6rem; } }
+      .card-container .container-form .checkbox label span span {
+        color: #FF9900; }

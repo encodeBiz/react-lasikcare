@@ -65,6 +65,19 @@
 
      .CalendarMonth_table{
         margin-top: 15px;
+
+        .CalendarDay{
+         opacity: 0.3;
+        }
+
+        .CalendarDay__highlighted_calendar{
+         opacity: 1;
+         background-color: transparent;
+
+            &:focus{
+            background: transparent;
+            }
+        }
       
          .CalendarDay__default{
             border-color: transparent;
@@ -77,15 +90,21 @@
                }
 
                &:hover{
-               background-color: transparent;
+               // background-color: transparent;
                }
          }
 
          .CalendarDay__selected{
-          background: $tertiaryColor;
+          background-color: $tertiaryColor;
           color: $light;
-          font-weight: 800;
+          font-weight: bold;
           border-radius: 50px;
+         }
+
+         .CalendarDay__today{
+          background-color: transparent;
+          color: $texto;
+          font-weight: 300;
          }
      }
 }

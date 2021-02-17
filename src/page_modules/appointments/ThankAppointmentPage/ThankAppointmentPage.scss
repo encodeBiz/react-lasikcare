@@ -1,26 +1,171 @@
-@import "../../../styles/partials/mixins"; 
+@import "../../../styles/partials/mixins";
 @import "../../../styles/partials/variables";
 
+%text-gracias {
+  color: $texto;
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+%afterNumber {
+  content: "";
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 29px;
+  height: 29px;
+  position: absolute;
+  top: -6px;
+  left: -37px;
+}
 
 .wrapper-general {
-	.thank-you-message {
-		display: flex;
-		flex-direction: column;
-	}
-	.card-container {
-        
-        .summary-icon{
-            padding-top: 23px;
-            display: flex;
-            justify-content: space-between;
-            text-align: center;
+  .card-container {
+    .thank-you-message {
+      text-align: center;
+      margin: auto;
 
-              p{
-              color: $texto;
-              margin: 0px;
-              padding-top: 5px;
-              font-weight: 300;
+      h3 {
+        color: $secondaryColor;
+        margin: 0;
+        font-size: 1.1rem;
+        margin-top: 10px;
+
+        @include desktop-small {
+          font-size: 1rem;
+        }
+      }
+
+      p {
+        max-width: 90%;
+        margin: auto;
+        padding-top: 10px;
+
+        @extend %text-gracias;
+
+        @include desktop-small {
+          font-size: 0.8rem;
+        }
+
+        strong {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .flex-desktop {
+
+    @include desktop-medium {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 30px;
+    }
+    
+    .appointment-summary{
+       
+        @include desktop-medium{
+        width: 40%;
+        }
+    }
+
+
+    .wrapper-instructions {
+
+      @include desktop-medium{
+      width: 55%;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+
+        @include desktop-small {
+          font-size: 1.1rem;
+        }
+      }
+
+      .card-container {
+        display: inherit;
+        margin-bottom: 30px;
+
+        h2 {
+          margin: 0px 0px 5px 0px;
+          font-size: 1.3rem;
+        }
+
+        .instructions {
+          &:not(:last-child) {
+            margin-bottom: 20px;
+          }
+
+          &:nth-child(1) {
+            .info-item {
+              h5 {
+                position: relative;
+
+                &:before {
+                  background-image: url(../../../assets/images/icons/number-one.svg);
+                  @extend %afterNumber;
+                }
               }
-           }
-	}
+            }
+          }
+
+          &:nth-child(2) {
+            .info-item {
+              h5 {
+                position: relative;
+
+                &:before {
+                  background-image: url(../../../assets/images/icons/number-two.svg);
+                  @extend %afterNumber;
+                }
+              }
+            }
+          }
+
+          &:nth-child(3) {
+            .info-item {
+              h5 {
+                position: relative;
+
+                &:before {
+                  background-image: url(../../../assets/images/icons/number-three.svg);
+                  @extend %afterNumber;
+                }
+              }
+            }
+          }
+
+          .info-item {
+            h5 {
+              margin: 0px;
+              color: $secondaryColor;
+              font-size: 1rem;
+              margin-left: 33px;
+
+              @include desktop-small {
+                font-size: 0.8rem;
+              }
+            }
+
+            p {
+              margin: 0px 0px 0px 33px;
+              padding-top: 10px;
+              @extend %text-gracias;
+
+              @include desktop-small {
+                font-size: 0.7rem;
+                padding-top: 5px;
+              }
+
+              span {
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

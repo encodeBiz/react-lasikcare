@@ -44,9 +44,20 @@ html {
 
 body {
   background: #f0f9f9;
+  background-image: url(../assets/images/icons/background-body.svg);
+  background-repeat: no-repeat;
+  background-size: 360px;
+  background-position-y: 500px;
+  background-position-x: right;
   font-family: "Gilroy";
   font-size: 1rem;
   color: #cccccc; }
+  @media (min-width: 768px) {
+    body {
+      background-size: 500px; } }
+  @media (min-width: 1500px) {
+    body {
+      background-size: 700px; } }
   body .wrapper-general {
     max-width: 87%;
     margin: auto; }
@@ -58,7 +69,7 @@ body {
         max-width: 50%; } }
     @media (min-width: 1280px) {
       body .wrapper-general {
-        max-width: 50%; } }
+        max-width: 60%; } }
     body .wrapper-general h1 {
       font-size: 1.6rem;
       color: #808080;
@@ -70,3 +81,18 @@ body {
 .container-button {
   display: flex;
   justify-content: center; }
+
+.card-container .summary-icon {
+  padding-top: 23px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center; }
+  .card-container .summary-icon p {
+    color: #808080;
+    margin: 0px;
+    padding-top: 5px;
+    font-weight: 300;
+    font-size: .9rem; }
+    @media (min-width: 1080px) {
+      .card-container .summary-icon p {
+        font-size: .7rem; } }
