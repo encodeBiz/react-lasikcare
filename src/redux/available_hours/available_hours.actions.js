@@ -32,7 +32,6 @@ export const fetchAvailableHours = (keycli, type, date) => {
             
             const data = res[0].huecos ? {[keycli] : { [type] :  res[0].huecos } } : {};
 
-
             return dispatch(getHoursById(keycli, type, data));
 
         } catch (error) {

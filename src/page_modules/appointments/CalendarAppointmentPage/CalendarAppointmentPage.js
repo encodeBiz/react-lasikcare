@@ -60,7 +60,7 @@ const CalendarAppointmentPage = (properties) => {
 	const [selectedCity, setCity] = useState(null);
 	const [dataCalendar, setDataCalendar] = useState([]);
 	const [selectedDate, setSelectedDate] = useState(null);
-	// const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(null);
 
 	/**
@@ -76,6 +76,7 @@ const CalendarAppointmentPage = (properties) => {
 
 	/**
 	 * @description Setea el currentStep del store
+	 * @see filterData
 	 */
 	useEffect(() => {
 		const data =
@@ -83,13 +84,12 @@ const CalendarAppointmentPage = (properties) => {
 				? properties.available_hours[selectedCity]?.data[selectedType]
 				: [];
 
-		const filteredData = data?.map((item) => {
-			const date = item.fecha.split("/");
-			const formattedDate = new Date(parseInt(date[2]), parseInt(date[1]) - 1, parseInt(date[0]));
-			return { ...item, formattedDate: moment(formattedDate) };
-		});
+		if (data && data.length > 0) {
+			const filteredData = filterData(data);
 
-		setDataCalendar(filteredData);
+			setDataCalendar(filteredData);
+		}
+
 		// eslint-disable-next-line
 	}, [available_hours, selectedType, selectedCity]);
 
@@ -156,6 +156,8 @@ const CalendarAppointmentPage = (properties) => {
 	 *
 	 * @param {Object} hour
 	 * @param {Number} index
+	 * Setea la hora seleccionada
+	 * 
 	 */
 
 	const handleSelectedHour = (hour, index) => {
@@ -163,10 +165,73 @@ const CalendarAppointmentPage = (properties) => {
 		setActiveIndex(index);
 	};
 
+	/**
+	 *
+	 * @param {Array.<{
+	 * 		fecha: String,
+	 * 		horaFin: String,
+	 * 		horaInicio: String,
+	 * 		horaRealCita: String,
+	 * 		keymed: String}>} data
+	 * 
+	 * 
+	 * Formatea los datos provenientes del store para que puedan ser consumidos por el calendario
+	 */
+
+	const filterData = (data) => {
+		const filteredData = data.map((item) => {
+			const date = item.fecha.split("/");
+			const formattedDate = new Date(parseInt(date[2]), parseInt(date[1]) - 1, parseInt(date[0]));
+			return { ...item, formattedDate: moment(formattedDate) };
+		});
+
+		return filteredData;
+	};
+
+	/**
+	 * Una vez se ha seleccionado la fecha y la hora se activa esta función en el click del botón
+	 */
+
+
 	const onConfirmHour = () => history.push("/appointments/confirm");
 
-	const handleClick = (type) => {
-		properties.setAppoinmentConfig("type", type);
+	/**
+	 * 
+	 * @param {String} type Tipo de cita seleccionado 
+	 */
+
+
+	const handleClick = async (type) => {
+		try {
+
+			// Se setea el loading a true ya que al cargar nuevos datos es posible que de un undefined. 
+
+			setLoading(true);
+
+			// Se cambia el tipo de cita en el estado
+
+			await properties.setAppoinmentConfig("type", type);
+			
+			// Se seleccionan desde el estado las fechas correspondientes al nuevo tipo de cita 
+
+			const selectedHours = await available_hours[selectedCity].data[appointment.type];
+
+			// Se formatean las horas seleccioonadas
+
+			const filteredData = filterData(selectedHours);
+
+			// Se setean los datos formateados como nuevos datos que el calendario debera pintar
+
+			setDataCalendar(filteredData);
+
+			// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
+
+			setSelectedDate(null)
+
+			// Se setea el loading a false
+
+			setLoading(false);
+		} catch (error) {}
 	};
 
 	/////////////////////////////
@@ -198,6 +263,7 @@ const CalendarAppointmentPage = (properties) => {
 											type="radio"
 											name="type"
 											value={button.type}
+											onChange={() => {}}
 										/>
 										{button.text} {button.label}
 									</label>
@@ -207,18 +273,20 @@ const CalendarAppointmentPage = (properties) => {
 					</div>
 				</CardContainer>
 				<CardContainer>
-					<Calendar
-						datesList={dataCalendar}
-						setFocused={setFocused}
-						initialDate={initialDate}
-						width={width}
-						calendarWidth={calendarWidth}
-						handleDateChange={handleDateChange}
-						handleSelectedHour={handleSelectedHour}
-						selectedDate={selectedDate}
-						onNextMonthClick={onNextMonthClick}
-						activeIndex={activeIndex}
-					/>
+					{!loading && (
+						<Calendar
+							datesList={dataCalendar}
+							setFocused={setFocused}
+							initialDate={initialDate}
+							width={width}
+							calendarWidth={calendarWidth}
+							handleDateChange={handleDateChange}
+							handleSelectedHour={handleSelectedHour}
+							selectedDate={selectedDate}
+							onNextMonthClick={onNextMonthClick}
+							activeIndex={activeIndex}
+						/>
+					)}
 				</CardContainer>
 
 				{appointment.calendar_date && appointment.calendar_hour && (
