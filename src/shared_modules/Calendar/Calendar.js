@@ -31,7 +31,6 @@ const Calendar = (properties) => {
 				numberOfMonths={1}
 				hideKeyboardShortcutsPanel={true}
 				daySize={properties.calendarWidth}
-
 				// Si hay datos de fechas se pintan los días seleccionados
 				// Si no se pone un condicional para comprobar que properties.datesList no llega undefined
 				// Calendar rompe la aplicación
@@ -47,7 +46,8 @@ const Calendar = (properties) => {
 				focused={false} // PropTypes.bool
 				onFocusChange={({ focused }) => properties.setFocused({ focused })} // PropTypes.func.isRequired
 				onNextMonthClick={(e) => properties.onNextMonthClick(e)}
-				></DayPickerSingleDateController>
+				onPrevMonthClick={(e) => properties.onPreviousMonthClick(e)}
+			></DayPickerSingleDateController>
 			<CalendarHour
 				activeIndex={properties.activeIndex}
 				free_hours={properties.selectedDate || []}

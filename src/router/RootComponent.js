@@ -2,7 +2,7 @@ import React from "react";
 
 // Router
 
-import { Switch } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 
 // Redux
 
@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 
 import { RouteWithSubRoutes } from "./RouterHelper";
 
-// Componentes 
+// Componentes
 
 import Appointments from "../page_modules/appointments/Appointments";
 import AppointmentType from "../page_modules/appointmentType/AppointmentType";
@@ -28,7 +28,8 @@ import Video_call from "../page_modules/video_call/VideoCall";
 
 // Estilos
 
-import "../styles/App.scss"
+import "../styles/App.scss";
+import SorryPage from "../page_modules/sorryPage/SorryPage";
 
 const routes = [
 	{
@@ -43,7 +44,7 @@ const routes = [
 	{
 		path: "/appointments",
 		component: Appointments,
-		stepNumber: 0, 
+		stepNumber: 0,
 		routes: [
 			{
 				path: "/appointments/type",
@@ -85,10 +86,7 @@ const routes = [
 			},
 		],
 	},
-	{
-		path: "/",
-		component: CityAppointmentPage,
-	},
+
 ];
 
 /**
@@ -104,18 +102,32 @@ const Root = (properties) => {
 		<React.Fragment>
 			<Navbar></Navbar>
 			<Switch>
-				{routes.map((route, i) => (
-					<RouteWithSubRoutes key={i} {...route} />
-				))}
+
+				{/* Estas dos rutas deben de renderizarse aquí 
+					para poder redireccionar a home cuando se 
+					recarga la página
+				*/}
+
+				<Route exact path={"/"} component={CityAppointmentPage} />
+				<Route exact path={"/sorry"} component={SorryPage} />
+
+				{properties.clinics.status === "pending" ? (
+					<Redirect to={"/"} />
+				) : (
+					<>
+						{routes.map((route, i) => (
+							<RouteWithSubRoutes key={i} {...route} />
+						))}
+					</>
+				)}
 			</Switch>
 		</React.Fragment>
 	);
 };
 
-
-
 const mapStateToProps = (state) => ({
 	errors: state.errors,
+	clinics: state.clinics
 });
 
 export default connect(mapStateToProps)(Root);

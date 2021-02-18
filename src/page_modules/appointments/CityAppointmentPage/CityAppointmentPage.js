@@ -125,6 +125,8 @@ const CityAppointmentPage = (properties) => {
 		}
 	};
 
+
+
 	return (
 		<div className="wrapper-general">
 			<div className="title-seccion">

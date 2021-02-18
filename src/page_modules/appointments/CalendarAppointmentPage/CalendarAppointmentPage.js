@@ -10,8 +10,9 @@ import { connect } from "react-redux";
 import moment from "moment";
 import useWindowSize from "../../../hooks/useWindowSize";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
-import { fetchAvailableHours } from "../../../redux/available_hours/available_hours.actions";
+import { updateAvailableHours } from "../../../redux/available_hours/available_hours.actions";
 import Card from "../../../shared_modules/Card/Card";
+import { date } from "yup/lib/locale";
 
 /**
  *
@@ -63,6 +64,10 @@ const CalendarAppointmentPage = (properties) => {
 	const [loading, setLoading] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(null);
 
+	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
+
+	const [currentMonth, setCurrentMonth] = useState(currentMonthNumber);
+
 	/**
 	 * Seteo del current step y de la ciudad y el tipo de consulta seleccionada
 	 */
@@ -72,26 +77,27 @@ const CalendarAppointmentPage = (properties) => {
 		setType(properties.appointment.type);
 		setCity(properties.appointment.city.keycli);
 		// eslint-disable-next-line
-	}, []);
+	}, [selectedType]);
 
 	/**
 	 * @description Setea el currentStep del store
 	 * @see filterData
 	 */
 	useEffect(() => {
-		const data =
-			selectedCity && selectedType
-				? properties.available_hours[selectedCity]?.data[selectedType]
-				: [];
 
+		// Selecciona del store los datos correspondientes al mes que se muestra en el calendario 
+
+		const data = selectedCity && selectedType ? properties.available_hours[selectedCity]?.data[selectedType][currentMonth] : [];
+		
 		if (data && data.length > 0) {
+
 			const filteredData = filterData(data);
 
 			setDataCalendar(filteredData);
 		}
 
 		// eslint-disable-next-line
-	}, [available_hours, selectedType, selectedCity]);
+	}, [selectedType, selectedCity, currentMonth]);
 
 	/**
 	 * @description Setea la anchura del calendario
@@ -114,6 +120,7 @@ const CalendarAppointmentPage = (properties) => {
 		else if (width <= 980) return 50;
 		else return 50;
 	};
+
 
 	/////////////////////////////
 	// Gestión de eventos
@@ -143,13 +150,45 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 
 	const onNextMonthClick = async (currentDate) => {
-		// try {
-		// 	setLoading(true);
-		// 	const date = moment(currentDate).add(1, "month").format("DD/M/YYYY");
-		// 	properties.fetchAvailableHours(appointment.city.keycli, appointment.type, date);
-		// } catch (error) {
-		// 	console.log(error);
-		// }
+		try {
+
+			// Setea currentMonth al mes actual
+			
+			const month = moment(today, "DD/MM/YYYY").format("M")
+
+			setCurrentMonth(month)
+
+			// Se setea la fecha seleccionada a null para que desaparezcan las horas seleccionadas
+			setSelectedDate(null)
+
+			// Setea la fecha del que se pasará al action. Se añade un mes exacto
+
+			const date = moment(currentDate).add(1, "month").format("DD/M/YYYY");
+
+			// Setea el mes que se utilizará para ubicar los nuevos datos en su lugar en el state
+
+			const nextMonth = (Number(currentMonth) + 2).toString();
+
+			// Se suma uno al mes actual	
+
+			setCurrentMonth((Number(currentMonth) + 1).toString());
+
+			// Acción que llama a la API para conseguir los datos del mes siguiente
+
+			await properties.updateAvailableHours( appointment.city.keycli, appointment.type, date, nextMonth );
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+
+	/**
+	 * Cuando se va al mes anterior se resta uno al currentMonth
+	 */
+
+	const onPreviousMonthClick = () => {
+		setSelectedDate(null)
+		setCurrentMonth((Number(currentMonth) - 1).toString());
 	};
 
 	/**
@@ -157,7 +196,7 @@ const CalendarAppointmentPage = (properties) => {
 	 * @param {Object} hour
 	 * @param {Number} index
 	 * Setea la hora seleccionada
-	 * 
+	 *
 	 */
 
 	const handleSelectedHour = (hour, index) => {
@@ -173,48 +212,57 @@ const CalendarAppointmentPage = (properties) => {
 	 * 		horaInicio: String,
 	 * 		horaRealCita: String,
 	 * 		keymed: String}>} data
-	 * 
-	 * 
+	 *
+	 *
 	 * Formatea los datos provenientes del store para que puedan ser consumidos por el calendario
 	 */
 
 	const filterData = (data) => {
-		const filteredData = data.map((item) => {
-			const date = item.fecha.split("/");
-			const formattedDate = new Date(parseInt(date[2]), parseInt(date[1]) - 1, parseInt(date[0]));
-			return { ...item, formattedDate: moment(formattedDate) };
-		});
+		if(data && data.length > 0){
 
-		return filteredData;
+			const filteredData = data.map((item) => {
+				const date = item.fecha.split("/");
+				const formattedDate = new Date(parseInt(date[2]), parseInt(date[1]) - 1, parseInt(date[0]));
+				return { ...item, formattedDate: moment(formattedDate) };
+			});
+	
+			return filteredData;
+		}
 	};
 
 	/**
 	 * Una vez se ha seleccionado la fecha y la hora se activa esta función en el click del botón
 	 */
 
-
 	const onConfirmHour = () => history.push("/appointments/confirm");
 
 	/**
-	 * 
-	 * @param {String} type Tipo de cita seleccionado 
+	 *
+	 * @param {String} type Tipo de cita seleccionado
 	 */
-
 
 	const handleClick = async (type) => {
 		try {
 
-			// Se setea el loading a true ya que al cargar nuevos datos es posible que de un undefined. 
+			// Se setea el loading a true ya que al cargar nuevos datos es posible que de un undefined.
 
 			setLoading(true);
+
+			// Setea el tipo 
+
+			setType(type)
+
+			// Setea el currentMonth al mes actual ya que se recarga el calendario
+
+			setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"))
 
 			// Se cambia el tipo de cita en el estado
 
 			await properties.setAppoinmentConfig("type", type);
-			
-			// Se seleccionan desde el estado las fechas correspondientes al nuevo tipo de cita 
 
-			const selectedHours = await available_hours[selectedCity].data[appointment.type];
+			// Se seleccionan desde el estado las fechas correspondientes al nuevo tipo de cita
+
+			const selectedHours = await available_hours[selectedCity].data[selectedType][currentMonth];
 
 			// Se formatean las horas seleccioonadas
 
@@ -226,14 +274,15 @@ const CalendarAppointmentPage = (properties) => {
 
 			// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
 
-			setSelectedDate(null)
+			setSelectedDate(null);
 
 			// Se setea el loading a false
 
 			setLoading(false);
-		} catch (error) {}
+		} catch (error) {
+			console.log(error);
+		}
 	};
-
 	/////////////////////////////
 	// Renderizado del componente
 	/////////////////////////////
@@ -284,6 +333,7 @@ const CalendarAppointmentPage = (properties) => {
 							handleSelectedHour={handleSelectedHour}
 							selectedDate={selectedDate}
 							onNextMonthClick={onNextMonthClick}
+							onPreviousMonthClick={onPreviousMonthClick}
 							activeIndex={activeIndex}
 						/>
 					)}
@@ -316,7 +366,8 @@ const mapDispatchToProps = (dispatch) => {
 		 */
 		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
 
-		fetchAvailableHours: (keycli, type, date) => dispatch(fetchAvailableHours(keycli, type, date)),
+		updateAvailableHours: (keycli, type, date, nextMonth) =>
+			dispatch(updateAvailableHours(keycli, type, date, nextMonth)),
 	};
 };
 

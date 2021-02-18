@@ -9,8 +9,6 @@ import thunk from "redux-thunk";
 
 let store = createStore(combineReducers(reducers), applyMiddleware(thunk));
 
-console.log(store)
-
 ReactDOM.render(
 	<Provider store={store}>
 		<BrowserRouter>
