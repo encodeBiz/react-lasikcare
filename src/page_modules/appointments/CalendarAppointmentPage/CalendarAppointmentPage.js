@@ -33,11 +33,13 @@ const CalendarAppointmentPage = (properties) => {
 			action: "Erstberatung",
 			text: "Erstberatung",
 			label: "",
+			type: "BI",
 		},
 		{
 			action: "Voruntersuchung",
 			text: "Voruntersuchung",
 			label: "40€",
+			type: "BIDI",
 		},
 	];
 
@@ -58,7 +60,7 @@ const CalendarAppointmentPage = (properties) => {
 	const [selectedCity, setCity] = useState(null);
 	const [dataCalendar, setDataCalendar] = useState([]);
 	const [selectedDate, setSelectedDate] = useState(null);
-	const [loading, setLoading] = useState(false);
+	// const [loading, setLoading] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(null);
 
 	/**
@@ -78,7 +80,7 @@ const CalendarAppointmentPage = (properties) => {
 	useEffect(() => {
 		const data =
 			selectedCity && selectedType
-				? properties.available_hours[selectedCity].data[selectedType]
+				? properties.available_hours[selectedCity]?.data[selectedType]
 				: [];
 
 		const filteredData = data?.map((item) => {
@@ -163,6 +165,10 @@ const CalendarAppointmentPage = (properties) => {
 
 	const onConfirmHour = () => history.push("/appointments/confirm");
 
+	const handleClick = (type) => {
+		properties.setAppoinmentConfig("type", type);
+	};
+
 	/////////////////////////////
 	// Renderizado del componente
 	/////////////////////////////
@@ -178,11 +184,22 @@ const CalendarAppointmentPage = (properties) => {
 				<CardContainer isColumn={true}>
 					<div className="button-container">
 						{buttonsConfig.map((button, index) => {
+							const customClass = appointment.type === button.type ? "card-highlighted" : "";
 							return (
-								<Card key={index}>
+								<Card
+									key={index}
+									customClass={`pointer ${customClass}`}
+									handleClick={handleClick}
+									clickParam={button.type}
+								>
 									<label>
-										<input type="radio" />
-										{button.text}
+										<input
+											checked={appointment.type === button.type}
+											type="radio"
+											name="type"
+											value={button.type}
+										/>
+										{button.text} {button.label}
 									</label>
 								</Card>
 							);

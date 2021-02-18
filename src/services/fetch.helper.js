@@ -25,7 +25,7 @@ export const fetch_helper = async (url,method,headers,body,query_params) => {
   let config = {
     method: method || 'GET',
   }
-  if(config.method == 'POST') config.body = JSON.stringify(body || {})
+  if(config.method === 'POST') config.body = JSON.stringify(body || {})
 
   try {
     const response = await fetch(

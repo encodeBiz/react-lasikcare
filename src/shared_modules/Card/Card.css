@@ -51,3 +51,10 @@
     @media (min-width: 1080px) {
       .card p {
         font-size: 0.9rem; } }
+
+.pointer {
+  cursor: pointer; }
+
+.card-highlighted {
+  background: #FF9900;
+  color: #ffffff; }

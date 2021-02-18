@@ -62,7 +62,6 @@ const TypeAppointmentPage = (properties) => {
 		// eslint-disable-next-line
 	}, [stateType]);
 
-	console.log(stateType)
 
 	/**
 	 * Hook para usar la funcionalidad de history de React Router

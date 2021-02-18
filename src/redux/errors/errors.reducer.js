@@ -1,6 +1,5 @@
 import { SET_ERROR, GET_ERROR, DELETE_ERROR } from "./errors.actions";
 
-const errorInitialState = {};
 
 /**
  * @param {Object} state Estado actual

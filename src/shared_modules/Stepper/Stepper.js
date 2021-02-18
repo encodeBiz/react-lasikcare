@@ -3,7 +3,6 @@ import "./Stepper.scss";
 
 const Stepper = ({ currentStepIndex, navigateTo }) => {
 	
-	console.log(currentStepIndex)
 
 	const steps = [
 		{

@@ -1,4 +1,3 @@
-import { getClinicas } from "../../services/appointments.service";
 import { GET_CLINICS_APPOINTMENTS, SET_CLINICS_APPOINTMENTS } from "./clinics.actions";
 
 const initState ={status: 'pending', clinics: []}
