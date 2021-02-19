@@ -61,7 +61,7 @@ const AppointmentType = (properties) => {
 		<div className="wrapper-general">
 			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
 			<div className="top-content">
-				<Button action={() => history.go(-1)} styleType={"back-button"} label={"Zurück"} />
+				<Button action={() => history.push("/city")} styleType={"back-button"} label={"Zurück"} />
 			</div>
 			<h1>1. Bitte wählen Sie Ihren Wunschtermin:</h1>
 			<div className="presencial-online-wrapper">

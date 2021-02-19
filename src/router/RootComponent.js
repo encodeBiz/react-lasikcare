@@ -100,7 +100,6 @@ const routes = [
 const Root = (properties) => {
 	const { errors } = properties;
 
-	console.log(errors)
 
 	return (
 		<React.Fragment>
