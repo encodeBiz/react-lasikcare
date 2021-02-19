@@ -30,6 +30,7 @@ import Video_call from "../page_modules/video_call/VideoCall";
 
 import "../styles/App.scss";
 import SorryPage from "../page_modules/sorryPage/SorryPage";
+import ErrorToast from "../shared_modules/ErrorToast/ErrorToast";
 
 const routes = [
 	{
@@ -86,7 +87,6 @@ const routes = [
 			},
 		],
 	},
-
 ];
 
 /**
@@ -98,11 +98,15 @@ const routes = [
  * @param {String} properties.errors.message Mensaje del error
  */
 const Root = (properties) => {
+	const { errors } = properties;
+
+	console.log(errors)
+
 	return (
 		<React.Fragment>
+			{errors.notDefault && <ErrorToast />}
 			<Navbar></Navbar>
 			<Switch>
-
 				{/* Estas dos rutas deben de renderizarse aquí 
 					para poder redireccionar a home cuando se 
 					recarga la página
@@ -127,7 +131,7 @@ const Root = (properties) => {
 
 const mapStateToProps = (state) => ({
 	errors: state.errors,
-	clinics: state.clinics
+	clinics: state.clinics,
 });
 
 export default connect(mapStateToProps)(Root);

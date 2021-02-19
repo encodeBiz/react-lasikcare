@@ -6,7 +6,10 @@ import moment from "moment";
 import locationUbi from "../../../assets/images/icons/location-icon.svg";
 import calendarUbi from "../../../assets/images/icons/calendar-icon.svg";
 import timeUbi from "../../../assets/images/icons/time-icon.svg";
-import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
+import {
+	clearAppointment,
+	setAppoinmentConfig,
+} from "../../../redux/appointment_config/appointmentConfig.actions";
 import iconThanks from "../../../assets/images/icons/icon-thanks.svg";
 
 /**
@@ -19,8 +22,6 @@ import iconThanks from "../../../assets/images/icons/icon-thanks.svg";
 const ThankAppointmentPage = (properties) => {
 	const { appointment } = properties;
 	const [children, setChildren] = useState([]);
-
-	console.log(appointment)
 
 	const info = [
 		{
@@ -40,11 +41,17 @@ const ThankAppointmentPage = (properties) => {
 	];
 
 	/**
-	 * @description Setea el currentStep del store.
+	 *  Setear nueva ciudad en el localStorage
+	 * 	Borrar el localStorage temporal
+	 * 	Borrar el estado de appointment
+	 *
 	 */
 
 	useEffect(() => {
-		properties.setAppoinmentConfig("currentStep", 4);
+		setCityInStorage(appointment.city);
+		clearTempCities();
+		clearReduxAppointmentState();
+
 		// eslint-disable-next-line
 	}, []);
 
@@ -62,6 +69,20 @@ const ThankAppointmentPage = (properties) => {
 	/**
 	 * Setea la información que recibirá el appointment summary
 	 */
+
+	const setCityInStorage = (newCity) => localStorage.setItem("cities", JSON.stringify(newCity));
+
+	/**
+	 * Limpia las ciudades temporales del storage
+	 */
+
+	const clearTempCities = () => localStorage.removeItem("tempCities");
+
+	/**
+	 * Limpia el estado de redux
+	 */
+
+	const clearReduxAppointmentState = () => properties.clearAppointment();
 
 	const setChildrenInfo = () => {
 		const hour = moment(appointment.calendar_hour.horaInicio, "HH:mm");
@@ -162,6 +183,12 @@ const mapDispatchToProps = (dispatch) => {
 		 * @description Actualiza un campo del objeto de appointment
 		 */
 		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
+
+		/**
+		 * Limpia el estado de Redux del appointment
+		 */
+
+		clearAppointment: () => dispatch(clearAppointment()),
 	};
 };
 

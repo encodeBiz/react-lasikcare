@@ -96,11 +96,13 @@ const TypeAppointmentPage = (properties) => {
 		history.push("/appointments/calendar");
 	};
 
+	const goBack = () => history.push("/type")
+
 	return (
 		<div className="wrapper-general">
 			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
 			<div className="top-content">
-				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
+				<Button action={goBack} actionParam styleType={"back-button"} label={"Zurück"} />
 			</div>
 			<div className="appointment-type-container">
 				<div>

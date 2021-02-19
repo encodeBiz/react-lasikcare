@@ -44,6 +44,10 @@
     width: 50%;
     }
 
+    &.secondary-btn{
+       background-color: transparent;
+    }
+
     &.back-button {
         position: relative;
         font-size: 1rem;
@@ -114,5 +118,9 @@
       }
 
    }
+
+}
+
+.secondary-btn{
 
 }

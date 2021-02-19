@@ -1,7 +1,7 @@
 import {
 	GET_APPOINTMENT_CONFIG,
 	SET_APPOINTMENT_CONFIG,
-	FINISH_APPOINMENT_CONFIG,
+	CLEAR_APPOINTMENT_INFO,
 } from "./appointmentConfig.actions";
 
 const initialState = {
@@ -29,11 +29,8 @@ const appoinmentConfig = (state = initialState, action) => {
 		case SET_APPOINTMENT_CONFIG:
 			const { property, data } = action;
 			return { ...state, [property]: data };
-		case FINISH_APPOINMENT_CONFIG:
-			return {
-				...state,
-				isAppointmentFinish: true,
-			};
+		case CLEAR_APPOINTMENT_INFO:
+			return initialState;
 		default:
 			return state;
 	}

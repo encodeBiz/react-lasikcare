@@ -1,5 +1,8 @@
 import { SET_ERROR, GET_ERROR, DELETE_ERROR } from "./errors.actions";
 
+const defaultState = {
+    error: "Ha ocurrido un error"
+}
 
 /**
  * @param {Object} state Estado actual
@@ -8,15 +11,17 @@ import { SET_ERROR, GET_ERROR, DELETE_ERROR } from "./errors.actions";
  * @param {Object} action.error Acción 
  */
 
-const errorReducer = async (state= {error : "Ha ocurrido un error"}, action) => {
+
+
+const errorReducer = (state= defaultState, action) => {
     switch (action.type) {
         case SET_ERROR:
-            return {...state, error: action.error}
+            return {...state, error: action.error, notDefault: true}
         case GET_ERROR: 
             return state
         case DELETE_ERROR: 
-            const filteredErrors =  state.filter((error) => error !== action.error)
-            return {state: filteredErrors}    
+
+        return defaultState    
         default:
             return state;
     }

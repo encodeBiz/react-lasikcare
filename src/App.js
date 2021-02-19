@@ -6,6 +6,7 @@ import { fetchAvailableHours } from "./redux/available_hours/available_hours.act
 import CardContainer from "./shared_modules/CardContainer/CardContainer";
 import { Link } from "react-router-dom";
 import Card from "./shared_modules/Card/Card";
+import { setGlobalError } from "./redux/errors/errors.actions";
 
 /**
  * Página de ejemplo
@@ -13,10 +14,10 @@ import Card from "./shared_modules/Card/Card";
  * @param {Object} properties.store Store de redux
  * @param {Function} properties.getClinicsAppointments Acción para obtener las clínicas
  * @param {Function} properties.getHoursById  Acción para obtener los huecos dado una clinica y un tipo de cita
+ * @param {Funcion} properties.setGlobalError Acción para setear un error
  */
 function App(properties) {
 	const [clinics, setClinics] = useState([]);
-	// const [clientCity, setClientCity] = useState(null);
 
 	const homeLinksConfig = [
 		{
@@ -50,7 +51,7 @@ function App(properties) {
 
 			await getAllClinicsHours();
 		} catch (error) {
-			console.log(error);
+			properties.setGlobalError(error)
 		}
 	};
 
@@ -64,28 +65,6 @@ function App(properties) {
 			properties.fetchAvailableHours(clinic.keycli, "BIDI");
 		});
 	};
-
-	// properties.store.clinics.then( clinicsState => {
-	//   if(clinicsState.clinics.status === 'finish' && !init ){
-	//     setInit(true)
-	//     const cli = clinicsState.clinics.clinics
-	//     for (let index = 0; index < cli.length; index++) {
-	//       const {keycli} = cli[index];
-	//       properties.getHoursById(keycli,'BI')
-	//       properties.getHoursById(keycli,'BIDI')
-	//     }
-	//   }
-	// })
-
-	// /* properties.store.available_hours.then(
-	//   (_store) => {
-	//     console.log('available_hours', _store)
-	// }) */
-	// properties.store.clinics.then( clinicsState => {
-	//   if (clinicsState.clinics.status === 'finish'){
-	//     setClinics(clinicsState.clinics.clinics)
-	//   }
-	// })
 
 
 	return (
@@ -114,12 +93,26 @@ function App(properties) {
 	);
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		fetchAvailableHours: (keycli, appointments_type) =>
-			dispatch(fetchAvailableHours(keycli, appointments_type)),
-	};
-};
+const mapDispatchToProps = (dispatch) => ({
+
+	/**
+	 * 
+	 * @param {String} keycli 
+	 * @param {String} appointments_type 
+	 * 
+	 * Acción de Redux que hace una llamada a la API para conseguir los huecos libres en un mes
+	 */
+
+	fetchAvailableHours: (keycli, appointments_type) => dispatch(fetchAvailableHours(keycli, appointments_type)),
+	/**
+	 *
+	 * @param {String} error
+	 *
+	 * Setea un nuevo error en Redux
+	 */
+
+	setGlobalError: (error) => dispatch(setGlobalError(error)),
+});
 
 const mapStateToProps = (state) => ({
 	clinics: state.clinics,

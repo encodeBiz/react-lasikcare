@@ -10,9 +10,12 @@ import { connect } from "react-redux";
 import moment from "moment";
 import useWindowSize from "../../../hooks/useWindowSize";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
-import { updateAvailableHours } from "../../../redux/available_hours/available_hours.actions";
+import {
+	fetchAvailableHours,
+	updateAvailableHours,
+} from "../../../redux/available_hours/available_hours.actions";
 import Card from "../../../shared_modules/Card/Card";
-import { date } from "yup/lib/locale";
+import { setGlobalError } from "../../../redux/errors/errors.actions";
 
 /**
  *
@@ -84,16 +87,19 @@ const CalendarAppointmentPage = (properties) => {
 	 * @see filterData
 	 */
 	useEffect(() => {
+		// Selecciona del store los datos correspondientes al mes que se muestra en el calendario
 
-		// Selecciona del store los datos correspondientes al mes que se muestra en el calendario 
+		if (properties.available_hours[selectedCity]) {
+			const data =
+				selectedCity && selectedType
+					? properties.available_hours[selectedCity]?.data?.[selectedType]?.[currentMonth]
+					: [];
 
-		const data = selectedCity && selectedType ? properties.available_hours[selectedCity]?.data[selectedType][currentMonth] : [];
-		
-		if (data && data.length > 0) {
+			if (data && data.length > 0) {
+				const filteredData = filterData(data);
 
-			const filteredData = filterData(data);
-
-			setDataCalendar(filteredData);
+				setDataCalendar(filteredData);
+			}
 		}
 
 		// eslint-disable-next-line
@@ -120,7 +126,6 @@ const CalendarAppointmentPage = (properties) => {
 		else if (width <= 980) return 50;
 		else return 50;
 	};
-
 
 	/////////////////////////////
 	// Gestión de eventos
@@ -151,15 +156,14 @@ const CalendarAppointmentPage = (properties) => {
 
 	const onNextMonthClick = async (currentDate) => {
 		try {
-
 			// Setea currentMonth al mes actual
-			
-			const month = moment(today, "DD/MM/YYYY").format("M")
 
-			setCurrentMonth(month)
+			const month = moment(today, "DD/MM/YYYY").format("M");
+
+			setCurrentMonth(month);
 
 			// Se setea la fecha seleccionada a null para que desaparezcan las horas seleccionadas
-			setSelectedDate(null)
+			setSelectedDate(null);
 
 			// Setea la fecha del que se pasará al action. Se añade un mes exacto
 
@@ -169,25 +173,32 @@ const CalendarAppointmentPage = (properties) => {
 
 			const nextMonth = (Number(currentMonth) + 2).toString();
 
-			// Se suma uno al mes actual	
+			// Se suma uno al mes actual
 
 			setCurrentMonth((Number(currentMonth) + 1).toString());
 
 			// Acción que llama a la API para conseguir los datos del mes siguiente
 
-			await properties.updateAvailableHours( appointment.city.keycli, appointment.type, date, nextMonth );
+
+			console.log(appointment.city.keycli,
+				appointment.type,)
+			await properties.updateAvailableHours(
+				appointment.city.keycli,
+				appointment.type,
+				date,
+				nextMonth
+			);
 		} catch (error) {
-			console.log(error);
+			properties.setGlobalError("Ha ocurrido un error");
 		}
 	};
-
 
 	/**
 	 * Cuando se va al mes anterior se resta uno al currentMonth
 	 */
 
 	const onPreviousMonthClick = () => {
-		setSelectedDate(null)
+		setSelectedDate(null);
 		setCurrentMonth((Number(currentMonth) - 1).toString());
 	};
 
@@ -218,14 +229,13 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 
 	const filterData = (data) => {
-		if(data && data.length > 0){
-
+		if (data && data.length > 0) {
 			const filteredData = data.map((item) => {
 				const date = item.fecha.split("/");
 				const formattedDate = new Date(parseInt(date[2]), parseInt(date[1]) - 1, parseInt(date[0]));
 				return { ...item, formattedDate: moment(formattedDate) };
 			});
-	
+
 			return filteredData;
 		}
 	};
@@ -243,18 +253,27 @@ const CalendarAppointmentPage = (properties) => {
 
 	const handleClick = async (type) => {
 		try {
+			// Si no hay ninguna ciudad seleccionada redirige a cities
+
+			const citiesInStorage = checkCitiesInStorage();
+
+			if (citiesInStorage.length <= 0) {
+				history.push("/city");
+				properties.setGlobalError("Debes elegir una ciudad antes de continuar");
+				return;
+			}
 
 			// Se setea el loading a true ya que al cargar nuevos datos es posible que de un undefined.
 
 			setLoading(true);
 
-			// Setea el tipo 
+			// Setea el tipo
 
-			setType(type)
+			setType(type);
 
 			// Setea el currentMonth al mes actual ya que se recarga el calendario
 
-			setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"))
+			setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
 
 			// Se cambia el tipo de cita en el estado
 
@@ -262,27 +281,72 @@ const CalendarAppointmentPage = (properties) => {
 
 			// Se seleccionan desde el estado las fechas correspondientes al nuevo tipo de cita
 
-			const selectedHours = await available_hours[selectedCity].data[selectedType][currentMonth];
+			let selectedHours = await available_hours[selectedCity]?.data?.[selectedType]?.[currentMonth];
 
-			// Se formatean las horas seleccioonadas
+			if (!selectedHours) {
+				await getClinicsHours(citiesInStorage);
 
-			const filteredData = filterData(selectedHours);
+				await properties.setAppoinmentConfig("city", citiesInStorage)
 
-			// Se setean los datos formateados como nuevos datos que el calendario debera pintar
+				const hours = await available_hours[citiesInStorage.keycli]?.data?.[selectedType]?.[ Number(currentMonth) + 1];
+				// Se formatean las horas seleccioonadas
+			
+				console.log(hours)
+				const filteredData = filterData(hours);
 
-			setDataCalendar(filteredData);
+				// Se setean los datos formateados como nuevos datos que el calendario debera pintar
 
-			// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
+				setDataCalendar(filteredData);
 
-			setSelectedDate(null);
+				// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
 
-			// Se setea el loading a false
+				setSelectedDate(null);
 
-			setLoading(false);
+				// Se setea el loading a false
+
+				setLoading(false);
+			} else {
+				// Se formatean las horas seleccioonadas
+
+
+				const filteredData = filterData(selectedHours);
+
+				// Se setean los datos formateados como nuevos datos que el calendario debera pintar
+
+				setDataCalendar(filteredData);
+
+				// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
+
+				setSelectedDate(null);
+
+				// Se setea el loading a false
+
+				setLoading(false);
+			}
 		} catch (error) {
-			console.log(error);
+			properties.setGlobalError("Se ha producido un error");
 		}
 	};
+
+	const checkCitiesInStorage = () => {
+		const cities = JSON.parse(localStorage.getItem("cities"));
+		const tempCities = JSON.parse(localStorage.getItem("tempCities")) || [];
+
+		if (!cities && !tempCities) {
+			return false;
+		} else if (cities && !tempCities) {
+			return cities;
+		} else if (!cities && tempCities) {
+			return tempCities[0];
+		}
+	};
+
+	const getClinicsHours = async (city) => {
+		await properties.fetchAvailableHours(city.keycli, "BI");
+		await properties.fetchAvailableHours(city.keycli, "BIDI");
+	};
+
+
 	/////////////////////////////
 	// Renderizado del componente
 	/////////////////////////////
@@ -366,8 +430,33 @@ const mapDispatchToProps = (dispatch) => {
 		 */
 		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
 
+		/**
+		 *
+		 * @param {String} keycli
+		 * @param {String} type
+		 * @param {String} date
+		 * @param {String} nextMonth
+		 *
+		 * Acción de redux que se encarga de hacer una petición para conseguir las horas del mes siguiente
+		 */
 		updateAvailableHours: (keycli, type, date, nextMonth) =>
 			dispatch(updateAvailableHours(keycli, type, date, nextMonth)),
+		/**
+		 *
+		 * @param {String} keycli Código de la ciudad
+		 * @param {('BI' | 'BIDI')} appointments_type Tipo de cita BI = Gratis | BIDI = Pago
+		 */
+		fetchAvailableHours: (keycli, appointments_type) =>
+			dispatch(fetchAvailableHours(keycli, appointments_type)),
+
+		/**
+		 *
+		 * @param {String} error
+		 *
+		 * Setea un error en redux
+		 */
+
+		setGlobalError: (error) => dispatch(setGlobalError(error)),
 	};
 };
 

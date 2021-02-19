@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
-import {
-	sendAppointmentData,
-	setAppoinmentConfig,
-} from "../../../redux/appointment_config/appointmentConfig.actions";
+import { sendAppointmentData, setAppoinmentConfig, } from "../../../redux/appointment_config/appointmentConfig.actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import locationUbi from "../../../assets/images/icons/location-icon.svg";
@@ -15,6 +12,7 @@ import moment from "moment";
 import "moment/locale/de";
 import ConfirmForm from "./ConfirmForm/ConfirmForm";
 import "../../../styles/App.scss";
+import { setGlobalError } from "../../../redux/errors/errors.actions";
 
 const ConfirmPage = (properties) => {
 	const [children, setChildren] = useState([]);
@@ -45,7 +43,7 @@ const ConfirmPage = (properties) => {
 	}, [appointment]);
 
 	/**
-	 * Setea la información que recibirá el appointment summary 
+	 * Setea la información que recibirá el appointment summary
 	 */
 
 	const setChildrenInfo = () => {
@@ -89,16 +87,12 @@ const ConfirmPage = (properties) => {
 
 	const handleSubmit = async (values) => {
 		try {
+
 			await properties.setAppoinmentConfig("clientData", values);
-			// await properties.sendAppointmentData();
-			const city = appointment.city.name;
-			localStorage.setItem("city", city);
-			setTimeout(() => {
-				history.push("/appointments/thank");
-			}, 1000)
-			
+
+			history.push("/appointments/thank");
 		} catch (error) {
-			console.log(error);
+			properties.setGlobalError(error)
 		}
 	};
 
@@ -137,7 +131,7 @@ const ConfirmPage = (properties) => {
 						handleSubmit={handleSubmit}
 						errorMessage={errorMessage}
 						setErrorMessage={setErrorMessage}
-						appointmentValues = {appointment.clientData}
+						appointmentValues={appointment.clientData}
 					/>
 				</div>
 			</div>
@@ -168,6 +162,15 @@ const mapDispatchToProps = (dispatch) => {
 		 */
 
 		sendAppointmentData: () => dispatch(sendAppointmentData()),
+
+			/**
+	 * 
+	 * @param {String} error
+	 * 
+	 * Setea un nuevo error en Redux 
+	 */
+
+	setGlobalError: (error) => dispatch(setGlobalError(error))
 	};
 };
 

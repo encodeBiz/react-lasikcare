@@ -1,0 +1,7 @@
+.sorry-page h3, .sorry-page p {
+  text-align: center; }
+
+.sorry-page .buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }

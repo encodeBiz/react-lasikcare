@@ -7,20 +7,11 @@ export const NAVIGATE_BACK = 'navigate_back';
  * @param {string} state.pre_url
  * @param {string} state.url
  */
-export function navigate(state) {
-  return {
-    type: NAVIGATE,
-    state
-  }
-}
+export const navigate = (state) =>   ({ type: NAVIGATE, state })
+
 
 /**
  * Back action
  * @param {Object} history history
  */
-export function navigateBack(history) {
-  return {
-    type: NAVIGATE,
-    history
-  }
-}
+export const navigateBack = (history) => ({ type: NAVIGATE, history })

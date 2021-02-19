@@ -1,8 +1,5 @@
 import { NAVIGATE } from "./router.actions";
-const initialState = {
-	pre_url: null,
-	url: "/",
-};
+const initialState = { pre_url: null, url: "/", };
 
 /**
  * Reducer para la navegación de la aplicación
