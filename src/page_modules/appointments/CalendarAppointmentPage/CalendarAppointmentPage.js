@@ -179,9 +179,6 @@ const CalendarAppointmentPage = (properties) => {
 
 			// Acción que llama a la API para conseguir los datos del mes siguiente
 
-
-			console.log(appointment.city.keycli,
-				appointment.type,)
 			await properties.updateAvailableHours(
 				appointment.city.keycli,
 				appointment.type,
@@ -203,7 +200,7 @@ const CalendarAppointmentPage = (properties) => {
 	};
 
 	/**
-	 *
+	 *on
 	 * @param {Object} hour
 	 * @param {Number} index
 	 * Setea la hora seleccionada
@@ -286,12 +283,13 @@ const CalendarAppointmentPage = (properties) => {
 			if (!selectedHours) {
 				await getClinicsHours(citiesInStorage);
 
-				await properties.setAppoinmentConfig("city", citiesInStorage)
+				await properties.setAppoinmentConfig("city", citiesInStorage);
 
-				const hours = await available_hours[citiesInStorage.keycli]?.data?.[selectedType]?.[ Number(currentMonth) + 1];
+				const hours = await available_hours[citiesInStorage.keycli]?.data?.[selectedType]?.[
+					Number(currentMonth) + 1
+				];
 				// Se formatean las horas seleccioonadas
-			
-				console.log(hours)
+
 				const filteredData = filterData(hours);
 
 				// Se setean los datos formateados como nuevos datos que el calendario debera pintar
@@ -307,7 +305,6 @@ const CalendarAppointmentPage = (properties) => {
 				setLoading(false);
 			} else {
 				// Se formatean las horas seleccioonadas
-
 
 				const filteredData = filterData(selectedHours);
 
@@ -345,7 +342,6 @@ const CalendarAppointmentPage = (properties) => {
 		await properties.fetchAvailableHours(city.keycli, "BI");
 		await properties.fetchAvailableHours(city.keycli, "BIDI");
 	};
-
 
 	/////////////////////////////
 	// Renderizado del componente
