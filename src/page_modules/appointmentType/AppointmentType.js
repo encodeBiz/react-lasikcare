@@ -16,14 +16,14 @@ const AppointmentType = (properties) => {
 		{
 			title: "Zu Hause",
 			image: iconVideo,
-			subtitle: "Online video-beratung von zu hause aus",
+			subtitle: "Persönliche Video-Beratung von zu Hause aus",
 			url: "/videollamadas",
 			type: "online",
 		},
 		{
 			title: "Vor Ort",
 			image: iconPresencial,
-			subtitle: "Vor-ort baratung im nächstgegenen Lasik Care standort",
+			subtitle: "Persönliche Beratung im nächstgelegenen Lasik Care Standort",
 			url: "/appointments",
 			type: "presencial",
 		},

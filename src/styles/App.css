@@ -69,7 +69,10 @@ body {
         max-width: 50%; } }
     @media (min-width: 1280px) {
       body .wrapper-general {
-        max-width: 60%; } }
+        max-width: 65%; } }
+    @media (min-width: 1500px) {
+      body .wrapper-general {
+        max-width: 55%; } }
     body .wrapper-general h1 {
       font-size: 1.6rem;
       color: #808080;

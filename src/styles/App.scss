@@ -71,7 +71,11 @@ body {
 			}
 	   
 			@include desktop-medium{
-			max-width: 60%;
+			max-width: 65%;
+		   }
+
+		   @include desktop-large{
+			max-width: 55%;
 		   }
 
 		h1{

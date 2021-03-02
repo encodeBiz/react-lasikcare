@@ -8,7 +8,7 @@ import {
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import locationUbi from "../../../assets/images/icons/location-icon.svg";
-import calendarUbi from "../../../assets/images/icons/calendar-icon.svg";
+import calendarUbi from "../../../assets/images/icons/calendar.svg";
 import timeUbi from "../../../assets/images/icons/time-icon.svg";
 import "./ConfirmAppointmentPage.scss";
 import moment from "moment";

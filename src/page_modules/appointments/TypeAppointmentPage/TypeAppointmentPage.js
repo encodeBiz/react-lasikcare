@@ -39,7 +39,7 @@ const TypeAppointmentPage = (properties) => {
 
 	const appointmentTypes = [
 		{
-			text: "Unverbindliches Informationsgespräch + Ärltliche Voruntersuchung(ca. 40€)",
+			text: "Unverbindliches Informationsgespräch + ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
 			image: iconPay,
 			type: "BIDI",
 		},

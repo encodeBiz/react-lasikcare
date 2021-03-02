@@ -13,7 +13,7 @@
     color: #808080;
     font-weight: 800;
     font-size: 0.9rem; }
-    @media (min-width: 1280px) {
+    @media (min-width: 1080px) {
       .hours-container .hour-item {
         font-size: 0.7rem; } }
     .hours-container .hour-item:hover {

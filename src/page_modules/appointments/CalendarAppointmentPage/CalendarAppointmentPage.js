@@ -12,6 +12,8 @@ import useWindowSize from "../../../hooks/useWindowSize";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import { updateAvailableHours } from "../../../redux/available_hours/available_hours.actions";
 import Card from "../../../shared_modules/Card/Card";
+import opcionOne from "../../../assets/images/icons/type-free.svg";
+import  opcionTwo from "../../../assets/images/icons/calendar-icon.svg";
 import { date } from "yup/lib/locale";
 
 /**
@@ -35,12 +37,14 @@ const CalendarAppointmentPage = (properties) => {
 			text: "Erstberatung",
 			label: "",
 			type: "BI",
+			img: opcionOne
 		},
 		{
 			action: "Voruntersuchung",
 			text: "Voruntersuchung",
 			label: "40€",
 			type: "BIDI",
+			img: opcionTwo
 		},
 	];
 
@@ -314,14 +318,16 @@ const CalendarAppointmentPage = (properties) => {
 											value={button.type}
 											onChange={() => {}}
 										/>
-										{button.text} {button.label}
+										<img src={button.img}></img>
+										{button.text} <strong>{button.label}</strong>
 									</label>
+
 								</Card>
 							);
 						})}
 					</div>
 				</CardContainer>
-				<CardContainer>
+				<CardContainer className="change-margin">
 					{!loading && (
 						<Calendar
 							datesList={dataCalendar}
