@@ -97,8 +97,9 @@ const TypeAppointmentPage = (properties) => {
 	};
 
 	return (
+	<React.Fragment>
+		<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
 		<div className="wrapper-general">
-			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
 			<div className="top-content">
 				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
 			</div>
@@ -118,6 +119,8 @@ const TypeAppointmentPage = (properties) => {
 				</CardContainer>
 			</div>
 		</div>
+	</React.Fragment>
+
 	);
 };
 

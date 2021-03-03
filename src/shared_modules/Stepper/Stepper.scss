@@ -3,138 +3,93 @@
 @import "../../styles/partials/mixins";
 
 .step-container {
-	margin-bottom: 20px;
+  width: 90%;
+  margin: auto;
+  padding-bottom: 20px;
 
-	%stepLine {
-		content: "";
-		width: 80px;
-		height: 1px;
-		position: absolute;
-		top: 12px;
-		left: 31px;
+  @include tablet-medium {
+   width: 85%;
+  }
 
-		@include phone-large {
-			width: 105px;
+  @include desktop-small{
+	width: 100%;
+  }
+
+  .progressBar {
+    li {
+      list-style-type: none;
+      display: inline-block;
+      width: 25%;
+      position: relative;
+      text-align: center;
+      font-size: 0.8rem;
+	  color: $secondaryColor;
+	  
+	  @include tablet-medium{
+		font-size:1rem ;
+	  }
+
+	  @include desktop-small {
+		font-size: 0.8rem;
+	  }
+
+      &:before {
+        content: "1";
+        line-height: 30px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: block;
+        text-align: center;
+        margin: 0 auto 5px;
+        background-color: $secondaryColor;
+		color: white;
+		
+		@include tablet-medium{
+		 width: 35px;
+		 height: 35px;
+		 line-height: 33px;
 		}
 
-		@include tablet-small {
-			width: 130px;
+		@include desktop-small{
+		 width: 45px;
+		 height: 45px;
 		}
+      }
 
-		@include tablet-small-landscape {
-			width: 180px;
+      &:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background-color: $secondaryColor;
+        top: 15px;
+        left: -50%;
+		z-index: -1;
+		
+		@include tablet-medium{
+		top: 17px;
 		}
+      }
 
-		@include tablet-mix {
-			width: 159px;
-		}
+      &:first-child {
+        &::after {
+          content: none;
+        }
+      }
 
-		@include tablet-medium {
-			width: 190px;
-		}
+      &:active {
+        color: dodgerblue;
 
-		@include tablet-change-steppers {
-			width: 215px;
-		}
+        &:before {
+          border-color: dodgerblue;
+          background-color: dodgerblue;
+        }
 
-		@include tablet-large {
-			width: 140px;
-		}
-
-		@include desktop-small {
-			top: 22px;
-			left: 43px;
-			width: 150px;
-		}
-
-		@include desktop-change-steppers {
-			width: 213px;
-		}
-
-		@include desktop-medium-steppers {
-			width: 240px;
-		}
-
-		@include desktop-large {
-			width: 275px;
-		}
-	}
-
-	ul {
-		display: flex;
-		justify-content: space-between;
-		margin: 0px;
-
-		.step {
-			display: flex;
-			flex-direction: column;
-
-			&:not(:last-child) {
-				position: relative;
-
-				&.is-solid {
-					&:after {
-						@extend %stepLine;
-						border-top: 1px solid $secondaryColor;
-					}
-				}
-
-				&.is-dotted {
-					&:after {
-						@extend %stepLine;
-						border-top: 1px dashed $secondaryColor;
-					}
-				}
-			}
-
-			.circle-num {
-				background-color: $secondaryColor;
-				border-radius: 50px;
-				width: 28px;
-				height: 28px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				margin: auto;
-
-				@include desktop-small {
-					width: 45px;
-					height: 45px;
-				}
-
-				.num {
-					font-size: 0.8rem;
-					vertical-align: middle;
-
-					@include desktop-small {
-						font-size: 0.9rem;
-					}
-				}
-
-				.num-active {
-					color: $light;
-				}
-				.num-inactive {
-					color: $secondaryColor;
-				}
-			}
-
-			.circle-num-active {
-				background-color: $secondaryColor;
-			}
-
-			.circle-num-inactive {
-				background-color: transparent;
-				border: 1px solid $secondaryColor;
-			}
-
-			.text-step {
-				color: $secondaryColor;
-				font-weight: 300;
-				font-size: 0.8rem;
-				box-sizing: border-box;
-				padding-top: 5px;
-			}
-		}
-	}
+        &:after {
+          background-color: dodgerblue;
+        }
+      }
+    }
+  }
 }

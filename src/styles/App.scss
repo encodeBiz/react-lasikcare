@@ -63,16 +63,12 @@ body {
 	 margin: auto;
 	   
 			@include tablet-medium{
-			max-width: 80%;
+			max-width: 70%;
 			}
 	   
 			@include tablet-large{
-			max-width: 50%;
+			max-width: 60%;
 			}
-	   
-			@include desktop-medium{
-			max-width: 65%;
-		   }
 
 		   @include desktop-large{
 			max-width: 55%;

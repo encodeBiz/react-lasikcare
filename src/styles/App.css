@@ -63,13 +63,10 @@ body {
     margin: auto; }
     @media (min-width: 768px) {
       body .wrapper-general {
-        max-width: 80%; } }
+        max-width: 70%; } }
     @media (min-width: 980px) {
       body .wrapper-general {
-        max-width: 50%; } }
-    @media (min-width: 1280px) {
-      body .wrapper-general {
-        max-width: 65%; } }
+        max-width: 60%; } }
     @media (min-width: 1500px) {
       body .wrapper-general {
         max-width: 55%; } }
