@@ -100,3 +100,6 @@ body {
 @media (min-width: 1360px) {
   .change-width {
     max-width: 65% !important; } }
+
+.card-container {
+  display: block; }

@@ -91,7 +91,7 @@ const ThankAppointmentPage = (properties) => {
 	};
 
 	return (
-		<div className="wrapper-general">
+		<div className="wrapper-general change-width">
 			<CardContainer>
 				<div className="thank-you-message">
 					<div className="icon-thanks">

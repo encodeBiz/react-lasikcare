@@ -64,8 +64,9 @@
           line-height: 33px; } }
       @media (min-width: 1080px) {
         .step-container .progressBar li:before {
-          width: 45px;
-          height: 45px; } }
+          width: 40px;
+          height: 40px;
+          line-height: 40px; } }
     .step-container .progressBar li:after {
       content: "";
       position: absolute;
@@ -78,6 +79,9 @@
       @media (min-width: 768px) {
         .step-container .progressBar li:after {
           top: 17px; } }
+      @media (min-width: 1080px) {
+        .step-container .progressBar li:after {
+          top: 20px; } }
     .step-container .progressBar li:first-child::after {
       content: none; }
     .step-container .progressBar li:active {

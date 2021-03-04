@@ -8,11 +8,11 @@
   padding-bottom: 20px;
 
   @include tablet-medium {
-   width: 85%;
+    width: 85%;
   }
 
-  @include desktop-small{
-	width: 100%;
+  @include desktop-small {
+    width: 100%;
   }
 
   .progressBar {
@@ -23,15 +23,15 @@
       position: relative;
       text-align: center;
       font-size: 0.8rem;
-	  color: $secondaryColor;
-	  
-	  @include tablet-medium{
-		font-size:1rem ;
-	  }
+      color: $secondaryColor;
 
-	  @include desktop-small {
-		font-size: 0.8rem;
-	  }
+      @include tablet-medium {
+        font-size: 1rem;
+      }
+
+      @include desktop-small {
+        font-size: 0.8rem;
+      }
 
       &:before {
         content: "1";
@@ -43,18 +43,19 @@
         text-align: center;
         margin: 0 auto 5px;
         background-color: $secondaryColor;
-		color: white;
-		
-		@include tablet-medium{
-		 width: 35px;
-		 height: 35px;
-		 line-height: 33px;
-		}
+        color: white;
 
-		@include desktop-small{
-		 width: 45px;
-		 height: 45px;
-		}
+        @include tablet-medium {
+          width: 35px;
+          height: 35px;
+          line-height: 33px;
+        }
+
+        @include desktop-small {
+          width: 40px;
+          height: 40px;
+          line-height: 40px;
+        }
       }
 
       &:after {
@@ -65,11 +66,15 @@
         background-color: $secondaryColor;
         top: 15px;
         left: -50%;
-		z-index: -1;
-		
-		@include tablet-medium{
-		top: 17px;
-		}
+        z-index: -1;
+
+        @include tablet-medium {
+          top: 17px;
+        }
+
+        @include desktop-small{
+          top: 20px;
+        }
       }
 
       &:first-child {

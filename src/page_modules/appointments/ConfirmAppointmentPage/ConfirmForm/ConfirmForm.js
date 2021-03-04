@@ -77,7 +77,7 @@ const ConfirmForm = (properties) => {
 											<label htmlFor="ageGroup">
 
 												<Field as="select" name="ageGroup">
-												    <option disabled>Altersgruppe</option>
+												    <option value="" defaultValue disabled>Altersgruppe</option>
 													<option value={"lessThan50"}>weniger als 50 </option>
 													<option value={"moreThan50"}>50 +</option>
 												</Field>

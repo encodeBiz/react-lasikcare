@@ -38,7 +38,6 @@
   @media (min-width: 1220px) { @content; }
 }
 
-
 @mixin desktop-medium {
   @media (min-width: 1280px) { @content; }
 }
