@@ -2,8 +2,6 @@ import React from "react";
 import "./Stepper.scss";
 
 const Stepper = ({ currentStepIndex, navigateTo }) => {
-	
-
 	const steps = [
 		{
 			stepNumber: 0,
@@ -44,14 +42,17 @@ const Stepper = ({ currentStepIndex, navigateTo }) => {
 				})}
 			</ul> */}
 
-
-      <ul class="progressBar">
-        <li>Standort</li>
-        <li>Terminart</li>
-        <li>Datum</li>
-        <li>Kontaktdaten</li>
-      </ul>
-
+			<ul class="progressBar">
+				{steps.map((step, index) => (
+					<React.Fragment>
+						<li key={index}>
+							<div className="stepper-circle">{step.stepNumber}</div>
+							{step.stepText}
+						</li>
+						
+					</React.Fragment>
+				))}
+			</ul>
 		</div>
 	);
 };
