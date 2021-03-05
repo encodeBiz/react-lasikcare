@@ -10,12 +10,10 @@ import { connect } from "react-redux";
 import moment from "moment";
 import useWindowSize from "../../../hooks/useWindowSize";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
-import {
-	fetchAvailableHours,
-	updateAvailableHours,
-} from "../../../redux/available_hours/available_hours.actions";
+import { updateAvailableHours } from "../../../redux/available_hours/available_hours.actions";
 import Card from "../../../shared_modules/Card/Card";
-import { setGlobalError } from "../../../redux/errors/errors.actions";
+import opcionOne from "../../../assets/images/icons/type-free.svg";
+import opcionTwo from "../../../assets/images/icons/calendar-icon.svg";
 
 /**
  *
@@ -38,12 +36,15 @@ const CalendarAppointmentPage = (properties) => {
 			text: "Erstberatung",
 			label: "",
 			type: "BI",
+			img: opcionOne,
+			
 		},
 		{
 			action: "Voruntersuchung",
 			text: "Voruntersuchung",
 			label: "40€",
 			type: "BIDI",
+			img: opcionTwo,
 		},
 	];
 
@@ -89,17 +90,15 @@ const CalendarAppointmentPage = (properties) => {
 	useEffect(() => {
 		// Selecciona del store los datos correspondientes al mes que se muestra en el calendario
 
-		if (properties.available_hours[selectedCity]) {
-			const data =
-				selectedCity && selectedType
-					? properties.available_hours[selectedCity]?.data?.[selectedType]?.[currentMonth]
-					: [];
+		const data =
+			selectedCity && selectedType
+				? properties.available_hours[selectedCity]?.data[selectedType][currentMonth]
+				: [];
 
-			if (data && data.length > 0) {
-				const filteredData = filterData(data);
+		if (data && data.length > 0) {
+			const filteredData = filterData(data);
 
-				setDataCalendar(filteredData);
-			}
+			setDataCalendar(filteredData);
 		}
 
 		// eslint-disable-next-line
@@ -186,7 +185,7 @@ const CalendarAppointmentPage = (properties) => {
 				nextMonth
 			);
 		} catch (error) {
-			properties.setGlobalError("Ha ocurrido un error");
+			console.log(error);
 		}
 	};
 
@@ -200,7 +199,7 @@ const CalendarAppointmentPage = (properties) => {
 	};
 
 	/**
-	 *on
+	 *
 	 * @param {Object} hour
 	 * @param {Number} index
 	 * Setea la hora seleccionada
@@ -250,16 +249,6 @@ const CalendarAppointmentPage = (properties) => {
 
 	const handleClick = async (type) => {
 		try {
-			// Si no hay ninguna ciudad seleccionada redirige a cities
-
-			const citiesInStorage = checkCitiesInStorage();
-
-			if (citiesInStorage.length <= 0) {
-				history.push("/city");
-				properties.setGlobalError("Debes elegir una ciudad antes de continuar");
-				return;
-			}
-
 			// Se setea el loading a true ya que al cargar nuevos datos es posible que de un undefined.
 
 			setLoading(true);
@@ -278,134 +267,94 @@ const CalendarAppointmentPage = (properties) => {
 
 			// Se seleccionan desde el estado las fechas correspondientes al nuevo tipo de cita
 
-			let selectedHours = await available_hours[selectedCity]?.data?.[selectedType]?.[currentMonth];
+			const selectedHours = await available_hours[selectedCity].data[selectedType][currentMonth];
 
-			if (!selectedHours) {
-				await getClinicsHours(citiesInStorage);
+			// Se formatean las horas seleccioonadas
 
-				await properties.setAppoinmentConfig("city", citiesInStorage);
+			const filteredData = filterData(selectedHours);
 
-				const hours = await available_hours[citiesInStorage.keycli]?.data?.[selectedType]?.[
-					Number(currentMonth) + 1
-				];
-				// Se formatean las horas seleccioonadas
+			// Se setean los datos formateados como nuevos datos que el calendario debera pintar
 
-				const filteredData = filterData(hours);
+			setDataCalendar(filteredData);
 
-				// Se setean los datos formateados como nuevos datos que el calendario debera pintar
+			// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
 
-				setDataCalendar(filteredData);
+			setSelectedDate(null);
 
-				// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
+			// Se setea el loading a false
 
-				setSelectedDate(null);
-
-				// Se setea el loading a false
-
-				setLoading(false);
-			} else {
-				// Se formatean las horas seleccioonadas
-
-				const filteredData = filterData(selectedHours);
-
-				// Se setean los datos formateados como nuevos datos que el calendario debera pintar
-
-				setDataCalendar(filteredData);
-
-				// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
-
-				setSelectedDate(null);
-
-				// Se setea el loading a false
-
-				setLoading(false);
-			}
+			setLoading(false);
 		} catch (error) {
-			properties.setGlobalError("Se ha producido un error");
+			console.log(error);
 		}
 	};
-
-	const checkCitiesInStorage = () => {
-		const cities = JSON.parse(localStorage.getItem("cities"));
-		const tempCities = JSON.parse(localStorage.getItem("tempCities")) || [];
-
-		if (!cities && !tempCities) {
-			return false;
-		} else if (cities && !tempCities) {
-			return cities;
-		} else if (!cities && tempCities) {
-			return tempCities[0];
-		}
-	};
-
-	const getClinicsHours = async (city) => {
-		await properties.fetchAvailableHours(city.keycli, "BI");
-		await properties.fetchAvailableHours(city.keycli, "BIDI");
-	};
-
 	/////////////////////////////
 	// Renderizado del componente
 	/////////////////////////////
 
 	return (
-		<div className="wrapper-general">
+		<React.Fragment>
 			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
-			<div className="top-content">
-				<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
-			</div>
-			<div className="calendar-appointment-page">
-				<h1>3. Datum wählen</h1>
-				<CardContainer isColumn={true}>
-					<div className="button-container">
-						{buttonsConfig.map((button, index) => {
-							const customClass = appointment.type === button.type ? "card-highlighted" : "";
-							return (
-								<Card
-									key={index}
-									customClass={`pointer ${customClass}`}
-									handleClick={handleClick}
-									clickParam={button.type}
-								>
-									<label>
-										<input
-											checked={appointment.type === button.type}
-											type="radio"
-											name="type"
-											value={button.type}
-											onChange={() => {}}
-										/>
-										{button.text} {button.label}
-									</label>
-								</Card>
-							);
-						})}
-					</div>
-				</CardContainer>
-				<CardContainer>
-					{!loading && (
-						<Calendar
-							datesList={dataCalendar}
-							setFocused={setFocused}
-							initialDate={initialDate}
-							width={width}
-							calendarWidth={calendarWidth}
-							handleDateChange={handleDateChange}
-							handleSelectedHour={handleSelectedHour}
-							selectedDate={selectedDate}
-							onNextMonthClick={onNextMonthClick}
-							onPreviousMonthClick={onPreviousMonthClick}
-							activeIndex={activeIndex}
-						/>
-					)}
-				</CardContainer>
 
-				{appointment.calendar_date && appointment.calendar_hour && (
-					<div className="container-button">
-						<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
-					</div>
-				)}
+			<div className="wrapper-general">
+				<div className="top-content">
+					<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
+				</div>
+				<div className="calendar-appointment-page">
+					<h1>3. Datum wählen</h1>
+					<CardContainer isColumn={true}>
+						<div className="button-container">
+							{buttonsConfig.map((button, index) => {
+								const customClass = appointment.type === button.type ? "card-highlighted" : "";
+								return (
+									<Card
+										key={index}
+										customClass={`pointer ${customClass}`}
+										handleClick={handleClick}
+										clickParam={button.type}
+									>
+										<label>
+											<input
+												checked={appointment.type === button.type}
+												type="radio"
+												name="type"
+												value={button.type}
+												onChange={() => {}}
+											/>
+											<img src={button.img} alt="..."></img>
+											{button.text} <strong>{button.label}</strong>
+										</label>
+									</Card>
+								);
+							})}
+						</div>
+					</CardContainer>
+					<CardContainer className="change-margin">
+						{!loading && (
+							<Calendar
+								datesList={dataCalendar}
+								setFocused={setFocused}
+								initialDate={initialDate}
+								width={width}
+								calendarWidth={calendarWidth}
+								handleDateChange={handleDateChange}
+								handleSelectedHour={handleSelectedHour}
+								selectedDate={selectedDate}
+								onNextMonthClick={onNextMonthClick}
+								onPreviousMonthClick={onPreviousMonthClick}
+								activeIndex={activeIndex}
+							/>
+						)}
+					</CardContainer>
+
+					{appointment.calendar_date && appointment.calendar_hour && (
+						<div className="container-button">
+							<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
+						</div>
+					)}
+				</div>
 			</div>
-		</div>
+		</React.Fragment>
 	);
 };
 
@@ -426,33 +375,8 @@ const mapDispatchToProps = (dispatch) => {
 		 */
 		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
 
-		/**
-		 *
-		 * @param {String} keycli
-		 * @param {String} type
-		 * @param {String} date
-		 * @param {String} nextMonth
-		 *
-		 * Acción de redux que se encarga de hacer una petición para conseguir las horas del mes siguiente
-		 */
 		updateAvailableHours: (keycli, type, date, nextMonth) =>
 			dispatch(updateAvailableHours(keycli, type, date, nextMonth)),
-		/**
-		 *
-		 * @param {String} keycli Código de la ciudad
-		 * @param {('BI' | 'BIDI')} appointments_type Tipo de cita BI = Gratis | BIDI = Pago
-		 */
-		fetchAvailableHours: (keycli, appointments_type) =>
-			dispatch(fetchAvailableHours(keycli, appointments_type)),
-
-		/**
-		 *
-		 * @param {String} error
-		 *
-		 * Setea un error en redux
-		 */
-
-		setGlobalError: (error) => dispatch(setGlobalError(error)),
 	};
 };
 

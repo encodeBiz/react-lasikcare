@@ -4,7 +4,7 @@ import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import "./ThankAppointmentPage.scss";
 import moment from "moment";
 import locationUbi from "../../../assets/images/icons/location-icon.svg";
-import calendarUbi from "../../../assets/images/icons/calendar-icon.svg";
+import calendarUbi from "../../../assets/images/icons/calendar.svg";
 import timeUbi from "../../../assets/images/icons/time-icon.svg";
 import {
 	clearAppointment,
@@ -25,18 +25,18 @@ const ThankAppointmentPage = (properties) => {
 
 	const info = [
 		{
-			title: "Termininformation",
-			text: `Sie erhalten eine automatisierte <span> E-Mail</span> mit der Zusammenfassung Ihrer Terminanfrage und der <span> Adresse Ihres Termins</span>.`,
+			title: "Terminbestätigung",
+			text: `Sie erhalten eine automatisierte E-Mail mit der Zusammenfassung der Termininformationen. Bitte überprüfen Sie den Eingang der E-Mail in Ihrem Posteingang oder Spam-Ordner.`,
 		},
 		{
 			title: "Weiterleitung",
 			text:
-				"Wir leiten <span>Ihren Terminwunsch</span> an das Kundenzentrum und die Klinik weiter. Sollten noch weitere Informationen benötigt werden, <span>melden wir uns telefonisch</span> bei Ihren",
+				"Sie erhalten am Tag Ihrer persönlichen Videoberatung von uns eine E-Mail mit dem Zugangslink über E-Mail zugeschickt.",
 		},
 		{
 			title: "Terminbestätigung",
 			text:
-				"Nach positiver Prüfung Ihres <span>Terminwunsches</span> durch die Klinik erhalten Sie Ihre Terminbestätigung.",
+				"Nach positiver Prüfung Ihres Terminwunsches durch die Klinik erhalten Sie Ihre Terminbestätigung.",
 		},
 	];
 
@@ -112,7 +112,7 @@ const ThankAppointmentPage = (properties) => {
 	};
 
 	return (
-		<div className="wrapper-general">
+		<div className="wrapper-general change-width">
 			<CardContainer>
 				<div className="thank-you-message">
 					<div className="icon-thanks">

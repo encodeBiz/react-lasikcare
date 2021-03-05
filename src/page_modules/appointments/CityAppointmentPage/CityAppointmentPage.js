@@ -177,7 +177,7 @@ const CityAppointmentPage = (properties) => {
 	return (
 		<div className="wrapper-general">
 			<div className="title-seccion">
-				<h1>Standort wählen</h1>
+				<h1>Bitte Standort wählen</h1>
 			</div>
 			<Link to="/sorry" >Sorry :(</Link>
 			<div className="city-appointment-container">

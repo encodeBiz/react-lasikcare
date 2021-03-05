@@ -94,7 +94,7 @@ const ConfirmForm = (properties) => {
 											<label htmlFor="gender">
 
 												<Field as="select" name="gender">
-												    <option value="" defaultValue disabled>Geschlecht</option>
+												    <option value="" defaultValue disabled>Anrede</option>
 													<option value={"woman"}>Frau</option>
 													<option value={"man"}>Mann</option>
 												</Field>
@@ -210,8 +210,7 @@ const ConfirmForm = (properties) => {
 													onBlur={props.handleBlur}
 												/>
 												<span>
-													Mit Klick auf <span>"Jetzt Termin vereinbaren"</span> bestätige ich die
-													Datenschutzbestimmungen der CARE Vision Germany GmbH
+												Datenschutzbestimmungen akzeptieren
 												</span>
 											</label>
 										</div>
@@ -222,7 +221,7 @@ const ConfirmForm = (properties) => {
 
 								    <Button
 									type={"rounded-button"}
-									label={"JETZT TERMIN VEREINBAREN"}
+									label={" JETZT TERMIN VEREINBAREN"}
 									action={props.handleSubmit}
 									disabled={!props.isValid}
 								   />

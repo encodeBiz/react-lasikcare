@@ -63,13 +63,13 @@ body {
     margin: auto; }
     @media (min-width: 768px) {
       body .wrapper-general {
-        max-width: 80%; } }
-    @media (min-width: 980px) {
+        max-width: 70%; } }
+    @media (min-width: 1080px) {
       body .wrapper-general {
-        max-width: 50%; } }
-    @media (min-width: 1280px) {
+        max-width: 55%; } }
+    @media (min-width: 1360px) {
       body .wrapper-general {
-        max-width: 60%; } }
+        max-width: 45%; } }
     body .wrapper-general h1 {
       font-size: 1.6rem;
       color: #808080;
@@ -92,7 +92,11 @@ body {
     margin: 0px;
     padding-top: 5px;
     font-weight: 300;
-    font-size: .9rem; }
+    font-size: 0.9rem; }
     @media (min-width: 1080px) {
       .card-container .summary-icon p {
-        font-size: .7rem; } }
+        font-size: 0.7rem; } }
+
+@media (min-width: 1360px) {
+  .change-width {
+    max-width: 65% !important; } }

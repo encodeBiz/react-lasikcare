@@ -29,7 +29,7 @@ const Stepper = ({ currentStepIndex, navigateTo }) => {
 
 	return (
 		<div className="step-container">
-			<ul>
+			{/* <ul>
 				{steps.map((step, index) => {
 
 					const isActive = step.stepNumber < currentStepIndex ? "is-active is-solid" : "is-dotted";
@@ -38,11 +38,20 @@ const Stepper = ({ currentStepIndex, navigateTo }) => {
 							<div className={`circle-num ${step.stepNumber <= currentStepIndex ? 'circle-num-active' : 'circle-num-inactive'}`}>
 								<span className={`num ${step.stepNumber <= currentStepIndex ? 'num-active' : 'num-inactive'}`}>{step.stepNumber + 1}</span>
 							</div>
-							<span className="text-step">{step.stepText}</span>
+					
 						</li>
 					);
 				})}
-			</ul>
+			</ul> */}
+
+
+      <ul class="progressBar">
+        <li>Standort</li>
+        <li>Terminart</li>
+        <li>Datum</li>
+        <li>Kontaktdaten</li>
+      </ul>
+
 		</div>
 	);
 };

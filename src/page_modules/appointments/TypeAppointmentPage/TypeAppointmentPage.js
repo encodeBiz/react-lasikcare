@@ -39,7 +39,7 @@ const TypeAppointmentPage = (properties) => {
 
 	const appointmentTypes = [
 		{
-			text: "Unverbindliches Informationsgespräch + Ärltliche Voruntersuchung(ca. 40€)",
+			text: "Unverbindliches Informationsgespräch + ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
 			image: iconPay,
 			type: "BIDI",
 		},
@@ -99,8 +99,9 @@ const TypeAppointmentPage = (properties) => {
 	const goBack = () => history.push("/type")
 
 	return (
+	<React.Fragment>
+		<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
 		<div className="wrapper-general">
-			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
 			<div className="top-content">
 				<Button action={goBack} actionParam styleType={"back-button"} label={"Zurück"} />
 			</div>
@@ -120,6 +121,8 @@ const TypeAppointmentPage = (properties) => {
 				</CardContainer>
 			</div>
 		</div>
+	</React.Fragment>
+
 	);
 };
 

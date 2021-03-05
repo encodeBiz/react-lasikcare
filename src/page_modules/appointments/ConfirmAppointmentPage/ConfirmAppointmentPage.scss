@@ -31,6 +31,18 @@
     
             .card-container{
              flex-direction: column;
+
+             h3{
+                color: $texto;
+                text-align: center;
+                font-size: 1rem;
+                margin: 0;
+
+                @include desktop-medium{
+                   font-size: 0.9rem;
+                   line-height: 20px;
+                }
+             }
     
             }
         
@@ -55,3 +67,4 @@
     }
    
 }
+

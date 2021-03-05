@@ -1,14 +1,13 @@
-.sorry-page{
-
-    h3, p{
-        text-align: center ;
-
-    }
+@import "../../styles/App.scss";
+@import "../../styles/partials/mixins";
+@import "../../styles/partials/variables";
 
 
-    .buttons-container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+// .wrapper-sorry{
+//     .main-btn{
+//         margin: 10px 0x;
+//     }
+// }
+
+.card-container{
 }

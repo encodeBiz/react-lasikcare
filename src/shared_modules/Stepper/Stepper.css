@@ -23,93 +23,71 @@
   font-display: swap; }
 
 .step-container {
-  margin-bottom: 20px; }
-  .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-    content: "";
-    width: 80px;
-    height: 1px;
-    position: absolute;
-    top: 12px;
-    left: 31px; }
-    @media (min-width: 414px) {
-      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-        width: 105px; } }
-    @media (min-width: 540px) {
-      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-        width: 130px; } }
-    @media (min-width: 540px) and (orientation: landscape) {
-      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-        width: 180px; } }
-    @media (min-width: 590px) {
-      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-        width: 159px; } }
+  width: 90%;
+  margin: auto;
+  padding-bottom: 20px; }
+  @media (min-width: 768px) {
+    .step-container {
+      width: 85%; } }
+  @media (min-width: 1080px) {
+    .step-container {
+      width: 100%; } }
+  .step-container .progressBar li {
+    list-style-type: none;
+    display: inline-block;
+    width: 25%;
+    position: relative;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #00619e; }
     @media (min-width: 768px) {
-      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-        width: 190px; } }
-    @media (min-width: 860px) {
-      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-        width: 215px; } }
-    @media (min-width: 980px) {
-      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-        width: 140px; } }
+      .step-container .progressBar li {
+        font-size: 1rem; } }
     @media (min-width: 1080px) {
-      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-        top: 22px;
-        left: 43px;
-        width: 150px; } }
-    @media (min-width: 1220px) {
-      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-        width: 213px; } }
-    @media (min-width: 1360px) {
-      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-        width: 240px; } }
-    @media (min-width: 1500px) {
-      .step-container ul .step.is-solid:not(:last-child):after, .step-container ul .step.is-dotted:not(:last-child):after {
-        width: 275px; } }
-  .step-container ul {
-    display: flex;
-    justify-content: space-between;
-    margin: 0px; }
-    .step-container ul .step {
-      display: flex;
-      flex-direction: column; }
-      .step-container ul .step:not(:last-child) {
-        position: relative; }
-        .step-container ul .step:not(:last-child).is-solid:after {
-          border-top: 1px solid #00619e; }
-        .step-container ul .step:not(:last-child).is-dotted:after {
-          border-top: 1px dashed #00619e; }
-      .step-container ul .step .circle-num {
-        background-color: #00619e;
-        border-radius: 50px;
-        width: 28px;
-        height: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: auto; }
-        @media (min-width: 1080px) {
-          .step-container ul .step .circle-num {
-            width: 45px;
-            height: 45px; } }
-        .step-container ul .step .circle-num .num {
-          font-size: 0.8rem;
-          vertical-align: middle; }
-          @media (min-width: 1080px) {
-            .step-container ul .step .circle-num .num {
-              font-size: 0.9rem; } }
-        .step-container ul .step .circle-num .num-active {
-          color: #ffffff; }
-        .step-container ul .step .circle-num .num-inactive {
-          color: #00619e; }
-      .step-container ul .step .circle-num-active {
-        background-color: #00619e; }
-      .step-container ul .step .circle-num-inactive {
-        background-color: transparent;
-        border: 1px solid #00619e; }
-      .step-container ul .step .text-step {
-        color: #00619e;
-        font-weight: 300;
-        font-size: 0.8rem;
-        box-sizing: border-box;
-        padding-top: 5px; }
+      .step-container .progressBar li {
+        font-size: 0.8rem; } }
+    .step-container .progressBar li:before {
+      content: "1";
+      line-height: 30px;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: block;
+      text-align: center;
+      margin: 0 auto 5px;
+      background-color: #00619e;
+      color: white; }
+      @media (min-width: 768px) {
+        .step-container .progressBar li:before {
+          width: 35px;
+          height: 35px;
+          line-height: 33px; } }
+      @media (min-width: 1080px) {
+        .step-container .progressBar li:before {
+          width: 40px;
+          height: 40px;
+          line-height: 40px; } }
+    .step-container .progressBar li:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background-color: #00619e;
+      top: 15px;
+      left: -50%;
+      z-index: -1; }
+      @media (min-width: 768px) {
+        .step-container .progressBar li:after {
+          top: 17px; } }
+      @media (min-width: 1080px) {
+        .step-container .progressBar li:after {
+          top: 20px; } }
+    .step-container .progressBar li:first-child::after {
+      content: none; }
+    .step-container .progressBar li:active {
+      color: dodgerblue; }
+      .step-container .progressBar li:active:before {
+        border-color: dodgerblue;
+        background-color: dodgerblue; }
+      .step-container .progressBar li:active:after {
+        background-color: dodgerblue; }
