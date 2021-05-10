@@ -32,7 +32,7 @@
   @media (min-width: 1080px) {
     .step-container {
       width: 100%; } }
-  .step-container .progressBar li {
+  .step-container .progress-bar li {
     list-style-type: none;
     display: inline-block;
     width: 25%;
@@ -41,13 +41,19 @@
     font-size: 0.8rem;
     color: #00619e; }
     @media (min-width: 768px) {
-      .step-container .progressBar li {
+      .step-container .progress-bar li {
         font-size: 1rem; } }
     @media (min-width: 1080px) {
-      .step-container .progressBar li {
+      .step-container .progress-bar li {
         font-size: 0.8rem; } }
-    .step-container .progressBar li:before {
-      content: "1";
+    .step-container .progress-bar li.is-active:before {
+      background-color: #00619e;
+      color: white; }
+    .step-container .progress-bar li.is-active:after {
+      background-color: transparent;
+      border-bottom: 1px solid #00619e; }
+    .step-container .progress-bar li:before {
+      content: attr(data-content);
       line-height: 30px;
       border-radius: 50%;
       width: 30px;
@@ -55,39 +61,40 @@
       display: block;
       text-align: center;
       margin: 0 auto 5px;
-      background-color: #00619e;
-      color: white; }
+      background-color: #f0f9f9;
+      border: 1px solid #00619e;
+      color: #00619e; }
       @media (min-width: 768px) {
-        .step-container .progressBar li:before {
+        .step-container .progress-bar li:before {
           width: 35px;
           height: 35px;
           line-height: 33px; } }
       @media (min-width: 1080px) {
-        .step-container .progressBar li:before {
+        .step-container .progress-bar li:before {
           width: 40px;
           height: 40px;
           line-height: 40px; } }
-    .step-container .progressBar li:after {
+    .step-container .progress-bar li:after {
       content: "";
       position: absolute;
       width: 100%;
       height: 1px;
-      background-color: #00619e;
+      border-bottom: 1px dashed #00619e;
       top: 15px;
       left: -50%;
       z-index: -1; }
       @media (min-width: 768px) {
-        .step-container .progressBar li:after {
+        .step-container .progress-bar li:after {
           top: 17px; } }
       @media (min-width: 1080px) {
-        .step-container .progressBar li:after {
+        .step-container .progress-bar li:after {
           top: 20px; } }
-    .step-container .progressBar li:first-child::after {
+    .step-container .progress-bar li:first-child::after {
       content: none; }
-    .step-container .progressBar li:active {
+    .step-container .progress-bar li:active {
       color: dodgerblue; }
-      .step-container .progressBar li:active:before {
+      .step-container .progress-bar li:active:before {
         border-color: dodgerblue;
         background-color: dodgerblue; }
-      .step-container .progressBar li:active:after {
+      .step-container .progress-bar li:active:after {
         background-color: dodgerblue; }

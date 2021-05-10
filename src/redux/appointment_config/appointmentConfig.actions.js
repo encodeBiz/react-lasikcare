@@ -56,7 +56,6 @@ export const sendAppointmentData = () => {
 				sexo: appointment.clientData.gender,
 			};
 
-			console.log(query_params);
 			const setHuecosResponse = await setHuecos(query_params);
 		
 			console.log(setHuecosResponse);

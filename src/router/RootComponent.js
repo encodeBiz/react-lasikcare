@@ -72,18 +72,22 @@ const routes = [
 	{
 		path: "/videollamadas",
 		component: Video_call,
+		stepNumber: 0, 
 		routes: [
 			{
 				path: "/videollamadas/calendar",
 				component: CalendarOnlinePage,
+				stepNumber: 1
 			},
 			{
 				path: "/videollamadas/confirm",
 				component: ConfirmOnlinePage,
+				stepNumber: 2
 			},
 			{
 				path: "/videollamadas/thank",
 				component: ThankOnlinePage,
+				stepNumber: 3
 			},
 		],
 	},

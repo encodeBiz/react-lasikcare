@@ -8,6 +8,7 @@ const initialState = { pre_url: null, url: "/", };
  * @param {String} action.payload Estado de la navegación
  */
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case NAVIGATE:

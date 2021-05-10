@@ -5,14 +5,15 @@ import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import "./ConfirmOnlinePage.scss";
 import Button from "../../../shared_modules/Button/Button";
 
-const ConfirmOnlinePage = () => {
+const ConfirmOnlinePage = (properties) => {
+	const {appointment} = properties; 
+
+
 	return (
 		<React.Fragment>
 			<h1>ConfirmOnlinePage</h1>
-			<Stepper></Stepper>
-		
+			<Stepper currentStepIndex={appointment.currentStep} isVideoConference={true} ></Stepper>
 			<CardContainer>Appointment data</CardContainer>
-		
 			<CardContainer>Form</CardContainer>
             <Button type={'rounded-button'} label={'Rounded'}></Button>
 		</React.Fragment>

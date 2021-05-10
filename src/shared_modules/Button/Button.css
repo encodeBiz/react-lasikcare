@@ -85,3 +85,13 @@
     @media (min-width: 1080px) {
       .main-btn.nav-number {
         font-size: 0.7rem; } }
+
+.transparent-button {
+  background-color: transparent !important;
+  color: #FF9900; }
+  .transparent-button:hover {
+    background-color: #FF9900 !important;
+    color: white; }
+
+.small-margin {
+  margin: 5px 0; }

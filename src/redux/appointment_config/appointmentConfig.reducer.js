@@ -23,7 +23,7 @@ const initialState = {
 };
 
 const appoinmentConfig = (state = initialState, action) => {
-	switch (action.type) {
+switch (action.type) {
 		case GET_APPOINTMENT_CONFIG:
 			return state;
 		case SET_APPOINTMENT_CONFIG:

@@ -1,26 +1,18 @@
 import React from "react";
-import { Link, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { RouteWithSubRoutes } from "../../router/RouterHelper";
 
-function Video_call({routes}) {
+function Video_call({ routes }) {
 	return (
-		
-		<React.Fragment>
-				<div><Link to="/videollamadas/calendar">/videollamadas/calendar</Link></div>
-				<div><Link to="/videollamadas/confirm">/videollamadas/confirm</Link></div>
-				<div><Link to="/videollamadas/thank">/videollamadas/thank</Link></div>
-				
-				<Switch>
-					{routes.map((route, i) => (
-						<RouteWithSubRoutes  key={i} {...route}/>
-					))}
-				</Switch>
+		<Switch>
+			{routes.map((route, i) => (
+				<RouteWithSubRoutes key={i} {...route} />
+			))}
 
-		</React.Fragment>
-
-
-	
-
+			<Route to="/videollamadas">
+				<Redirect to="/videollamadas/calendar"></Redirect>
+			</Route>
+		</Switch>
 	);
 }
 

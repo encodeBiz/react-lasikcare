@@ -30,6 +30,7 @@ const CalendarAppointmentPage = (properties) => {
 	const today = moment();
 	const { available_hours, appointment } = properties;
 
+
 	const buttonsConfig = [
 		{
 			action: "Erstberatung",
@@ -37,7 +38,6 @@ const CalendarAppointmentPage = (properties) => {
 			label: "",
 			type: "BI",
 			img: opcionOne,
-			
 		},
 		{
 			action: "Voruntersuchung",

@@ -17,6 +17,7 @@ import { setGlobalError } from "./redux/errors/errors.actions";
  * @param {Funcion} properties.setGlobalError Acción para setear un error
  */
 function App(properties) {
+	
 	const [clinics, setClinics] = useState([]);
 
 	const homeLinksConfig = [
@@ -117,6 +118,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
 	clinics: state.clinics,
 	available_hours: state.available_hours,
+	state
 });
 
 export default connect(mapDispatchToProps, mapStateToProps)(App);

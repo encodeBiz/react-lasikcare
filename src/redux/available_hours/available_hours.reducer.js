@@ -16,7 +16,6 @@ const fn = (state = { initialState }, action) => {
 		case SET_HOURS:
 			const { keycli, appointments_type } = action.clinic_data;
 			const data = action.data[keycli][appointments_type].hueco;
-
 			return {
 				...state,
 				[keycli]: {

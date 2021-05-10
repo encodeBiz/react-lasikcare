@@ -1,57 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Stepper.scss";
+import {appointmentSteps, videoConferenceSteps} from "../../constants/constants"
 
-const Stepper = ({ currentStepIndex, navigateTo }) => {
-	const steps = [
-		{
-			stepNumber: 0,
-			stepText: "Terminart",
-			url: "/type",
-		},
-		{
-			stepNumber: 1,
-			stepText: "Standart",
-			url: "/appointments/type",
-		},
-		{
-			stepNumber: 2,
-			stepText: "Datum",
-			url: "/appointments/calendar",
-		},
-		{
-			stepNumber: 3,
-			stepText: "Ikontakdaten",
-			url: "/appointments/confirm",
-		},
-	];
+/**
+ * 
+ * @param {Number} currentStepIndex Índice que indica el paso en el que se encuentra
+ * el usuario
+ * @param {boolean} isVideoConference Nos indica si debemos utilizar 
+ * un array de steps u otro. Si no está definido o es falso utilizaremos {appoinmentsSteps}
+ * si no {videoConferenceSteps} 
+ * @returns 
+ */
+
+const Stepper = ({ currentStepIndex, isVideoConference}) => {
+
+	const [steps, setSteps] = useState([])
+
+	useEffect(() => {
+		setSteps(isVideoConference ? videoConferenceSteps : appointmentSteps);
+	}, [isVideoConference, steps])
 
 	return (
 		<div className="step-container">
-			{/* <ul>
+			<ul className="progress-bar">
 				{steps.map((step, index) => {
-
-					const isActive = step.stepNumber < currentStepIndex ? "is-active is-solid" : "is-dotted";
+					const isActive = step.stepNumber <= currentStepIndex ? "is-active is-solid" : "is-dotted";
 					return (
-						<li key={index} className={`${isActive} step`} onClick={() => navigateTo(step.url)}>
-							<div className={`circle-num ${step.stepNumber <= currentStepIndex ? 'circle-num-active' : 'circle-num-inactive'}`}>
-								<span className={`num ${step.stepNumber <= currentStepIndex ? 'num-active' : 'num-inactive'}`}>{step.stepNumber + 1}</span>
-							</div>
-					
-						</li>
+						<React.Fragment key={index}>
+							<li data-content={step.stepNumber + 1} className={isActive}>
+								{step.stepText}
+							</li>
+						</React.Fragment>
 					);
 				})}
-			</ul> */}
-
-			<ul class="progressBar">
-				{steps.map((step, index) => (
-					<React.Fragment>
-						<li key={index}>
-							<div className="stepper-circle">{step.stepNumber}</div>
-							{step.stepText}
-						</li>
-						
-					</React.Fragment>
-				))}
 			</ul>
 		</div>
 	);
