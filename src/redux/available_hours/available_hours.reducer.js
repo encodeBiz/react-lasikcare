@@ -1,4 +1,4 @@
-import { SET_HOURS, UPDATE_HOURS } from "./available_hours.actions";
+import { SET_HOURS, UPDATE_HOURS, SET_ONLINE_HOURS } from "./available_hours.actions";
 
 const initialState = {};
 
@@ -24,6 +24,17 @@ const fn = (state = { initialState }, action) => {
 						...state[keycli]?.data,
 						[appointments_type]: { [action.month]: data },
 					},
+				},
+			};
+
+		case SET_ONLINE_HOURS:
+			const { onlineData, month } = action;
+
+			return {
+				...state,
+				online_hours: {
+					status: "finish",
+					[month]: onlineData,
 				},
 			};
 		case UPDATE_HOURS:

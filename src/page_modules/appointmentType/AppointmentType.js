@@ -38,7 +38,10 @@ const AppointmentType = (properties) => {
    */
 
   useEffect(() => {
+    
+    
     properties.setAppoinmentConfig("currentStep", 0);
+    properties.setAppoinmentConfig("isOnline", false); 
     // eslint-disable-next-line
   }, []);
 

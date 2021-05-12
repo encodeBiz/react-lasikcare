@@ -17,6 +17,7 @@ export const getAppoinmentConfig = () => ({ type: GET_APPOINTMENT_CONFIG });
 
 export const setAppoinmentConfig = (property, data) => ({ type: SET_APPOINTMENT_CONFIG, property, data, });
 
+
 /**
  * @returns Retorna una acción que indica que ha de borrarse el estado
  */

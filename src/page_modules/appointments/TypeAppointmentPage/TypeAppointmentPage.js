@@ -62,7 +62,6 @@ const TypeAppointmentPage = (properties) => {
 		// eslint-disable-next-line
 	}, [stateType]);
 
-
 	/**
 	 * Hook para usar la funcionalidad de history de React Router
 	 */
@@ -82,6 +81,7 @@ const TypeAppointmentPage = (properties) => {
 
 	useEffect(() => {
 		properties.setAppoinmentConfig("currentStep", 1);
+		properties.setAppoinmentConfig("isOnline", false);
 		// eslint-disable-next-line
 	}, []);
 
@@ -96,33 +96,37 @@ const TypeAppointmentPage = (properties) => {
 		history.push("/appointments/calendar");
 	};
 
-	const goBack = () => history.push("/type")
+	const goBack = () => history.push("/type");
 
 	return (
-	<React.Fragment>
-		<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
-		<div className="wrapper-general">
-			<div className="top-content">
-				<Button action={goBack} actionParam styleType={"back-button"} label={"Zurück"} />
-			</div>
-			<div className="appointment-type-container">
-				<div>
-					<h1>2. Terminart wählen</h1>
+		<React.Fragment>
+			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
+			<div className="wrapper-general">
+				<div className="top-content">
+					<Button action={goBack} actionParam styleType={"back-button"} label={"Zurück"} />
 				</div>
-				<CardContainer isColumn={true}>
-					{appointmentTypes.map((typeItem, index) => {
-						return (
-							<Card key={index} handleClick={onAppointmentTypeSelection} clickParam={typeItem.type} customClass={stateType === typeItem.type ? 'selected' : ''}>
-								<img src={typeItem.image} alt="..." className="type-image" />
-								<p>{typeItem.text}</p>
-							</Card>
-						);
-					})}
-				</CardContainer>
+				<div className="appointment-type-container">
+					<div>
+						<h1>2. Terminart wählen</h1>
+					</div>
+					<CardContainer isColumn={true}>
+						{appointmentTypes.map((typeItem, index) => {
+							return (
+								<Card
+									key={index}
+									handleClick={onAppointmentTypeSelection}
+									clickParam={typeItem.type}
+									customClass={stateType === typeItem.type ? "selected" : ""}
+								>
+									<img src={typeItem.image} alt="..." className="type-image" />
+									<p>{typeItem.text}</p>
+								</Card>
+							);
+						})}
+					</CardContainer>
+				</div>
 			</div>
-		</div>
-	</React.Fragment>
-
+		</React.Fragment>
 	);
 };
 

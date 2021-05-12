@@ -10,6 +10,7 @@ const initialState = {
 	city: "",
 	calendar_date: "",
 	calendar_hour: "",
+	isOnline: false, 
 	clientData: {
 		ageGroup: "", // Altersgruppe
 		gender: "", // Geschlecht

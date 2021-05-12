@@ -20,14 +20,14 @@ const CalendarOnlinePage = (properties) => {
 			action: "Video-beratung",
 			text: "Video-beratung",
 			label: "",
-			type: "BI",
+			type: "ONLINE_1",
 			img: opcionOne,
 		},
 		{
 			action: "Voruntersuchung",
 			text: "Voruntersuchung",
 			label: "40€",
-			type: "BIDI",
+			type: "ONLINE_2",
 			img: opcionTwo,
 		},
 	];
@@ -42,23 +42,22 @@ const CalendarOnlinePage = (properties) => {
 	const [initialDate] = useState(today);
 	const [loading, setLoading] = useState(false);
 	const [selectedType, setType] = useState(null);
-	const [selectedCity, setCity] = useState(null);
 	const [dataCalendar, setDataCalendar] = useState([]);
 	const [selectedDate, setSelectedDate] = useState(null);
 	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
 	const [currentMonth, setCurrentMonth] = useState(currentMonthNumber);
 
-
-	const { appointment, available_hours, } = properties;
+	const { appointment, available_hours } = properties;
 
 	/**
-	 * Seteo del current step, de la ciudad y el tipo de consulta seleccionada
+	 * Seteo del current step, de la propiedad isOnline y el tipo de consulta seleccionada
 	 */
 
 	useEffect(() => {
+		console.log("available hours", available_hours)
 		properties.setAppoinmentConfig("currentStep", 1);
+		properties.setAppoinmentConfig("isOnline", true)
 		setType(properties.appointment.type);
-		setCity(properties.appointment.city.keycli);
 	}, [selectedType]);
 
 	/**
@@ -83,6 +82,7 @@ const CalendarOnlinePage = (properties) => {
 		else return 50;
 	};
 
+
 	/////////////////////////////
 	// Gestión de eventos
 	/////////////////////////////
@@ -94,7 +94,7 @@ const CalendarOnlinePage = (properties) => {
 	 */
 
 	const handleDateChange = (date) => {
-		const finded = dataCalendar.filter((item) => {
+		const finded = dataCalendar?.filter((item) => {
 			return item.formattedDate.format("DD-MM-yyyy") === date.format("DD-MM-yyyy");
 		});
 
@@ -224,9 +224,7 @@ const CalendarOnlinePage = (properties) => {
 
 			// Se seleccionan desde el estado las fechas correspondientes al nuevo tipo de cita
 
-
-
-			const selectedHours = await available_hours[selectedCity].data[selectedType][currentMonth];
+			const selectedHours = await available_hours.data[selectedType][currentMonth];
 
 			// Se formatean las horas seleccioonadas
 
@@ -323,6 +321,8 @@ const mapDispatchToProps = (dispatch) => {
 		 * @description Actualiza un campo del objeto de appointment
 		 */
 		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
+
+		setOnlineConfig: (property, data) => dispatch(() => console.log(property, data)),
 	};
 };
 

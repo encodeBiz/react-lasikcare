@@ -17,7 +17,6 @@ import { setGlobalError } from "./redux/errors/errors.actions";
  * @param {Funcion} properties.setGlobalError Acción para setear un error
  */
 function App(properties) {
-	
 	const [clinics, setClinics] = useState([]);
 
 	const homeLinksConfig = [
@@ -52,7 +51,7 @@ function App(properties) {
 
 			await getAllClinicsHours();
 		} catch (error) {
-			properties.setGlobalError(error)
+			properties.setGlobalError(error);
 		}
 	};
 
@@ -64,9 +63,11 @@ function App(properties) {
 		clinics.clinics.forEach((clinic) => {
 			properties.fetchAvailableHours(clinic.keycli, "BI");
 			properties.fetchAvailableHours(clinic.keycli, "BIDI");
+			properties.fetchAvailableHours(null, "ONLINE_1", null, true);
 		});
-	};
 
+		
+	};
 
 	return (
 		<React.Fragment>
@@ -95,16 +96,16 @@ function App(properties) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
 	/**
-	 * 
-	 * @param {String} keycli 
-	 * @param {String} appointments_type 
-	 * 
+	 *
+	 * @param {String} keycli
+	 * @param {String} appointments_type
+	 *
 	 * Acción de Redux que hace una llamada a la API para conseguir los huecos libres en un mes
 	 */
 
-	fetchAvailableHours: (keycli, appointments_type) => dispatch(fetchAvailableHours(keycli, appointments_type)),
+	fetchAvailableHours: (keycli, appointments_type) =>
+		dispatch(fetchAvailableHours(keycli, appointments_type)),
 	/**
 	 *
 	 * @param {String} error
@@ -118,7 +119,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
 	clinics: state.clinics,
 	available_hours: state.available_hours,
-	state
+	state,
 });
 
 export default connect(mapDispatchToProps, mapStateToProps)(App);
