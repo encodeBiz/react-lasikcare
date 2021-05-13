@@ -40,27 +40,26 @@ const CityAppointmentPage = (properties) => {
 	const cities = [
 		{
 			name: "München",
+			address: "SOME_ADDRESS1",
+			keycli: "CITY1",
 			icon: madridIcon,
+
 		},
 		{
 			name: "Augsburg",
+			address: "SOME_ADDRESS2",
+			keycli: "CITY2",
 			icon: albaceteIcon,
 		},
 		{
 			name: "Rosenheim",
+			address: "SOME_ADDRESS2",
+			keycli: "CITY2",
 			icon: toledoIcon,
 		},
 	];
 
-	// ERROR TEST
 
-	// useEffect(() => {
-	// 	setTimeout(() => {
-	// 		properties.setGlobalError("Un error cualquiera");
-	// 	}, 1000);
-
-	// 	// eslint-disable-next-line
-	// }, []);
 
 	/**
 	 * Se ejecuta la función que se encarga de conseguir las clínicas
@@ -183,9 +182,9 @@ const CityAppointmentPage = (properties) => {
 			<div className="city-appointment-container">
 				<CardContainer isColumn={true}>
 					{/* Sin servidor */}
-
-					{properties.clinics.clinics?.length > 0 &&
-						properties.clinics.clinics.map((city, index) => {
+				
+					{cities.length > 0 &&
+						cities.map((city, index) => {
 							const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
 							return (
 								<Card key={index} handleClick={handleCitySelect} clickParam={city}>
@@ -194,6 +193,18 @@ const CityAppointmentPage = (properties) => {
 								</Card>
 							);
 						})}
+					{/* Con servidor */}
+
+					{/* {properties.clinics.clinics?.length > 0 &&
+						properties.clinics.clinics.map((city, index) => {
+							const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
+							return (
+								<Card key={index} handleClick={handleCitySelect} clickParam={city}>
+									<img src={cityIcon?.icon} alt={cityIcon?.icon} className="type-image-city" />
+									<p>{city.name}</p>
+								</Card>
+							);
+						})} */}
 				</CardContainer>
 			</div>
 		</div>
