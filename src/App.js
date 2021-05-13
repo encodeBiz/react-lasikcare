@@ -20,6 +20,8 @@ import { fetchOnlineAvailableHours } from "./redux/available_online_hours/availa
 function App(properties) {
   const [clinics, setClinics] = useState([]);
 
+  console.log("Entra en App?")
+
   const homeLinksConfig = [
     {
       title: "Zu Hause",
@@ -37,6 +39,7 @@ function App(properties) {
 
   useEffect(() => {
     const city = localStorage.getItem("city");
+	console.log("Llega?")
     setClinics(properties.clinics);
     if (city) {
       // setClientCity(city);
@@ -48,9 +51,10 @@ function App(properties) {
 
   const getAsyncData = async () => {
     try {
-      await properties.setClinicAppointments();
+    //   await properties.setClinicAppointments();
 
-      await getAllClinicsHours();
+    //   await getAllClinicsHours();
+	  await getAllOnlineHours()
     } catch (error) {
       properties.setGlobalError(error);
     }
@@ -65,6 +69,14 @@ function App(properties) {
       properties.fetchAvailableHours(clinic.keycli, "BI");
       properties.fetchAvailableHours(clinic.keycli, "BIDI");
     });
+  };
+
+  const getAllOnlineHours = async () => {
+    const onlineHoursPromises = ["BI", "BIDI"].forEach((item) =>
+      properties.fetchOnlineAvailableHours(item)
+    );
+   const res =  await Promise.all(onlineHoursPromises);
+
   };
 
   return (

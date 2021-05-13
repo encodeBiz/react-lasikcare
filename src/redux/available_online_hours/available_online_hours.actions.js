@@ -1,15 +1,29 @@
 import moment from "moment";
-import { getHuecosOnline } from "../../services/appointments.service";
-import { videoConferenceTestData2 } from "../../test-data/testData";
+import {
+  getHuecos,
+  getHuecosOnline,
+} from "../../services/appointments.service";
+import {
+  videoConferenceTestDataJune,
+  videoConferenceTestDataMay,
+} from "../../test-data/testData";
 
 export const GET_ONLINE_HOURS = "GET_ONLINE_HOURS";
 export const SET_ONLINE_HOURS = "SET_ONLINE_HOURS";
+export const UPDATE_ONLINE_HOURS = "UPDATE_ONLINE_HOURS";
 
 export const setOnlineHours = ({ appointment_type, data, month }) => ({
   type: SET_ONLINE_HOURS,
   appointment_type,
   onlineHoursData: data,
   month,
+});
+
+export const updateOnlineHours = (appointment_type, data, nextMonth) => ({
+  type: UPDATE_ONLINE_HOURS,
+  appointment_type,
+  onlineHoursData: data,
+  nextMonth,
 });
 
 export const fetchOnlineAvailableHours = (type, date) => {
@@ -19,7 +33,7 @@ export const fetchOnlineAvailableHours = (type, date) => {
       if (date) {
         dateToSend = date;
       } else {
-        dateToSend = moment().add(1, "month").format("DD/MM/YYYY");
+        dateToSend = moment().format("DD/MM/YYYY");
       }
 
       /// Make api call
@@ -30,18 +44,44 @@ export const fetchOnlineAvailableHours = (type, date) => {
       //    TEST -start
       ///////////////////////////////////////////
 
-      const res = videoConferenceTestData2;
+      const res = videoConferenceTestDataMay;
 
       ///////////////////////////////////////////
       //    TEST-end
       ///////////////////////////////////////////
 
       const month = moment(dateToSend, "DD/MM/YYYY").format("M");
-      const data = res.huecos ? { [type]: res.huecos } : {};
+      const data = res.huecos ? { onlineHours: res.huecos } : {};
 
-      return dispatch(setOnlineHours({ type, data, month }));
+      return dispatch(setOnlineHours({ appointment_type: type, data, month }));
     } catch (error) {
       console.error(error);
     }
+  };
+};
+
+export const updateOnlineAvailableHours = (type, date, nextMonth) => {
+  return async (dispatch) => {
+    try {
+      //   const res = await getHuecosOnline({date, type})
+
+      const res = videoConferenceTestDataJune;
+      console.log("Res");
+      console.log(res);
+      const data = res.huecos ? { onlineHours: res.huecos } : {};
+      console.log(data);
+
+      return dispatch(updateOnlineHours(type, data, nextMonth));
+    } catch (error) {
+      console.error(error);
+    }
+
+    // try {
+    //   const res = await getHuecos({date, type})
+    //   const data = res.huecos ? {type: res.huecos} : {}
+    //   return dispatch()
+    // } catch (error) {
+
+    // }
   };
 };

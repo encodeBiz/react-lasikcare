@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { fetchAvailableHours } from "../../../redux/available_hours/available_hours.actions";
 import { fetchClinics } from "../../../redux/clinics/clinics.actions";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
+import { fetchOnlineAvailableHours } from "../../../redux/available_online_hours/available_online_hours.actions";
 
 // Componentes
 
@@ -34,168 +35,186 @@ import { Link } from "react-router-dom";
  * @param {Promise} properties.clinics Clínicas disponibles
  */
 const CityAppointmentPage = (properties) => {
-	const history = useHistory();
-	const [isLoading, setIsLoading] = useState(true);
+  const history = useHistory();
+  const [isLoading, setIsLoading] = useState(true);
+  console.log("online available hours", properties.online_available_hours);
 
-	const cities = [
-		{
-			name: "München",
-			address: "SOME_ADDRESS1",
-			keycli: "CITY1",
-			icon: madridIcon,
+  const cities = [
+    {
+      name: "München",
+      address: "SOME_ADDRESS1",
+      keycli: "CITY1",
+      icon: madridIcon,
+    },
+    {
+      name: "Augsburg",
+      address: "SOME_ADDRESS2",
+      keycli: "CITY2",
+      icon: albaceteIcon,
+    },
+    {
+      name: "Rosenheim",
+      address: "SOME_ADDRESS2",
+      keycli: "CITY2",
+      icon: toledoIcon,
+    },
+  ];
 
-		},
-		{
-			name: "Augsburg",
-			address: "SOME_ADDRESS2",
-			keycli: "CITY2",
-			icon: albaceteIcon,
-		},
-		{
-			name: "Rosenheim",
-			address: "SOME_ADDRESS2",
-			keycli: "CITY2",
-			icon: toledoIcon,
-		},
-	];
+  /**
+   * Se ejecuta la función que se encarga de conseguir las clínicas
+   */
 
+  useEffect(() => {
+    getClinics();
+    // eslint-disable-next-line
+  }, []);
 
+  /**
+   *  Se gestiona la llamada para conseguir la lista de clínicas
+   * 	Cuando se termina la llamada se setea el loading a false
+   */
 
-	/**
-	 * Se ejecuta la función que se encarga de conseguir las clínicas
-	 */
+  const getClinics = async () => {
+    try {
+      await properties.fetchClinics();
+      setIsLoading(false);
+    } catch (error) {
+      properties.setGlobalError(error);
+    }
+  };
 
-	useEffect(() => {
-		getClinics();
-		// eslint-disable-next-line
-	}, []);
+  /**
+   * Setea el currentStep del store y
+   * si existe el array cities en el local storage hace una llamada a la
+   * API para conseguir los datos de cada ciudad
+   */
+  useEffect(() => {
+    if (properties.clinics.clinics?.length > 0) {
+      const cities = JSON.parse(localStorage.getItem("tempCities"));
+      if (cities) {
+        getClinicsHours(cities);
+      }
 
-	/**
-	 *  Se gestiona la llamada para conseguir la lista de clínicas
-	 * 	Cuando se termina la llamada se setea el loading a false
-	 */
+      properties.setAppoinmentConfig("currentStep", 0);
+    }
+    getAllOnlineHours();
+    // eslint-disable-next-line
+  }, [isLoading]);
 
-	const getClinics = async () => {
-		try {
-			await properties.fetchClinics();
-			setIsLoading(false);
-		} catch (error) {
-			properties.setGlobalError(error);
-		}
-	};
+  /**
+   * @param {Object} selectedCities
+   * Por cada uno de las clínicas se hace una llamada para conseguir
+   * los huecos tanto en "BI" (gratis) como en "BIDI" (de pago)
+   */
 
-	/**
-	 * Setea el currentStep del store y
-	 * si existe el array cities en el local storage hace una llamada a la
-	 * API para conseguir los datos de cada ciudad
-	 */
-	useEffect(() => {
-		if (properties.clinics.clinics?.length > 0) {
-			const cities = JSON.parse(localStorage.getItem("tempCities"));
-			if (cities) {
-				getClinicsHours(cities);
-			}
+  const getClinicsHours = (selectedCities) => {
+    selectedCities.forEach((clinic) => {
+      properties.fetchAvailableHours(clinic.keycli, "BI");
+      properties.fetchAvailableHours(clinic.keycli, "BIDI");
+    });
+  };
 
-			properties.setAppoinmentConfig("currentStep", 0);
-		}
-		// eslint-disable-next-line
-	}, [isLoading]);
+  const getAllOnlineHours = () => {
+    ["BI", "BIDI"].forEach(
+      async (item) => await properties.fetchOnlineAvailableHours(item)
+    );
+  };
 
-	/**
-	 * @param {Object} selectedCities
-	 * Por cada uno de las clínicas se hace una llamada para conseguir
-	 * los huecos tanto en "BI" (gratis) como en "BIDI" (de pago)
-	 */
+  /**
+   *
+   * @param {String} keycli
+   * @param {String} name
+   * @param {String} address
+   * @see setCityInStorage
+   *
+   * El usuario selecciona la ciudad en la que quiere la consulta,
+   * Se le redirige a la vista de selección de tipo de cita
+   * Si hay ciudades en el local storage se realiza una llamada para conseguir los huecos
+   * de las ciudades del local storage y de la selección del usuario.
+   * Si no, se limita a hacer una llamada por la ciudad seleccionada.
+   *
+   */
+  const handleCitySelect = ({ keycli, name, address }) => {
+    if (keycli) {
+      // Setea la ciudad en el local storage
 
-	const getClinicsHours = (selectedCities) => {
-		selectedCities.forEach((clinic) => {
-			properties.fetchAvailableHours(clinic.keycli, "BI");
-			properties.fetchAvailableHours(clinic.keycli, "BIDI");
-		});
-	};
+      setCityInStorage({ keycli, name, address });
 
-	/**
-	 *
-	 * @param {String} keycli
-	 * @param {String} name
-	 * @param {String} address
-	 * @see setCityInStorage
-	 *
-	 * El usuario selecciona la ciudad en la que quiere la consulta,
-	 * Se le redirige a la vista de selección de tipo de cita
-	 * Si hay ciudades en el local storage se realiza una llamada para conseguir los huecos
-	 * de las ciudades del local storage y de la selección del usuario.
-	 * Si no, se limita a hacer una llamada por la ciudad seleccionada.
-	 *
-	 */
-	const handleCitySelect = ({ keycli, name, address }) => {
-		if (keycli) {
-			// Setea la ciudad en el local storage
+      // Setea la ciudad en redux
 
-			setCityInStorage({ keycli, name, address });
+      properties.setAppoinmentConfig("city", { keycli, name, address });
 
-			// Setea la ciudad en redux
+      // Redirige hacia el siguiente paso
 
-			properties.setAppoinmentConfig("city", { keycli, name, address });
+      history.push("/type");
 
-			// Redirige hacia el siguiente paso
+      // Hace la llamada a la API
 
-			history.push("/type");
+      getClinicsHours([{ keycli, name }]);
+    }
+  };
 
-			// Hace la llamada a la API
+  /**
+   *
+   * @param {Object} newCity
+   * @property {String} keycli
+   * @property {String} name
+   * @property {String} address
+   * @see handleCitySelect
+   *
+   * Pushea la nueva ciudad si no existe en el array del local storage.
+   * Si exite hace un early return
+   *
+   *
+   */
 
-			getClinicsHours([{ keycli, name }]);
-		}
-	};
+  const setCityInStorage = (newCity) => {
+    const citiesInStorage =
+      JSON.parse(localStorage.getItem("tempCities")) || [];
+    const doesCityExist = citiesInStorage.some(
+      (city) => city.keycli === newCity.keycli
+    );
+    if (!doesCityExist) {
+      citiesInStorage.push(newCity);
+      localStorage.setItem("tempCities", JSON.stringify(citiesInStorage));
+    } else {
+      return;
+    }
+  };
 
-	/**
-	 *
-	 * @param {Object} newCity
-	 * @property {String} keycli
-	 * @property {String} name
-	 * @property {String} address
-	 * @see handleCitySelect
-	 *
-	 * Pushea la nueva ciudad si no existe en el array del local storage.
-	 * Si exite hace un early return
-	 *
-	 *
-	 */
+  return (
+    <div className="wrapper-general">
+      <div className="title-seccion">
+        <h1>Bitte Standort wählen</h1>
+      </div>
+      <Link to="/sorry">Sorry :(</Link>
+      <div className="city-appointment-container">
+        <CardContainer isColumn={true}>
+          {/* Sin servidor */}
 
-	const setCityInStorage = (newCity) => {
-		const citiesInStorage = JSON.parse(localStorage.getItem("tempCities")) || [];
-		const doesCityExist = citiesInStorage.some((city) => city.keycli === newCity.keycli);
-		if (!doesCityExist) {
-			citiesInStorage.push(newCity);
-			localStorage.setItem("tempCities", JSON.stringify(citiesInStorage));
-		} else {
-			return;
-		}
-	};
+          {cities.length > 0 &&
+            cities.map((city, index) => {
+              const cityIcon = cities.find(
+                (cityWithIcon) => cityWithIcon.name === city.name
+              );
+              return (
+                <Card
+                  key={index}
+                  handleClick={handleCitySelect}
+                  clickParam={city}
+                >
+                  <img
+                    src={cityIcon?.icon}
+                    alt={cityIcon?.icon}
+                    className="type-image-city"
+                  />
+                  <p>{city.name}</p>
+                </Card>
+              );
+            })}
+          {/* Con servidor */}
 
-	return (
-		<div className="wrapper-general">
-			<div className="title-seccion">
-				<h1>Bitte Standort wählen</h1>
-			</div>
-			<Link to="/sorry" >Sorry :(</Link>
-			<div className="city-appointment-container">
-				<CardContainer isColumn={true}>
-					{/* Sin servidor */}
-				
-					{cities.length > 0 &&
-						cities.map((city, index) => {
-							const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
-							return (
-								<Card key={index} handleClick={handleCitySelect} clickParam={city}>
-									<img src={cityIcon?.icon} alt={cityIcon?.icon} className="type-image-city" />
-									<p>{city.name}</p>
-								</Card>
-							);
-						})}
-					{/* Con servidor */}
-
-					{/* {properties.clinics.clinics?.length > 0 &&
+          {/* {properties.clinics.clinics?.length > 0 &&
 						properties.clinics.clinics.map((city, index) => {
 							const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
 							return (
@@ -205,50 +224,65 @@ const CityAppointmentPage = (properties) => {
 								</Card>
 							);
 						})} */}
-				</CardContainer>
-			</div>
-		</div>
-	);
+        </CardContainer>
+      </div>
+    </div>
+  );
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	/**
-	 *
-	 * @param {String} property  Propiedad del estado que se debe actualizar
-	 * @param {String || Object || number} data Datos con los que se actualizará la propiedad anterior
-	 * @description Actualiza un campo del objeto de appointment
-	 */
-	setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
+  /**
+   *
+   * @param {String} property  Propiedad del estado que se debe actualizar
+   * @param {String || Object || number} data Datos con los que se actualizará la propiedad anterior
+   * @description Actualiza un campo del objeto de appointment
+   */
+  setAppoinmentConfig: (property, data) =>
+    dispatch(setAppoinmentConfig(property, data)),
 
-	/**
-	 *
-	 * @param {String} keycli Código de la ciudad
-	 * @param {('BI' | 'BIDI')} appointments_type Tipo de cita BI = Gratis | BIDI = Pago
-	 */
-	fetchAvailableHours: (keycli, appointments_type) => dispatch(fetchAvailableHours(keycli, appointments_type)),
+  /**
+   *
+   * @param {String} keycli Código de la ciudad
+   * @param {('BI' | 'BIDI')} appointments_type Tipo de cita BI = Gratis | BIDI = Pago
+   */
+  fetchAvailableHours: (keycli, appointments_type) =>
+    dispatch(fetchAvailableHours(keycli, appointments_type)),
 
-	/**
-	 * @description Devuelve una lista de clínicas
-	 */
+  /**
+   *
+   * @param {String} appointments_type BI | BIDI Tipo de cita online que se pide
+   * @returns
+   */
 
-	fetchClinics: () => dispatch(fetchClinics()),
+  fetchOnlineAvailableHours: (appointments_type) =>
+    dispatch(fetchOnlineAvailableHours(appointments_type)),
 
-	/**
-	 *
-	 * @param {String} error
-	 *
-	 * Setea un nuevo error en Redux
-	 */
+  /**
+   * @description Devuelve una lista de clínicas
+   */
 
-	setGlobalError: (error) => dispatch(setGlobalError(error)),
+  fetchClinics: () => dispatch(fetchClinics()),
+
+  /**
+   *
+   * @param {String} error
+   *
+   * Setea un nuevo error en Redux
+   */
+
+  setGlobalError: (error) => dispatch(setGlobalError(error)),
 });
 
 const mapStateToProps = (state) => {
-	return {
-		clinics: state.clinics,
-		appointment: state.appointment,
-		available_hours: state.available_hours,
-	};
+  return {
+    clinics: state.clinics,
+    appointment: state.appointment,
+    available_hours: state.available_hours,
+    online_available_hours: state.online_available_hours,
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CityAppointmentPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CityAppointmentPage);
