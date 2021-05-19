@@ -22,7 +22,6 @@ import ConfirmAppointmentPage from "../page_modules/appointments/ConfirmAppointm
 import ConfirmOnlinePage from "../page_modules/video_call/ConfirmOnlinePage/ConfirmOnlinePage";
 import Navbar from "../shared_modules/Navbar/Navbar";
 import ThankAppointmentPage from "../page_modules/appointments/ThankAppointmentPage/ThankAppointmentPage";
-import ThankOnlinePage from "../page_modules/video_call/ThankOnlinePage/ThankOnlinePage";
 import TypeAppointmentPage from "../page_modules/appointments/TypeAppointmentPage/TypeAppointmentPage";
 import Video_call from "../page_modules/video_call/VideoCall";
 
@@ -83,11 +82,6 @@ const routes = [
 				path: "/videollamadas/confirm",
 				component: ConfirmOnlinePage,
 				stepNumber: 2
-			},
-			{
-				path: "/videollamadas/thank",
-				component: ThankOnlinePage,
-				stepNumber: 3
 			},
 		],
 	},

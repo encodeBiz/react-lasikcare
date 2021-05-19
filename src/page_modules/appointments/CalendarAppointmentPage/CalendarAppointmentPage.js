@@ -30,6 +30,8 @@ const CalendarAppointmentPage = (properties) => {
 	const today = moment();
 	const { available_hours, appointment } = properties;
 
+	console.log(available_hours);
+	console.log(appointment);
 
 	const buttonsConfig = [
 		{
@@ -52,10 +54,6 @@ const CalendarAppointmentPage = (properties) => {
 	// Configuración del componente
 	/////////////////////////////
 
-	// const [dataTimes, setDataTimes] = useState([]);
-	// const [dataDates, setDataDates] = useState(null);
-	// const [chosenAppointment, setChosenAppointment] = useState({});
-	// const [selectedDateString, setSelectedDateString] = useState(null);
 	const [calendarWidth, setCalendarWidth] = useState(null);
 	// eslint-disable-next-line
 	const [focused, setFocused] = useState(false);

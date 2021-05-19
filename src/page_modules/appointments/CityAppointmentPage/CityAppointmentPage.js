@@ -132,12 +132,17 @@ const CityAppointmentPage = (properties) => {
 
 	/**
 	 * Hace una llamada a Redux para que consiga las fechas disponibles para las videollamadas
+	 * Se hace una llamada por el mes presente y el siguiente para que estén disponibles 
 	 * @returns {{huecos: {Array.<keymed:String,fecha:String,horaRealCita:Number,horaInicio:Number,horaFin:Number>}, errores:{cod:Number,mensaje:Object}} }}
 	 */
 
 	const getAllOnlineHours = async () => {
 		const date = getTodayDate();
-		return await properties.fetchOnlineAvailableHours(date);
+		const nextMonthDate = getNextMonthDate(); 
+
+		await properties.fetchOnlineAvailableHours(date);
+		await properties.fetchOnlineAvailableHours(nextMonthDate);
+
 	};
 
 	//////////////////////////////////////////
@@ -208,6 +213,8 @@ const CityAppointmentPage = (properties) => {
 	///////////////////////////////////////////
 
 	const getTodayDate = () => moment().format("DD/MM/yyyy");
+
+	const getNextMonthDate = () => moment().add(1, "month").format("DD/MM/yyyy")
 
 	//////////////////////////////////////////
 	// RENDERIZADO

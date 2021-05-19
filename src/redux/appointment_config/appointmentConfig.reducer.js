@@ -12,7 +12,7 @@ const initialState = {
 	success: false,
 	currentStep: 0,
 	type: "",
-	city: "",
+	city: {},
 	calendar_date: "",
 	calendar_hour: "",
 	isOnline: false,
@@ -41,7 +41,8 @@ const appoinmentConfig = (state = initialState, action) => {
 		case SET_SUCCESS_ON_CONFIRM:
 			return { ...state, success: true };
 		case CLEAR_APPOINTMENT_INFO:
-			return initialState;
+			const {city, ...rest} = initialState; 
+			return {...state, ...rest};
 		default:
 			return state;
 	}
