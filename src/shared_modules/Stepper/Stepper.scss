@@ -16,21 +16,20 @@
   }
 
   .progress-bar {
-   
-
+   display: flex;
+   justify-content: center;
     li {
       list-style-type: none;
       display: inline-block;
-      width: 25%;
+      flex: 1; 
+      max-width: 25%;
       position: relative;
       text-align: center;
       font-size: 0.8rem;
       color: $secondaryColor;
-
       @include tablet-medium {
         font-size: 1rem;
       }
-
       @include desktop-small {
         font-size: 0.8rem;
       }
