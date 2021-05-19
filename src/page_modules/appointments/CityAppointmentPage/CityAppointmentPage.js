@@ -28,6 +28,7 @@ import toledoIcon from "../../../assets/images/icons/tres.jpg";
 import "./CityAppointmentPage.scss";
 import { setGlobalError } from "../../../redux/errors/errors.actions";
 import moment from "moment";
+import { setIsLoading } from "../../../redux/loading/loading.actions";
 
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store
@@ -114,6 +115,7 @@ const CityAppointmentPage = (properties) => {
 			properties.setAppoinmentConfig("currentStep", 0);
 		}
 		getAllOnlineHours();
+
 		// eslint-disable-next-line
 	}, [isLoading]);
 
@@ -124,25 +126,28 @@ const CityAppointmentPage = (properties) => {
 	 */
 
 	const getClinicsHours = (selectedCities) => {
-		selectedCities.forEach((clinic) => {
-			properties.fetchAvailableHours(clinic.keycli, "BI");
-			properties.fetchAvailableHours(clinic.keycli, "BIDI");
-		});
+		setTimeout(() => {
+			setIsLoading(true);
+			selectedCities.forEach((clinic) => {
+				properties.fetchAvailableHours(clinic.keycli, "BI");
+				properties.fetchAvailableHours(clinic.keycli, "BIDI");
+			});
+			setIsLoading(false);
+		}, 25000);
 	};
 
 	/**
 	 * Hace una llamada a Redux para que consiga las fechas disponibles para las videollamadas
-	 * Se hace una llamada por el mes presente y el siguiente para que estén disponibles 
+	 * Se hace una llamada por el mes presente y el siguiente para que estén disponibles
 	 * @returns {{huecos: {Array.<keymed:String,fecha:String,horaRealCita:Number,horaInicio:Number,horaFin:Number>}, errores:{cod:Number,mensaje:Object}} }}
 	 */
 
 	const getAllOnlineHours = async () => {
 		const date = getTodayDate();
-		const nextMonthDate = getNextMonthDate(); 
+		const nextMonthDate = getNextMonthDate();
 
 		await properties.fetchOnlineAvailableHours(date);
 		await properties.fetchOnlineAvailableHours(nextMonthDate);
-
 	};
 
 	//////////////////////////////////////////
@@ -214,12 +219,11 @@ const CityAppointmentPage = (properties) => {
 
 	const getTodayDate = () => moment().format("DD/MM/yyyy");
 
-	const getNextMonthDate = () => moment().add(1, "month").format("DD/MM/yyyy")
+	const getNextMonthDate = () => moment().add(1, "month").format("DD/MM/yyyy");
 
 	//////////////////////////////////////////
 	// RENDERIZADO
 	///////////////////////////////////////////
-
 
 	return (
 		<div className="wrapper-general">
@@ -287,6 +291,14 @@ const mapDispatchToProps = (dispatch) => ({
 	 */
 
 	setGlobalError: (error) => dispatch(setGlobalError(error)),
+
+	/**
+	 *
+	 * @param {boolean} value
+	 * @returns
+	 */
+
+	setIsLoading: (value) => dispatch(setIsLoading(value)),
 });
 
 const mapStateToProps = (state) => {

@@ -14,6 +14,7 @@ import { updateAvailableHours } from "../../../redux/available_hours/available_h
 import Card from "../../../shared_modules/Card/Card";
 import opcionOne from "../../../assets/images/icons/type-free.svg";
 import opcionTwo from "../../../assets/images/icons/calendar-icon.svg";
+import { ErrorMessage } from "formik";
 
 /**
  *
@@ -28,10 +29,7 @@ const CalendarAppointmentPage = (properties) => {
 	const history = useHistory();
 	const navigateTo = (url) => history.push(url);
 	const today = moment();
-	const { available_hours, appointment } = properties;
-
-	console.log(available_hours);
-	console.log(appointment);
+	const { available_hours, appointment, isLoading } = properties;
 
 	const buttonsConfig = [
 		{
@@ -70,6 +68,8 @@ const CalendarAppointmentPage = (properties) => {
 
 	const [currentMonth, setCurrentMonth] = useState(currentMonthNumber);
 
+	const [loadingMessage, setLoadingMessage] = useState(null);
+
 	/**
 	 * Seteo del current step y de la ciudad y el tipo de consulta seleccionada
 	 */
@@ -100,7 +100,7 @@ const CalendarAppointmentPage = (properties) => {
 		}
 
 		// eslint-disable-next-line
-	}, [selectedType, selectedCity, currentMonth]);
+	}, [selectedType, selectedCity, currentMonth, isLoading]);
 
 	/**
 	 * @description Setea la anchura del calendario
@@ -150,6 +150,7 @@ const CalendarAppointmentPage = (properties) => {
 	 * llamada para conseguir los huecos del mes siguiente
 	 *
 	 */
+	console.log(appointment);
 
 	const onNextMonthClick = async (currentDate) => {
 		try {
@@ -159,7 +160,15 @@ const CalendarAppointmentPage = (properties) => {
 
 			setCurrentMonth(month);
 
+			if (properties.isLoading) {
+				setLoadingMessage("Meses aún cargando");
+				return;
+			}
+
+			setLoadingMessage(null)
+
 			// Se setea la fecha seleccionada a null para que desaparezcan las horas seleccionadas
+
 			setSelectedDate(null);
 
 			// Setea la fecha del que se pasará al action. Se añade un mes exacto
@@ -327,6 +336,8 @@ const CalendarAppointmentPage = (properties) => {
 							})}
 						</div>
 					</CardContainer>
+
+					{loadingMessage ? <p>{loadingMessage}</p> : null}
 					<CardContainer className="change-margin">
 						{!loading && (
 							<Calendar
@@ -391,6 +402,7 @@ const mapStateToProps = (store) => {
 	return {
 		appointment: store.appointment,
 		available_hours: store.available_hours,
+		isLoading: store.isLoading
 	};
 };
 

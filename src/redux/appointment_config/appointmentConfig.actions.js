@@ -79,7 +79,6 @@ export const sendAppointmentData = (isOnline) => {
 				? await setHuecosOnline(query_params)
 				: await setHuecos(query_params);
 
-			console.log(setHuecosResponse)
 			if (Number(setHuecosResponse.errores && setHuecosResponse.errores?.cod) !== 0) {
 				dispatch(setErrorInAppointment(setHuecosResponse.errores));
 			} else {
