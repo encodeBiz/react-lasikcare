@@ -73,7 +73,7 @@ export const setHuecos = async (query_params) => {
 
 export const getHuecosOnline = async (query_param) => {
 	try {
-		const url = "get_online_huecos";
+		const url = get_huecos;
 		const headers = {
 			Origin: "*",
 		};

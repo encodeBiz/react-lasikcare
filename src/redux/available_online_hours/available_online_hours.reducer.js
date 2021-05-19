@@ -5,18 +5,13 @@ import {
 
 const initialState = {};
 
-const fn = (state = { initialState }, action) => {
+const fn = (state = initialState, action) => {
   switch (action.type) {
     case SET_ONLINE_HOURS:
-      const { appointment_type, onlineHoursData, month } = action;
-      const data = onlineHoursData.onlineHours[appointment_type].hueco;
-      console.log(action); 
-
-      return state; 
-      // return {
-      //   ...state,
-      //   data: { ...state.data, [appointment_type]: { [month]: data } },
-      // };
+      return {
+        ...state,
+        [action.month] : action.onlineHoursData,
+      };
 
     case UPDATE_ONLINE_HOURS:
       const currentData = state.data[action.appointment_type];

@@ -59,7 +59,6 @@ export const sendAppointmentData = () => {
 
 			const setHuecosResponse = await setHuecos(query_params);
 		
-			console.log(setHuecosResponse);
 		} catch (error) {}
 	};
 };

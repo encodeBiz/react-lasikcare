@@ -5,367 +5,256 @@ import { setAppoinmentConfig } from "../../../redux/appointment_config/appointme
 import { useHistory } from "react-router";
 import Button from "../../../shared_modules/Button/Button";
 import Calendar from "../../../shared_modules/Calendar/Calendar";
-import Card from "../../../shared_modules/Card/Card";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import moment from "moment";
-import opcionOne from "../../../assets/images/icons/icon-videocall.svg";
-import opcionTwo from "../../../assets/images/icons/calendar-icon.svg";
 import React, { useEffect, useState } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import useWindowSize from "../../../hooks/useWindowSize";
-import { updateOnlineAvailableHours } from "../../../redux/available_online_hours/available_online_hours.actions";
+import { fetchOnlineAvailableHours } from "../../../redux/available_online_hours/available_online_hours.actions";
 
 const CalendarOnlinePage = (properties) => {
-  const buttonsConfig = [
-    {
-      action: "Video-beratung",
-      text: "Video-beratung",
-      label: "",
-      type: "BI",
-      img: opcionOne,
-    },
-    {
-      action: "Voruntersuchung",
-      text: "Voruntersuchung",
-      label: "40€",
-      type: "BIDI",
-      img: opcionTwo,
-    },
-  ];
+	const goBack = useHistory().goBack;
+	const history = useHistory();
+	const today = moment();
+	const { width } = useWindowSize();
+	const [calendarWidth, setCalendarWidth] = useState(null);
+	const [focused, setFocused] = useState(false);
+	const [activeIndex, setActiveIndex] = useState(null);
+	const [initialDate] = useState(today);
+	const [loading, setLoading] = useState(false);
+	const [dataCalendar, setDataCalendar] = useState([]);
+	const [selectedDate, setSelectedDate] = useState(null);
+	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
+	const [currentMonth, setCurrentMonth] = useState(currentMonthNumber);
 
-  const goBack = useHistory().goBack;
-  const history = useHistory();
-  const today = moment();
-  const { width } = useWindowSize();
-  const [calendarWidth, setCalendarWidth] = useState(null);
-  const [focused, setFocused] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(null);
-  const [initialDate] = useState(today);
-  const [loading, setLoading] = useState(false);
-  const [selectedType, setType] = useState(null);
-  const [dataCalendar, setDataCalendar] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
-  const [currentMonth, setCurrentMonth] = useState(currentMonthNumber);
-  const [paymentMethodSelected, setPaymentMethod] = useState("BIDI");
+	const { appointment, online_available_hours } = properties;
 
-  const { appointment, online_available_hours } = properties;
+	// ///////////////////////////////////////////
+	// // CONFIGURACIÓN DEL COMPONENTE
+	// ///////////////////////////////////////////
 
-  /**
-   * Seteo del current step, de la ciudad y el tipo de consulta seleccionada
-   */
+	/**
+	 * Seteo del current step, de la ciudad y el tipo de consulta seleccionada
+	 */
 
-  useEffect(() => {
-    properties.setAppoinmentConfig("currentStep", 1);
-    setType(properties.appointment.type);
-    setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
-  }, [selectedType]);
+	useEffect(() => {
+		properties.setAppoinmentConfig("currentStep", 1);
+		setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
+	}, []);
 
-  /**
-   * @description Setea la anchura del calendario
-   * para adaptarlo a diferentes tamaños de pantalla.
-   */
+	/**
+	 * @description Gestiona la llegada de datos procedentes de Redux store
+	 */
 
-  useEffect(() => {
-    const data = selectedType
-      ? properties.online_available_hours.data[paymentMethodSelected][
-          currentMonth
-        ]
-      : [];
+	useEffect(() => {
+		const data = online_available_hours[currentMonth.toString()]
+			? online_available_hours[currentMonth.toString()]
+			: undefined;
 
-    if (data && data.length > 0) {
-      const filteredData = filterData(data);
-      setDataCalendar(filteredData);
-    }
+		if (data && data.length > 0) {
+			const formattedDates = formatDates(data);
+			setDataCalendar(formattedDates);
+		} else {
+			setDataCalendar([]);
+		}
+	}, [currentMonth, online_available_hours]);
 
-    // if (data && data.length > 0) {
-    //   const filteredData = filterData(data);
-    //   setDataCalendar(filteredData);
-    //   console.log(dataCalendar)
-    // }
-  }, [selectedType, currentMonth]);
+	/**
+	 * @description Setea la anchura del calendario
+	 * para adaptarlo a diferentes tamaños de pantalla.
+	 */
 
-  /**
-   * @description Setea la anchura del calendario
-   * para adaptarlo a diferentes tamaños de pantalla.
-   */
+	useEffect(() => {
+		setCalendarWidth(formatCalendarWidth(width));
+	}, [width]);
 
-  useEffect(() => {
-    setCalendarWidth(formatCalendarWidth(width));
-  }, [width]);
+	/**
+	 *
+	 * @param {Number} width
+	 * Formatea la anchura del calendario para ajustarla a la anchura de la ventana
+	 */
+	const formatCalendarWidth = (width) => {
+		//a partir de 1080 no debe ejecutarse la función
+		if (width <= 320) return 35;
+		else if (width <= 414 || width <= 1080) return 40;
+		else if (width <= 980) return 50;
+		else return 50;
+	};
 
-  /**
-   *
-   * @param {Number} width
-   * Formatea la anchura del calendario para ajustarla a la anchura de la ventana
-   */
-  const formatCalendarWidth = (width) => {
-    //a partir de 1080 no debe ejecutarse la función
-    if (width <= 320) return 35;
-    else if (width <= 414 || width <= 1080) return 40;
-    else if (width <= 980) return 50;
-    else return 50;
-  };
+	// /////////////////////////////
+	// // GESTIÓN DE EVENTOS
+	// /////////////////////////////
 
-  /////////////////////////////
-  // Gestión de eventos
-  /////////////////////////////
+	/**
+	 * ***************************************************************
+	 * MES SIGUIENTE/ANTERIOR
+	 * ***************************************************************
+	 */
 
-  /**
-   *
-   * @param {Object} date fecha de moment
-   *
-   */
+	/**
+	 *
+	 * @param {Date} currentDate
+	 * Cuando se pulsa en el botón de siguiente mes del calendario se hace una
+	 * llamada para conseguir los huecos del mes siguiente
+	 *
+	 */
 
-  const handleDateChange = (date) => {
-    const finded = dataCalendar.filter((item) => {
-      return (
-        item.formattedDate.format("DD-MM-yyyy") === date.format("DD-MM-yyyy")
-      );
-    });
-    setSelectedDate(finded);
-    properties.setAppoinmentConfig("calendar_date", date);
-  };
+	const onNextMonthClick = async (currentDate) => {
+		try {
+			// Setea currentMonth al mes actual
 
-  /**
-   *
-   * @param {Date} currentDate
-   * Cuando se pulsa en el botón de siguiente mes del calendario se hace una
-   * llamada para conseguir los huecos del mes siguiente
-   *
-   */
+			// const month = moment(today, "DD/MM/YYYY").add(1, "month").format("M");
 
-  const onNextMonthClick = async (currentDate) => {
-    try {
-      // Setea currentMonth al mes actual
+			setCurrentMonth(Number(currentMonth) + 1);
 
-      const month = moment(today, "DD/MM/YYYY").format("M");
+			// Se setea la fecha seleccionada a null para que desaparezcan las horas seleccionadas
+			setSelectedDate(null);
 
-      setCurrentMonth(month);
+			// Setea la fecha del que se pasará al action. Se añade un mes exacto
 
-      // Se setea la fecha seleccionada a null para que desaparezcan las horas seleccionadas
-      setSelectedDate(null);
+			const date = moment(currentDate).format("DD/M/YYYY");
 
-      // Setea la fecha del que se pasará al action. Se añade un mes exacto
+			await properties.fetchOnlineAvailableHours(date);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-      const date = moment(currentDate).add(1, "month").format("DD/M/YYYY");
+	/**
+	 * Cuando se va al mes anterior se resta uno al currentMonth
+	 */
 
-      // Setea el mes que se utilizará para ubicar los nuevos datos en su lugar en el state
+	const onPreviousMonthClick = () => {
+		setSelectedDate(null);
+		setCurrentMonth((Number(currentMonth) - 1).toString());
+	};
 
-      const nextMonth = (Number(currentMonth) + 2).toString();
+	/**
+	 * ***************************************************************
+	 * SELECCIÓN DE FECHAS
+	 * ***************************************************************
+	 */
 
-      // Se suma uno al mes actual
+	/**
+	 *
+	 * @param {Object} date fecha de moment
+	 *
+	 */
 
-      setCurrentMonth((Number(currentMonth) + 1).toString());
+	const handleDateChange = (date) => {
+		const finded = dataCalendar.filter((item) => {
+			return item.formattedDate.format("DD-MM-yyyy") === date.format("DD-MM-yyyy");
+		});
+		setSelectedDate(finded);
+		properties.setAppoinmentConfig("calendar_date", date);
+	};
 
-      // Acción que llama a la API para conseguir los datos del mes siguiente
-      await properties.updateOnlineAvailableHours(paymentMethodSelected, date, nextMonth);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+	/**
+	 *
+	 * @param {Object} hour
+	 * @param {Number} index
+	 * Setea la hora seleccionada
+	 *
+	 */
 
-  /**
-   * Cuando se va al mes anterior se resta uno al currentMonth
-   */
+	const handleSelectedHour = (hour, index) => {
+		properties.setAppoinmentConfig("calendar_hour", hour);
+		setActiveIndex(index);
+	};
 
-  const onPreviousMonthClick = () => {
-    setSelectedDate(null);
-    setCurrentMonth((Number(currentMonth) - 1).toString());
-  };
+	///////////////////////////////////////////
+	// HELPERS
+	///////////////////////////////////////////
 
-  /**
-   *
-   * @param {Object} hour
-   * @param {Number} index
-   * Setea la hora seleccionada
-   *
-   */
+	/**
+	 *
+	 * @param {Array.<{
+	 * 		fecha: String,
+	 * 		horaFin: String,
+	 * 		horaInicio: String,
+	 * 		horaRealCita: String,
+	 * 		keymed: String}>} data
+	 *
+	 *
+	 * Formatea los datos provenientes del store para que puedan ser consumidos por el calendario
+	 */
 
-  const handleSelectedHour = (hour, index) => {
-    properties.setAppoinmentConfig("calendar_hour", hour);
-    setActiveIndex(index);
-  };
+	const formatDates = (data) => {
+		if (data && data.length > 0) {
+			const formattedDates = data.map((item) => {
+				const date = item.fecha.split("/");
+				const formattedDate = new Date(parseInt(date[2]), parseInt(date[1]) - 1, parseInt(date[0]));
+				return { ...item, formattedDate: moment(formattedDate) };
+			});
 
-  /**
-   *
-   * @param {Array.<{
-   * 		fecha: String,
-   * 		horaFin: String,
-   * 		horaInicio: String,
-   * 		horaRealCita: String,
-   * 		keymed: String}>} data
-   *
-   *
-   * Formatea los datos provenientes del store para que puedan ser consumidos por el calendario
-   */
+			return formattedDates;
+		}
+	};
 
-  const filterData = (data) => {
-    if (data && data.length > 0) {
-      const filteredData = data.map((item) => {
-        const date = item.fecha.split("/");
-        const formattedDate = new Date(
-          parseInt(date[2]),
-          parseInt(date[1]) - 1,
-          parseInt(date[0])
-        );
-        return { ...item, formattedDate: moment(formattedDate) };
-      });
+	/**
+	 * Una vez se ha seleccionado la fecha y la hora se activa esta función en el click del botón
+	 */
 
-      return filteredData;
-    }
-  };
+	const onConfirmHour = () => history.push("/videollamadas/confirm");
 
-  // /**
-  //  * Una vez se ha seleccionado la fecha y la hora se activa esta función en el click del botón
-  //  */
+	///////////////////////////////////////////
+	// RENDERIZADO DEL COMPONENTE
+	///////////////////////////////////////////
 
-  const onConfirmHour = () => history.push("/videollamada/confirm");
+	return (
+		<React.Fragment>
+			<Stepper currentStepIndex={appointment?.currentStep} isVideoConference={true}></Stepper>
+			<div className="wrapper-general">
+				<div className="top-content">
+					<Button action={goBack} styleType={"back-button"} label={"Zurück"} />
+				</div>
 
-  // /**
-  //  *
-  //  * @param {String} type Tipo de cita seleccionado
-  //  */
-
-  const handleClickOnCard = async (type) => {
-    try {
-      //  Se setea el loading a true ya que al cargar nuevos datos es posible que de un undefined.
-
-      setLoading(true);
-
-      // Setea el tipo
-
-      setType(type);
-
-      // Setea el currentMonth al mes actual ya que se recarga el calendario
-
-      setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
-
-      // Se cambia el tipo de cita en el estado
-
-      properties.setAppoinmentConfig("type", type);
-
-      const selectedHours = await online_available_hours.data[selectedType][
-        currentMonth
-      ];
-
-      // Se formatean las horas seleccioonadas
-
-      const filteredData = filterData(selectedHours);
-
-      // Se setean los datos formateados como nuevos datos que el calendario debera pintar
-
-      setDataCalendar(filteredData);
-
-      // Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
-
-      setSelectedDate(null);
-
-      // Se setea el loading a false
-
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return (
-    <React.Fragment>
-      {console.log(online_available_hours)}
-      <Stepper
-        currentStepIndex={appointment?.currentStep}
-        isVideoConference={true}
-      ></Stepper>
-      <div className="wrapper-general">
-        <div className="top-content">
-          <Button action={goBack} styleType={"back-button"} label={"Zurück"} />
-        </div>
-
-        <div className="calendar-online-page">
-          <h1>2. Datum wählen</h1>
-          <CardContainer isColumn={true}>
-            <div className="button-container">
-              {buttonsConfig.map((button, index) => {
-                const customClass =
-                  appointment.type === button.type ? "card-highlighted" : "";
-                return (
-                  <Card
-                    key={index}
-                    customClass={`pointer ${customClass}`}
-                    handleClick={handleClickOnCard}
-                    clickParam={button.type}
-                  >
-                    <label>
-                      <input
-                        checked={appointment.type === button.type}
-                        type="radio"
-                        name="type"
-                        value={button.type}
-                        onChange={() => {}}
-                      />
-                      <img src={button.img} alt="..."></img>
-                      {button.text} <strong>{button.label}</strong>
-                    </label>
-                  </Card>
-                );
-              })}
-            </div>
-          </CardContainer>
-        </div>
-
-        <CardContainer>
-          {!loading && (
-            <Calendar
-              datesList={dataCalendar}
-              setFocused={setFocused}
-              initialDate={initialDate}
-              width={width}
-              calendarWidth={calendarWidth}
-              handleDateChange={handleDateChange}
-              handleSelectedHour={handleSelectedHour}
-              selectedDate={selectedDate}
-              onNextMonthClick={onNextMonthClick}
-              onPreviousMonthClick={onPreviousMonthClick}
-              activeIndex={activeIndex}
-            ></Calendar>
-          )}
-        </CardContainer>
-        {appointment.calendar_date && appointment.calendar_hour && (
-          <div className="container-button">
-            <Button
-              type={"rounded-button"}
-              label={"TERMIN WÄHLEN"}
-              action={onConfirmHour}
-            />
-          </div>
-        )}
-      </div>
-    </React.Fragment>
-  );
+				<CardContainer>
+					{!loading && (
+						<Calendar
+							datesList={dataCalendar}
+							setFocused={setFocused}
+							initialDate={initialDate}
+							width={width}
+							calendarWidth={calendarWidth}
+							handleDateChange={handleDateChange}
+							handleSelectedHour={handleSelectedHour}
+							selectedDate={selectedDate}
+							onNextMonthClick={onNextMonthClick}
+							onPreviousMonthClick={onPreviousMonthClick}
+							activeIndex={activeIndex}
+						></Calendar>
+					)}
+				</CardContainer>
+				{appointment.calendar_date && appointment.calendar_hour && (
+					<div className="container-button">
+						<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
+					</div>
+				)}
+			</div>
+		</React.Fragment>
+	);
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    /**
-     *
-     * @param {String} property  Propiedad del estado que se debe actualizar
-     * @param {String || Object || number} data Datos con los que se actualizará la propiedad anterior
-     * @description Actualiza un campo del objeto de appointment
-     */
-    setAppoinmentConfig: (property, data) =>
-      dispatch(setAppoinmentConfig(property, data)),
+	return {
+		/**
+		 *
+		 * @param {String} property  Propiedad del estado que se debe actualizar
+		 * @param {String || Object || number} data Datos con los que se actualizará la propiedad anterior
+		 * @description Actualiza un campo del objeto de appointment
+		 */
 
-    /**
-     * 
-     * @param {String} type 
-     * @param {String} date 
-     * @param {String} nextMonth 
-     * @returns 
-     */
+		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
 
-    updateOnlineAvailableHours: (type, date, nextMonth) =>
-      dispatch(updateOnlineAvailableHours(type, date, nextMonth)),
-  };
+		/**
+		 *
+		 * @param {String} date Día presente en formato dd/mm/yyyy
+		 * @returns {Object} Lista de citas online disponibles divididas por meses
+		 */
+
+		fetchOnlineAvailableHours: (date) => dispatch(fetchOnlineAvailableHours(date)),
+	};
 };
 
 /**
@@ -378,8 +267,8 @@ const mapDispatchToProps = (dispatch) => {
  */
 
 const mapStateToProps = ({ appointment, online_available_hours }) => ({
-  appointment,
-  online_available_hours,
+	appointment,
+	online_available_hours,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarOnlinePage);

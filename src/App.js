@@ -20,7 +20,6 @@ import { fetchOnlineAvailableHours } from "./redux/available_online_hours/availa
 function App(properties) {
   const [clinics, setClinics] = useState([]);
 
-  console.log("Entra en App?")
 
   const homeLinksConfig = [
     {
@@ -39,7 +38,6 @@ function App(properties) {
 
   useEffect(() => {
     const city = localStorage.getItem("city");
-	console.log("Llega?")
     setClinics(properties.clinics);
     if (city) {
       // setClientCity(city);
