@@ -40,5 +40,3 @@ export const fetchOnlineAvailableHours = (date) => {
 		}
 	};
 };
-
-export const updateOnlineAvailableHours = (type, date, nextMonth) => {};

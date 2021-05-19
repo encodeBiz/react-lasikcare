@@ -1,20 +1,16 @@
 export const videoConferenceSteps =  [
+    
+ 
     {
         stepNumber: 0,
-        stepText: "Terminart",
-        url: "/type",
-    },
-    {
-        stepNumber: 1,
-        stepText: "Standart",
-        url: "/videollamadas/calendar",
-    },
-    {
-        stepNumber: 2,
         stepText: "Datum",
         url: "/videollamadas/confirm",
     },
- 
+    {
+        stepNumber: 1,
+        stepText: "Ikontakdaten",
+        url: "/videollamadas/confirm",
+    },
 ]
 
 export const appointmentSteps = [

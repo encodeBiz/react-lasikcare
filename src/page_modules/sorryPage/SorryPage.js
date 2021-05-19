@@ -1,21 +1,30 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 import { useHistory } from "react-router";
 import Button from "../../shared_modules/Button/Button";
 import "./SorryPage.scss";
 import lens from "../../assets/images/icons/icon-search.svg";
+import { clearAppointment } from "../../redux/appointment_config/appointmentConfig.actions";
+import { connect } from "react-redux";
 
-const SorryPage = () => {
+const SorryPage = (properties) => {
 	const history = useHistory();
 
 	const goToCalendar = () => history.push("/appointments/calendar");
 
+	const { clearAppointment } = properties;
+
+	useEffect(() => {
+		clearAppointment();
+	}, []);
+
 	return (
 		<div className="wrapper-general">
-			<div class="wrapper-img">
+			<div className="wrapper-img">
 				<img src={lens} alt="" />
 			</div>
 
-			<div class="wrapper-text">
+			<div className="wrapper-text">
 				<h2 className="uns-leid">Es tut uns leid</h2>
 				<p>
 					Es scheint, dass für diesen Tag keine <br />
@@ -35,4 +44,8 @@ const SorryPage = () => {
 	);
 };
 
-export default SorryPage;
+const mapDispatchToProps = (dispatch) => ({
+	clearAppointment: () => dispatch(clearAppointment()),
+});
+
+export default connect(undefined, mapDispatchToProps)(SorryPage);

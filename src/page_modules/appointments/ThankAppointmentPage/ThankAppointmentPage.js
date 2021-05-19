@@ -22,6 +22,8 @@ import iconThanks from "../../../assets/images/icons/icon-thanks.svg";
 const ThankAppointmentPage = (properties) => {
 	const { appointment } = properties;
 	const [children, setChildren] = useState([]);
+	const [appointmentType, setAppointmentType] = useState(''); 
+
 
 	const info = [
 		{
@@ -30,13 +32,11 @@ const ThankAppointmentPage = (properties) => {
 		},
 		{
 			title: "Weiterleitung",
-			text:
-				"Sie erhalten am Tag Ihrer persönlichen Videoberatung von uns eine E-Mail mit dem Zugangslink über E-Mail zugeschickt.",
+			text: "Sie erhalten am Tag Ihrer persönlichen Videoberatung von uns eine E-Mail mit dem Zugangslink über E-Mail zugeschickt.",
 		},
 		{
 			title: "Terminbestätigung",
-			text:
-				"Nach positiver Prüfung Ihres Terminwunsches durch die Klinik erhalten Sie Ihre Terminbestätigung.",
+			text: "Nach positiver Prüfung Ihres Terminwunsches durch die Klinik erhalten Sie Ihre Terminbestätigung.",
 		},
 	];
 
@@ -49,9 +49,9 @@ const ThankAppointmentPage = (properties) => {
 
 	useEffect(() => {
 		setCityInStorage(appointment.city);
+		setAppointmentType(appointment.type); 
 		clearTempCities();
 		clearReduxAppointmentState();
-
 		// eslint-disable-next-line
 	}, []);
 
@@ -104,11 +104,16 @@ const ThankAppointmentPage = (properties) => {
 			},
 		];
 
+		if (appointment.type === "online") {
+			children.shift();
+		}
+
 		setChildren(children);
 	};
 	const thankYouTexts = {
 		BI: "Unverbindliches Informationsgespräch",
 		BIDI: "Unverbindliches Informationsgespräch + Ärltliche Voruntersuchung(ca. 40€)",
+		online: "Online\n video-beratung von zu hause aus",
 	};
 
 	return (
@@ -120,7 +125,7 @@ const ThankAppointmentPage = (properties) => {
 					</div>
 					<h3>Vielen Dank</h3>
 					<p>
-						Ihr Terminwusch für <strong> {thankYouTexts[appointment.type]} </strong> ist bei uns
+						Ihr Terminwusch für <strong> {thankYouTexts[appointmentType]} </strong> ist bei uns
 						eingegangen. Wir haben Ihnen eine Bestätigung an
 						<strong> {appointment.clientData.email} </strong>
 						gesendet.
@@ -131,7 +136,7 @@ const ThankAppointmentPage = (properties) => {
 			<div className="flex-desktop">
 				<div className="appointment-summary">
 					<CardContainer isColumn={true}>
-						<h3>{thankYouTexts[appointment.type]}</h3>
+						<h3>{thankYouTexts[appointmentType]}</h3>
 
 						<div className="summary-icon">
 							{children &&

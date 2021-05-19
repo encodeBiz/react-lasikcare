@@ -83,3 +83,17 @@ export const getHuecosOnline = async (query_param) => {
 		throw new Error(error);
 	}
 };
+
+export const setHuecosOnline = async (query_params) => {
+	try {
+		const url = set_huecos;
+		const headers = {
+			Origin: "*",
+		};
+
+		const response = await fetch_helper(url, "GET", headers, null, query_params);
+		return response;
+	} catch (error) {
+		throw new Error(error);
+	}
+};

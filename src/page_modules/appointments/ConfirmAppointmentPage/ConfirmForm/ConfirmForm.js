@@ -17,8 +17,6 @@ import Button from "../../../../shared_modules/Button/Button";
  *
  */
 
-
-
 const ConfirmForm = (properties) => {
 	const validationSchema = yup.object({
 		ageGroup: yup.string(),
@@ -43,7 +41,7 @@ const ConfirmForm = (properties) => {
 		}
 	};
 
-	const appointmentValues = properties.appointmentValues
+	const appointmentValues = properties.appointmentValues;
 
 	return (
 		<>
@@ -72,162 +70,155 @@ const ConfirmForm = (properties) => {
 								{/* Grupo de edad */}
 								<CardContainer isColumn={true}>
 									<div className="container-form">
-									<div className="inline-form-group marg-from">
-										<div className="form-group" onClick={clearErrors}>
-											<label htmlFor="ageGroup">
+										<div className="inline-form-group marg-from">
+											<div className="form-group" onClick={clearErrors}>
+												<label htmlFor="ageGroup">
+													<Field as="select" name="ageGroup">
+														<option value="" defaultValue disabled>
+															Altersgruppe
+														</option>
+														<option value={"lessThan50"}>weniger als 50 </option>
+														<option value={"moreThan50"}>50 +</option>
+													</Field>
+												</label>
+												{props.touched.ageGroup && props.errors.ageGroup ? (
+													<ErrorDialog text={props.errors.ageGroup} />
+												) : null}
+											</div>
 
-												<Field as="select" name="ageGroup">
-												    <option value="" defaultValue disabled>Altersgruppe</option>
-													<option value={"lessThan50"}>weniger als 50 </option>
-													<option value={"moreThan50"}>50 +</option>
-												</Field>
+											{/* Genero */}
 
-											</label>
-											{props.touched.ageGroup && props.errors.ageGroup ? (
-												<ErrorDialog text={props.errors.ageGroup} />
-											) : null}
+											<div className="form-group  marg-from" onClick={clearErrors}>
+												<label htmlFor="gender">
+													<Field as="select" name="gender">
+														<option value="" defaultValue disabled>
+															Anrede
+														</option>
+														<option value={"woman"}>Frau</option>
+														<option value={"man"}>Mann</option>
+													</Field>
+												</label>
+												{props.touched.gender && props.errors.gender ? (
+													<ErrorDialog text={props.errors.gender} />
+												) : null}
+											</div>
 										</div>
+										{/* Nombre */}
 
-										{/* Genero */}
-
-										<div className="form-group  marg-from" onClick={clearErrors}>
-											<label htmlFor="gender">
-
-												<Field as="select" name="gender">
-												    <option value="" defaultValue disabled>Anrede</option>
-													<option value={"woman"}>Frau</option>
-													<option value={"man"}>Mann</option>
-												</Field>
-											</label>
-											{props.touched.gender && props.errors.gender ? (
-												<ErrorDialog text={props.errors.gender} />
-											) : null}
-										</div>
-									</div>
-									{/* Nombre */}
-
-									<div className="inline-form-group  marg-from">
-										<div className="form-group" onClick={clearErrors}>
-											<InputBlock
-												label=""
-												placeholder="Vorname"
-												values={props.values.name}
-												handleBlur={props.handleBlur}
-												handleChange={props.handleChange}
-												paramChange="name"
-												paramBlur="name"
-												type={"text"}
-											/>
-
-											{props.touched.name && props.errors.name ? (
-												<ErrorDialog text={props.errors.name} />
-											) : null}
-										</div>
-
-										{/* Apellidos */}
-
-										<div className="form-group  marg-from" onClick={clearErrors}>
-											<InputBlock
-												// label="Nachnamen"
-												placeholder="Nachnamen"
-												values={props.values.surname}
-												handleBlur={props.handleBlur}
-												handleChange={props.handleChange}
-												paramChange="surname"
-												paramBlur="surname"
-												type={"text"}
-											/>
-
-											{props.touched.surname && props.errors.surname ? (
-												<ErrorDialog text={props.errors.surname} />
-											) : null}
-										</div>
-									</div>
-									{/* Teléfono */}
-
-									<div className="form-group full-width  marg-from full" onClick={clearErrors}>
-										<InputBlock
-											// label="Telefonnumber"
-											placeholder="Telefonnumber"
-											values={props.values.phoneNumber}
-											handleBlur={props.handleBlur}
-											handleChange={props.handleChange}
-											paramChange="phoneNumber"
-											paramBlur="phoneNumber"
-											type={"text"}
-										/>
-
-										{props.touched.phoneNumber && props.errors.phoneNumber ? (
-											<ErrorDialog text={props.errors.phoneNumber} />
-										) : null}
-									</div>
-									{/* Email */}
-
-									<div className="form-group full-width  marg-from" onClick={clearErrors}>
-										<InputBlock
-											// label="Email adresse"
-											placeholder="Email adresse"
-											values={props.values.email}
-											handleBlur={props.handleBlur}
-											handleChange={props.handleChange}
-											paramChange="email"
-											paramBlur="email"
-											type={"text"}
-										/>
-
-										{props.touched.email && props.errors.email ? (
-											<ErrorDialog text={props.errors.email} />
-										) : null}
-									</div>
-
-									{/* Mensaje */}
-
-									<div className="form-group full-width" onClick={clearErrors}>
-										<InputBlock
-											// label="Nachricht"
-											placeholder="Nachricht"
-											values={props.values.message}
-											handleBlur={props.handleBlur}
-											handleChange={props.handleChange}
-											paramChange="message"
-											paramBlur="message"
-											type={"textarea"}
-										/>
-
-										{props.touched.message && props.errors.message ? (
-											<ErrorDialog text={props.errors.message} />
-										) : null}
-									</div>
-
-									<div className="form-group">
-										<div className="checkbox">
-											<label htmlFor="accepted">
-												<input
-													type="checkbox"
-													value={props.values.accepted}
-													// checked={props.values.accepted}
-													onChange={(e) => props.handleChange(e.target.value)}
-													onBlur={props.handleBlur}
+										<div className="inline-form-group  marg-from">
+											<div className="form-group" onClick={clearErrors}>
+												<InputBlock
+													placeholder="Vorname"
+													values={props.values.name}
+													handleBlur={props.handleBlur}
+													handleChange={props.handleChange}
+													paramChange="name"
+													paramBlur="name"
+													type={"text"}
 												/>
-												<span>
-												Datenschutzbestimmungen akzeptieren
-												</span>
-											</label>
+
+												{props.touched.name && props.errors.name ? (
+													<ErrorDialog text={props.errors.name} />
+												) : null}
+											</div>
+
+											{/* Apellidos */}
+
+											<div className="form-group  marg-from" onClick={clearErrors}>
+												<InputBlock
+													placeholder="Nachnamen"
+													values={props.values.surname}
+													handleBlur={props.handleBlur}
+													handleChange={props.handleChange}
+													paramChange="surname"
+													paramBlur="surname"
+													type={"text"}
+												/>
+
+												{props.touched.surname && props.errors.surname ? (
+													<ErrorDialog text={props.errors.surname} />
+												) : null}
+											</div>
 										</div>
-									</div>
+										{/* Teléfono */}
+
+										<div className="form-group full-width  marg-from full" onClick={clearErrors}>
+											<InputBlock
+												placeholder="Telefonnumber"
+												values={props.values.phoneNumber}
+												handleBlur={props.handleBlur}
+												handleChange={props.handleChange}
+												paramChange="phoneNumber"
+												paramBlur="phoneNumber"
+												type={"text"}
+											/>
+
+											{props.touched.phoneNumber && props.errors.phoneNumber ? (
+												<ErrorDialog text={props.errors.phoneNumber} />
+											) : null}
+										</div>
+										{/* Email */}
+
+										<div className="form-group full-width  marg-from" onClick={clearErrors}>
+											<InputBlock
+												// label="Email adresse"
+												placeholder="Email adresse"
+												values={props.values.email}
+												handleBlur={props.handleBlur}
+												handleChange={props.handleChange}
+												paramChange="email"
+												paramBlur="email"
+												type={"text"}
+											/>
+
+											{props.touched.email && props.errors.email ? (
+												<ErrorDialog text={props.errors.email} />
+											) : null}
+										</div>
+
+										{/* Mensaje */}
+
+										<div className="form-group full-width" onClick={clearErrors}>
+											<InputBlock
+												placeholder="Nachricht"
+												values={props.values.message}
+												handleBlur={props.handleBlur}
+												handleChange={props.handleChange}
+												paramChange="message"
+												paramBlur="message"
+												type={"textarea"}
+											/>
+
+											{props.touched.message && props.errors.message ? (
+												<ErrorDialog text={props.errors.message} />
+											) : null}
+										</div>
+
+										<div className="form-group">
+											<div className="checkbox">
+												<label htmlFor="accepted">
+													<input
+														type="checkbox"
+														value={props.values.accepted}
+														// checked={props.values.accepted}
+														onChange={(e) => props.handleChange(e.target.value)}
+														onBlur={props.handleBlur}
+													/>
+													<span>Datenschutzbestimmungen akzeptieren</span>
+												</label>
+											</div>
+										</div>
 									</div>
 								</CardContainer>
 								<div className="container-button">
-
-								    <Button
-									type={"rounded-button"}
-									label={" JETZT TERMIN VEREINBAREN"}
-									action={props.handleSubmit}
-									disabled={!props.isValid}
-								   />
-								   
+									<Button
+										// type={"rounded-button"}
+										label={" JETZT TERMIN VEREINBAREN"}
+										action={() => {}}
+										type={"submit"}
+										disabled={!props.isValid}
+									/>
 								</div>
-
 							</Form>
 						);
 					}}

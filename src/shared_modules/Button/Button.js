@@ -9,6 +9,7 @@ import "./Button.scss";
  * @param {String} properties.styleType Tipo del botón para llamar a su correcto style
  * @param {Boolean} properties.disabled Si es true se desabilita el botón si es false o falsy se activa
  * @param {String} properties.icon Una dirección de la imagen que se utilizará de icono en el botón
+ * @param {String} properties.type Tipo del botón
  */
 const Button = (properties) => {
 	const { icon } = properties;
@@ -17,6 +18,7 @@ const Button = (properties) => {
 			onClick={() => properties.action()}
 			className={`main-btn ${properties.styleType}`}
 			disabled={properties.disabled}
+			type={properties.type || "button"}
 		>
 			{icon ? (
 				<span>

@@ -29,16 +29,16 @@ const CalendarOnlinePage = (properties) => {
 
 	const { appointment, online_available_hours } = properties;
 
-	// ///////////////////////////////////////////
-	// // CONFIGURACIÓN DEL COMPONENTE
-	// ///////////////////////////////////////////
+	///////////////////////////////////////////
+	// CONFIGURACIÓN DEL COMPONENTE
+	///////////////////////////////////////////
 
 	/**
 	 * Seteo del current step, de la ciudad y el tipo de consulta seleccionada
 	 */
 
 	useEffect(() => {
-		properties.setAppoinmentConfig("currentStep", 1);
+		properties.setAppoinmentConfig("currentStep", 0);
 		setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
 	}, []);
 
@@ -208,29 +208,31 @@ const CalendarOnlinePage = (properties) => {
 				<div className="top-content">
 					<Button action={goBack} styleType={"back-button"} label={"Zurück"} />
 				</div>
-
-				<CardContainer>
-					{!loading && (
-						<Calendar
-							datesList={dataCalendar}
-							setFocused={setFocused}
-							initialDate={initialDate}
-							width={width}
-							calendarWidth={calendarWidth}
-							handleDateChange={handleDateChange}
-							handleSelectedHour={handleSelectedHour}
-							selectedDate={selectedDate}
-							onNextMonthClick={onNextMonthClick}
-							onPreviousMonthClick={onPreviousMonthClick}
-							activeIndex={activeIndex}
-						></Calendar>
+				<div className="calendar-appoinment-page">
+					<h1>1. Datum wählen</h1>
+					<CardContainer>
+						{!loading && (
+							<Calendar
+								datesList={dataCalendar}
+								setFocused={setFocused}
+								initialDate={initialDate}
+								width={width}
+								calendarWidth={calendarWidth}
+								handleDateChange={handleDateChange}
+								handleSelectedHour={handleSelectedHour}
+								selectedDate={selectedDate}
+								onNextMonthClick={onNextMonthClick}
+								onPreviousMonthClick={onPreviousMonthClick}
+								activeIndex={activeIndex}
+							></Calendar>
+						)}
+					</CardContainer>
+					{appointment.calendar_date && appointment.calendar_hour && (
+						<div className="container-button">
+							<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
+						</div>
 					)}
-				</CardContainer>
-				{appointment.calendar_date && appointment.calendar_hour && (
-					<div className="container-button">
-						<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
-					</div>
-				)}
+				</div>
 			</div>
 		</React.Fragment>
 	);
