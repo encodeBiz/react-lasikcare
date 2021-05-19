@@ -1,20 +1,16 @@
 import { fetch_helper } from "./fetch.helper";
-import {
-  get_clinicas,
-  get_huecos,
-  set_huecos,
-} from "../enpoints/enpoints.constants";
+import { get_clinicas, get_huecos, set_huecos } from "../enpoints/enpoints.constants";
 
 /**
  * Obtener las clínicas desde el api de lasikcare luego traerlas de la DB local es importante que exista esta DB ws_clinics
  */
 export const getClinicas = async () => {
-  const url = get_clinicas;
-  const headers = {
-    Origin: "*",
-  };
-  const response = await fetch_helper(url, "GET", headers);
-  return response;
+	const url = get_clinicas;
+	const headers = {
+		Origin: "*",
+	};
+	const response = await fetch_helper(url, "GET", headers);
+	return response;
 };
 
 /**
@@ -25,12 +21,12 @@ export const getClinicas = async () => {
  * @param {String} query_param.type Tipo de consulta BI | BIDI
  */
 export const getHuecos = async (query_param) => {
-  const url = get_huecos;
-  const headers = {
-    Origin: "*",
-  };
-  const response = await fetch_helper(url, "GET", headers, null, query_param);
-  return response;
+	const url = get_huecos;
+	const headers = {
+		Origin: "*",
+	};
+	const response = await fetch_helper(url, "GET", headers, null, query_param);
+	return response;
 };
 
 /**
@@ -57,36 +53,33 @@ export const getHuecos = async (query_param) => {
  */
 
 export const setHuecos = async (query_params) => {
-  try {
-    const url = set_huecos;
-    const headers = {
-      Origin: "*",
-    };
-    const response = await fetch_helper(
-      url,
-      "GET",
-      headers,
-      null,
-      query_params
-    );
-    return response;
-  } catch (error) {
-    throw new Error(error);
-  }
+	try {
+		const url = set_huecos;
+		const headers = {
+			Origin: "*",
+		};
+		const response = await fetch_helper(url, "GET", headers, null, query_params);
+		return response;
+	} catch (error) {
+		throw new Error(error);
+	}
 };
 
 /**
  *
  * @param {Object} query_param
- * @param {String} query_param.date  Fecha actual con formato toLocaleDateString()
- * @param {String} query_param.type Tipo de consulta BI | BIDI
+ * @param {String} query_param.date  Día presente con formato toLocaleDateString() Formato dd/mm/yyyy.
  */
 
 export const getHuecosOnline = async (query_param) => {
-  const url = "get_online_huecos";
-  const headers = {
-    Origin: "*",
-  };
-
-  const response = await fetch_helper(url, "GET", headers, query_param);
+	try {
+		const url = "get_online_huecos";
+		const headers = {
+			Origin: "*",
+		};
+		const response = await fetch_helper(url, "GET", headers, null, query_param);
+		return response;
+	} catch (error) {
+		throw new Error(error);
+	}
 };

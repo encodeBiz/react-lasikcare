@@ -44,7 +44,7 @@ export const fetchOnlineAvailableHours = (type, date) => {
       //    TEST -start
       ///////////////////////////////////////////
 
-      const res = videoConferenceTestDataMay;
+      const res = videoConferenceTestDataMay[type];
 
       ///////////////////////////////////////////
       //    TEST-end

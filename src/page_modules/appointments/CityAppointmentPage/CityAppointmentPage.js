@@ -188,6 +188,7 @@ const CityAppointmentPage = (properties) => {
         <h1>Bitte Standort wählen</h1>
       </div>
       <Link to="/sorry">Sorry :(</Link>
+      <Link to="/videollamadas/confirm">A confirm</Link>
       <div className="city-appointment-container">
         <CardContainer isColumn={true}>
           {/* Sin servidor */}
