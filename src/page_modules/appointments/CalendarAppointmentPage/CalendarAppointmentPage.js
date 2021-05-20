@@ -14,7 +14,7 @@ import { updateAvailableHours } from "../../../redux/available_hours/available_h
 import Card from "../../../shared_modules/Card/Card";
 import opcionOne from "../../../assets/images/icons/type-free.svg";
 import opcionTwo from "../../../assets/images/icons/calendar-icon.svg";
-import { ErrorMessage } from "formik";
+import Loading from "../../../shared_modules/Loading/Loading";
 
 /**
  *
@@ -29,7 +29,7 @@ const CalendarAppointmentPage = (properties) => {
 	const history = useHistory();
 	const navigateTo = (url) => history.push(url);
 	const today = moment();
-	const { available_hours, appointment, isLoading } = properties;
+	const { available_hours, appointment } = properties;
 
 	const buttonsConfig = [
 		{
@@ -68,8 +68,6 @@ const CalendarAppointmentPage = (properties) => {
 
 	const [currentMonth, setCurrentMonth] = useState(currentMonthNumber);
 
-	const [loadingMessage, setLoadingMessage] = useState(null);
-
 	/**
 	 * Seteo del current step y de la ciudad y el tipo de consulta seleccionada
 	 */
@@ -90,7 +88,7 @@ const CalendarAppointmentPage = (properties) => {
 
 		const data =
 			selectedCity && selectedType
-				? properties.available_hours[selectedCity]?.data[selectedType][currentMonth]
+				? properties.available_hours[selectedCity]?.data[selectedType]?.[currentMonth]
 				: [];
 
 		if (data && data.length > 0) {
@@ -100,7 +98,7 @@ const CalendarAppointmentPage = (properties) => {
 		}
 
 		// eslint-disable-next-line
-	}, [selectedType, selectedCity, currentMonth, isLoading]);
+	}, [selectedType, selectedCity, currentMonth, properties.loading.isGlobalLoading]);
 
 	/**
 	 * @description Setea la anchura del calendario
@@ -150,7 +148,6 @@ const CalendarAppointmentPage = (properties) => {
 	 * llamada para conseguir los huecos del mes siguiente
 	 *
 	 */
-	console.log(appointment);
 
 	const onNextMonthClick = async (currentDate) => {
 		try {
@@ -160,12 +157,11 @@ const CalendarAppointmentPage = (properties) => {
 
 			setCurrentMonth(month);
 
-			if (properties.isLoading) {
-				setLoadingMessage("Meses aún cargando");
+			// Si está cargando todavía retornar
+
+			if (properties.loading.isGlobalLoading) {
 				return;
 			}
-
-			setLoadingMessage(null)
 
 			// Se setea la fecha seleccionada a null para que desaparezcan las horas seleccionadas
 
@@ -336,26 +332,31 @@ const CalendarAppointmentPage = (properties) => {
 							})}
 						</div>
 					</CardContainer>
-
-					{loadingMessage ? <p>{loadingMessage}</p> : null}
-					<CardContainer className="change-margin">
-						{!loading && (
-							<Calendar
-								datesList={dataCalendar}
-								setFocused={setFocused}
-								initialDate={initialDate}
-								width={width}
-								calendarWidth={calendarWidth}
-								handleDateChange={handleDateChange}
-								handleSelectedHour={handleSelectedHour}
-								selectedDate={selectedDate}
-								onNextMonthClick={onNextMonthClick}
-								onPreviousMonthClick={onPreviousMonthClick}
-								activeIndex={activeIndex}
-							/>
-						)}
-					</CardContainer>
-
+					{properties.loading.isGlobalLoading ? (
+						<CardContainer>
+							<div className="loading-center">
+								<Loading />
+							</div>
+						</CardContainer>
+					) : (
+						<CardContainer className="change-margin">
+							{!loading && (
+								<Calendar
+									datesList={dataCalendar}
+									setFocused={setFocused}
+									initialDate={initialDate}
+									width={width}
+									calendarWidth={calendarWidth}
+									handleDateChange={handleDateChange}
+									handleSelectedHour={handleSelectedHour}
+									selectedDate={selectedDate}
+									onNextMonthClick={onNextMonthClick}
+									onPreviousMonthClick={onPreviousMonthClick}
+									activeIndex={activeIndex}
+								/>
+							)}
+						</CardContainer>
+					)}
 					{appointment.calendar_date && appointment.calendar_hour && (
 						<div className="container-button">
 							<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
@@ -402,7 +403,7 @@ const mapStateToProps = (store) => {
 	return {
 		appointment: store.appointment,
 		available_hours: store.available_hours,
-		isLoading: store.isLoading
+		loading: store.loading,
 	};
 };
 

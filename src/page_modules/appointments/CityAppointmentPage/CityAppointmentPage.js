@@ -7,7 +7,10 @@ import { useHistory } from "react-router";
 // Redux
 
 import { connect } from "react-redux";
-import { fetchAvailableHours } from "../../../redux/available_hours/available_hours.actions";
+import {
+	fetchAvailableHours,
+	updateAvailableHours,
+} from "../../../redux/available_hours/available_hours.actions";
 import { fetchClinics } from "../../../redux/clinics/clinics.actions";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
 import { fetchOnlineAvailableHours } from "../../../redux/available_online_hours/available_online_hours.actions";
@@ -28,7 +31,8 @@ import toledoIcon from "../../../assets/images/icons/tres.jpg";
 import "./CityAppointmentPage.scss";
 import { setGlobalError } from "../../../redux/errors/errors.actions";
 import moment from "moment";
-import { setIsLoading } from "../../../redux/loading/loading.actions";
+import { setIsGlobalLoading, setOnlineGlobalLoading } from "../../../redux/loading/loading.actions";
+import Loading from "../../../shared_modules/Loading/Loading";
 
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store
@@ -38,6 +42,13 @@ import { setIsLoading } from "../../../redux/loading/loading.actions";
 const CityAppointmentPage = (properties) => {
 	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(true);
+
+	const currentMonthNum = moment().format("M");
+	const nextMonthNum = moment().add(1, "month").format("M");
+	const nextSecondMonthNum = moment().add(2, "month").format("M");
+	const currentMonth = moment().format("DD/MM/YYYY");
+	const nextMonth = moment().add(1, "month").format("DD/MM/YYYY");
+	const nextSecondMonth = moment().add(2, "month").format("DD/MM/YYYY");
 
 	const cities = [
 		{
@@ -125,15 +136,40 @@ const CityAppointmentPage = (properties) => {
 	 * los huecos tanto en "BI" (gratis) como en "BIDI" (de pago)
 	 */
 
-	const getClinicsHours = (selectedCities) => {
-		setTimeout(() => {
-			setIsLoading(true);
+	const getClinicsHours = async (selectedCities) => {
+		properties.setIsGlobalLoading(true);
+
+		let firstMonthPromises = [];
+		let secondPromises = [];
+
+		try {
 			selectedCities.forEach((clinic) => {
-				properties.fetchAvailableHours(clinic.keycli, "BI");
-				properties.fetchAvailableHours(clinic.keycli, "BIDI");
+				firstMonthPromises.push(
+					properties.updateAvailableHours(clinic.keycli, "BI", currentMonth, currentMonthNum),
+					properties.updateAvailableHours(clinic.keycli, "BIDI", currentMonth, currentMonthNum)
+				);
 			});
-			setIsLoading(false);
-		}, 25000);
+			selectedCities.forEach((clinic) => {
+				secondPromises.push(
+					properties.updateAvailableHours(clinic.keycli, "BI", nextMonth, nextMonthNum),
+					properties.updateAvailableHours(clinic.keycli, "BIDI", nextMonth, nextMonthNum),
+					properties.updateAvailableHours(clinic.keycli, "BI", nextSecondMonth, nextSecondMonthNum),
+					properties.updateAvailableHours(
+						clinic.keycli,
+						"BIDI",
+						nextSecondMonth,
+						nextSecondMonthNum
+					)
+				);
+			});
+
+			await Promise.all(firstMonthPromises);
+			await Promise.all(secondPromises);
+			properties.setIsGlobalLoading(false);
+		} catch (error) {
+			properties.setIsGlobalLoading(false);
+			console.log(error);
+		}
 	};
 
 	/**
@@ -143,11 +179,17 @@ const CityAppointmentPage = (properties) => {
 	 */
 
 	const getAllOnlineHours = async () => {
-		const date = getTodayDate();
-		const nextMonthDate = getNextMonthDate();
+		properties.setOnlineGlobalLoading(true);
 
-		await properties.fetchOnlineAvailableHours(date);
-		await properties.fetchOnlineAvailableHours(nextMonthDate);
+		try {
+			await properties.fetchOnlineAvailableHours(currentMonth);
+			await properties.fetchOnlineAvailableHours(nextMonth);
+			await properties.fetchOnlineAvailableHours(nextSecondMonth);
+			properties.setOnlineGlobalLoading(false);
+		} catch (error) {
+			properties.setOnlineGlobalLoading(false);
+			console.log(error);
+		}
 	};
 
 	//////////////////////////////////////////
@@ -214,14 +256,6 @@ const CityAppointmentPage = (properties) => {
 	};
 
 	//////////////////////////////////////////
-	// HELPERS
-	///////////////////////////////////////////
-
-	const getTodayDate = () => moment().format("DD/MM/yyyy");
-
-	const getNextMonthDate = () => moment().add(1, "month").format("DD/MM/yyyy");
-
-	//////////////////////////////////////////
 	// RENDERIZADO
 	///////////////////////////////////////////
 
@@ -232,6 +266,7 @@ const CityAppointmentPage = (properties) => {
 			</div>
 			<div className="city-appointment-container">
 				<CardContainer isColumn={true}>
+					{isLoading && <Loading />}
 					{properties.clinics.clinics?.length > 0 &&
 						properties.clinics.clinics.map((city, index) => {
 							const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
@@ -266,8 +301,8 @@ const mapDispatchToProps = (dispatch) => ({
 	 * @param {String} keycli Código de la ciudad
 	 * @param {('BI' | 'BIDI')} appointments_type Tipo de cita BI = Gratis | BIDI = Pago
 	 */
-	fetchAvailableHours: (keycli, appointments_type) =>
-		dispatch(fetchAvailableHours(keycli, appointments_type)),
+	fetchAvailableHours: (keycli, appointments_type, date) =>
+		dispatch(fetchAvailableHours(keycli, appointments_type, date)),
 
 	/**
 	 *
@@ -276,6 +311,18 @@ const mapDispatchToProps = (dispatch) => ({
 	 */
 
 	fetchOnlineAvailableHours: (date) => dispatch(fetchOnlineAvailableHours(date)),
+
+	/**
+	 *
+	 * @param {String} keycli
+	 * @param {String} type
+	 * @param {String} date
+	 * @param {String} nextMonth
+	 * @returns
+	 */
+
+	updateAvailableHours: (keycli, type, date, nextMonth) =>
+		dispatch(updateAvailableHours(keycli, type, date, nextMonth)),
 
 	/**
 	 * @description Devuelve una lista de clínicas
@@ -298,7 +345,15 @@ const mapDispatchToProps = (dispatch) => ({
 	 * @returns
 	 */
 
-	setIsLoading: (value) => dispatch(setIsLoading(value)),
+	setIsGlobalLoading: (value) => dispatch(setIsGlobalLoading(value)),
+
+	/**
+	 *
+	 * @param {boolean} onlineValue
+	 * @returns
+	 */
+
+	setOnlineGlobalLoading: (onlineValue) => dispatch(setOnlineGlobalLoading(onlineValue)),
 });
 
 const mapStateToProps = (state) => {
@@ -307,6 +362,7 @@ const mapStateToProps = (state) => {
 		appointment: state.appointment,
 		available_hours: state.available_hours,
 		online_available_hours: state.online_available_hours,
+		loading: state.loading,
 	};
 };
 

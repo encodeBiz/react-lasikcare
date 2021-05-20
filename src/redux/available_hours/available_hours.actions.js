@@ -17,7 +17,6 @@ export const getHours = ({ keycli, appointments_type }) => ({
 	clinic_data: { appointments_type: appointments_type },
 });
 
-
 export const updateHours = (keycli, appointments_type, data, nextMonth) => ({
 	type: UPDATE_HOURS,
 	clinic_data: { keycli: keycli, appointments_type: appointments_type },
@@ -36,12 +35,15 @@ export const updateHours = (keycli, appointments_type, data, nextMonth) => ({
 
 export const fetchAvailableHours = (keycli, type, date) => {
 	return async (dispatch) => {
+		
+
 		try {
 			let dateToSend = "";
+
 			if (date) {
 				dateToSend = date;
 			} else {
-				dateToSend = moment().add(1, "month").format("DD/MM/YYYY");
+				dateToSend = moment().format("DD/MM/YYYY");
 			}
 
 			const res = await Promise.all([getHuecos({ keycli, date: dateToSend, type })]);
@@ -50,7 +52,7 @@ export const fetchAvailableHours = (keycli, type, date) => {
 
 			const data = res[0].huecos ? { [keycli]: { [type]: res[0].huecos } } : {};
 
-			return dispatch(getHoursById(keycli, type, data, month));
+			// return dispatch(getHoursById(keycli, type, data, month));
 		} catch (error) {
 			console.log(error);
 		}

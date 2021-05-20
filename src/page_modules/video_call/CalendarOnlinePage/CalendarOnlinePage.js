@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import useWindowSize from "../../../hooks/useWindowSize";
 import { fetchOnlineAvailableHours } from "../../../redux/available_online_hours/available_online_hours.actions";
+import Loading from "../../../shared_modules/Loading/Loading";
 
 const CalendarOnlinePage = (properties) => {
 	const goBack = useHistory().goBack;
@@ -210,23 +211,31 @@ const CalendarOnlinePage = (properties) => {
 				</div>
 				<div className="calendar-appoinment-page">
 					<h1>1. Datum wählen</h1>
-					<CardContainer>
-						{!loading && (
-							<Calendar
-								datesList={dataCalendar}
-								setFocused={setFocused}
-								initialDate={initialDate}
-								width={width}
-								calendarWidth={calendarWidth}
-								handleDateChange={handleDateChange}
-								handleSelectedHour={handleSelectedHour}
-								selectedDate={selectedDate}
-								onNextMonthClick={onNextMonthClick}
-								onPreviousMonthClick={onPreviousMonthClick}
-								activeIndex={activeIndex}
-							></Calendar>
-						)}
-					</CardContainer>
+					{properties.loading.onlineGlobalLoading ? (
+						<CardContainer>
+							<div className="loading-center">
+								<Loading />
+							</div>
+						</CardContainer>
+					) : (
+						<CardContainer>
+							{!loading && (
+								<Calendar
+									datesList={dataCalendar}
+									setFocused={setFocused}
+									initialDate={initialDate}
+									width={width}
+									calendarWidth={calendarWidth}
+									handleDateChange={handleDateChange}
+									handleSelectedHour={handleSelectedHour}
+									selectedDate={selectedDate}
+									onNextMonthClick={onNextMonthClick}
+									onPreviousMonthClick={onPreviousMonthClick}
+									activeIndex={activeIndex}
+								></Calendar>
+							)}
+						</CardContainer>
+					)}
 					{appointment.calendar_date && appointment.calendar_hour && (
 						<div className="container-button">
 							<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
@@ -268,9 +277,10 @@ const mapDispatchToProps = (dispatch) => {
  * que serán consumidas por el componente y sus hijos.
  */
 
-const mapStateToProps = ({ appointment, online_available_hours }) => ({
+const mapStateToProps = ({ appointment, online_available_hours, loading }) => ({
 	appointment,
 	online_available_hours,
+	loading,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarOnlinePage);

@@ -15,25 +15,26 @@ const fn = (state = { initialState }, action) => {
 	switch (action.type) {
 		case SET_HOURS:
 			const { keycli, appointments_type } = action.clinic_data;
-			const data = action.data[keycli][appointments_type].hueco;
+			const data = action.data[keycli][appointments_type].hueco || [];
 			return {
 				...state,
 				[keycli]: {
 					status: "finish",
 					data: {
 						...state[keycli]?.data,
-						[appointments_type]: { [action.month]: data },
+						[appointments_type]: {
+							...state[keycli]?.[appointments_type],
+							[action.month]: data,
+						},
 					},
 				},
 			};
 
 		case UPDATE_HOURS:
-			console.log(state);
-			console.log(action);
 			const currentData =
-				state[action.clinic_data.keycli].data[action.clinic_data.appointments_type];
+				state[action.clinic_data.keycli]?.data?.[action.clinic_data.appointments_type] || {};
 			const newData =
-				action.data[action.clinic_data.keycli][action.clinic_data.appointments_type].hueco;
+				action.data[action.clinic_data.keycli][action.clinic_data.appointments_type].hueco || [];
 
 			return {
 				...state,
@@ -41,10 +42,10 @@ const fn = (state = { initialState }, action) => {
 					status: "finish",
 					data: {
 						...state[action.clinic_data.keycli]?.data,
-						[action.clinic_data.appointments_type]:
-							newData && newData.length > 0
-								? { ...currentData, [action.nextMonth]: [...newData] }
-								: currentData,
+						[action.clinic_data.appointments_type]: {
+							...currentData,
+							[action.nextMonth]: [...newData],
+						},
 					},
 				},
 			};

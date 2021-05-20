@@ -5,6 +5,7 @@ import "react-dates/lib/css/_datepicker.css";
 import { DayPickerSingleDateController } from "react-dates";
 import isSameDay from "react-dates/lib/utils/isSameDay";
 import CalendarHour from "./CalendarHour/CalendarHour";
+import moment from "moment";
 /**
  *
  * @param {Object} properties
@@ -15,6 +16,7 @@ import CalendarHour from "./CalendarHour/CalendarHour";
  * @param {Function} properties.setFocused
  * @param {Array.<*>} properties.datesList
  * @param {Date} properties.initialDate
+ * @param {String} properties.initialMonthString
  *
  */
 
@@ -28,6 +30,7 @@ const Calendar = (properties) => {
 	return (
 		<div className="calendar-container">
 			<DayPickerSingleDateController
+				// initialVisibleMonth={() => moment(properties.initialMonthString)}
 				numberOfMonths={1}
 				hideKeyboardShortcutsPanel={true}
 				daySize={properties.calendarWidth}

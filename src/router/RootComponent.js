@@ -98,7 +98,6 @@ const routes = [
 const Root = (properties) => {
 	const { errors } = properties;
 
-
 	return (
 		<React.Fragment>
 			{errors.notDefault && <ErrorToast />}
@@ -129,6 +128,7 @@ const Root = (properties) => {
 const mapStateToProps = (state) => ({
 	errors: state.errors,
 	clinics: state.clinics,
+	available_hours: state.available_hours
 });
 
 export default connect(mapStateToProps)(Root);

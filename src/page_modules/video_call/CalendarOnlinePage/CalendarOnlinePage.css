@@ -1,3 +1,8 @@
+.calendar-online-page .center-loading {
+  width: 100%;
+  display: flex;
+  justify-content: center; }
+
 .calendar-online-page .card-container {
   margin-bottom: 20px; }
   .calendar-online-page .card-container .button-container {

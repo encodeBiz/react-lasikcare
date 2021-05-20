@@ -1,0 +1,9 @@
+.loading {
+  max-width: 85px;
+  min-height: 350px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
+  .loading svg circle {
+    fill: #3370a9; }
