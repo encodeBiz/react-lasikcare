@@ -27,8 +27,8 @@ const CalendarOnlinePage = (properties) => {
 	const [selectedDate, setSelectedDate] = useState(null);
 	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
 	const [currentMonth, setCurrentMonth] = useState(currentMonthNumber);
-
 	const { appointment, online_available_hours } = properties;
+
 
 	///////////////////////////////////////////
 	// CONFIGURACIÓN DEL COMPONENTE
@@ -52,13 +52,17 @@ const CalendarOnlinePage = (properties) => {
 			? online_available_hours[currentMonth.toString()]
 			: undefined;
 
+
+		
+		
+			
 		if (data && data.length > 0) {
 			const formattedDates = formatDates(data);
 			setDataCalendar(formattedDates);
 		} else {
 			setDataCalendar([]);
 		}
-	}, [currentMonth, online_available_hours]);
+	}, [currentMonth, online_available_hours, selectedDate]);
 
 	/**
 	 * @description Setea la anchura del calendario
@@ -112,8 +116,6 @@ const CalendarOnlinePage = (properties) => {
 			setSelectedDate(null);
 
 			// Setea la fecha del que se pasará al action. Se añade un mes exacto
-
-			console.log(currentMonth, online_available_hours)
 
 			const date = moment(currentDate).add(2, "month").format("DD/M/YYYY");
 

@@ -102,9 +102,10 @@ const ConfirmOnlinePage = (properties) => {
 	 */
 
 	const handleSubmit = async (values) => {
+		console.log(properties.appointment);
 		try {
 			await properties.setAppoinmentConfig("clientData", values);
-			await properties.sendAppointmentData(true);
+			const res = await properties.sendAppointmentData(true);
 		} catch (error) {
 			console.log(error);
 		}

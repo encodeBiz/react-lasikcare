@@ -95,8 +95,7 @@ const CalendarAppointmentPage = (properties) => {
 			const filteredData = filterData(data);
 
 			setDataCalendar(filteredData);
-		}
-
+		} 
 		// eslint-disable-next-line
 	}, [selectedType, selectedCity, currentMonth, properties.loading.isGlobalLoading]);
 
@@ -151,7 +150,7 @@ const CalendarAppointmentPage = (properties) => {
 
 	const onNextMonthClick = async (currentDate) => {
 		try {
-			// Setea currentMonth al mes actual
+			// // Setea currentMonth al mes actual
 
 			const month = moment(today, "DD/MM/YYYY").format("M");
 
@@ -173,8 +172,7 @@ const CalendarAppointmentPage = (properties) => {
 
 			// Setea el mes que se utilizará para ubicar los nuevos datos en su lugar en el state
 			// Como ya se tienen los 3 primeros meses incluyendo el presente se setea el siguiente
-			// mes a presente mes + 3 
-
+			// mes a presente mes + 3
 
 			const nextMonth = (Number(currentMonth) + 3).toString();
 

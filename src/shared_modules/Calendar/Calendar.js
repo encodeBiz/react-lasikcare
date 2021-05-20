@@ -30,7 +30,7 @@ const Calendar = (properties) => {
 	return (
 		<div className="calendar-container">
 			<DayPickerSingleDateController
-				// initialVisibleMonth={() => moment(properties.initialMonthString)}
+				// initialVisibleMonth={() => moment(properties. initialMonthString)}
 				numberOfMonths={1}
 				hideKeyboardShortcutsPanel={true}
 				daySize={properties.calendarWidth}
