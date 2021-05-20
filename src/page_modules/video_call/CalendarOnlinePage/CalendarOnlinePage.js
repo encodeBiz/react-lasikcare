@@ -113,7 +113,9 @@ const CalendarOnlinePage = (properties) => {
 
 			// Setea la fecha del que se pasará al action. Se añade un mes exacto
 
-			const date = moment(currentDate).add(1, "month").format("DD/M/YYYY");
+			console.log(currentMonth, online_available_hours)
+
+			const date = moment(currentDate).add(2, "month").format("DD/M/YYYY");
 
 			await properties.fetchOnlineAvailableHours(date);
 		} catch (error) {

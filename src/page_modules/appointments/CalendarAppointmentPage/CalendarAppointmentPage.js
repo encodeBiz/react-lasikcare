@@ -172,8 +172,11 @@ const CalendarAppointmentPage = (properties) => {
 			const date = moment(currentDate).add(1, "month").format("DD/M/YYYY");
 
 			// Setea el mes que se utilizará para ubicar los nuevos datos en su lugar en el state
+			// Como ya se tienen los 3 primeros meses incluyendo el presente se setea el siguiente
+			// mes a presente mes + 3 
 
-			const nextMonth = (Number(currentMonth) + 2).toString();
+
+			const nextMonth = (Number(currentMonth) + 3).toString();
 
 			// Se suma uno al mes actual
 
