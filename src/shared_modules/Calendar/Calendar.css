@@ -28,7 +28,7 @@
   .calendar-container .DayPicker__withBorder .CalendarMonth_table {
     margin-top: 15px; }
     .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay {
-      opacity: 0.3; }
+      opacity: 0.6; }
     .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay__highlighted_calendar {
       opacity: 1;
       background-color: transparent; }

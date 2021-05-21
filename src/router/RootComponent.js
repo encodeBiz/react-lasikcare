@@ -101,7 +101,7 @@ const Root = (properties) => {
 	return (
 		<React.Fragment>
 			{errors.notDefault && <ErrorToast />}
-			<Navbar></Navbar>
+			{/* <Navbar></Navbar> */}
 			<Switch>
 				{/* Estas dos rutas deben de renderizarse aquí 
 					para poder redireccionar a home cuando se 

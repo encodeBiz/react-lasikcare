@@ -105,7 +105,7 @@ const ConfirmOnlinePage = (properties) => {
 		console.log(properties.appointment);
 		try {
 			await properties.setAppoinmentConfig("clientData", values);
-			const res = await properties.sendAppointmentData(true);
+			await properties.sendAppointmentData(true);
 		} catch (error) {
 			console.log(error);
 		}
