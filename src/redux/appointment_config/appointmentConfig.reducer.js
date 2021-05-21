@@ -41,8 +41,8 @@ const appoinmentConfig = (state = initialState, action) => {
 		case SET_SUCCESS_ON_CONFIRM:
 			return { ...state, success: true };
 		case CLEAR_APPOINTMENT_INFO:
-			const {city, ...rest} = initialState; 
-			return {...state, ...rest};
+			const { city, ...rest } = initialState;
+			return { ...state, ...rest };
 		default:
 			return state;
 	}

@@ -71,17 +71,17 @@ const routes = [
 	{
 		path: "/videollamadas",
 		component: Video_call,
-		stepNumber: 0, 
+		stepNumber: 0,
 		routes: [
 			{
 				path: "/videollamadas/calendar",
 				component: CalendarOnlinePage,
-				stepNumber: 1
+				stepNumber: 1,
 			},
 			{
 				path: "/videollamadas/confirm",
 				component: ConfirmOnlinePage,
-				stepNumber: 2
+				stepNumber: 2,
 			},
 		],
 	},
@@ -128,7 +128,7 @@ const Root = (properties) => {
 const mapStateToProps = (state) => ({
 	errors: state.errors,
 	clinics: state.clinics,
-	available_hours: state.available_hours
+	available_hours: state.available_hours,
 });
 
 export default connect(mapStateToProps)(Root);

@@ -1,12 +1,7 @@
 @import "../../../styles/partials/variables";
 @import "../../../styles/partials/mixins";
 
-.calendar-online-page {
-	.center-loading {
-		width: 100%;
-		display: flex;
-		justify-content: center;
-	}
+.calendar-online-appointment-page {
 	.card-container {
 		margin-bottom: 20px;
 		.button-container {
@@ -63,6 +58,11 @@
 	.card-container {
 		padding: 0px;
 	}
+}
+.loading-center {
+  width: 100%; 
+	display: flex;
+	justify-content: center;
 }
 input[type="radio" i] {
 	background-color: red;

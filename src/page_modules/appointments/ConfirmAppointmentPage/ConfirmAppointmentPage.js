@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
-import {
-	sendAppointmentData,
-	setAppoinmentConfig,
-} from "../../../redux/appointment_config/appointmentConfig.actions";
+import { sendAppointmentData, setAppoinmentConfig, } from "../../../redux/appointment_config/appointmentConfig.actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import locationUbi from "../../../assets/images/icons/location-icon.svg";
@@ -17,6 +14,7 @@ import ConfirmForm from "./ConfirmForm/ConfirmForm";
 import "../../../styles/App.scss";
 
 const ConfirmPage = (properties) => {
+	
 	const [children, setChildren] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(null);
 	const history = useHistory();

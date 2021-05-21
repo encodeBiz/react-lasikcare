@@ -44,7 +44,7 @@ const fn = (state = { initialState }, action) => {
 						...state[action.clinic_data.keycli]?.data,
 						[action.clinic_data.appointments_type]: {
 							...currentData,
-							[action.nextMonth]: [...newData],
+							[action.nextMonth]: newData.length > 0 ? [...newData] : [],
 						},
 					},
 				},
