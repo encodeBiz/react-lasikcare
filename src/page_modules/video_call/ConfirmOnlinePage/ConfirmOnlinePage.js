@@ -12,10 +12,12 @@ import {
 	sendAppointmentData,
 	setAppoinmentConfig,
 } from "../../../redux/appointment_config/appointmentConfig.actions";
+import Loading from "../../../shared_modules/Loading/Loading";
 
 const ConfirmOnlinePage = (properties) => {
 	const [children, setChildren] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const history = useHistory();
 	const navigateTo = (url) => history.push(url);
 	const { appointment } = properties;
@@ -102,10 +104,11 @@ const ConfirmOnlinePage = (properties) => {
 	 */
 
 	const handleSubmit = async (values) => {
-		console.log(properties.appointment);
 		try {
+			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
 			await properties.sendAppointmentData(true);
+			setIsLoading(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -123,38 +126,45 @@ const ConfirmOnlinePage = (properties) => {
 				isVideoConference={true}
 			></Stepper>
 			<div className="wrapper-general change-width">
-				{/* Resumen de la cita */}
+				{isLoading ? (
+					<CardContainer>
+						<div className="loading-center">
+							<Loading />
+						</div>
+					</CardContainer>
+				) : (
+					<div className="flex-responsive">
+						{/* Resumen de la cita */}
+						<div className="appointment-summary">
+							<h2>Ihr Wunschtermin</h2>
+							<CardContainer className="change-h3">
+								<h3>unverbindliches Informationsgespräch</h3>
 
-				<div className="flex-responsive">
-					<div className="appointment-summary">
-						<h2>Ihr Wunschtermin</h2>
-						<CardContainer className="change-h3">
-							<h3>unverbindliches Informationsgespräch</h3>
+								<div className="summary-icon">
+									{children &&
+										children.map((child, index) => {
+											return (
+												<div className="child" key={index}>
+													<img src={child.imgSource} alt="..." />
+													<p>{child.text}</p>
+												</div>
+											);
+										})}
+								</div>
+							</CardContainer>
+						</div>
 
-							<div className="summary-icon">
-								{children &&
-									children.map((child, index) => {
-										return (
-											<div className="child" key={index}>
-												<img src={child.imgSource} alt="..." />
-												<p>{child.text}</p>
-											</div>
-										);
-									})}
-							</div>
-						</CardContainer>
+						{/* Formulario */}
+						<div className="wrapper-form">
+							<ConfirmForm
+								handleSubmit={handleSubmit}
+								errorMessage={errorMessage}
+								setErrorMessage={setErrorMessage}
+								appointmentValues={appointment.clientData}
+							/>
+						</div>
 					</div>
-
-					{/* Formulario */}
-					<div className="wrapper-form">
-						<ConfirmForm
-							handleSubmit={handleSubmit}
-							errorMessage={errorMessage}
-							setErrorMessage={setErrorMessage}
-							appointmentValues={appointment.clientData}
-						/>
-					</div>
-				</div>
+				)}
 			</div>
 		</React.Fragment>
 	);

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
-import { sendAppointmentData, setAppoinmentConfig, } from "../../../redux/appointment_config/appointmentConfig.actions";
+import {
+	sendAppointmentData,
+	setAppoinmentConfig,
+} from "../../../redux/appointment_config/appointmentConfig.actions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import locationUbi from "../../../assets/images/icons/location-icon.svg";
@@ -12,11 +15,12 @@ import moment from "moment";
 import "moment/locale/de";
 import ConfirmForm from "./ConfirmForm/ConfirmForm";
 import "../../../styles/App.scss";
+import Loading from "../../../shared_modules/Loading/Loading";
 
 const ConfirmPage = (properties) => {
-	
 	const [children, setChildren] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const history = useHistory();
 	const navigateTo = (url) => history.push(url);
 
@@ -42,17 +46,16 @@ const ConfirmPage = (properties) => {
 		// eslint-disable-next-line
 	}, [appointment]);
 
-  /**
-   * Escucha el estado de la petición y redirige en 
-   * función del éxito o fracaso de la misma
-   */
+	/**
+	 * Escucha el estado de la petición y redirige en
+	 * función del éxito o fracaso de la misma
+	 */
 
 	useEffect(() => {
 		if (appointment.error) {
 			history.push("/sorry");
 		}
 		if (appointment.success) {
-      
 			history.push("/appointments/thank");
 		}
 	}, [appointment.error, appointment.success, history]);
@@ -102,10 +105,12 @@ const ConfirmPage = (properties) => {
 
 	const handleSubmit = async (values) => {
 		try {
+			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
 			await properties.sendAppointmentData();
 			const city = appointment.city.name;
 			localStorage.setItem("city", city);
+			setIsLoading(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -118,38 +123,43 @@ const ConfirmPage = (properties) => {
 				navigateTo={navigateTo}
 			></Stepper>
 			<div className="wrapper-general change-width">
-				{/* Resumen de la cita */}
+				{isLoading ? (
+					<CardContainer>
+						<div className="loading-center">
+							<Loading />
+						</div>
+					</CardContainer>
+				) : (
+					<div className="flex-responsive">
+						<div className="appointment-summary">
+							<h2>Ihr Wunschtermin</h2>
+							<CardContainer className="change-h3">
+								<h3>unverbindliches Informationsgespräch</h3>
 
-				<div className="flex-responsive">
-					<div className="appointment-summary">
-						<h2>Ihr Wunschtermin</h2>
-						<CardContainer className="change-h3">
-							<h3>unverbindliches Informationsgespräch</h3>
-
-							<div className="summary-icon">
-								{children &&
-									children.map((child, index) => {
-										return (
-											<div className="child" key={index}>
-												<img src={child.imgSource} alt="..." />
-												<p>{child.text}</p>
-											</div>
-										);
-									})}
-							</div>
-						</CardContainer>
+								<div className="summary-icon">
+									{children &&
+										children.map((child, index) => {
+											return (
+												<div className="child" key={index}>
+													<img src={child.imgSource} alt="..." />
+													<p>{child.text}</p>
+												</div>
+											);
+										})}
+								</div>
+							</CardContainer>
+						</div>
+						{/* Formulario */}
+						<div className="wrapper-form">
+							<ConfirmForm
+								handleSubmit={handleSubmit}
+								errorMessage={errorMessage}
+								setErrorMessage={setErrorMessage}
+								appointmentValues={appointment.clientData}
+							/>
+						</div>
 					</div>
-
-					{/* Formulario */}
-					<div className="wrapper-form">
-						<ConfirmForm
-							handleSubmit={handleSubmit}
-							errorMessage={errorMessage}
-							setErrorMessage={setErrorMessage}
-							appointmentValues={appointment.clientData}
-						/>
-					</div>
-				</div>
+				)}
 			</div>
 		</React.Fragment>
 	);

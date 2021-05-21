@@ -36,3 +36,8 @@
 @media (min-width: 1280px) {
   .wrapper-general .flex-responsive .wrapper-form .main-btn {
     width: 60%; } }
+
+.wrapper-general .loading-center {
+  width: 100%;
+  display: flex;
+  justify-content: center; }
