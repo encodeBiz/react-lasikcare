@@ -244,7 +244,7 @@ const CalendarOnlinePage = (properties) => {
 
 	return (
 		<React.Fragment>
-			<Stepper currentStepIndex={properties.appointment?.currentStep} />
+			<Stepper currentStepIndex={properties.appointment?.currentStep} isVideoConference={true}/>
 
 			<div className="wrapper-general">
 				<div className="top-content">

@@ -110,7 +110,6 @@ const ConfirmPage = (properties) => {
 			await properties.sendAppointmentData();
 			const city = appointment.city.name;
 			localStorage.setItem("city", city);
-			setIsLoading(false);
 		} catch (error) {
 			console.log(error);
 		}
