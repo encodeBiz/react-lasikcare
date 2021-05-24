@@ -1,4 +1,5 @@
 import moment from "moment";
+import { VIDEO_KEYCLI, VIDEO_TYPE } from "../../constants/constants";
 import { getHuecosOnline } from "../../services/appointments.service";
 
 export const GET_ONLINE_HOURS = "GET_ONLINE_HOURS";
@@ -30,7 +31,11 @@ export const fetchOnlineAvailableHours = (date) => {
 
 			/// Make api call
 
-			const res = await getHuecosOnline({ date: dateToSend });
+			const res = await getHuecosOnline({
+				date: dateToSend,
+				keycli: VIDEO_KEYCLI,
+				type: VIDEO_TYPE,
+			});
 			const month = moment(dateToSend, "DD/MM/YYYY").format("M");
 			const data = res.huecos ? res.huecos.hueco : {};
 

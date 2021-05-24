@@ -129,6 +129,7 @@ const mapStateToProps = (state) => ({
 	errors: state.errors,
 	clinics: state.clinics,
 	available_hours: state.available_hours,
+	state: state
 });
 
 export default connect(mapStateToProps)(Root);

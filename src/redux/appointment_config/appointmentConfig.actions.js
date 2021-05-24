@@ -56,7 +56,7 @@ export const sendAppointmentData = (isOnline) => {
 			const tmr = "";
 
 			const query_params = {
-				clinic_id: appointment.city.keycli,
+				clinic_id: appointment.type === "VIDEO" ? "GRLCV" : appointment.city.keycli,
 				clinic_name: appointment.city.name,
 				clinic_address: appointment.city.address,
 				date: appointment.calendar_hour.fecha,
@@ -69,6 +69,7 @@ export const sendAppointmentData = (isOnline) => {
 				email: appointment.clientData.email,
 				phone: appointment.clientData.phoneNumber,
 				message: appointment.clientData.message,
+				type: appointment.type, 
 				utm_source,
 				tmr, //Se incluirá al final
 				comentarios: appointment.clientData.message,

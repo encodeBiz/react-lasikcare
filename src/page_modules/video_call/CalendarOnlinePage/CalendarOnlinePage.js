@@ -17,15 +17,12 @@ import opcionOne from "../../../assets/images/icons/type-free.svg";
 import opcionTwo from "../../../assets/images/icons/calendar-icon.svg";
 
 const CalendarOnlinePage = (properties) => {
-	const goBack = useHistory().goBack;
 	const history = useHistory();
 	const today = moment();
 	const { width } = useWindowSize();
 	const [calendarWidth, setCalendarWidth] = useState(null);
-	const [focused, setFocused] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(null);
 	const [initialDate] = useState(today);
-	const [loading, setLoading] = useState(false);
 	const [dataCalendar, setDataCalendar] = useState([]);
 	const [selectedDate, setSelectedDate] = useState(null);
 	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
@@ -35,7 +32,7 @@ const CalendarOnlinePage = (properties) => {
 	const buttonsConfig = [
 		{
 			text: "Online video-beratung von zu hause aus",
-			type: "online",
+			type: "VIDEO",
 			img: opcionOne,
 		},
 		{
@@ -161,6 +158,13 @@ const CalendarOnlinePage = (properties) => {
 	 */
 
 	const handleDateChange = (date) => {
+		// Se setea a null para evitar que salga una hora por defecto
+
+		if (activeIndex !== null) {
+			setActiveIndex(null);
+			properties.setAppoinmentConfig("calendar_hour", null);
+		}
+
 		const finded = dataCalendar.filter((item) => {
 			return item.formattedDate.format("DD-MM-yyyy") === date.format("DD-MM-yyyy");
 		});
@@ -179,6 +183,7 @@ const CalendarOnlinePage = (properties) => {
 	const handleSelectedHour = (hour, index) => {
 		properties.setAppoinmentConfig("calendar_hour", hour);
 		setActiveIndex(index);
+		handleScroll();
 	};
 
 	/**
@@ -196,6 +201,8 @@ const CalendarOnlinePage = (properties) => {
 		try {
 			properties.setAppoinmentConfig("type", type);
 			if (type === "BIDI") {
+				properties.setAppoinmentConfig("calendar_hour", null);
+				properties.setAppoinmentConfig("calendar_date", null);
 				history.push("/appointments/calendar");
 			}
 		} catch (error) {
@@ -238,13 +245,25 @@ const CalendarOnlinePage = (properties) => {
 
 	const onConfirmHour = () => history.push("/videollamadas/confirm");
 
+	/**
+	 * Scroll cuando se selecciona una nueva hora
+	 */
+
+	const handleScroll = () => {
+		window.scroll({
+			top: document.body.scrollHeight + 1000,
+			left: 0,
+			behavior: "smooth",
+		});
+	};
+
 	///////////////////////////////////////////
 	// RENDERIZADO DEL COMPONENTE
 	///////////////////////////////////////////
 
 	return (
 		<React.Fragment>
-			<Stepper currentStepIndex={properties.appointment?.currentStep} isVideoConference={true}/>
+			<Stepper currentStepIndex={properties.appointment?.currentStep} isVideoConference={true} />
 
 			<div className="wrapper-general">
 				<div className="top-content">
@@ -287,102 +306,30 @@ const CalendarOnlinePage = (properties) => {
 						</CardContainer>
 					) : (
 						<CardContainer className="change-margin">
-							{!loading && (
-								<Calendar
-									datesList={dataCalendar}
-									setFocused={setFocused}
-									initialDate={initialDate}
-									width={width}
-									calendarWidth={calendarWidth}
-									handleDateChange={handleDateChange}
-									handleSelectedHour={handleSelectedHour}
-									selectedDate={selectedDate}
-									onNextMonthClick={onNextMonthClick}
-									onPreviousMonthClick={onPreviousMonthClick}
-									activeIndex={activeIndex}
-								/>
-							)}
+							<Calendar
+								datesList={dataCalendar}
+								initialDate={initialDate}
+								width={width}
+								calendarWidth={calendarWidth}
+								handleDateChange={handleDateChange}
+								handleSelectedHour={handleSelectedHour}
+								selectedDate={selectedDate}
+								onNextMonthClick={onNextMonthClick}
+								onPreviousMonthClick={onPreviousMonthClick}
+								activeIndex={activeIndex}
+							/>
 						</CardContainer>
 					)}
-					{appointment.calendar_date && appointment.calendar_hour && (
+					{appointment.calendar_date && appointment.calendar_hour ? (
 						<div className="container-button">
 							<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
 						</div>
+					) : (
+						<div className="container-button button-fake-height"></div>
 					)}
 				</div>
 			</div>
 		</React.Fragment>
-
-		// <React.Fragment>
-		// 	<Stepper currentStepIndex={appointment?.currentStep} isVideoConference={true}></Stepper>
-		// 	<div className="wrapper-general">
-		// 		<div className="top-content">
-		// 			<Button action={goBack} styleType={"back-button"} label={"Zurück"} />
-		// 		</div>
-		// 		<div className="calendar-appoinment-page">
-		// 			<h1>1. Datum wählen</h1>
-
-		// 			<CardContainer isColumn={true}>
-		// 				<div className="button-container">
-		// 					{buttonsConfig.map((button, index) => {
-		// 						const customClass = appointment.type === button.type ? "card-highlighted" : "";
-		// 						return (
-		// 							<Card
-		// 								key={index}
-		// 								customClass={`pointer ${customClass}`}
-		// 								handleClick={handleClick}
-		// 								clickParam={button.type}
-		// 							>
-		// 								<label>
-		// 									<input
-		// 										checked={appointment.type === button.type}
-		// 										type="radio"
-		// 										name="type"
-		// 										value={button.type}
-		// 										onChange={() => {}}
-		// 									/>
-		// 									<img src={button.img} alt="..."></img>
-		// 									{button.text} <strong>{button.label}</strong>
-		// 								</label>
-		// 							</Card>
-		// 						);
-		// 					})}
-		// 				</div>
-		// 			</CardContainer>
-
-		// 			{properties.loading.onlineGlobalLoading ? (
-		// 				<CardContainer>
-		// 					<div className="loading-center">
-		// 						<Loading />
-		// 					</div>
-		// 				</CardContainer>
-		// 			) : (
-		// 				<CardContainer>
-		// 					{!loading && (
-		// 						<Calendar
-		// 							datesList={dataCalendar}
-		// 							setFocused={setFocused}
-		// 							initialDate={initialDate}
-		// 							width={width}
-		// 							calendarWidth={calendarWidth}
-		// 							handleDateChange={handleDateChange}
-		// 							handleSelectedHour={handleSelectedHour}
-		// 							selectedDate={selectedDate}
-		// 							onNextMonthClick={onNextMonthClick}
-		// 							onPreviousMonthClick={onPreviousMonthClick}
-		// 							activeIndex={activeIndex}
-		// 						></Calendar>
-		// 					)}
-		// 				</CardContainer>
-		// 			)}
-		// 			{appointment.calendar_date && appointment.calendar_hour && (
-		// 				<div className="container-button">
-		// 					<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
-		// 				</div>
-		// 			)}
-		// 		</div>
-		// 	</div>
-		// </React.Fragment>
 	);
 };
 

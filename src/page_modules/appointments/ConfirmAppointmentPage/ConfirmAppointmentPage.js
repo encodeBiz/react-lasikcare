@@ -134,7 +134,6 @@ const ConfirmPage = (properties) => {
 							<h2>Ihr Wunschtermin</h2>
 							<CardContainer className="change-h3">
 								<h3>unverbindliches Informationsgespräch</h3>
-
 								<div className="summary-icon">
 									{children &&
 										children.map((child, index) => {

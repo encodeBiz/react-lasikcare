@@ -12,111 +12,93 @@ import iconVideo from "../../assets/images/icons/icon-videocall.svg";
 import Stepper from "../../shared_modules/Stepper/Stepper";
 
 const AppointmentType = (properties) => {
-  const homeLinksConfig = [
-    {
-      title: "Zu Hause",
-      image: iconVideo,
-      subtitle: "Persönliche Video-Beratung von zu Hause aus",
-      url: "/videollamadas",
-      type: "online",
-    },
-    {
-      title: "Vor Ort",
-      image: iconPresencial,
-      subtitle: "Persönliche Beratung im nächstgelegenen Lasik Care Standort",
-      url: "/appointments",
-      type: "presencial",
-    },
-  ];
+	const homeLinksConfig = [
+		{
+			title: "Zu Hause",
+			image: iconVideo,
+			subtitle: "Persönliche Video-Beratung von zu Hause aus",
+			url: "/videollamadas",
+			type: "VIDEO",
+		},
+		{
+			title: "Vor Ort",
+			image: iconPresencial,
+			subtitle: "Persönliche Beratung im nächstgelegenen Lasik Care Standort",
+			url: "/appointments",
+			type: "presencial",
+		},
+	];
 
-  const history = useHistory();
+	const history = useHistory();
 
-  const navigateTo = (url) => history.push(url);
+	const navigateTo = (url) => history.push(url);
 
-  /**
-   * Setea el paso del proceso en el que estamos
-   */
+	/**
+	 * Setea el paso del proceso en el que estamos
+	 */
 
-  useEffect(() => {
-    
-    
-    properties.setAppoinmentConfig("currentStep", 0);
-    properties.setAppoinmentConfig("isOnline", false); 
-    // eslint-disable-next-line
-  }, []);
+	useEffect(() => {
+		properties.setAppoinmentConfig("currentStep", 0);
+		properties.setAppoinmentConfig("isOnline", false);
+		// eslint-disable-next-line
+	}, []);
 
-  /**
-   *
-   * @param {"online" | "presencial"} type Tipo de cita
-   * Se encarga de setear en redux el tipo de cita elegido.
-   * Una vez hecho se redirige hacia el tipo de cita elegido
-   */
+	/**
+	 *
+	 * @param {"online" | "presencial"} type Tipo de cita
+	 * Se encarga de setear en redux el tipo de cita elegido.
+	 * Una vez hecho se redirige hacia el tipo de cita elegido
+	 */
 
-  const handleClick = (type) => {
-    properties.setAppoinmentConfig("type", type);
-    history.push(type === "online" ? "/videollamadas" : "/appointments");
-  };
+	const handleClick = (type) => {
+		properties.setAppoinmentConfig("type", type);
+		history.push(type === "online" ? "/videollamadas" : "/appointments");
+	};
 
-  return (
-    <React.Fragment>
-      <Stepper
-        currentStepIndex={properties.appointment?.currentStep}
-        navigateTo={navigateTo}
-      />
-      <div className="wrapper-general">
-        <div className="top-content">
-          <Button
-            action={history.goBack}
-            styleType={"back-button"}
-            label={"Zurück"}
-          />
-        </div>
-        <h1>1. Bitte wählen Sie Ihren Wunschtermin:</h1>
-        <div className="presencial-online-wrapper">
-          <CardContainer>
-            {homeLinksConfig.map((link, index) => {
-              return (
-                <Link to={link.url} key={index} className="card-link">
-                  <Card
-                    key={index}
-                    handleClick={handleClick}
-                    clickParam={link.type}
-                  >
-                    <div className="first-step-card">
-                      <h3>{link.title}</h3>
-                      <div>
-                        <img
-                          className="home-card-image"
-                          src={link.image}
-                          alt="..."
-                        />
-                      </div>
-                      <p>{link.subtitle}</p>
-                    </div>
-                  </Card>
-                </Link>
-              );
-            })}
-          </CardContainer>
-        </div>
-      </div>
-    </React.Fragment>
-  );
+	return (
+		<React.Fragment>
+			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
+			<div className="wrapper-general">
+				<div className="top-content">
+					<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
+				</div>
+				<h1>1. Bitte wählen Sie Ihren Wunschtermin:</h1>
+				<div className="presencial-online-wrapper">
+					<CardContainer>
+						{homeLinksConfig.map((link, index) => {
+							return (
+								<Link to={link.url} key={index} className="card-link">
+									<Card key={index} handleClick={handleClick} clickParam={link.type}>
+										<div className="first-step-card">
+											<h3>{link.title}</h3>
+											<div>
+												<img className="home-card-image" src={link.image} alt="..." />
+											</div>
+											<p>{link.subtitle}</p>
+										</div>
+									</Card>
+								</Link>
+							);
+						})}
+					</CardContainer>
+				</div>
+			</div>
+		</React.Fragment>
+	);
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  /**
-   *
-   * @param {String} property  Propiedad del estado que se debe actualizar
-   * @param {String || Object || number} data Datos con los que se actualizará la propiedad anterior
-   * @description Actualiza un campo del objeto de appointment
-   */
-  setAppoinmentConfig: (property, data) =>
-    dispatch(setAppoinmentConfig(property, data)),
+	/**
+	 *
+	 * @param {String} property  Propiedad del estado que se debe actualizar
+	 * @param {String || Object || number} data Datos con los que se actualizará la propiedad anterior
+	 * @description Actualiza un campo del objeto de appointment
+	 */
+	setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
 });
 
 const mapStateToProps = (state) => ({
-  appointment: state.appointment,
+	appointment: state.appointment,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppointmentType);

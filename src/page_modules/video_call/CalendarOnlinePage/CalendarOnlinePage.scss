@@ -60,10 +60,14 @@
 	}
 }
 .loading-center {
-  width: 100%; 
+	width: 100%;
 	display: flex;
 	justify-content: center;
 }
 input[type="radio" i] {
 	background-color: red;
+}
+
+.button-fake-height {
+	height: 100px;
 }

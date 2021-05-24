@@ -41,3 +41,6 @@
 
 input[type="radio" i] {
   background-color: red; }
+
+.button-fake-height {
+  height: 100px; }

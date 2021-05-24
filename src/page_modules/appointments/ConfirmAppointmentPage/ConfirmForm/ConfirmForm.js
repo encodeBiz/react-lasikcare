@@ -199,6 +199,7 @@ const ConfirmForm = (properties) => {
 												<label htmlFor="accepted">
 													<input
 														type="checkbox"
+														id="accepted"
 														value={props.values.accepted}
 														// checked={props.values.accepted}
 														onChange={(e) => props.handleChange(e.target.value)}

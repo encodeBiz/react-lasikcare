@@ -78,6 +78,11 @@ body {
         body .wrapper-general h1 {
           font-size: 1.3rem; } }
 
+.loading-center {
+  width: 100%;
+  display: flex;
+  justify-content: center; }
+
 .container-button {
   display: flex;
   justify-content: center; }

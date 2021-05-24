@@ -5,7 +5,7 @@ import "react-dates/lib/css/_datepicker.css";
 import { DayPickerSingleDateController } from "react-dates";
 import isSameDay from "react-dates/lib/utils/isSameDay";
 import CalendarHour from "./CalendarHour/CalendarHour";
-import moment from "moment";
+
 /**
  *
  * @param {Object} properties
@@ -47,7 +47,7 @@ const Calendar = (properties) => {
 				date={date} // momentPropTypes.momentObj or null
 				onDateChange={onChange} // PropTypes.func.isRequired
 				focused={false} // PropTypes.bool
-				onFocusChange={({ focused }) => properties.setFocused({ focused })} // PropTypes.func.isRequired
+				// onFocusChange={({ focused }) => properties.setFocused({ focused })} // PropTypes.func.isRequired
 				onNextMonthClick={(e) => properties.onNextMonthClick(e)}
 				onPrevMonthClick={(e) => properties.onPreviousMonthClick(e)}
 			></DayPickerSingleDateController>

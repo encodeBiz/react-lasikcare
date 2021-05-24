@@ -265,19 +265,26 @@ const CityAppointmentPage = (properties) => {
 				<h1>Bitte Standort wählen</h1>
 			</div>
 			<div className="city-appointment-container">
-				<CardContainer isColumn={true}>
-					{isLoading && <Loading />}
-					{properties.clinics.clinics?.length > 0 &&
-						properties.clinics.clinics.map((city, index) => {
-							const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
-							return (
-								<Card key={index} handleClick={handleCitySelect} clickParam={city}>
-									<img src={cityIcon?.icon} alt={cityIcon?.icon} className="type-image-city" />
-									<p>{city.name}</p>
-								</Card>
-							);
-						})}
-				</CardContainer>
+				{isLoading ? (
+					<CardContainer>
+						<div className="loading-center">
+							<Loading />
+						</div>
+					</CardContainer>
+				) : (
+					<CardContainer isColumn={true}>
+						{properties.clinics.clinics?.length > 0 &&
+							properties.clinics.clinics.map((city, index) => {
+								const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
+								return (
+									<Card key={index} handleClick={handleCitySelect} clickParam={city}>
+										<img src={cityIcon?.icon} alt={cityIcon?.icon} className="type-image-city" />
+										<p>{city.name}</p>
+									</Card>
+								);
+							})}
+					</CardContainer>
+				)}
 			</div>
 		</div>
 	);

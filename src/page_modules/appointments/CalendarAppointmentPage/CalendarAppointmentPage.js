@@ -95,7 +95,7 @@ const CalendarAppointmentPage = (properties) => {
 			const filteredData = filterData(data);
 
 			setDataCalendar(filteredData);
-		} 
+		}
 		// eslint-disable-next-line
 	}, [selectedType, selectedCity, currentMonth, properties.loading.isGlobalLoading]);
 
@@ -132,6 +132,13 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 
 	const handleDateChange = (date) => {
+		// Se setea a null para evitar que salga una hora por defecto
+
+		if (activeIndex !== null) {
+			setActiveIndex(null);
+			properties.setAppoinmentConfig("calendar_hour", null);
+		}
+
 		const finded = dataCalendar.filter((item) => {
 			return item.formattedDate.format("DD-MM-yyyy") === date.format("DD-MM-yyyy");
 		});
@@ -358,10 +365,12 @@ const CalendarAppointmentPage = (properties) => {
 							)}
 						</CardContainer>
 					)}
-					{appointment.calendar_date && appointment.calendar_hour && (
+					{appointment.calendar_date && appointment.calendar_hour ? (
 						<div className="container-button">
 							<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
 						</div>
+					) : (
+						<div className="container-button button-fake-height"></div>
 					)}
 				</div>
 			</div>
