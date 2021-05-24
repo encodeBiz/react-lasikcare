@@ -309,8 +309,9 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 
 	const handleScroll = () => {
-		console.log(buttonRef.current);
-		buttonRef.current.scrollIntoView();
+		if (buttonRef) {
+			buttonRef.current.scrollIntoView({ behavior: "smooth" });
+		}
 	};
 
 	/////////////////////////////
@@ -386,18 +387,13 @@ const CalendarAppointmentPage = (properties) => {
 							)}
 						</CardContainer>
 					)}
-					{appointment.calendar_date && appointment.calendar_hour ? (
-						<div className="container-button">
-							<Button
-								ref={buttonRef}
-								type={"rounded-button"}
-								label={"TERMIN WÄHLEN"}
-								action={onConfirmHour}
-							/>
-						</div>
-					) : (
-						<div className="container-button button-fake-height"></div>
-					)}
+					<div className="container-button" ref={buttonRef}>
+						{appointment.calendar_date && appointment.calendar_hour ? (
+							<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
+						) : (
+							<div className="button-fake-height"></div>
+						)}
+					</div>
 				</div>
 			</div>
 		</React.Fragment>

@@ -22,7 +22,6 @@ const Button = (properties) => {
 			className={`main-btn ${properties.styleType}`}
 			disabled={properties.disabled}
 			type={properties.type || "button"}
-			ref={properties.ref}
 		>
 			{icon ? (
 				<span>
