@@ -95,19 +95,6 @@
 					content: none;
 				}
 			}
-
-			&:active {
-				color: dodgerblue;
-
-				&:before {
-					border-color: dodgerblue;
-					background-color: dodgerblue;
-				}
-
-				&:after {
-					background-color: dodgerblue;
-				}
-			}
 		}
 	}
 }

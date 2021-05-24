@@ -34,11 +34,15 @@ const SorryPage = (properties) => {
 				</p>
 			</div>
 			<div className="buttons-container">
-				<Button styleType={"rounded-button small-margin"} label="KONTAKTIERE UNS"></Button>
+				<Button
+					styleType={"rounded-button small-margin"}
+					label="KONTAKTIERE UNS"
+					action={() => console.log("Debería ir al sitio de contacto")}
+				></Button>
 				<Button
 					styleType={"transparent-button small-margin"}
 					label="ZURÜCK ZUR TERMINAUSWAH"
-					action={goToCalendar}
+					action={() => goToCalendar()}
 				></Button>
 			</div>
 		</div>

@@ -92,7 +92,7 @@ const CalendarOnlinePage = (properties) => {
 	 */
 	const formatCalendarWidth = (width) => {
 		//a partir de 1080 no debe ejecutarse la función
-		if (width <= 320) return 35;
+		if (width <= 360) return 35;
 		else if (width <= 414 || width <= 1080) return 40;
 		else if (width <= 980) return 50;
 		else return 50;

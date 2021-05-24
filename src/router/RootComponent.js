@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // Router
 
@@ -98,6 +98,12 @@ const routes = [
 const Root = (properties) => {
 	const { errors } = properties;
 
+	useEffect(() => {
+		if (process.env.NODE_ENV === "production") {
+			window.console.log = () => false;
+		}
+	}, []);
+
 	return (
 		<React.Fragment>
 			{errors.notDefault && <ErrorToast />}
@@ -129,7 +135,7 @@ const mapStateToProps = (state) => ({
 	errors: state.errors,
 	clinics: state.clinics,
 	available_hours: state.available_hours,
-	state: state
+	state: state,
 });
 
 export default connect(mapStateToProps)(Root);

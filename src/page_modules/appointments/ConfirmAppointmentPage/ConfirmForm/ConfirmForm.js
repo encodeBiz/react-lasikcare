@@ -65,6 +65,7 @@ const ConfirmForm = (properties) => {
 					validateOnChange={false}
 				>
 					{(props) => {
+						console.log(props);
 						return (
 							<Form onSubmit={props.handleSubmit}>
 								{/* Grupo de edad */}
@@ -217,7 +218,7 @@ const ConfirmForm = (properties) => {
 										label={" JETZT TERMIN VEREINBAREN"}
 										action={() => {}}
 										type={"submit"}
-										disabled={!props.isValid}
+										disabled={!props.isValid && props.dirty && !props.values.accepted}
 									/>
 								</div>
 							</Form>

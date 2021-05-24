@@ -3,6 +3,10 @@
 
 .calendar-appointment-page {
 	.card-container {
+		@include phone-small {
+			display: flex;
+			justify-content: center;
+		}
 		margin-bottom: 20px;
 		.button-container {
 			padding: 20px;

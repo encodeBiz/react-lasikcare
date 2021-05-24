@@ -61,6 +61,9 @@ body {
   body .wrapper-general {
     max-width: 87%;
     margin: auto; }
+    @media (min-width: 360px) {
+      body .wrapper-general {
+        max-width: 100%; } }
     @media (min-width: 768px) {
       body .wrapper-general {
         max-width: 70%; } }
@@ -119,6 +122,9 @@ body {
     text-align: center; }
     .wrapper-general .wrapper-text .uns-leid {
       color: #00619e; }
+    @media (min-width: 360px) {
+      .wrapper-general .wrapper-text {
+        max-width: 100%; } }
   .wrapper-general .buttons-container {
     width: 70%;
     margin: 0 auto;

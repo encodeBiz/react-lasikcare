@@ -1,5 +1,9 @@
 .calendar-appointment-page .card-container {
   margin-bottom: 20px; }
+  @media (min-width: 360px) {
+    .calendar-appointment-page .card-container {
+      display: flex;
+      justify-content: center; } }
   .calendar-appointment-page .card-container .button-container {
     padding: 20px; }
     .calendar-appointment-page .card-container .button-container .redirect-options {

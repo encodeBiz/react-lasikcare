@@ -30,7 +30,6 @@ const Calendar = (properties) => {
 	return (
 		<div className="calendar-container">
 			<DayPickerSingleDateController
-				// initialVisibleMonth={() => moment(properties. initialMonthString)}
 				numberOfMonths={1}
 				hideKeyboardShortcutsPanel={true}
 				daySize={properties.calendarWidth}
@@ -46,10 +45,20 @@ const Calendar = (properties) => {
 				}
 				date={date} // momentPropTypes.momentObj or null
 				onDateChange={onChange} // PropTypes.func.isRequired
-				focused={false} // PropTypes.bool
-				// onFocusChange={({ focused }) => properties.setFocused({ focused })} // PropTypes.func.isRequired
+				// focused={false} // PropTypes.bool
+				// onFocusChange={(item) => console.log(item)} // PropTypes.func.isRequired
 				onNextMonthClick={(e) => properties.onNextMonthClick(e)}
 				onPrevMonthClick={(e) => properties.onPreviousMonthClick(e)}
+				// isOutsideRange={(day1) =>
+				// 	properties.datesList?.length > 0 &&
+				// 	properties.datesList
+				// 		.map((item) => item.formattedDate)
+				// 		.some((day2) => {
+				// 			// console.log(day1);
+				// 			// console.log(day2);
+				// 			return !isSameDay(day1, day2);
+				// 		})
+				// }
 			></DayPickerSingleDateController>
 			<CalendarHour
 				activeIndex={properties.activeIndex}

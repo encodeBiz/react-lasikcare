@@ -34,6 +34,7 @@ import moment from "moment";
 import { setIsGlobalLoading, setOnlineGlobalLoading } from "../../../redux/loading/loading.actions";
 import Loading from "../../../shared_modules/Loading/Loading";
 import { IMAGES_SERVER } from "../../../constants/constants";
+import { setIsTimerActive } from "../../../redux/timer/timer.actions";
 
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store
@@ -101,6 +102,7 @@ const CityAppointmentPage = (properties) => {
 			await properties.fetchClinics();
 			setIsLoading(false);
 		} catch (error) {
+			setIsLoading(false);
 			properties.setGlobalError(error);
 		}
 	};
@@ -118,7 +120,18 @@ const CityAppointmentPage = (properties) => {
 	 */
 
 	useEffect(() => {
+		if (properties.timer.isTimerActive) {
+			return;
+		}
+
 		if (properties.clinics.clinics?.length > 0) {
+			
+			
+			// La llamada al timer tiene que hacerse aquí después de que
+			// la llamada a getClinics modifique el Loading del que
+			// depende este useEffect
+
+			startTimer();
 			const cities = JSON.parse(localStorage.getItem("tempCities"));
 			if (cities) {
 				getClinicsHours(cities);
@@ -130,6 +143,20 @@ const CityAppointmentPage = (properties) => {
 
 		// eslint-disable-next-line
 	}, [isLoading]);
+
+	/**
+	 * Activa el timer que impide que se realicen
+	 * varias llamadas consecutivas
+	 * en menos de un minuto
+	 */
+
+	const startTimer = () => {
+		properties.setIsTimerActive(true);
+
+		setTimeout(() => {
+			properties.setIsTimerActive(false);
+		}, 60000);
+	};
 
 	/**
 	 * @param {Object} selectedCities
@@ -370,6 +397,8 @@ const mapDispatchToProps = (dispatch) => ({
 	 */
 
 	setOnlineGlobalLoading: (onlineValue) => dispatch(setOnlineGlobalLoading(onlineValue)),
+
+	setIsTimerActive: (value) => dispatch(setIsTimerActive(value)),
 });
 
 const mapStateToProps = (state) => {
@@ -379,6 +408,7 @@ const mapStateToProps = (state) => {
 		available_hours: state.available_hours,
 		online_available_hours: state.online_available_hours,
 		loading: state.loading,
+		timer: state.isTimerActive,
 	};
 };
 
