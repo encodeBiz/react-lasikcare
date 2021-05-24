@@ -6,6 +6,7 @@ import "./SorryPage.scss";
 import lens from "../../assets/images/icons/icon-search.svg";
 import { clearAppointment } from "../../redux/appointment_config/appointmentConfig.actions";
 import { connect } from "react-redux";
+import { IMAGES_SERVER } from "../../constants/constants";
 
 const SorryPage = (properties) => {
 	const history = useHistory();
@@ -21,7 +22,7 @@ const SorryPage = (properties) => {
 	return (
 		<div className="wrapper-general">
 			<div className="wrapper-img">
-				<img src={lens} alt="" />
+				<img src={process.env.NODE_ENV ? lens : IMAGES_SERVER + lens} alt="" />
 			</div>
 
 			<div className="wrapper-text">

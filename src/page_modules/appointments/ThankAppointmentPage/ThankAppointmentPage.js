@@ -11,6 +11,7 @@ import {
 	setAppoinmentConfig,
 } from "../../../redux/appointment_config/appointmentConfig.actions";
 import iconThanks from "../../../assets/images/icons/icon-thanks.svg";
+import { IMAGES_SERVER } from "../../../constants/constants";
 
 /**
  *
@@ -22,8 +23,7 @@ import iconThanks from "../../../assets/images/icons/icon-thanks.svg";
 const ThankAppointmentPage = (properties) => {
 	const { appointment } = properties;
 	const [children, setChildren] = useState([]);
-	const [appointmentType, setAppointmentType] = useState(''); 
-
+	const [appointmentType, setAppointmentType] = useState("");
 
 	const info = [
 		{
@@ -49,7 +49,7 @@ const ThankAppointmentPage = (properties) => {
 
 	useEffect(() => {
 		setCityInStorage(appointment.city);
-		setAppointmentType(appointment.type); 
+		setAppointmentType(appointment.type);
 		clearTempCities();
 		clearReduxAppointmentState();
 		// eslint-disable-next-line
@@ -121,7 +121,10 @@ const ThankAppointmentPage = (properties) => {
 			<CardContainer>
 				<div className="thank-you-message">
 					<div className="icon-thanks">
-						<img src={iconThanks} alt="Thank you logo" />
+						<img
+							src={process.env.NODE_ENV === "development" ? iconThanks : IMAGES_SERVER + iconThanks}
+							alt="Thank you logo"
+						/>
 					</div>
 					<h3>Vielen Dank</h3>
 					<p>
@@ -143,7 +146,14 @@ const ThankAppointmentPage = (properties) => {
 								children.map((child, index) => {
 									return (
 										<div className="child" key={index}>
-											<img src={child.imgSource} alt="..." />
+											<img
+												src={
+													process.env.NODE_ENV === "development"
+														? child.imgSource
+														: IMAGES_SERVER + child.imgSource
+												}
+												alt="..."
+											/>
 											<p>{child.text}</p>
 										</div>
 									);

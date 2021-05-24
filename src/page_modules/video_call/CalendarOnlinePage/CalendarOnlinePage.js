@@ -15,6 +15,7 @@ import Loading from "../../../shared_modules/Loading/Loading";
 import Card from "../../../shared_modules/Card/Card";
 import opcionOne from "../../../assets/images/icons/type-free.svg";
 import opcionTwo from "../../../assets/images/icons/calendar-icon.svg";
+import { IMAGES_SERVER } from "../../../constants/constants";
 
 const CalendarOnlinePage = (properties) => {
 	const history = useHistory();
@@ -290,7 +291,14 @@ const CalendarOnlinePage = (properties) => {
 												value={button.type}
 												onChange={() => {}}
 											/>
-											<img src={button.img} alt="..."></img>
+											<img
+												src={
+													process.env.NODE_ENV === "development"
+														? button.img
+														: IMAGES_SERVER + button.img
+												}
+												alt="..."
+											></img>
 											{button.text} <strong>{button.label}</strong>
 										</label>
 									</Card>

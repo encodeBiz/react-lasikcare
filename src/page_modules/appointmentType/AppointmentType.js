@@ -10,6 +10,7 @@ import iconPresencial from "../../assets/images/icons/icon-presencial.svg";
 import Button from "../../shared_modules/Button/Button";
 import iconVideo from "../../assets/images/icons/icon-videocall.svg";
 import Stepper from "../../shared_modules/Stepper/Stepper";
+import { IMAGES_SERVER } from "../../constants/constants";
 
 const AppointmentType = (properties) => {
 	const homeLinksConfig = [
@@ -72,7 +73,15 @@ const AppointmentType = (properties) => {
 										<div className="first-step-card">
 											<h3>{link.title}</h3>
 											<div>
-												<img className="home-card-image" src={link.image} alt="..." />
+												<img
+													className="home-card-image"
+													src={
+														process.env.NODE_ENV === "development"
+															? link.image
+															: IMAGES_SERVER + link.image
+													}
+													alt="..."
+												/>
 											</div>
 											<p>{link.subtitle}</p>
 										</div>

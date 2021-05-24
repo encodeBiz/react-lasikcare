@@ -24,6 +24,7 @@ import iconPay from "../../../assets/images/icons/type-free.svg";
 // Estilos
 
 import "./TypeAppointmentPage.scss";
+import { IMAGES_SERVER } from "../../../constants/constants";
 /**
  *
  * @param {Object} properties
@@ -118,7 +119,15 @@ const TypeAppointmentPage = (properties) => {
 									clickParam={typeItem.type}
 									customClass={stateType === typeItem.type ? "selected" : ""}
 								>
-									<img src={typeItem.image} alt="..." className="type-image" />
+									<img
+										src={
+											process.env.NODE_ENV === "development"
+												? typeItem.image
+												: IMAGES_SERVER + typeItem.image
+										}
+										alt="..."
+										className="type-image"
+									/>
 									<p>{typeItem.text}</p>
 								</Card>
 							);

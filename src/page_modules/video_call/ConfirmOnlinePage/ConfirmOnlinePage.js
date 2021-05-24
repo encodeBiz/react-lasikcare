@@ -13,6 +13,7 @@ import {
 	setAppoinmentConfig,
 } from "../../../redux/appointment_config/appointmentConfig.actions";
 import Loading from "../../../shared_modules/Loading/Loading";
+import { IMAGES_SERVER } from "../../../constants/constants";
 
 const ConfirmOnlinePage = (properties) => {
 	const [children, setChildren] = useState([]);
@@ -145,7 +146,14 @@ const ConfirmOnlinePage = (properties) => {
 										children.map((child, index) => {
 											return (
 												<div className="child" key={index}>
-													<img src={child.imgSource} alt="..." />
+													<img
+														src={
+															process.env.NODE_ENV === "development"
+																? child.imgSource
+																: IMAGES_SERVER + child.imgSource
+														}
+														alt="..."
+													/>
 													<p>{child.text}</p>
 												</div>
 											);

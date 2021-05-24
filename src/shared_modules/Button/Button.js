@@ -1,4 +1,5 @@
 import React from "react";
+import { IMAGES_SERVER } from "../../constants/constants";
 import "./Button.scss";
 
 /**
@@ -22,7 +23,10 @@ const Button = (properties) => {
 		>
 			{icon ? (
 				<span>
-					<img src={icon} alt="..." />
+					<img
+						src={process.env.NODE_ENV === "development" ? icon : IMAGES_SERVER + icon}
+						alt="..."
+					/>
 				</span>
 			) : null}
 			{properties.label}

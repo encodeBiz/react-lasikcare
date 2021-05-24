@@ -16,6 +16,7 @@ import "moment/locale/de";
 import ConfirmForm from "./ConfirmForm/ConfirmForm";
 import "../../../styles/App.scss";
 import Loading from "../../../shared_modules/Loading/Loading";
+import { IMAGES_SERVER } from "../../../constants/constants";
 
 const ConfirmPage = (properties) => {
 	const [children, setChildren] = useState([]);
@@ -139,7 +140,14 @@ const ConfirmPage = (properties) => {
 										children.map((child, index) => {
 											return (
 												<div className="child" key={index}>
-													<img src={child.imgSource} alt="..." />
+													<img
+														src={
+															process.env.NODE_ENV === "development"
+																? child.imgSource
+																: IMAGES_SERVER + child.imgSource
+														}
+														alt="..."
+													/>
 													<p>{child.text}</p>
 												</div>
 											);

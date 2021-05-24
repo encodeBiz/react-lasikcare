@@ -33,6 +33,7 @@ import { setGlobalError } from "../../../redux/errors/errors.actions";
 import moment from "moment";
 import { setIsGlobalLoading, setOnlineGlobalLoading } from "../../../redux/loading/loading.actions";
 import Loading from "../../../shared_modules/Loading/Loading";
+import { IMAGES_SERVER } from "../../../constants/constants";
 
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store
@@ -278,7 +279,15 @@ const CityAppointmentPage = (properties) => {
 								const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
 								return (
 									<Card key={index} handleClick={handleCitySelect} clickParam={city}>
-										<img src={cityIcon?.icon} alt={cityIcon?.icon} className="type-image-city" />
+										<img
+											src={
+												process.env.NODE_ENV === "development"
+													? cityIcon?.icon
+													: IMAGES_SERVER + cityIcon?.icon
+											}
+											alt={cityIcon?.icon}
+											className="type-image-city"
+										/>
 										<p>{city.name}</p>
 									</Card>
 								);

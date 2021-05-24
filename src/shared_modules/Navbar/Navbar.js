@@ -3,6 +3,7 @@ import Button from "../Button/Button";
 import "./Navbar.scss";
 import logoLasik from "../../assets/images/icons/logo_lasik.jpg";
 import { Link } from "react-router-dom";
+import { IMAGES_SERVER } from "../../constants/constants";
 
 const Navbar = () => {
 	useEffect(() => {
@@ -29,7 +30,10 @@ const Navbar = () => {
 		<div className="navbar-container">
 			<div className="logo">
 				<Link to="/">
-					<img src={logoLasik} alt="..."></img>
+					<img
+						src={process.env.NODE_ENV === "development" ? logoLasik : IMAGES_SERVER + logoLasik}
+						alt="..."
+					></img>
 				</Link>
 			</div>
 			<div className="second-nav">
