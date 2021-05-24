@@ -22,9 +22,9 @@ import Card from "../../../shared_modules/Card/Card";
 
 // Assets
 
-import madridIcon from "../../../assets/images/icons/one.jpg";
+import madridIcon from "../../../assets/images/icons/one.png";
 import albaceteIcon from "../../../assets/images/icons/dos.jpg";
-import toledoIcon from "../../../assets/images/icons/tres.jpg";
+import toledoIcon from "../../../assets/images/icons/tres.png";
 
 //Estilos
 

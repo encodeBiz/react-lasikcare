@@ -2,6 +2,7 @@
   "name": "react-lasikcare",
   "version": "0.2.18",
   "private": true,
+  "homepage": "/wp-content/plugins/react-wp/react-lasikcare/build",
   "dependencies": {
     "@babel/runtime": "^7.12.13",
     "@testing-library/jest-dom": "^5.11.4",

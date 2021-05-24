@@ -36,4 +36,4 @@ export const appointmentSteps = [
 
 export const VIDEO_KEYCLI = "GRLCV";
 export const VIDEO_TYPE = "VIDEO";
-export const IMAGES_SERVER = "";
+export const IMAGES_SERVER = "/evotion/wp-content/plugins/react-wp/react-lasikcare/build";

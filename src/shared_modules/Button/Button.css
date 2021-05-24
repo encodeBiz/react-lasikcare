@@ -50,12 +50,12 @@
       background-color: #FF9900;
       color: white; }
       .main-btn.back-button:hover:after {
-        background-image: url(../../assets/images/icons/arrow-white.svg); }
+        background-image: url(./../../assets/images/icons/arrow-white.svg); }
     .main-btn.back-button:after {
       content: "";
       position: absolute;
       left: 13px;
-      background-image: url(../../assets/images/icons/back.svg);
+      background-image: url(./../../assets/images/icons/back.svg);
       background-repeat: no-repeat;
       width: 35px;
       height: 35px; }

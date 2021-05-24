@@ -8,12 +8,13 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 let store = createStore(combineReducers(reducers), applyMiddleware(thunk));
-
-ReactDOM.render(
+const target = document.getElementById('erw-root') || document.getElementById('root');;
+if (target) { ReactDOM.render(
 	<Provider store={store}>
-		<BrowserRouter>
+		<BrowserRouter basename={"/evotion/prueba-react"}>
 			<Root />
 		</BrowserRouter>
 	</Provider>,
-	document.getElementById("root")
-);
+	target
+);}
+
