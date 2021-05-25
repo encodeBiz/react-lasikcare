@@ -28,7 +28,7 @@ import Video_call from "../page_modules/video_call/VideoCall";
 // Estilos
 
 import "../styles/App.scss";
-import SorryPage from "../page_modules/sorryPage/SorryPage";
+//import SorryPage from "../page_modules/sorryPage/SorryPage";
 import ErrorToast from "../shared_modules/ErrorToast/ErrorToast";
 
 const routes = [
@@ -109,7 +109,7 @@ const Root = (properties) => {
 				*/}
 
 				<Route exact path={"/"} component={CityAppointmentPage} />
-				<Route exact path={"/sorry"} component={SorryPage} />
+				{/* <Route exact path={"/sorry"} component={SorryPage} /> */}
 
 				{properties.clinics.status === "pending" ? (
 					<Redirect to={"/"} />
