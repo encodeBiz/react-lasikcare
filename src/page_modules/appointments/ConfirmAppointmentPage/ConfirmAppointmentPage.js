@@ -109,7 +109,7 @@ const ConfirmPage = (properties) => {
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
 			await properties.sendAppointmentData();
-			const city = appointment.city.name;
+			const city = appointment.city.clinica;
 			localStorage.setItem("city", city);
 		} catch (error) {
 			console.log(error);

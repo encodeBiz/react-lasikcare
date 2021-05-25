@@ -11,7 +11,6 @@ let store = createStore(combineReducers(reducers), applyMiddleware(thunk));
 const target = document.getElementById('erw-root') || document.getElementById('root');;
 if (target) { ReactDOM.render(
 	<Provider store={store}>
-		}
 		<BrowserRouter basename={"/termine-ws-react"}>
 			<Root />
 		</BrowserRouter>
