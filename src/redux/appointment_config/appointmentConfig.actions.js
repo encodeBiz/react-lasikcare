@@ -57,7 +57,7 @@ export const sendAppointmentData = (isOnline) => {
 
 			const query_params = {
 				clinic_id: appointment.type === "VIDEO" ? "GRLCV" : appointment.city.keycli,
-				clinic_name: appointment.city.name,
+				clinic_name: appointment.city.clinica,
 				clinic_address: appointment.city.address,
 				date: appointment.calendar_hour.fecha,
 				hour: appointment.calendar_hour.horaInicio,

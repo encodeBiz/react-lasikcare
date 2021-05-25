@@ -56,19 +56,19 @@ const CityAppointmentPage = (properties) => {
 		{
 			name: "München",
 			address: "SOME_ADDRESS1",
-			keycli: "CITY1",
+			keycli: "GR021",
 			icon: madridIcon,
 		},
 		{
 			name: "Augsburg",
 			address: "SOME_ADDRESS2",
-			keycli: "CITY2",
+			keycli: "GR022",
 			icon: albaceteIcon,
 		},
 		{
 			name: "Rosenheim",
 			address: "SOME_ADDRESS2",
-			keycli: "CITY2",
+			keycli: "GR023",
 			icon: toledoIcon,
 		},
 	];
@@ -88,7 +88,11 @@ const CityAppointmentPage = (properties) => {
 	 */
 
 	useEffect(() => {
-		getClinics();
+		if (properties.clinics.status !== "finish") {
+			getClinics();
+		} else {
+			setIsLoading(false);
+		}
 		// eslint-disable-next-line
 	}, []);
 
@@ -155,7 +159,7 @@ const CityAppointmentPage = (properties) => {
 
 		setTimeout(() => {
 			properties.setIsTimerActive(false);
-		}, 60000);
+		}, 30000);
 	};
 
 	/**
@@ -236,15 +240,15 @@ const CityAppointmentPage = (properties) => {
 	 * Si no, se limita a hacer una llamada por la ciudad seleccionada.
 	 *
 	 */
-	const handleCitySelect = ({ keycli, name, address }) => {
+	const handleCitySelect = ({ keycli, clinica, address }) => {
 		if (keycli) {
 			// Setea la ciudad en el local storage
 
-			setCityInStorage({ keycli, name, address });
+			setCityInStorage({ keycli, clinica, address });
 
 			// Setea la ciudad en redux
 
-			properties.setAppoinmentConfig("city", { keycli, name, address });
+			properties.setAppoinmentConfig("city", { keycli, clinica, address });
 
 			// Redirige hacia el siguiente paso
 
@@ -252,7 +256,7 @@ const CityAppointmentPage = (properties) => {
 
 			// Hace la llamada a la API
 
-			getClinicsHours([{ keycli, name }]);
+			getClinicsHours([{ keycli, name: clinica }]);
 		}
 	};
 
@@ -301,7 +305,7 @@ const CityAppointmentPage = (properties) => {
 					<CardContainer isColumn={true}>
 						{properties.clinics.clinics?.length > 0 &&
 							properties.clinics.clinics.map((city, index) => {
-								const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
+								const cityIcon = cities.find((cityWithIcon) => cityWithIcon.keycli === city.keycli);
 								return (
 									<Card key={index} handleClick={handleCitySelect} clickParam={city}>
 										<img
@@ -313,7 +317,7 @@ const CityAppointmentPage = (properties) => {
 											alt={cityIcon?.icon}
 											className="type-image-city"
 										/>
-										<p>{city.name}</p>
+										<p>{city.clinica}</p>
 									</Card>
 								);
 							})}

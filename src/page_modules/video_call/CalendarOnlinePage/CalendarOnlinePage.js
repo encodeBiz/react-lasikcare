@@ -257,7 +257,7 @@ const CalendarOnlinePage = (properties) => {
 
 	const handleScroll = () => {
 		if (buttonRef) {
-			buttonRef.current.scrollIntoView({ behavior: "smooth" });
+			buttonRef.current.scrollIntoView(false, { behavior: "smooth" });
 		}
 	};
 

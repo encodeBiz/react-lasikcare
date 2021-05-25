@@ -91,7 +91,7 @@ const ThankAppointmentPage = (properties) => {
 		const children = [
 			{
 				imgSource: locationUbi,
-				text: appointment.city.name,
+				text: appointment.city.clinica,
 			},
 
 			{
