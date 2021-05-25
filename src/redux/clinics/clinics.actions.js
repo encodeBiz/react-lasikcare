@@ -12,7 +12,7 @@ export const fetchClinics = () => {
     return async (dispatch) => {
         try {
             const clinics = await getClinicas();
-			const clinicsData = {
+						const clinicsData = {
                 status: "finish",
 								clinics,
 			};
