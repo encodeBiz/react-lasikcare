@@ -78,6 +78,10 @@ body #erw-root {
 		max-width: 87%;
 		margin: auto;
 
+		@include phone-small {
+			max-width: 100%;
+		}
+
 		@include tablet-medium {
 			max-width: 70%;
 		}

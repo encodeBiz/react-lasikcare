@@ -104,7 +104,7 @@ const ThankAppointmentPage = (properties) => {
 			},
 		];
 
-		if (appointment.type === "online") {
+		if (appointment.type === "VIDEO") {
 			children.shift();
 		}
 
@@ -113,7 +113,7 @@ const ThankAppointmentPage = (properties) => {
 	const thankYouTexts = {
 		BI: "Unverbindliches Informationsgespräch",
 		BIDI: "Unverbindliches Informationsgespräch + Ärltliche Voruntersuchung(ca. 40€)",
-		online: "Online\n video-beratung von zu hause aus",
+		VIDEO: "Online\n video-beratung von zu hause aus",
 	};
 
 	return (

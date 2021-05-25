@@ -7,7 +7,7 @@ import Button from "../../../shared_modules/Button/Button";
 import Calendar from "../../../shared_modules/Calendar/Calendar";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import useWindowSize from "../../../hooks/useWindowSize";
 import { fetchOnlineAvailableHours } from "../../../redux/available_online_hours/available_online_hours.actions";
@@ -21,6 +21,7 @@ const CalendarOnlinePage = (properties) => {
 	const history = useHistory();
 	const today = moment();
 	const { width } = useWindowSize();
+	const buttonRef = useRef(null);
 	const [calendarWidth, setCalendarWidth] = useState(null);
 	const [activeIndex, setActiveIndex] = useState(null);
 	const [initialDate] = useState(today);
@@ -92,7 +93,7 @@ const CalendarOnlinePage = (properties) => {
 	 */
 	const formatCalendarWidth = (width) => {
 		//a partir de 1080 no debe ejecutarse la función
-		if (width <= 320) return 35;
+		if (width <= 360) return 35;
 		else if (width <= 414 || width <= 1080) return 40;
 		else if (width <= 980) return 50;
 		else return 50;
@@ -250,12 +251,14 @@ const CalendarOnlinePage = (properties) => {
 	 * Scroll cuando se selecciona una nueva hora
 	 */
 
+	/**
+	 * Scroll cuando se selecciona una nueva hora
+	 */
+
 	const handleScroll = () => {
-		window.scroll({
-			top: document.body.scrollHeight + 1000,
-			left: 0,
-			behavior: "smooth",
-		});
+		if (buttonRef) {
+			buttonRef.current.scrollIntoView({ behavior: "smooth" });
+		}
 	};
 
 	///////////////////////////////////////////
@@ -328,13 +331,13 @@ const CalendarOnlinePage = (properties) => {
 							/>
 						</CardContainer>
 					)}
-					{appointment.calendar_date && appointment.calendar_hour ? (
-						<div className="container-button">
+					<div className="container-button" ref={buttonRef}>
+						{appointment.calendar_date && appointment.calendar_hour ? (
 							<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
-						</div>
-					) : (
-						<div className="container-button button-fake-height"></div>
-					)}
+						) : (
+							<div className="button-fake-height"></div>
+						)}
+					</div>
 				</div>
 			</div>
 		</React.Fragment>

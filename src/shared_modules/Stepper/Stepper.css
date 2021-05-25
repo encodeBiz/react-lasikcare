@@ -97,10 +97,3 @@
             top: 20px; } }
       .step-container .progress-bar li:first-child::after {
         content: none; }
-      .step-container .progress-bar li:active {
-        color: dodgerblue; }
-        .step-container .progress-bar li:active:before {
-          border-color: dodgerblue;
-          background-color: dodgerblue; }
-        .step-container .progress-bar li:active:after {
-          background-color: dodgerblue; }

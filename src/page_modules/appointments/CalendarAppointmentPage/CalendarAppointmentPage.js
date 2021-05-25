@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import Calendar from "../../../shared_modules/Calendar/Calendar";
 
@@ -32,20 +32,22 @@ const CalendarAppointmentPage = (properties) => {
 	const today = moment();
 	const { available_hours, appointment } = properties;
 
+	const buttonRef = useRef(null);
+
 	const buttonsConfig = [
-		{
-			action: "Erstberatung",
-			text: "Erstberatung",
-			label: "",
-			type: "BI",
-			img: opcionOne,
-		},
 		{
 			action: "Voruntersuchung",
 			text: "Voruntersuchung",
 			label: "40€",
 			type: "BIDI",
 			img: opcionTwo,
+		},
+		{
+			action: "Erstberatung",
+			text: "Erstberatung",
+			label: "",
+			type: "BI",
+			img: opcionOne,
 		},
 	];
 
@@ -116,7 +118,7 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 	const formatCalendarWidth = (width) => {
 		//a partir de 1080 no debe ejecutarse la función
-		if (width <= 320) return 35;
+		if (width <= 360) return 35;
 		else if (width <= 414 || width <= 1080) return 40;
 		else if (width <= 980) return 50;
 		else return 50;
@@ -140,7 +142,7 @@ const CalendarAppointmentPage = (properties) => {
 			properties.setAppoinmentConfig("calendar_hour", null);
 		}
 
-		const finded = dataCalendar.filter((item) => {
+		const finded = dataCalendar?.filter((item) => {
 			return item.formattedDate.format("DD-MM-yyyy") === date.format("DD-MM-yyyy");
 		});
 
@@ -221,6 +223,7 @@ const CalendarAppointmentPage = (properties) => {
 	const handleSelectedHour = (hour, index) => {
 		properties.setAppoinmentConfig("calendar_hour", hour);
 		setActiveIndex(index);
+		handleScroll();
 	};
 
 	/**
@@ -300,6 +303,17 @@ const CalendarAppointmentPage = (properties) => {
 			console.log(error);
 		}
 	};
+
+	/**
+	 * Scroll cuando se selecciona una nueva hora
+	 */
+
+	const handleScroll = () => {
+		if (buttonRef) {
+			buttonRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
 	/////////////////////////////
 	// Renderizado del componente
 	/////////////////////////////
@@ -373,13 +387,13 @@ const CalendarAppointmentPage = (properties) => {
 							)}
 						</CardContainer>
 					)}
-					{appointment.calendar_date && appointment.calendar_hour ? (
-						<div className="container-button">
+					<div className="container-button" ref={buttonRef}>
+						{appointment.calendar_date && appointment.calendar_hour ? (
 							<Button type={"rounded-button"} label={"TERMIN WÄHLEN"} action={onConfirmHour} />
-						</div>
-					) : (
-						<div className="container-button button-fake-height"></div>
-					)}
+						) : (
+							<div className="button-fake-height"></div>
+						)}
+					</div>
 				</div>
 			</div>
 		</React.Fragment>

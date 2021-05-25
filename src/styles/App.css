@@ -73,6 +73,9 @@ body #erw-root {
   body #erw-root .wrapper-general {
     max-width: 87%;
     margin: auto; }
+    @media (min-width: 360px) {
+      body .wrapper-general {
+        max-width: 100%; } }
     @media (min-width: 768px) {
       body #erw-root .wrapper-general {
         max-width: 70%; } }
