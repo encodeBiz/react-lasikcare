@@ -56,7 +56,8 @@
 				background-color: #f0f9f9;
 				border: 1px solid $secondaryColor;
 				color: $secondaryColor;
-
+				position: relative;
+				z-index: 2;
 				@include tablet-medium {
 					width: 35px;
 					height: 35px;
@@ -79,7 +80,7 @@
 				border-bottom: 1px dashed $secondaryColor;
 				top: 15px;
 				left: -50%;
-				z-index: -1;
+				z-index: 1;
 
 				@include tablet-medium {
 					top: 17px;

@@ -1,56 +1,56 @@
 .main-btn {
-  background-color: #FF9900;
-  width: 100%;
-  height: max-content;
-  padding: 15px;
-  margin: auto;
-  font-family: "Gilroy";
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #ffffff;
-  border: 1.7px solid #FF9900;
-  border-radius: 50px;
-  cursor: pointer;
-  margin: 30px 0px;
-  text-transform: uppercase;
-  transition: all 300ms ease-in-out; }
+  background-color: #FF9900 !important;
+  width: 100% !important;
+  height: max-content !important;
+  padding: 15px !important;
+  margin: auto !important;
+  font-family: "Gilroy" !important;
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+  color: #ffffff !important;
+  border: 1.7px solid #FF9900 !important;
+  border-radius: 50px !important;
+  cursor: pointer !important;
+  margin: 30px 0px !important;
+  text-transform: uppercase !important;
+  transition: all 300ms ease-in-out !important; }
   .main-btn:disabled {
-    background-color: #808080;
-    border: 1.7px solid #808080; }
+    background-color: #808080 !important;
+    border: 1.7px solid #808080 !important; }
   .main-btn:hover {
-    color: #FF9900;
-    background-color: transparent; }
+    color: #FF9900 !important;
+    background-color: transparent !important; }
   .main-btn:focus {
-    outline: 0; }
+    outline: 0 !important; }
   @media (min-width: 768px) {
     .main-btn {
-      width: 70%; } }
+      width: 70% !important; } }
   @media (min-width: 980px) {
     .main-btn {
-      width: 80%; } }
+      width: 80% !important; } }
   @media (min-width: 1080px) {
     .main-btn {
-      font-size: 0.8rem; } }
+      font-size: 0.8rem !important; } }
   @media (min-width: 1280px) {
     .main-btn {
-      width: 70%; } }
+      width: 70% !important; } }
   .main-btn.secondary-btn {
-    background-color: transparent; }
+    background-color: transparent !important; }
   .main-btn.back-button {
-    position: relative;
-    font-size: 1rem;
-    background-color: transparent;
-    color: #FF9900;
-    width: max-content;
-    text-transform: initial;
-    box-sizing: border-box;
-    padding: 10px 25px 10px 36px;
-    margin: 0px; }
+    position: relative !important;
+    font-size: 1rem !important;
+    background-color: transparent !important;
+    color: #FF9900 !important;
+    width: max-content !important;
+    text-transform: initial !important;
+    box-sizing: border-box !important;
+    padding: 10px 25px 10px 36px !important;
+    margin: 0px !important; }
     .main-btn.back-button:hover {
-      background-color: #FF9900;
-      color: white; }
+      background-color: #FF9900 !important;
+      color: white !important; }
       .main-btn.back-button:hover:after {
-        background-image: url(./../../assets/images/icons/arrow-white.svg); }
+        background-image: url(./../../assets/images/icons/arrow-white.svg) !important; }
     .main-btn.back-button:after {
       content: "";
       position: absolute;

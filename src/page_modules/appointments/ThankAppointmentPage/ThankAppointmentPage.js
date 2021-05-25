@@ -120,7 +120,7 @@ const ThankAppointmentPage = (properties) => {
 		<div className="wrapper-general change-width">
 			<CardContainer>
 				<div className="thank-you-message">
-					<div className="icon-thanks">
+					<div>
 						<img
 							src={process.env.NODE_ENV === "development" ? iconThanks : IMAGES_SERVER + iconThanks}
 							alt="Thank you logo"

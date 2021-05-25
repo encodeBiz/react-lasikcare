@@ -57,7 +57,7 @@
 .card-container .container-form .form-group input, .card-container .container-form .form-group select {
   outline: 0;
   margin: auto;
-  border-width: 0 0 1px;
+  border-width: 0 0 1px !important;
   border-color: rgba(151, 151, 151, 0.2);
   padding: 0px 0px 5px 0px;
   background: none;
@@ -70,7 +70,8 @@
 .card-container .container-form .form-group select {
   background-image: url(../../../../assets/images/icons/arrow-select.svg);
   background-repeat: no-repeat;
-  background-position: right; }
+  background-position: right;
+  box-shadow: none; }
 
 .card-container .container-form .form-group.marg-from {
   margin-bottom: 35px; }
@@ -99,9 +100,112 @@
       font-size: .8rem;
       line-height: 15px;
       display: inline;
-      margin-left: 5px; }
+      margin-left: 5px;
+      color: #808080 !important; }
       @media (min-width: 1080px) {
         .card-container .container-form .checkbox label span {
           font-size: .6rem; } }
       .card-container .container-form .checkbox label span span {
         color: #FF9900; }
+
+.main-btn {
+  text-align: center;
+  background-color: #FF9900 !important;
+  width: 100% !important;
+  height: max-content !important;
+  padding: 15px !important;
+  margin: auto !important;
+  font-family: "Gilroy" !important;
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+  color: #ffffff !important;
+  border: 1.7px solid #FF9900 !important;
+  border-radius: 50px !important;
+  cursor: pointer !important;
+  margin: 30px 0px !important;
+  text-transform: uppercase !important;
+  transition: all 300ms ease-in-out !important; }
+  .main-btn:disabled {
+    background-color: #808080 !important;
+    border: 1.7px solid #808080 !important; }
+  .main-btn:hover {
+    color: #FF9900 !important;
+    background-color: transparent !important; }
+  .main-btn:focus {
+    outline: 0 !important; }
+  @media (min-width: 768px) {
+    .main-btn {
+      width: 70% !important; } }
+  @media (min-width: 980px) {
+    .main-btn {
+      width: 80% !important; } }
+  @media (min-width: 1080px) {
+    .main-btn {
+      font-size: 0.8rem !important; } }
+  @media (min-width: 1280px) {
+    .main-btn {
+      width: 70% !important; } }
+  .main-btn.secondary-btn {
+    background-color: transparent !important; }
+  .main-btn.back-button {
+    position: relative !important;
+    font-size: 1rem !important;
+    background-color: transparent !important;
+    color: #FF9900 !important;
+    width: max-content !important;
+    text-transform: initial !important;
+    box-sizing: border-box !important;
+    padding: 10px 25px 10px 36px !important;
+    margin: 0px !important; }
+    .main-btn.back-button:hover {
+      background-color: #FF9900 !important;
+      color: white !important; }
+      .main-btn.back-button:hover:after {
+        background-image: url(./../../../../assets/images/icons/arrow-white.svg) !important; }
+    .main-btn.back-button:after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      background-image: url(./../../../../assets/images/icons/back.svg);
+      background-repeat: no-repeat;
+      width: 35px;
+      height: 35px; }
+      @media (min-width: 1080px) {
+        .main-btn.back-button:after {
+          top: 8px;
+          width: 35px;
+          height: 35px; } }
+    @media (min-width: 1080px) {
+      .main-btn.back-button {
+        font-size: 0.7rem; } }
+  .main-btn.nav-number {
+    border-radius: 0px;
+    margin: 0px;
+    font-size: 0.9rem;
+    padding: 12px 12px 12px 30px;
+    position: relative; }
+    .main-btn.nav-number:after {
+      content: "";
+      background-image: url(./../../../../assets/images/icons/telf.svg);
+      background-repeat: no-repeat;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 6px;
+      top: 10px; }
+    @media (min-width: 768px) {
+      .main-btn.nav-number {
+        width: 100%; } }
+    @media (min-width: 1080px) {
+      .main-btn.nav-number {
+        font-size: 0.7rem; } }
+
+.transparent-button {
+  background-color: transparent !important;
+  color: #FF9900; }
+  .transparent-button:hover {
+    background-color: #FF9900 !important;
+    color: white; }
+
+.small-margin {
+  margin: 5px 0; }

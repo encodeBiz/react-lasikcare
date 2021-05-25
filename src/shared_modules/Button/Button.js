@@ -2,6 +2,9 @@ import React from "react";
 import { IMAGES_SERVER } from "../../constants/constants";
 import "./Button.scss";
 
+
+
+
 /**
  *
  * @param {Object} properties Propiedades del componente
@@ -13,6 +16,23 @@ import "./Button.scss";
  * @param {String} properties.type Tipo del botón
  */
 const Button = (properties) => {
+	const styleBtn = {
+		backgroundColor: '#f90 !important',
+    width: '100% !important',
+    height: 'max-content !important',
+    padding: '15px !important',
+    fontFamily: '"Gilroy" !important',
+    fontSize: '1.1rem !important',
+    fontWeight: '700 !important',
+    color: '#fff !important',
+    border: '1.7px solid #f90 !important',
+    borderRadius: '50px !important',
+    cursor: 'pointer !important',
+    margin: '30px 0 !important',
+    textTransform:'uppercase !important',
+    transition: 'all .3s ease-in-out !important'
+}
+
 	const { icon } = properties;
 	return (
 		<button

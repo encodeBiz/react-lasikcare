@@ -67,7 +67,9 @@
         margin: 0 auto 5px;
         background-color: #f0f9f9;
         border: 1px solid #00619e;
-        color: #00619e; }
+        color: #00619e;
+        position: relative;
+        z-index: 2; }
         @media (min-width: 768px) {
           .step-container .progress-bar li:before {
             width: 35px;
@@ -86,7 +88,7 @@
         border-bottom: 1px dashed #00619e;
         top: 15px;
         left: -50%;
-        z-index: -1; }
+        z-index: 1; }
         @media (min-width: 768px) {
           .step-container .progress-bar li:after {
             top: 17px; } }

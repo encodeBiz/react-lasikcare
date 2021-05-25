@@ -8,7 +8,7 @@
     .wrapper-general .title-seccion {
       padding: 35px 0px 20px 0px; } }
   .wrapper-general .title-seccion h1 {
-    color: #00619e;
+    color: #00619e !important;
     text-align: center;
     font-size: 1.8rem;
     margin-top: 0px; }

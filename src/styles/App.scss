@@ -3,6 +3,8 @@
 @import "./partials/mixins";
 @import "./partials/placeholders";
 
+
+
 /////////////////////////////
 /////*****RESET*****////
 /////////////////////////////
@@ -36,17 +38,34 @@ html {
 	}
 }
 
-main {
+body #erw-root {
 	background: lighten($primaryColorBg, 12%);
 	background-image: url(./../assets/images/icons/bg-lasik.png);
 	background-repeat: no-repeat;
 	background-size: 360px;
-	background-position-y: 500px;
+	background-position-y: 90%;
 	background-position-x: right;
-	font-family: $primaryFont;
+	font-family: $primaryFont !important;
 	font-size: 1rem;
 	color: lighten($dark, 80%);
-
+	padding: 100px 0 200px 0;
+	h1,h2,h3,h4,h5,h6,p,a,span,div, strong, b{
+		font-family: $primaryFont !important;
+	}
+	.DayPicker_weekHeader_ul{
+		margin-left: 0 !important;  
+    margin-bottom: 0 !important;
+	
+	}
+	.CalendarMonth_table{
+		border:0 !important;
+		tr{
+			background-color: white !important;
+			td{
+				border: 0 !important;
+			}
+		}
+	} 
 	@include tablet-medium {
 		background-size: 500px;
 	}

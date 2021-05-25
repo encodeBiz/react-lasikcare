@@ -212,13 +212,12 @@ const ConfirmForm = (properties) => {
 									</div>
 								</CardContainer>
 								<div className="container-button">
-									<Button
-										// type={"rounded-button"}
-										label={" JETZT TERMIN VEREINBAREN"}
-										action={() => {}}
-										type={"submit"}
-										disabled={!props.isValid}
-									/>
+									<div 
+										className = {'main-btn'}
+										onClick = {props.isValid ? props.handleSubmit : ()=>{}}
+									>
+									JETZT TERMIN VEREINBAREN
+									</div>
 								</div>
 							</Form>
 						);
