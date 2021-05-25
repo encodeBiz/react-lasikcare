@@ -56,19 +56,19 @@ const CityAppointmentPage = (properties) => {
 		{
 			name: "München",
 			address: "SOME_ADDRESS1",
-			keycli: "CITY1",
+			keycli: "GR021",
 			icon: madridIcon,
 		},
 		{
 			name: "Augsburg",
 			address: "SOME_ADDRESS2",
-			keycli: "CITY2",
+			keycli: "GR022",
 			icon: albaceteIcon,
 		},
 		{
 			name: "Rosenheim",
 			address: "SOME_ADDRESS2",
-			keycli: "CITY2",
+			keycli: "GR023",
 			icon: toledoIcon,
 		},
 	];
@@ -168,7 +168,7 @@ const CityAppointmentPage = (properties) => {
 		properties.setIsGlobalLoading(true);
 
 		let firstMonthPromises = [];
-		// let secondPromises = [];
+		let secondPromises = [];
 
 		try {
 			selectedCities.forEach((clinic) => {
@@ -177,22 +177,22 @@ const CityAppointmentPage = (properties) => {
 					properties.updateAvailableHours(clinic.keycli, "BIDI", currentMonth, currentMonthNum)
 				);
 			});
-			// selectedCities.forEach((clinic) => {
-			// 	secondPromises.push(
-			// 		properties.updateAvailableHours(clinic.keycli, "BI", nextMonth, nextMonthNum),
-			// 		properties.updateAvailableHours(clinic.keycli, "BIDI", nextMonth, nextMonthNum),
-			// 		properties.updateAvailableHours(clinic.keycli, "BI", nextSecondMonth, nextSecondMonthNum),
-			// 		properties.updateAvailableHours(
-			// 			clinic.keycli,
-			// 			"BIDI",
-			// 			nextSecondMonth,
-			// 			nextSecondMonthNum
-			// 		)
-			// 	);
-			// });
+			selectedCities.forEach((clinic) => {
+				secondPromises.push(
+					properties.updateAvailableHours(clinic.keycli, "BI", nextMonth, nextMonthNum),
+					properties.updateAvailableHours(clinic.keycli, "BIDI", nextMonth, nextMonthNum),
+					properties.updateAvailableHours(clinic.keycli, "BI", nextSecondMonth, nextSecondMonthNum),
+					properties.updateAvailableHours(
+						clinic.keycli,
+						"BIDI",
+						nextSecondMonth,
+						nextSecondMonthNum
+					)
+				);
+			});
 
 			await Promise.all(firstMonthPromises);
-			// await Promise.all(secondPromises);
+			await Promise.all(secondPromises);
 		} catch (error) {
 			console.log(error);
 		}
@@ -209,8 +209,8 @@ const CityAppointmentPage = (properties) => {
 
 		try {
 			await properties.fetchOnlineAvailableHours(currentMonth);
-			// await properties.fetchOnlineAvailableHours(nextMonth);
-			// await properties.fetchOnlineAvailableHours(nextSecondMonth);
+			await properties.fetchOnlineAvailableHours(nextMonth);
+			await properties.fetchOnlineAvailableHours(nextSecondMonth);
 			properties.setOnlineGlobalLoading(false);
 		} catch (error) {
 			properties.setOnlineGlobalLoading(false);
@@ -301,7 +301,8 @@ const CityAppointmentPage = (properties) => {
 					<CardContainer isColumn={true}>
 						{properties.clinics.clinics?.length > 0 &&
 							properties.clinics.clinics.map((city, index) => {
-								const cityIcon = cities.find((cityWithIcon) => cityWithIcon.name === city.name);
+								const cityIcon = cities.find((cityWithIcon) => cityWithIcon.keycli === city.keycli);
+								console.log('CardContainer' , cityIcon)
 								return (
 									<Card key={index} handleClick={handleCitySelect} clickParam={city}>
 										<img
@@ -313,7 +314,7 @@ const CityAppointmentPage = (properties) => {
 											alt={cityIcon?.icon}
 											className="type-image-city"
 										/>
-										<p>{city.name}</p>
+										<p>{city.clinica}</p>
 									</Card>
 								);
 							})}

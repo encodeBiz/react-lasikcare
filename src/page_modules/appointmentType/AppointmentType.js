@@ -69,6 +69,7 @@ const AppointmentType = (properties) => {
 				<div className="presencial-online-wrapper">
 					<CardContainer>
 						{homeLinksConfig.map((link, index) => {
+							console.log('test', link.image)
 							return (
 								<Link to={link.url} key={index} className="card-link">
 									<Card key={index} handleClick={handleClick} clickParam={link.type}>

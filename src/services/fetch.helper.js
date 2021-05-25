@@ -34,7 +34,7 @@ export const fetch_helper = async (url,method,headers,body,query_params) => {
     ).then(res => res.json())
     return response
   } catch (error) {
-    //alert('Error en el metodo helper fetch')
+    alert('Error en el metodo helper fetch')
     console.error(error, 'ENDPOINT=>', url)
   }
 }

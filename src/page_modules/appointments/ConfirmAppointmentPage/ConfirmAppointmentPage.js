@@ -72,7 +72,7 @@ const ConfirmPage = (properties) => {
 		const children = [
 			{
 				imgSource: locationUbi,
-				text: appointment.city.name,
+				text: appointment.city.clinica,
 			},
 			{
 				imgSource: calendarUbi,

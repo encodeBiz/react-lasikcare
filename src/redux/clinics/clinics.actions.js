@@ -14,7 +14,7 @@ export const fetchClinics = () => {
             const clinics = await getClinicas();
 			const clinicsData = {
                 status: "finish",
-				clinics,
+								clinics,
 			};
 			return dispatch(setClinicsAppointments(clinicsData));
 		} catch (error) {

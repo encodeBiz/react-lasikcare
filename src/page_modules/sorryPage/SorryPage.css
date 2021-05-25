@@ -63,7 +63,8 @@ body #erw-root {
     body #erw-root .CalendarMonth_table tr {
       background-color: white !important; }
       body #erw-root .CalendarMonth_table tr td {
-        border: 0 !important; }
+        border: 0 !important;
+        vertical-align: middle !important; }
   @media (min-width: 768px) {
     body #erw-root {
       background-size: 500px; } }
