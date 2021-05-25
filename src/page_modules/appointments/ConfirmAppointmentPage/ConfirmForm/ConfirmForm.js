@@ -65,7 +65,7 @@ const ConfirmForm = (properties) => {
 					validateOnChange={false}
 				>
 					{(props) => {
-						console.log(props);
+						console.log(props.isSubmitting, props.isValid);
 						return (
 							<Form onSubmit={props.handleSubmit}>
 								{/* Grupo de edad */}
@@ -202,7 +202,6 @@ const ConfirmForm = (properties) => {
 														type="checkbox"
 														id="accepted"
 														value={props.values.accepted}
-														// checked={props.values.accepted}
 														onChange={(e) => props.handleChange(e.target.value)}
 														onBlur={props.handleBlur}
 													/>
@@ -218,7 +217,7 @@ const ConfirmForm = (properties) => {
 										label={" JETZT TERMIN VEREINBAREN"}
 										action={() => {}}
 										type={"submit"}
-										disabled={!props.isValid && props.dirty && !props.values.accepted}
+										disabled={!(props.isValid && props.dirty) || props.isSubmitting}
 									/>
 								</div>
 							</Form>
