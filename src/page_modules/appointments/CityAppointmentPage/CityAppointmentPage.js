@@ -125,8 +125,6 @@ const CityAppointmentPage = (properties) => {
 		}
 
 		if (properties.clinics.clinics?.length > 0) {
-			
-			
 			// La llamada al timer tiene que hacerse aquí después de que
 			// la llamada a getClinics modifique el Loading del que
 			// depende este useEffect
@@ -139,7 +137,9 @@ const CityAppointmentPage = (properties) => {
 
 			properties.setAppoinmentConfig("currentStep", 0);
 		}
-		getAllOnlineHours();
+		if (isLoading) {
+			getAllOnlineHours();
+		}
 
 		// eslint-disable-next-line
 	}, [isLoading]);
@@ -168,7 +168,7 @@ const CityAppointmentPage = (properties) => {
 		properties.setIsGlobalLoading(true);
 
 		let firstMonthPromises = [];
-		let secondPromises = [];
+		// let secondPromises = [];
 
 		try {
 			selectedCities.forEach((clinic) => {
@@ -177,22 +177,22 @@ const CityAppointmentPage = (properties) => {
 					properties.updateAvailableHours(clinic.keycli, "BIDI", currentMonth, currentMonthNum)
 				);
 			});
-			selectedCities.forEach((clinic) => {
-				secondPromises.push(
-					properties.updateAvailableHours(clinic.keycli, "BI", nextMonth, nextMonthNum),
-					properties.updateAvailableHours(clinic.keycli, "BIDI", nextMonth, nextMonthNum),
-					properties.updateAvailableHours(clinic.keycli, "BI", nextSecondMonth, nextSecondMonthNum),
-					properties.updateAvailableHours(
-						clinic.keycli,
-						"BIDI",
-						nextSecondMonth,
-						nextSecondMonthNum
-					)
-				);
-			});
+			// selectedCities.forEach((clinic) => {
+			// 	secondPromises.push(
+			// 		properties.updateAvailableHours(clinic.keycli, "BI", nextMonth, nextMonthNum),
+			// 		properties.updateAvailableHours(clinic.keycli, "BIDI", nextMonth, nextMonthNum),
+			// 		properties.updateAvailableHours(clinic.keycli, "BI", nextSecondMonth, nextSecondMonthNum),
+			// 		properties.updateAvailableHours(
+			// 			clinic.keycli,
+			// 			"BIDI",
+			// 			nextSecondMonth,
+			// 			nextSecondMonthNum
+			// 		)
+			// 	);
+			// });
 
 			await Promise.all(firstMonthPromises);
-			await Promise.all(secondPromises);
+			// await Promise.all(secondPromises);
 		} catch (error) {
 			console.log(error);
 		}
@@ -209,8 +209,8 @@ const CityAppointmentPage = (properties) => {
 
 		try {
 			await properties.fetchOnlineAvailableHours(currentMonth);
-			await properties.fetchOnlineAvailableHours(nextMonth);
-			await properties.fetchOnlineAvailableHours(nextSecondMonth);
+			// await properties.fetchOnlineAvailableHours(nextMonth);
+			// await properties.fetchOnlineAvailableHours(nextSecondMonth);
 			properties.setOnlineGlobalLoading(false);
 		} catch (error) {
 			properties.setOnlineGlobalLoading(false);
