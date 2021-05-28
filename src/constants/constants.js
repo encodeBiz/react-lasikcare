@@ -6,7 +6,7 @@ export const videoConferenceSteps = [
 	},
 	{
 		stepNumber: 1,
-		stepText: "Ikontakdaten",
+		stepText: "Kontaktdaten",
 		url: "/videollamadas/confirm",
 	},
 ];
@@ -29,7 +29,7 @@ export const appointmentSteps = [
 	},
 	{
 		stepNumber: 3,
-		stepText: "Ikontakdaten",
+		stepText: "Kontaktdaten",
 		url: "/appointments/confirm",
 	},
 ];

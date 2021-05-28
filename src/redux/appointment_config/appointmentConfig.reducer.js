@@ -20,9 +20,9 @@ const initialState = {
 		ageGroup: "", // Altersgruppe
 		gender: "", // Geschlecht
 		name: "", //Vorname
-		lastName: "", // Nachnamen
-		phoneNumber: "", // Telefonnumber
-		email: "", // Email adresse
+		lastName: "", // Nachname
+		phoneNumber: "", // Telefonnummer
+		email: "", // E-Mail Adresse
 		comment: "", // Nachricht
 		accepted: false,
 	},

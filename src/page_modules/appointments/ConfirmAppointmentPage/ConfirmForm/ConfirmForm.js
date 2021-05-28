@@ -5,7 +5,6 @@ import InputBlock from "../../../../shared_modules/InputBlock/InputBlock";
 import ErrorDialog from "../../../../shared_modules/ErrorDialog/ErrorDialog";
 import "./ConfirmForm.scss";
 import CardContainer from "../../../../shared_modules/CardContainer/CardContainer";
-import Button from "../../../../shared_modules/Button/Button";
 
 /**
  *
@@ -126,7 +125,7 @@ const ConfirmForm = (properties) => {
 
 											<div className="form-group  marg-from" onClick={clearErrors}>
 												<InputBlock
-													placeholder="Nachnamen"
+													placeholder="Nachname"
 													values={props.values.surname}
 													handleBlur={props.handleBlur}
 													handleChange={props.handleChange}
@@ -144,7 +143,7 @@ const ConfirmForm = (properties) => {
 
 										<div className="form-group full-width  marg-from full" onClick={clearErrors}>
 											<InputBlock
-												placeholder="Telefonnumber"
+												placeholder="Telefonnummer"
 												values={props.values.phoneNumber}
 												handleBlur={props.handleBlur}
 												handleChange={props.handleChange}
@@ -161,8 +160,8 @@ const ConfirmForm = (properties) => {
 
 										<div className="form-group full-width  marg-from" onClick={clearErrors}>
 											<InputBlock
-												// label="Email adresse"
-												placeholder="Email adresse"
+												// label="E-Mail Adresse"
+												placeholder="E-Mail Adresse"
 												values={props.values.email}
 												handleBlur={props.handleBlur}
 												handleChange={props.handleChange}
