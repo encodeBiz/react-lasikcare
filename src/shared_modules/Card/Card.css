@@ -48,6 +48,9 @@
     font-weight: bold;
     font-size: 0.9rem;
     margin-left: 15px; }
+    @media (min-width: 360px) {
+      .card p {
+        font-size: 0.8rem; } }
     @media (min-width: 540px) {
       .card p {
         font-size: 1.1rem; } }

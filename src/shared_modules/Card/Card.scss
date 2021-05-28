@@ -37,6 +37,10 @@
 		font-size: 0.9rem;
 		margin-left: 15px;
 
+		@include phone-small{
+			font-size: 0.8rem;
+		}
+
 		@include tablet-small {
 			font-size: 1.1rem;
 		}
