@@ -36,15 +36,15 @@ const CalendarAppointmentPage = (properties) => {
 
 	const buttonsConfig = [
 		{
-			action: "Voruntersuchung",
-			text: "Voruntersuchung",
+			action: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
+			text: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
 			label: "40€",
 			type: "BIDI",
 			img: opcionTwo,
 		},
 		{
-			action: "Erstberatung",
-			text: "Erstberatung",
+			action: "Unverbindliches Informationsgespräch",
+			text: "Unverbindliches Informationsgespräch",
 			label: "",
 			type: "BI",
 			img: opcionOne,

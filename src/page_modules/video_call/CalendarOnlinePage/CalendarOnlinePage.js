@@ -33,13 +33,13 @@ const CalendarOnlinePage = (properties) => {
 
 	const buttonsConfig = [
 		{
-			text: "Online video-beratung von zu hause aus",
+			text: "Online Video-Beratung von zu Hause aus",
 			type: "VIDEO",
 			img: opcionOne,
 		},
 		{
-			action: "Voruntersuchung",
-			text: "Voruntersuchung",
+			action: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
+			text: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
 			label: "40€",
 			type: "BIDI",
 			img: opcionTwo,

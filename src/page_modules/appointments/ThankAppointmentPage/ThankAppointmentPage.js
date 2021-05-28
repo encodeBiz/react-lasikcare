@@ -25,6 +25,9 @@ const ThankAppointmentPage = (properties) => {
 	const [children, setChildren] = useState([]);
 	const [appointmentType, setAppointmentType] = useState("");
 
+	console.log("**********");
+	console.log(appointment);
+
 	const info = [
 		{
 			title: "Terminbestätigung",
@@ -96,7 +99,7 @@ const ThankAppointmentPage = (properties) => {
 
 			{
 				imgSource: calendarUbi,
-				text: appointment.calendar_date.locale("de").format("dddd DD"),
+				text: appointment.calendar_date.locale("de").format("dddd, DD.MM"),
 			},
 			{
 				imgSource: timeUbi,

@@ -126,7 +126,7 @@ const ConfirmForm = (properties) => {
 
 											<div className="form-group  marg-from" onClick={clearErrors}>
 												<InputBlock
-													placeholder="Nachnamen"
+													placeholder="Nachname"
 													values={props.values.surname}
 													handleBlur={props.handleBlur}
 													handleChange={props.handleChange}
@@ -144,7 +144,7 @@ const ConfirmForm = (properties) => {
 
 										<div className="form-group full-width  marg-from full" onClick={clearErrors}>
 											<InputBlock
-												placeholder="Telefonnumber"
+												placeholder="Telefonnummer"
 												values={props.values.phoneNumber}
 												handleBlur={props.handleBlur}
 												handleChange={props.handleChange}
@@ -161,8 +161,7 @@ const ConfirmForm = (properties) => {
 
 										<div className="form-group full-width  marg-from" onClick={clearErrors}>
 											<InputBlock
-												// label="Email adresse"
-												placeholder="Email adresse"
+												placeholder="E-Mail Adresse"
 												values={props.values.email}
 												handleBlur={props.handleBlur}
 												handleChange={props.handleChange}
