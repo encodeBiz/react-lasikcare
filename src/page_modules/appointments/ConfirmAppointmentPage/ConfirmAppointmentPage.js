@@ -76,7 +76,7 @@ const ConfirmPage = (properties) => {
 			},
 			{
 				imgSource: calendarUbi,
-				text: appointment.calendar_date.locale("de").format("dddd DD"),
+				text: appointment.calendar_date.locale("de").format("dddd, DD.MM"),
 			},
 			{
 				imgSource: timeUbi,
@@ -134,7 +134,7 @@ const ConfirmPage = (properties) => {
 						<div className="appointment-summary">
 							<h2>Ihr Wunschtermin</h2>
 							<CardContainer className="change-h3">
-								<h3>unverbindliches Informationsgespräch</h3>
+								<h3>Unverbindliches Informationsgespräch</h3>
 								<div className="summary-icon">
 									{children &&
 										children.map((child, index) => {
