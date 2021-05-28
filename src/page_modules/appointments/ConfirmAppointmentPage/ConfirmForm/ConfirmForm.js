@@ -160,10 +160,6 @@ const ConfirmForm = (properties) => {
 
 										<div className="form-group full-width  marg-from" onClick={clearErrors}>
 											<InputBlock
-<<<<<<< HEAD
-												// label="E-Mail Adresse"
-=======
->>>>>>> online
 												placeholder="E-Mail Adresse"
 												values={props.values.email}
 												handleBlur={props.handleBlur}

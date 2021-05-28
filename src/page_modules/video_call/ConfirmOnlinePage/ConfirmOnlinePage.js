@@ -146,11 +146,7 @@ const ConfirmOnlinePage = (properties) => {
 						<div className="appointment-summary">
 							<h2>Ihr Wunschtermin</h2>
 							<CardContainer className="change-h3">
-<<<<<<< HEAD
-								<h3>Unverbindliches Informationsgespräch</h3>
-=======
 								<h3>{texts[appointment.type]}</h3>
->>>>>>> online
 
 								<div className="summary-icon">
 									{children &&
