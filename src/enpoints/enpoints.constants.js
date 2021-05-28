@@ -1,5 +1,4 @@
 
-*/
 
 
 export const get_clinicas = 'https://www.lasikcare.de/termine-ws-v2/api_react/getClinicas.php'
