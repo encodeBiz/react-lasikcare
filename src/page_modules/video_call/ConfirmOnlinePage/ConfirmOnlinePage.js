@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import CardContainer from "../../../shared_modules/CardContainer/CardContainer";
@@ -32,8 +33,8 @@ const ConfirmOnlinePage = (properties) => {
 	 */
 
 	useEffect(() => {
+		window.scrollTo(0, 0)
 		properties.setAppoinmentConfig("currentStep", 3);
-		// eslint-disable-next-line
 	}, []);
 
 	/**
@@ -115,6 +116,12 @@ const ConfirmOnlinePage = (properties) => {
 		}
 	};
 
+	const texts = {
+		BIDI: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
+		BI: "Unverbindliches Informationsgespräch",
+		VIDEO: "Online Video-Beratung von zu Hause aus",
+	};
+
 	///////////////////////////////////////////
 	// RENDERIZADO DEL COMPONENTE
 	///////////////////////////////////////////
@@ -139,7 +146,11 @@ const ConfirmOnlinePage = (properties) => {
 						<div className="appointment-summary">
 							<h2>Ihr Wunschtermin</h2>
 							<CardContainer className="change-h3">
+<<<<<<< HEAD
 								<h3>Unverbindliches Informationsgespräch</h3>
+=======
+								<h3>{texts[appointment.type]}</h3>
+>>>>>>> online
 
 								<div className="summary-icon">
 									{children &&
