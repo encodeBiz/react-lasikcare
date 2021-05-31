@@ -31,7 +31,8 @@
       opacity: 0.6; }
     .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay__highlighted_calendar {
       opacity: 1;
-      background-color: transparent; }
+      background-color: transparent;
+      font-weight: 900 !important; }
       .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay__highlighted_calendar:focus {
         background: transparent; }
     .calendar-container .DayPicker__withBorder .CalendarMonth_table .CalendarDay__default {

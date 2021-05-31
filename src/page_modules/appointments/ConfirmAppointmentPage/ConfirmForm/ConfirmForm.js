@@ -5,14 +5,16 @@ import InputBlock from "../../../../shared_modules/InputBlock/InputBlock";
 import ErrorDialog from "../../../../shared_modules/ErrorDialog/ErrorDialog";
 import "./ConfirmForm.scss";
 import CardContainer from "../../../../shared_modules/CardContainer/CardContainer";
-
+import Button from "../../../../shared_modules/Button/Button";
+import PhoneInput from "react-phone-number-input";
+// import "react-phone-number-input/style.css";
+import de from "react-phone-number-input/locale/de";
 /**
  *
  * @param {Object} properties
  * @param {Function} properties.handleSubmit
  * @param {String} properties.errorMessage
  * @param {Function} properties.setErrorMessage
- *
  *
  */
 
@@ -142,14 +144,20 @@ const ConfirmForm = (properties) => {
 										{/* Teléfono */}
 
 										<div className="form-group full-width  marg-from full" onClick={clearErrors}>
-											<InputBlock
-												placeholder="Telefonnummer"
-												values={props.values.phoneNumber}
-												handleBlur={props.handleBlur}
-												handleChange={props.handleChange}
-												paramChange="phoneNumber"
-												paramBlur="phoneNumber"
-												type={"text"}
+											<label>Telefonnummer</label>
+											<PhoneInput
+												placeholder={"Telefonnummer"}
+												value={props.values.phoneNumber}
+												onChange={(e) => {
+													return e !== undefined ? (props.values.phoneNumber = e) : null;
+												}}
+												defaultCountry="DE"
+												withCountryCallingCode={true}
+												country={false}
+												labels={de}
+												international
+												countryOptionsOrder={["DE", "AT", "CH", "|", "..."]}
+												smartCaret={false}
 											/>
 
 											{props.touched.phoneNumber && props.errors.phoneNumber ? (
