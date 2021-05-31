@@ -1,135 +1,196 @@
+@import "../../../../styles/partials/fonts";
+@import "../../../../styles/partials/variables";
+@import "../../../../styles/partials/mixins";
+@import "../../../../styles/partials/placeholders";
 
-@import "../../../../styles/partials/fonts"; 
-@import "../../../../styles/partials/variables"; 
-@import "../../../../styles/partials/mixins"; 
-@import "../../../../styles/partials/placeholders"; 
+%texto-form {
+	color: #b9b9b9;
+	font-family: "Gilroy";
+	font-weight: bold;
+	font-size: 0.9rem;
+	opacity: 0.9;
 
-%texto-form{
-    color:#B9B9B9 ;
-    font-family: 'Gilroy';
-    font-weight: bold;
-    font-size:.9rem;
-    opacity: 0.9;
-
-      @include desktop-small{
-      font-size: .7rem;
-      }
+	@include desktop-small {
+		font-size: 0.7rem;
+	}
 }
 
-.card-container{
+.card-container {
+	.container-form {
+		@include tablet-medium {
+			padding: 10px 0px 0px 20px;
+		}
 
-    .container-form{
+		@include desktop-small {
+			padding: 10px 0px 0px 15px;
+		}
 
-        @include tablet-medium{
-            padding: 10px 0px 0px 20px;
-        }
+		.form-error {
+			text-align: left;
+			margin: 0px;
+			font-size: 0.85rem;
 
-        @include desktop-small{
-        padding: 10px 0px 0px 15px;
-        }
+			@include desktop-medium {
+				font-size: 0.6rem;
+			}
+		}
 
-        .form-error{
-            text-align: left;
-            margin: 0px;
-            font-size: 0.85rem;
+		.inline-form-group {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
 
-               @include desktop-medium{
-               font-size: 0.6rem;
-               }
-           }
-       
-           .inline-form-group{
-               display: grid;
-               grid-template-columns: repeat(2, 1fr);
-       
-               input, select{
-               width: 93%;
-               }
-           }
-           
-           .form-group {
-       
-               input, select{
-                   outline: 0;
-                   margin:auto;
-                   border-width: 0 0 1px;
-                   border-color: rgba(151, 151, 151, 0.2);
-                   padding: 0px 0px 5px 0px;
-                   background: none;
-                   -webkit-appearance: none;
-       
-                   &:focus{
-                   box-shadow: none;
-                   }
-       
-                   @extend %texto-form;
-           
-                   &::placeholder{
-                   margin: 30px 0px 10px 0px;
-                     
-                      @extend %texto-form;
-                   }
-               }
-       
-               select{
-               background-image: url(../../../../assets/images/icons/arrow-select.svg);
-               background-repeat: no-repeat;
-               background-position: right;
-               }
-       
-               &.marg-from{
-               margin-bottom: 35px;
-               }
-           }
-       
-           .full-width{
-             
-               input{
-               width: 97%;
-               }
-           }
-           
-           .checkbox{
-            margin-top: 15px;
-           
-               label{
-               display: flex;
-           
-                   input[type='checkbox']{
-                       -webkit-appearance: checkbox !important;
-                       background: darkgoldenrod;
-                       width: 12%;
-                       border-color: $texto;
-                       opacity: 0.6;
-                       margin: 0;
+			input,
+			select {
+				width: 93%;
+			}
+		}
 
-                         @include tablet-medium{
-                         width: 3%;
-                         }
+		.form-group {
+			
+			input,
+			label,
+			select {
+				outline: 0;
+				margin: auto;
+				border-width: 0 0 1px;
+				border-color: rgba(151, 151, 151, 0.2);
+				padding: 0px 0px 5px 0px;
+				background: none;
+				-webkit-appearance: none;
 
-                         @include desktop-small{
-                         width: 5%;
-                         }
-                   }
-           
-                   span{
-                   font-size: .8rem;
-                   line-height: 15px;
-                   display: inline;
-                   margin-left: 5px;
+				&:focus {
+					box-shadow: none;
+				}
 
-                      @include desktop-small{
-                      font-size: .6rem;
-                      }
-           
-                      span{
-                      color: $tertiaryColor;
-                      }
-                   }
-               }
-           
-               
-           }
-       }
+				@extend %texto-form;
 
-    }
+				&::placeholder {
+					margin: 30px 0px 10px 0px;
+
+					@extend %texto-form;
+				}
+			}
+			
+			select {
+				background-image: url(../../../../assets/images/icons/arrow-select.svg);
+				background-repeat: no-repeat;
+				background-position: right;
+			}
+			
+			&.marg-from {
+				margin-bottom: 35px;
+			}
+		
+		}
+
+		.full-width {
+			input {
+				width: 97%;
+			}
+		}
+
+		.checkbox {
+			margin-top: 15px;
+
+			label {
+				display: flex;
+
+				input[type="checkbox"] {
+					-webkit-appearance: checkbox !important;
+					background: darkgoldenrod;
+					width: 12%;
+					border-color: $texto;
+					opacity: 0.6;
+					margin: 0;
+
+					@include tablet-medium {
+						width: 3%;
+					}
+
+					@include desktop-small {
+						width: 5%;
+					}
+				}
+
+				span {
+					font-size: 0.8rem;
+					line-height: 15px;
+					display: inline;
+					margin-left: 5px;
+
+					@include desktop-small {
+						font-size: 0.6rem;
+					}
+
+					span {
+						color: $tertiaryColor;
+					}
+				}
+			}
+		}
+	}
+	.country-flags {
+		color: black !important;
+	}
+}
+
+.PhoneInput {
+	/* This is done to stretch the contents of this component. */
+	display: flex;
+	align-items: center;
+}
+.PhoneInputCountryIconImg {
+	/* Fixes weird vertical space above the flag icon. */
+	/* https://gitlab.com/catamphetamine/react-phone-number-input/-/issues/7#note_348586559 */
+	display: block;
+	/* 3rd party <SVG/> flag icons won't stretch if they have `width` and `height`.
+	   Also, if an <SVG/> icon's aspect ratio was different, it wouldn't fit too. */
+	width: 100%;
+	height: 100%;
+	width: 2rem;
+}
+
+.PhoneInputCountryIcon--square {
+}
+
+.PhoneInputCountryIcon {
+	width: calc(var(1.5em) * var(1.5));
+	height: var(1.5em);
+}
+
+.PhoneInputCountry {
+	position: relative;
+	align-self: stretch;
+	display: flex;
+	align-items: center;
+	margin-right: 0.35em;
+	width: 5em;
+}
+
+.PhoneInputCountrySelect {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	border: 0;
+	opacity: 0;
+	cursor: pointer;
+    color: transparent !important;
+	option {
+		color: $texto;
+	}
+}
+
+.PhoneInputCountryIconUnicode {
+    font-size: 1.5em;
+}
+
+.PhoneInputCountrySelect[disabled] {
+	cursor: default;
+}
+
+.PhoneInputCountrySelectArrow {
+	display: hidden;
+}

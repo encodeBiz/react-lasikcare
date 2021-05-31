@@ -38,7 +38,7 @@ const CalendarAppointmentPage = (properties) => {
 		{
 			action: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
 			text: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
-			label: "40€",
+			// label: "40€",
 			type: "BIDI",
 			img: opcionTwo,
 		},

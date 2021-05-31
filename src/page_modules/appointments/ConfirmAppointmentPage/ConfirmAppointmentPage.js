@@ -28,6 +28,7 @@ const ConfirmPage = (properties) => {
 
 	const { appointment } = properties;
 
+
 	/**
 	 * @description Setea el currentStep del store.
 	 */
@@ -168,6 +169,7 @@ const ConfirmPage = (properties) => {
 								errorMessage={errorMessage}
 								setErrorMessage={setErrorMessage}
 								appointmentValues={appointment.clientData}
+								
 							/>
 						</div>
 					</div>

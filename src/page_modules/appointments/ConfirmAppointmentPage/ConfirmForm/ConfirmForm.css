@@ -22,15 +22,23 @@
   font-style: normal;
   font-display: swap; }
 
-.card-container .container-form .form-group input, .card-container .container-form .form-group select, .card-container .container-form .form-group input::placeholder, .card-container .container-form .form-group select::placeholder {
-  color: #B9B9B9;
-  font-family: 'Gilroy';
+.card-container .container-form .form-group input,
+.card-container .container-form .form-group label,
+.card-container .container-form .form-group select, .card-container .container-form .form-group input::placeholder,
+.card-container .container-form .form-group label::placeholder,
+.card-container .container-form .form-group select::placeholder {
+  color: #b9b9b9;
+  font-family: "Gilroy";
   font-weight: bold;
-  font-size: .9rem;
+  font-size: 0.9rem;
   opacity: 0.9; }
   @media (min-width: 1080px) {
-    .card-container .container-form .form-group input, .card-container .container-form .form-group select, .card-container .container-form .form-group input::placeholder, .card-container .container-form .form-group select::placeholder {
-      font-size: .7rem; } }
+    .card-container .container-form .form-group input,
+    .card-container .container-form .form-group label,
+    .card-container .container-form .form-group select, .card-container .container-form .form-group input::placeholder,
+    .card-container .container-form .form-group label::placeholder,
+    .card-container .container-form .form-group select::placeholder {
+      font-size: 0.7rem; } }
 
 @media (min-width: 768px) {
   .card-container .container-form {
@@ -51,10 +59,13 @@
 .card-container .container-form .inline-form-group {
   display: grid;
   grid-template-columns: repeat(2, 1fr); }
-  .card-container .container-form .inline-form-group input, .card-container .container-form .inline-form-group select {
+  .card-container .container-form .inline-form-group input,
+  .card-container .container-form .inline-form-group select {
     width: 93%; }
 
-.card-container .container-form .form-group input, .card-container .container-form .form-group select {
+.card-container .container-form .form-group input,
+.card-container .container-form .form-group label,
+.card-container .container-form .form-group select {
   outline: 0;
   margin: auto;
   border-width: 0 0 1px;
@@ -62,9 +73,13 @@
   padding: 0px 0px 5px 0px;
   background: none;
   -webkit-appearance: none; }
-  .card-container .container-form .form-group input:focus, .card-container .container-form .form-group select:focus {
+  .card-container .container-form .form-group input:focus,
+  .card-container .container-form .form-group label:focus,
+  .card-container .container-form .form-group select:focus {
     box-shadow: none; }
-  .card-container .container-form .form-group input::placeholder, .card-container .container-form .form-group select::placeholder {
+  .card-container .container-form .form-group input::placeholder,
+  .card-container .container-form .form-group label::placeholder,
+  .card-container .container-form .form-group select::placeholder {
     margin: 30px 0px 10px 0px; }
 
 .card-container .container-form .form-group select {
@@ -82,7 +97,7 @@
   margin-top: 15px; }
   .card-container .container-form .checkbox label {
     display: flex; }
-    .card-container .container-form .checkbox label input[type='checkbox'] {
+    .card-container .container-form .checkbox label input[type="checkbox"] {
       -webkit-appearance: checkbox !important;
       background: darkgoldenrod;
       width: 12%;
@@ -90,18 +105,71 @@
       opacity: 0.6;
       margin: 0; }
       @media (min-width: 768px) {
-        .card-container .container-form .checkbox label input[type='checkbox'] {
+        .card-container .container-form .checkbox label input[type="checkbox"] {
           width: 3%; } }
       @media (min-width: 1080px) {
-        .card-container .container-form .checkbox label input[type='checkbox'] {
+        .card-container .container-form .checkbox label input[type="checkbox"] {
           width: 5%; } }
     .card-container .container-form .checkbox label span {
-      font-size: .8rem;
+      font-size: 0.8rem;
       line-height: 15px;
       display: inline;
       margin-left: 5px; }
       @media (min-width: 1080px) {
         .card-container .container-form .checkbox label span {
-          font-size: .6rem; } }
+          font-size: 0.6rem; } }
       .card-container .container-form .checkbox label span span {
         color: #FF9900; }
+
+.card-container .country-flags {
+  color: black !important; }
+
+.PhoneInput {
+  /* This is done to stretch the contents of this component. */
+  display: flex;
+  align-items: center; }
+
+.PhoneInputCountryIconImg {
+  /* Fixes weird vertical space above the flag icon. */
+  /* https://gitlab.com/catamphetamine/react-phone-number-input/-/issues/7#note_348586559 */
+  display: block;
+  /* 3rd party <SVG/> flag icons won't stretch if they have `width` and `height`.
+	   Also, if an <SVG/> icon's aspect ratio was different, it wouldn't fit too. */
+  width: 100%;
+  height: 100%;
+  width: 2rem; }
+
+.PhoneInputCountryIcon {
+  width: calc(var(1.5em) * var(1.5));
+  height: var(1.5em); }
+
+.PhoneInputCountry {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  margin-right: 0.35em;
+  width: 5em; }
+
+.PhoneInputCountrySelect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+  color: transparent !important; }
+  .PhoneInputCountrySelect option {
+    color: #808080; }
+
+.PhoneInputCountryIconUnicode {
+  font-size: 1.5em; }
+
+.PhoneInputCountrySelect[disabled] {
+  cursor: default; }
+
+.PhoneInputCountrySelectArrow {
+  display: hidden; }

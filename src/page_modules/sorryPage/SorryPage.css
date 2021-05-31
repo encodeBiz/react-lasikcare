@@ -63,7 +63,7 @@ body {
     margin: auto; }
     @media (min-width: 360px) {
       body .wrapper-general {
-        max-width: 100%; } }
+        max-width: 90%; } }
     @media (min-width: 768px) {
       body .wrapper-general {
         max-width: 70%; } }
