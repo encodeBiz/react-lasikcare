@@ -253,7 +253,7 @@ const CityAppointmentPage = (properties) => {
 
 			// Redirige hacia el siguiente paso
 
-			history.push("/type");
+			history.push("/termintyp");
 
 			// Hace la llamada a la API
 

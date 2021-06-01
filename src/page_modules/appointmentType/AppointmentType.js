@@ -18,14 +18,14 @@ const AppointmentType = (properties) => {
 			title: "Zu Hause",
 			image: iconVideo,
 			subtitle: "Persönliche Video-Beratung von zu Hause aus",
-			url: "/videollamadas",
+			url: "/termintyp/videoberatung",
 			type: "VIDEO",
 		},
 		{
 			title: "Vor Ort",
 			image: iconPresencial,
 			subtitle: "Persönliche Beratung im nächstgelegenen LasikCare Standort",
-			url: "/appointments",
+			url: "/termintyp/vor-ort/",
 			type: "presencial",
 		},
 	];
@@ -53,7 +53,7 @@ const AppointmentType = (properties) => {
 
 	const handleClick = (type) => {
 		properties.setAppoinmentConfig("type", type);
-		history.push(type === "online" ? "/videollamadas" : "/appointments");
+		history.push(type === "online" ? "/termintyp/videoberatung" : "/termintyp/vor-ort/");
 	};
 
 	const goBack = () => history.push("/");

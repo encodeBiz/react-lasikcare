@@ -44,7 +44,7 @@ const CalendarOnlinePage = (properties) => {
 			// label: "40€",
 			type: "BIDI",
 			img: opcionTwo,
-			path: "/appointments/calendar",
+			path: "/termintyp/vor-ort/datum/",
 		},
 	];
 
@@ -245,7 +245,7 @@ const CalendarOnlinePage = (properties) => {
 			if (type === "BIDI") {
 				properties.setAppoinmentConfig("calendar_hour", null);
 				properties.setAppoinmentConfig("calendar_date", null);
-				history.push("/appointments/calendar");
+				history.push("/termintyp/vor-ort/datum/");
 			}
 		} catch (error) {
 			console.log(error);
@@ -285,7 +285,7 @@ const CalendarOnlinePage = (properties) => {
 	 * Una vez se ha seleccionado la fecha y la hora se activa esta función en el click del botón
 	 */
 
-	const onConfirmHour = () => history.push("/videollamadas/confirm");
+	const onConfirmHour = () => history.push("/termintyp/videoberatung/kontaktdaten");
 
 	/**
 	 * Scroll cuando se selecciona una nueva hora
@@ -302,7 +302,7 @@ const CalendarOnlinePage = (properties) => {
 	};
 
 	const redirectToTypes = () => {
-		history.push("/type");
+		history.push("/termintyp");
 	};
 
 	///////////////////////////////////////////

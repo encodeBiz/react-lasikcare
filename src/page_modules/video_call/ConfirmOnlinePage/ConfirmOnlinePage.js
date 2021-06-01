@@ -58,7 +58,7 @@ const ConfirmOnlinePage = (properties) => {
 			history.push("/sorry");
 		}
 		if (appointment.success) {
-			history.push("/appointments/thank");
+			history.push("/danke");
 		}
 	}, [appointment.error, appointment.success, history]);
 

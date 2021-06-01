@@ -11,7 +11,7 @@ import { IMAGES_SERVER } from "../../constants/constants";
 const SorryPage = (properties) => {
 	const history = useHistory();
 
-	const goToCalendar = () => history.push("/appointments/calendar");
+	const goToCalendar = () => history.push("/termintyp/vor-ort/datum/");
 
 	const { clearAppointment } = properties;
 

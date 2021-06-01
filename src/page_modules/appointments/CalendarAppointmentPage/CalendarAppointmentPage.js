@@ -297,7 +297,7 @@ const CalendarAppointmentPage = (properties) => {
 	 * Una vez se ha seleccionado la fecha y la hora se activa esta función en el click del botón
 	 */
 
-	const onConfirmHour = () => history.push("/appointments/confirm");
+	const onConfirmHour = () => history.push("/termintyp/vor-ort/datum/kontaktdaten/");
 
 	/**
 	 *
