@@ -94,7 +94,20 @@
   width: 97%; }
 
 .card-container .container-form .checkbox {
-  margin-top: 15px; }
+  margin-top: 15px;
+  display: block; }
+  .card-container .container-form .checkbox .privacy-link {
+    font-size: 0.8rem;
+    line-height: 15px;
+    display: inline;
+    margin-left: 5px;
+    color: inherit;
+    text-decoration: inherit; }
+    @media (min-width: 1080px) {
+      .card-container .container-form .checkbox .privacy-link {
+        font-size: 0.6rem; } }
+    .card-container .container-form .checkbox .privacy-link span {
+      color: #FF9900; }
   .card-container .container-form .checkbox label {
     display: flex; }
     .card-container .container-form .checkbox label input[type="checkbox"] {
@@ -110,66 +123,68 @@
       @media (min-width: 1080px) {
         .card-container .container-form .checkbox label input[type="checkbox"] {
           width: 5%; } }
-    .card-container .container-form .checkbox label span {
-      font-size: 0.8rem;
-      line-height: 15px;
-      display: inline;
-      margin-left: 5px; }
-      @media (min-width: 1080px) {
-        .card-container .container-form .checkbox label span {
-          font-size: 0.6rem; } }
-      .card-container .container-form .checkbox label span span {
-        color: #FF9900; }
 
 .card-container .country-flags {
   color: black !important; }
 
-.PhoneInput {
-  /* This is done to stretch the contents of this component. */
-  display: flex;
-  align-items: center; }
-
-.PhoneInputCountryIconImg {
-  /* Fixes weird vertical space above the flag icon. */
-  /* https://gitlab.com/catamphetamine/react-phone-number-input/-/issues/7#note_348586559 */
-  display: block;
-  /* 3rd party <SVG/> flag icons won't stretch if they have `width` and `height`.
-	   Also, if an <SVG/> icon's aspect ratio was different, it wouldn't fit too. */
-  width: 100%;
-  height: 100%;
-  width: 2rem; }
-
-.PhoneInputCountryIcon {
-  width: calc(var(1.5em) * var(1.5));
-  height: var(1.5em); }
-
-.PhoneInputCountry {
-  position: relative;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  margin-right: 0.35em;
-  width: 5em; }
-
-.PhoneInputCountrySelect {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-  border: 0;
-  opacity: 0;
-  cursor: pointer;
-  color: transparent !important; }
-  .PhoneInputCountrySelect option {
-    color: #808080; }
-
-.PhoneInputCountryIconUnicode {
-  font-size: 1.5em; }
-
-.PhoneInputCountrySelect[disabled] {
-  cursor: default; }
-
-.PhoneInputCountrySelectArrow {
-  display: hidden; }
+.phone-input-group {
+  display: flex; }
+  .phone-input-group .PhoneInput {
+    /* This is done to stretch the contents of this component. */
+    display: flex;
+    align-items: center; }
+  .phone-input-group .PhoneInputCountryIconImg {
+    /* Fixes weird vertical space above the flag icon. */
+    /* https://gitlab.com/catamphetamine/react-phone-number-input/-/issues/7#note_348586559 */
+    display: block;
+    /* 3rd party <SVG/> flag icons won't stretch if they have `width` and `height`.
+		   Also, if an <SVG/> icon's aspect ratio was different, it wouldn't fit too. */
+    height: 100%;
+    width: 1.7rem; }
+  .phone-input-group .PhoneInputCountryIcon {
+    width: calc(var(1.5em) * var(1.5));
+    height: var(1.5em); }
+  .phone-input-group select {
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: right; }
+  .phone-input-group .PhoneInputCountry {
+    position: relative;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    margin-right: 0.35em;
+    width: 3em; }
+  .phone-input-group .arrow-span {
+    background-image: url(../../../../assets/images/icons/arrow-select.svg);
+    background-repeat: no-repeat;
+    background-position: right;
+    margin-left: 100px; }
+  .phone-input-group .PhoneInputCountrySelect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    border: 0;
+    opacity: 0;
+    cursor: pointer;
+    color: transparent !important; }
+    .phone-input-group .PhoneInputCountrySelect option {
+      color: #808080; }
+  .phone-input-group .PhoneInputCountryIconUnicode {
+    font-size: 1.5em; }
+  .phone-input-group .PhoneInputCountrySelect[disabled] {
+    cursor: default; }
+  .phone-input-group .PhoneInputCountrySelectArrow {
+    display: hidden; }
+  .phone-input-group .phone-input-prefix {
+    display: inline-block;
+    position: absolute; }
+    .phone-input-group .phone-input-prefix span {
+      position: relative;
+      z-index: 10000000000;
+      color: red; }
+  .phone-input-group .arrow-container {
+    position: absolute; }

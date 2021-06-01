@@ -24,7 +24,7 @@ const AppointmentType = (properties) => {
 		{
 			title: "Vor Ort",
 			image: iconPresencial,
-			subtitle: "Persönliche Beratung im nächstgelegenen Lasik Care Standort",
+			subtitle: "Persönliche Beratung im nächstgelegenen LasikCare Standort",
 			url: "/appointments",
 			type: "presencial",
 		},

@@ -5,6 +5,7 @@ import "react-dates/lib/css/_datepicker.css";
 import { DayPickerSingleDateController } from "react-dates";
 import isSameDay from "react-dates/lib/utils/isSameDay";
 import CalendarHour from "./CalendarHour/CalendarHour";
+import moment from "moment";
 
 /**
  *
@@ -17,6 +18,7 @@ import CalendarHour from "./CalendarHour/CalendarHour";
  * @param {Array.<*>} properties.datesList
  * @param {Date} properties.initialDate
  * @param {String} properties.initialMonthString
+ * @param {Number} properties.initialMonth
  *
  */
 
@@ -30,9 +32,11 @@ const Calendar = (properties) => {
 	return (
 		<div className="calendar-container">
 			<DayPickerSingleDateController
+				initialVisibleMonth={() => moment().add(properties.initialMonth, "months")}
 				numberOfMonths={1}
 				hideKeyboardShortcutsPanel={true}
 				daySize={properties.calendarWidth}
+				focused={true}
 				// Si hay datos de fechas se pintan los días seleccionados
 				// Si no se pone un condicional para comprobar que properties.datesList no llega undefined
 				// Calendar rompe la aplicación

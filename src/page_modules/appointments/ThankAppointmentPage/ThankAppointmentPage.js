@@ -23,8 +23,8 @@ import { IMAGES_SERVER } from "../../../constants/constants";
 const ThankAppointmentPage = (properties) => {
 	const { appointment } = properties;
 	const [children, setChildren] = useState([]);
+	const [userEmail, setUserEmail] = useState("");
 	const [appointmentType, setAppointmentType] = useState("");
-
 
 	const info = [
 		{
@@ -51,6 +51,7 @@ const ThankAppointmentPage = (properties) => {
 	useEffect(() => {
 		setCityInStorage(appointment.city);
 		setAppointmentType(appointment.type);
+		setUserEmail(appointment.clientData.email);
 		clearTempCities();
 		clearReduxAppointmentState();
 		// eslint-disable-next-line
@@ -131,7 +132,7 @@ const ThankAppointmentPage = (properties) => {
 					<p>
 						Ihr Terminwusch für <strong> {thankYouTexts[appointmentType]} </strong> ist bei uns
 						eingegangen. Wir haben Ihnen eine Bestätigung an
-						<strong> {appointment.clientData.email} </strong>
+						<strong> {userEmail} </strong>
 						gesendet.
 					</p>
 				</div>

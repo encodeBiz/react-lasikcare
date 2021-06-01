@@ -19,7 +19,7 @@ export const appointmentSteps = [
 	},
 	{
 		stepNumber: 1,
-		stepText: "Standart",
+		stepText: "Standort",
 		url: "/appointments/type",
 	},
 	{

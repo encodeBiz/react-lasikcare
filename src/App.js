@@ -31,7 +31,7 @@ function App(properties) {
 		{
 			title: "Vor Ort",
 			image: null,
-			subtitle: "Vor-ort beratung im nächstgelegenen Lasik Care standort",
+			subtitle: "Vor-ort beratung im nächstgelegenen LasikCare standort",
 			url: "/appointments",
 		},
 	];

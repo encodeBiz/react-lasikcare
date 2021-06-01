@@ -29,6 +29,7 @@ const CalendarOnlinePage = (properties) => {
 	const [selectedDate, setSelectedDate] = useState(null);
 	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
 	const [currentMonth, setCurrentMonth] = useState(currentMonthNumber);
+	const [initialMonth, setInitialMonth] = useState(0);
 	const { appointment, online_available_hours } = properties;
 
 	const buttonsConfig = [
@@ -40,7 +41,7 @@ const CalendarOnlinePage = (properties) => {
 		{
 			action: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
 			text: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
-			label: "40€",
+			// label: "40€",
 			type: "BIDI",
 			img: opcionTwo,
 			path: "/appointments/calendar",
@@ -87,6 +88,16 @@ const CalendarOnlinePage = (properties) => {
 	}, [width]);
 
 	/**
+	 * Se ejecuta cuando las peticiones al servidor ya han terminado
+	 */
+
+	useEffect(() => {
+		if (!properties.loading.onlineGlobalLoading) {
+			getInitialMonth(online_available_hours);
+		}
+	}, [properties.loading.onlineGlobalLoading]);
+
+	/**
 	 *
 	 * @param {Number} width
 	 * Formatea la anchura del calendario para ajustarla a la anchura de la ventana
@@ -97,6 +108,34 @@ const CalendarOnlinePage = (properties) => {
 		else if (width <= 414 || width <= 1080) return 40;
 		else if (width <= 980) return 50;
 		else return 50;
+	};
+
+	/**
+	 * Hace un loop sobre una lista de meses y
+	 * si el mes está vacío pasa al siguiente
+	 * hasta que se encuentre uno que no lo está
+	 * @param {Object} appointmentObject Objeto con los meses guardados en el store
+	 * @returns {string} retorna el numero del mes en formato string
+	 */
+
+	const getInitialMonth = (appointmentObject) => {
+		let addToMonth = 0;
+		const months = Object.values(appointmentObject);
+
+		// Si no hay ninguna fecha en los próximos meses se debe de retornar
+
+		if (months.every === undefined) {
+			return setInitialMonth(addToMonth);
+		}
+
+		// De lo contrario se suma 1 por cada mes consecutivo sin fechas disponibles.
+		for (let month in months) {
+			if (!month) {
+				addToMonth++;
+			} else {
+				return setInitialMonth(addToMonth);
+			}
+		}
 	};
 
 	// /////////////////////////////
@@ -133,6 +172,7 @@ const CalendarOnlinePage = (properties) => {
 			const date = moment(currentDate).add(2, "month").format("DD/M/YYYY");
 
 			await properties.fetchOnlineAvailableHours(date);
+			getInitialMonth(online_available_hours);
 		} catch (error) {
 			console.log(error);
 		}
@@ -261,6 +301,10 @@ const CalendarOnlinePage = (properties) => {
 		}
 	};
 
+	const redirectToTypes = () => {
+		history.push("/type");
+	};
+
 	///////////////////////////////////////////
 	// RENDERIZADO DEL COMPONENTE
 	///////////////////////////////////////////
@@ -271,7 +315,7 @@ const CalendarOnlinePage = (properties) => {
 
 			<div className="wrapper-general">
 				<div className="top-content">
-					<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
+					<Button action={redirectToTypes} styleType={"back-button"} label={"Zurück"} />
 				</div>
 				<div className="calendar-online-appointment-page">
 					<h1>1. Datum wählen</h1>
@@ -309,7 +353,7 @@ const CalendarOnlinePage = (properties) => {
 							})}
 						</div>
 					</CardContainer>
-					{properties.loading.isGlobalLoading ? (
+					{properties.loading.onlineGlobalLoading ? (
 						<CardContainer>
 							<div className="loading-center">
 								<Loading />
@@ -318,6 +362,7 @@ const CalendarOnlinePage = (properties) => {
 					) : (
 						<CardContainer className="change-margin">
 							<Calendar
+								initialMonth={initialMonth}
 								datesList={dataCalendar}
 								initialDate={initialDate}
 								width={width}

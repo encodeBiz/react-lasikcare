@@ -20,7 +20,6 @@ import CalendarOnlinePage from "../page_modules/video_call/CalendarOnlinePage/Ca
 import CityAppointmentPage from "../page_modules/appointments/CityAppointmentPage/CityAppointmentPage";
 import ConfirmAppointmentPage from "../page_modules/appointments/ConfirmAppointmentPage/ConfirmAppointmentPage";
 import ConfirmOnlinePage from "../page_modules/video_call/ConfirmOnlinePage/ConfirmOnlinePage";
-import Navbar from "../shared_modules/Navbar/Navbar";
 import ThankAppointmentPage from "../page_modules/appointments/ThankAppointmentPage/ThankAppointmentPage";
 import TypeAppointmentPage from "../page_modules/appointments/TypeAppointmentPage/TypeAppointmentPage";
 import Video_call from "../page_modules/video_call/VideoCall";
@@ -97,7 +96,6 @@ const routes = [
  */
 const Root = (properties) => {
 	const { errors } = properties;
-
 	useEffect(() => {
 		if (process.env.NODE_ENV === "production") {
 			window.console.log = () => false;

@@ -9,6 +9,7 @@ import Button from "../../../../shared_modules/Button/Button";
 import PhoneInput from "react-phone-number-input";
 // import "react-phone-number-input/style.css";
 import de from "react-phone-number-input/locale/de";
+import arrow from "../../../../assets/images/icons/arrow-select.svg"
 /**
  *
  * @param {Object} properties
@@ -145,8 +146,9 @@ const ConfirmForm = (properties) => {
 
 										<div className="form-group full-width  marg-from full" onClick={clearErrors}>
 											<label>Telefonnummer</label>
+											<br />
+											<div className="phone-input-group">
 											<PhoneInput
-												placeholder={"Telefonnummer"}
 												value={props.values.phoneNumber}
 												onChange={(e) => {
 													return e !== undefined ? (props.values.phoneNumber = e) : null;
@@ -159,7 +161,15 @@ const ConfirmForm = (properties) => {
 												countryOptionsOrder={["DE", "AT", "CH", "|", "..."]}
 												smartCaret={false}
 											/>
+											<div className="arrow-container">
+												<img
+													// className="arrow-span"
+													src={arrow}
+													alt="arrow"
+												/>
+											</div>
 
+											</div>
 											{props.touched.phoneNumber && props.errors.phoneNumber ? (
 												<ErrorDialog text={props.errors.phoneNumber} />
 											) : null}

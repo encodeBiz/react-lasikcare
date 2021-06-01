@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 import Calendar from "../../../shared_modules/Calendar/Calendar";
@@ -66,6 +67,7 @@ const CalendarAppointmentPage = (properties) => {
 	const [selectedDate, setSelectedDate] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(null);
+	const [initialMonth, setInitialMonth] = useState("");
 
 	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
 
@@ -100,7 +102,7 @@ const CalendarAppointmentPage = (properties) => {
 			setDataCalendar(filteredData);
 		}
 		// eslint-disable-next-line
-	}, [selectedType, selectedCity, currentMonth, properties.loading.isGlobalLoading]);
+	}, [selectedType, selectedCity, currentMonth, properties.loading.globalLoading]);
 
 	/**
 	 * @description Setea la anchura del calendario
@@ -110,6 +112,44 @@ const CalendarAppointmentPage = (properties) => {
 	useEffect(() => {
 		setCalendarWidth(formatCalendarWidth(width));
 	}, [width]);
+
+	/**
+	 * Se ejecuta cuando las peticiones al servidor ya han terminado
+	 */
+
+	useEffect(() => {
+		if (!properties.loading.globalLoading) {
+			getInitialMonth(available_hours);
+		}
+	}, [properties.loading.globalLoading]);
+
+	/**
+	 * Hace un loop sobre una lista de meses y
+	 * si el mes está vacío pasa al siguiente
+	 * hasta que se encuentre uno que no lo está
+	 * @param {Object} monthObject Objeto con los meses guardados en el store
+	 * @returns {string} retorna el numero del mes en formato string
+	 */
+
+	const getInitialMonth = (appointmentObject) => {
+		let addToMonth = 0;
+		const months = Object.values(appointmentObject);
+
+		// Si no hay ninguna fecha en los próximos meses se debe de retornar
+
+		if(months.every === undefined) {
+			return setInitialMonth(addToMonth)
+		}
+
+		// De lo contrario se suma 1 por cada mes consecutivo sin fechas disponibles.
+		for (let month in months) {
+			if (!month) {
+				addToMonth++;
+			} else {
+				return setInitialMonth(addToMonth);
+			}
+		}
+	};
 
 	/**
 	 *
@@ -168,7 +208,7 @@ const CalendarAppointmentPage = (properties) => {
 
 			// Si está cargando todavía retornar
 
-			if (properties.loading.isGlobalLoading) {
+			if (properties.loading.globalLoading) {
 				return;
 			}
 
@@ -198,6 +238,8 @@ const CalendarAppointmentPage = (properties) => {
 				date,
 				nextMonth
 			);
+
+			getInitialMonth(available_hours)
 		} catch (error) {
 			console.log(error);
 		}
@@ -264,6 +306,7 @@ const CalendarAppointmentPage = (properties) => {
 
 	const handleClick = async (type) => {
 		try {
+
 			// Se setea el loading a true ya que al cargar nuevos datos es posible que de un undefined.
 
 			setLoading(true);
@@ -362,7 +405,7 @@ const CalendarAppointmentPage = (properties) => {
 							})}
 						</div>
 					</CardContainer>
-					{properties.loading.isGlobalLoading ? (
+					{properties.loading.globalLoading ? (
 						<CardContainer>
 							<div className="loading-center">
 								<Loading />
@@ -372,6 +415,7 @@ const CalendarAppointmentPage = (properties) => {
 						<CardContainer className="change-margin">
 							{!loading && (
 								<Calendar
+									initialMonth={initialMonth}
 									datesList={dataCalendar}
 									setFocused={setFocused}
 									initialDate={initialDate}

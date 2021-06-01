@@ -73,7 +73,7 @@ const ConfirmOnlinePage = (properties) => {
 		const children = [
 			{
 				imgSource: calendarUbi,
-				text: appointment.calendar_date.locale("de").format("dddd DD"),
+				text: appointment.calendar_date.locale("de").format("dddd, DD.MM"),
 			},
 			{
 				imgSource: timeUbi,
