@@ -32,7 +32,6 @@ export const sendErrorEmail = async (query_params) => {
 		};
 
 		const response = await fetch_helper(url, "GET", headers, null, query_params);
-		console.log(response);
 		return response;
 	} catch (error) {
 		throw new Error(error);

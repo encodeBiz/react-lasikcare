@@ -57,7 +57,7 @@ const CalendarOnlinePage = (properties) => {
 	 */
 
 	useEffect(() => {
-		properties.setAppoinmentConfig("currentStep", 0);
+		properties.setAppoinmentConfig("currentStep", 2);
 		setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
 	}, []);
 
@@ -311,7 +311,7 @@ const CalendarOnlinePage = (properties) => {
 
 	return (
 		<React.Fragment>
-			<Stepper currentStepIndex={properties.appointment?.currentStep} isVideoConference={true} />
+			<Stepper currentStepIndex={properties.appointment?.currentStep} isVideoConference={false} />
 
 			<div className="wrapper-general">
 				<div className="top-content">

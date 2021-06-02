@@ -141,7 +141,6 @@ const ConfirmPage = (properties) => {
 	};
 
 	const handleSubmit = async (values) => {
-		console.log(values.isOlderThan50);
 
 		try {
 			setIsLoading(true);

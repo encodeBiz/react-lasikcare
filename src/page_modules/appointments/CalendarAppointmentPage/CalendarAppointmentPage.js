@@ -38,6 +38,12 @@ const CalendarAppointmentPage = (properties) => {
 
 	const buttonsConfig = [
 		{
+			action: "Online Video-Beratung von zu Hause aus",
+			text: "Online Video-Beratung von zu Hause aus",
+			type: "VIDEO",
+			img: opcionOne,
+		},
+		{
 			action: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
 			text: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
 			// label: "40€",
@@ -97,7 +103,6 @@ const CalendarAppointmentPage = (properties) => {
 				? properties.available_hours[selectedCity]?.data[selectedType]?.[currentMonth]
 				: [];
 
-		console.log(data);
 		if (data && data.length > 0) {
 			const filteredData = filterData(data);
 
@@ -355,13 +360,18 @@ const CalendarAppointmentPage = (properties) => {
 
 			setType(type);
 
+			await properties.setAppoinmentConfig("type", type);
+
+			if (type === "VIDEO") {
+				history.push("/termintyp/videoberatung");
+				return;
+			}
+
 			// Setea el currentMonth al mes actual ya que se recarga el calendario
 
 			setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
 
 			// Se cambia el tipo de cita en el estado
-
-			await properties.setAppoinmentConfig("type", type);
 
 			// Se seleccionan desde el estado las fechas correspondientes al nuevo tipo de cita
 

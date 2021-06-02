@@ -16,7 +16,6 @@ const defaultState = {
 const errorReducer = (state= defaultState, action) => {
     switch (action.type) {
         case SET_ERROR:
-            console.log(action)
             return {...state, error: action.error, notDefault: true}
         case GET_ERROR: 
             return state

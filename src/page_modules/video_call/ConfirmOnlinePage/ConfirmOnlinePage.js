@@ -33,7 +33,7 @@ const ConfirmOnlinePage = (properties) => {
 	 */
 
 	useEffect(() => {
-		window.scrollTo(0, 0)
+		window.scrollTo(0, 0);
 		properties.setAppoinmentConfig("currentStep", 3);
 	}, []);
 
@@ -131,7 +131,7 @@ const ConfirmOnlinePage = (properties) => {
 			<Stepper
 				currentStepIndex={properties.appointment.currentStep}
 				navigateTo={navigateTo}
-				isVideoConference={true}
+				isVideoConference={false}
 			></Stepper>
 			<div className="wrapper-general change-width">
 				{isLoading ? (
