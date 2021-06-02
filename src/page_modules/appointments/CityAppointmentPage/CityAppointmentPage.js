@@ -7,10 +7,7 @@ import { useHistory } from "react-router";
 // Redux
 
 import { connect } from "react-redux";
-import {
-	fetchAvailableHours,
-	updateAvailableHours,
-} from "../../../redux/available_hours/available_hours.actions";
+import { updateAvailableHours } from "../../../redux/available_hours/available_hours.actions";
 import { fetchClinics } from "../../../redux/clinics/clinics.actions";
 import { setAppoinmentConfig } from "../../../redux/appointment_config/appointmentConfig.actions";
 import { fetchOnlineAvailableHours } from "../../../redux/available_online_hours/available_online_hours.actions";
@@ -341,14 +338,6 @@ const mapDispatchToProps = (dispatch) => ({
 	 * @description Actualiza un campo del objeto de appointment
 	 */
 	setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
-
-	/**
-	 *
-	 * @param {String} keycli Código de la ciudad
-	 * @param {('BI' | 'BIDI')} appointments_type Tipo de cita BI = Gratis | BIDI = Pago
-	 */
-	fetchAvailableHours: (keycli, appointments_type, date) =>
-		dispatch(fetchAvailableHours(keycli, appointments_type, date)),
 
 	/**
 	 *
