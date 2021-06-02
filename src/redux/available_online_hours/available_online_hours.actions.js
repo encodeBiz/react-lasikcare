@@ -38,13 +38,12 @@ export const fetchOnlineAvailableHours = (date) => {
 				type: VIDEO_TYPE,
 			});
 
-			// Si el objeto errores de la respuesta no es 0 
+			// Si el objeto errores de la respuesta no es 0
 			// gestionar el error
 
 			if (Number(res?.errores?.cod) !== 0) {
 				const error = Number(res?.errores?.cod);
-				dispatch(setGlobalError(error));
-				return;
+				return dispatch(setGlobalError(error));
 			}
 
 			// Si no hay errores continuar ejecutando y enviar respuesta
@@ -53,7 +52,6 @@ export const fetchOnlineAvailableHours = (date) => {
 			const data = res.huecos ? res.huecos.hueco : {};
 			return dispatch(setOnlineHours({ data, month }));
 		} catch (error) {
-			console.error(error);
 			return dispatch(setGlobalError(error));
 		}
 	};

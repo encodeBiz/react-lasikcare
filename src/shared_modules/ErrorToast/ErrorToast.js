@@ -12,8 +12,8 @@ import { errorMessages } from "../../constants/errorMessages";
  */
 
 const ErrorToast = (properties) => {
-	const [errorMessage, setErrorMessage] = useState("");
 
+	const [errorMessage, setErrorMessage] = useState("");
 
 	useEffect(() => {
 		if (isNaN(properties.error.error)) {

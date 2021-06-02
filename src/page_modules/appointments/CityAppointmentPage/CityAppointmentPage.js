@@ -254,7 +254,7 @@ const CityAppointmentPage = (properties) => {
 
 			// Hace la llamada a la API
 
-			getClinicsHours([{ keycli, name: clinica }]);
+			// getClinicsHours([{ keycli, name: clinica }]);
 		}
 	};
 

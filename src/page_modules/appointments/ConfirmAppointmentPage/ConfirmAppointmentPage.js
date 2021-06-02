@@ -18,6 +18,7 @@ import ConfirmForm from "./ConfirmForm/ConfirmForm";
 import "../../../styles/App.scss";
 import Loading from "../../../shared_modules/Loading/Loading";
 import { IMAGES_SERVER } from "../../../constants/constants";
+import { sendErrorEmail } from "../../../services/email.service";
 
 const ConfirmPage = (properties) => {
 	const [children, setChildren] = useState([]);
@@ -27,7 +28,6 @@ const ConfirmPage = (properties) => {
 	const navigateTo = (url) => history.push(url);
 
 	const { appointment } = properties;
-
 
 	/**
 	 * @description Setea el currentStep del store.
@@ -111,11 +111,45 @@ const ConfirmPage = (properties) => {
 	 *
 	 */
 
+	const sendEmail = async (values) => {
+		const utm_source = window.utm_source || "";
+		const tmr = "";
+
+		const query_params = {
+			clinic_id: appointment.type === "VIDEO" ? "GRLCV" : appointment.city.keycli,
+			clinic_name: appointment.city.clinica,
+			clinic_address: appointment.city.address,
+			date: appointment.calendar_hour.fecha,
+			hour: appointment.calendar_hour.horaInicio,
+			horaFin: appointment.calendar_hour.horaFin,
+			keymed: appointment.calendar_hour.keymed,
+			gender: appointment.clientData.gender,
+			first_name: appointment.clientData.name,
+			last_name: appointment.clientData.surname,
+			email: appointment.clientData.email,
+			phone: appointment.clientData.phoneNumber,
+			message: appointment.clientData.message,
+			type: appointment.type,
+			utm_source,
+			tmr, //Se incluirá al final
+			comentarios: appointment.clientData.message,
+			sexo: appointment.clientData.gender,
+			error: `This patient is older than 50`,
+		};
+
+		await sendErrorEmail(query_params);
+	};
+
 	const handleSubmit = async (values) => {
+		console.log(values.isOlderThan50);
+
 		try {
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
 			await properties.sendAppointmentData();
+			if (values.ageGroup === "moreThan50") {
+				await sendEmail();
+			}
 			const city = appointment.city.clinica;
 			localStorage.setItem("city", city);
 		} catch (error) {
@@ -169,7 +203,6 @@ const ConfirmPage = (properties) => {
 								errorMessage={errorMessage}
 								setErrorMessage={setErrorMessage}
 								appointmentValues={appointment.clientData}
-								
 							/>
 						</div>
 					</div>

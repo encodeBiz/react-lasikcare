@@ -67,6 +67,7 @@ const ConfirmForm = (properties) => {
 					validateOnChange={false}
 				>
 					{(props) => {
+						console.log(props)
 						return (
 							<Form onSubmit={props.handleSubmit}>
 								{/* Grupo de edad */}

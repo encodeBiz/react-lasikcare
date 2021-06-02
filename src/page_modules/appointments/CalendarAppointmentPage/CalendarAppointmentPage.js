@@ -17,6 +17,7 @@ import opcionOne from "../../../assets/images/icons/type-free.svg";
 import opcionTwo from "../../../assets/images/icons/calendar-icon.svg";
 import Loading from "../../../shared_modules/Loading/Loading";
 import { IMAGES_SERVER } from "../../../constants/constants";
+import { sendErrorEmail } from "../../../services/email.service";
 
 /**
  *
@@ -96,8 +97,16 @@ const CalendarAppointmentPage = (properties) => {
 				? properties.available_hours[selectedCity]?.data[selectedType]?.[currentMonth]
 				: [];
 
+		console.log(data);
 		if (data && data.length > 0) {
 			const filteredData = filterData(data);
+
+			// Si filtered data tiene menos de 5 citas disponibles se envía un email a marketing@care-vision.com
+			if (appointment.type === "BIDI" && filteredData.length <= 5) {
+				handleSendErrorEmail();
+			}
+
+			// Se setea el objeto de datos
 
 			setDataCalendar(filteredData);
 		}
@@ -124,6 +133,38 @@ const CalendarAppointmentPage = (properties) => {
 	}, [properties.loading.globalLoading]);
 
 	/**
+	 *
+	 */
+	const handleSendErrorEmail = async () => {
+		const utm_source = window.utm_source || "";
+		const tmr = "";
+
+		const query_params = {
+			clinic_id: appointment.type === "VIDEO" ? "GRLCV" : appointment.city.keycli,
+			clinic_name: appointment.city.clinica,
+			clinic_address: appointment.city.address,
+			date: "",
+			hour: "",
+			horaFin: "",
+			keymed: "",
+			gender: "",
+			first_name: "",
+			last_name: "",
+			email: "",
+			phone: "",
+			message: "",
+			type: appointment.type,
+			utm_source,
+			tmr, //Se incluirá al final
+			comentarios: appointment.clientData.message,
+			sexo: appointment.clientData.gender,
+			error: `There are less than 5 available dates in ${appointment.city.clinica}`,
+		};
+
+		await sendErrorEmail(query_params);
+	};
+
+	/**
 	 * Hace un loop sobre una lista de meses y
 	 * si el mes está vacío pasa al siguiente
 	 * hasta que se encuentre uno que no lo está
@@ -137,8 +178,8 @@ const CalendarAppointmentPage = (properties) => {
 
 		// Si no hay ninguna fecha en los próximos meses se debe de retornar
 
-		if(months.every === undefined) {
-			return setInitialMonth(addToMonth)
+		if (months.every === undefined) {
+			return setInitialMonth(addToMonth);
 		}
 
 		// De lo contrario se suma 1 por cada mes consecutivo sin fechas disponibles.
@@ -239,7 +280,7 @@ const CalendarAppointmentPage = (properties) => {
 				nextMonth
 			);
 
-			getInitialMonth(available_hours)
+			getInitialMonth(available_hours);
 		} catch (error) {
 			console.log(error);
 		}
@@ -306,7 +347,6 @@ const CalendarAppointmentPage = (properties) => {
 
 	const handleClick = async (type) => {
 		try {
-
 			// Se setea el loading a true ya que al cargar nuevos datos es posible que de un undefined.
 
 			setLoading(true);
@@ -415,8 +455,8 @@ const CalendarAppointmentPage = (properties) => {
 						<CardContainer className="change-margin">
 							{!loading && (
 								<Calendar
-									initialMonth={initialMonth}
 									datesList={dataCalendar}
+									initialMonth={initialMonth}
 									setFocused={setFocused}
 									initialDate={initialDate}
 									width={width}
