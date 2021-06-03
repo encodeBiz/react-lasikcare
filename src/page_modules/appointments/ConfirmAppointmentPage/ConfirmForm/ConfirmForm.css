@@ -68,7 +68,7 @@
 .card-container .container-form .form-group select {
   outline: 0;
   margin: auto;
-  border-width: 0 0 1px !important;
+  border-width: 0 0 1px;
   border-color: rgba(151, 151, 151, 0.2);
   padding: 0px 0px 5px 0px;
   background: none;
@@ -85,8 +85,7 @@
 .card-container .container-form .form-group select {
   background-image: url(../../../../assets/images/icons/arrow-select.svg);
   background-repeat: no-repeat;
-  background-position: right;
-  box-shadow: none; }
+  background-position: right; }
 
 .card-container .container-form .form-group.marg-from {
   margin-bottom: 35px; }
@@ -115,8 +114,7 @@
       font-size: 0.8rem;
       line-height: 15px;
       display: inline;
-      margin-left: 5px;
-      color: #808080 !important; }
+      margin-left: 5px; }
       @media (min-width: 1080px) {
         .card-container .container-form .checkbox label span {
           font-size: 0.6rem; } }
