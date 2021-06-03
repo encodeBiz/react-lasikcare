@@ -20,7 +20,7 @@ function Appointments(properties) {
 				<RouteWithSubRoutes key={i} {...route} />
 			))}
 			<Route to="/appointments">
-				<Redirect to="/appointments/type"></Redirect>
+				<Redirect to="/termintyp/vor-ort/"></Redirect>
 			</Route>
 		</Switch>
 	);

@@ -94,10 +94,10 @@ const TypeAppointmentPage = (properties) => {
 
 	const onAppointmentTypeSelection = (type) => {
 		properties.setAppoinmentConfig("type", type);
-		history.push("/appointments/calendar");
+		history.push("/termintyp/vor-ort/datum/");
 	};
 
-	const goBack = () => history.push("/type");
+	const goBack = () => history.push("/termintyp");
 
 	return (
 		<React.Fragment>

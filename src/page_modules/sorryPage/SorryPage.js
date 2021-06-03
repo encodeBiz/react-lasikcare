@@ -11,7 +11,8 @@ import { IMAGES_SERVER } from "../../constants/constants";
 const SorryPage = (properties) => {
 	const history = useHistory();
 
-	const goToCalendar = () => history.push("/appointments/calendar");
+	const goToCalendar = () => history.push("/termintyp/vor-ort/datum/");
+	const goToHome = () => (window.location.href = "https://www.lasikcare.de/");
 
 	const { clearAppointment } = properties;
 
@@ -37,7 +38,7 @@ const SorryPage = (properties) => {
 				<Button
 					styleType={"rounded-button small-margin"}
 					label="KONTAKTIERE UNS"
-					action={() => console.log("Debería ir al sitio de contacto")}
+					action={() => goToHome()}
 				></Button>
 				<Button
 					styleType={"transparent-button small-margin"}

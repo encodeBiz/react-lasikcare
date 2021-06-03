@@ -33,7 +33,7 @@ const ConfirmOnlinePage = (properties) => {
 	 */
 
 	useEffect(() => {
-		window.scrollTo(0, 0)
+		window.scrollTo(0, 0);
 		properties.setAppoinmentConfig("currentStep", 3);
 	}, []);
 
@@ -58,7 +58,7 @@ const ConfirmOnlinePage = (properties) => {
 			history.push("/sorry");
 		}
 		if (appointment.success) {
-			history.push("/appointments/thank");
+			history.push("/danke");
 		}
 	}, [appointment.error, appointment.success, history]);
 
@@ -73,7 +73,7 @@ const ConfirmOnlinePage = (properties) => {
 		const children = [
 			{
 				imgSource: calendarUbi,
-				text: appointment.calendar_date.locale("de").format("dddd DD"),
+				text: appointment.calendar_date.locale("de").format("dddd, DD.MM"),
 			},
 			{
 				imgSource: timeUbi,
@@ -131,7 +131,7 @@ const ConfirmOnlinePage = (properties) => {
 			<Stepper
 				currentStepIndex={properties.appointment.currentStep}
 				navigateTo={navigateTo}
-				isVideoConference={true}
+				isVideoConference={false}
 			></Stepper>
 			<div className="wrapper-general change-width">
 				{isLoading ? (

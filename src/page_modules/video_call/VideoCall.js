@@ -10,7 +10,7 @@ function Video_call({ routes }) {
 			))}
 
 			<Route to="/videollamadas">
-				<Redirect to="/videollamadas/calendar"></Redirect>
+				<Redirect to="/videoberatung"></Redirect>
 			</Route>
 		</Switch>
 	);

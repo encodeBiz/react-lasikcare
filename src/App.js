@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import doctorIcon from "./assets/images/icons/doctor-color-icon.svg";
 import "./styles/App.scss";
-import { fetchAvailableHours } from "./redux/available_hours/available_hours.actions";
 import CardContainer from "./shared_modules/CardContainer/CardContainer";
 import { Link } from "react-router-dom";
 import Card from "./shared_modules/Card/Card";
@@ -31,7 +30,7 @@ function App(properties) {
 		{
 			title: "Vor Ort",
 			image: null,
-			subtitle: "Vor-ort beratung im nächstgelegenen Lasik Care standort",
+			subtitle: "Vor-ort beratung im nächstgelegenen LasikCare standort",
 			url: "/appointments",
 		},
 	];
@@ -58,16 +57,7 @@ function App(properties) {
 		}
 	};
 
-	/**
-	 * Método que recupera todas las citas disponibles para cada una de las ciudades.
-	 */
 
-	const getAllClinicsHours = () => {
-		clinics.clinics.forEach((clinic) => {
-			properties.fetchAvailableHours(clinic.keycli, "BI");
-			properties.fetchAvailableHours(clinic.keycli, "BIDI");
-		});
-	};
 
 	const getAllOnlineHours = async () => {
 		const onlineHoursPromises = ["BI", "BIDI"].forEach((item) =>
@@ -111,17 +101,7 @@ function App(properties) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	/**
-	 *
-	 * @param {String} keycli
-	 * @param {String} appointments_type
-	 *
-	 * Acción de Redux que hace una llamada a la API para conseguir los huecos libres en un mes
-	 */
-
-	fetchAvailableHours: (keycli, appointments_type) =>
-		dispatch(fetchAvailableHours(keycli, appointments_type)),
-
+	
 	/**
 	 *
 	 * @param {String} appointments_type BI | BIDI Tipo de cita online que se pide

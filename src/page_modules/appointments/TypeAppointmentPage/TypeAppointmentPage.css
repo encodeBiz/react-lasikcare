@@ -8,7 +8,7 @@
       padding-top: 20px; }
       .appointment-type-container .card-container .card:nth-child(1) p:before {
         content: "";
-        background-image: url(../../../assets/images/icons/popular.svg);
+        background-image: url(../../../assets/images/icons/most_popular_new.svg);
         background-repeat: no-repeat;
         width: 98px;
         height: 23px;

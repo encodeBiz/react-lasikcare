@@ -1,5 +1,6 @@
 import { getHuecos } from "../../services/appointments.service";
 import moment from "moment";
+import { setGlobalError } from "../errors/errors.actions";
 
 export const SET_HOURS = "SET_HOURS";
 export const GET_HOURS = "get_hours";
@@ -35,8 +36,6 @@ export const updateHours = (keycli, appointments_type, data, nextMonth) => ({
 
 export const fetchAvailableHours = (keycli, type, date) => {
 	return async (dispatch) => {
-		
-
 		try {
 			let dateToSend = "";
 
@@ -63,6 +62,9 @@ export const updateAvailableHours = (keycli, type, date, nextMonth) => {
 	return async (dispatch) => {
 		try {
 			const res = await getHuecos({ keycli, date, type });
+			if (Number(res?.errores?.cod) !== 0) {
+				return dispatch(setGlobalError(Number(res?.errores?.cod)));
+			}
 			const data = res.huecos ? { [keycli]: { [type]: res.huecos } } : {};
 			return dispatch(updateHours(keycli, type, data, nextMonth));
 		} catch (error) {

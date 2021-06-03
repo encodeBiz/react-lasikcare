@@ -2,12 +2,12 @@ export const videoConferenceSteps = [
 	{
 		stepNumber: 0,
 		stepText: "Datum",
-		url: "/videollamadas/confirm",
+		url: "/termintyp/videoberatung",
 	},
 	{
 		stepNumber: 1,
 		stepText: "Kontaktdaten",
-		url: "/videollamadas/confirm",
+		url: "/termintyp/videoberatung/kontaktdaten",
 	},
 ];
 
@@ -15,22 +15,22 @@ export const appointmentSteps = [
 	{
 		stepNumber: 0,
 		stepText: "Terminart",
-		url: "/type",
+		url: "/termintyp",
 	},
 	{
 		stepNumber: 1,
-		stepText: "Standart",
-		url: "/appointments/type",
+		stepText: "Standort",
+		url: "/termintyp/vor-ort/",
 	},
 	{
 		stepNumber: 2,
 		stepText: "Datum",
-		url: "/appointments/calendar",
+		url: "/termintyp/vor-ort/datum/",
 	},
 	{
 		stepNumber: 3,
 		stepText: "Kontaktdaten",
-		url: "/appointments/confirm",
+		url: "/termintyp/vor-ort/datum/kontaktdaten/",
 	},
 ];
 

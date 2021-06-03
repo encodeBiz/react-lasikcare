@@ -1,4 +1,5 @@
 import { setHuecos, setHuecosOnline } from "../../services/appointments.service";
+import { sendErrorEmail } from "../../services/email.service";
 
 export const GET_APPOINTMENT_CONFIG = "GET_APPOINTMENT_CONFIG";
 export const SET_APPOINTMENT_CONFIG = "SET_APPOINTMENT_CONFIG";
@@ -69,7 +70,7 @@ export const sendAppointmentData = (isOnline) => {
 				email: appointment.clientData.email,
 				phone: appointment.clientData.phoneNumber,
 				message: appointment.clientData.message,
-				type: appointment.type, 
+				type: appointment.type,
 				utm_source,
 				tmr, //Se incluirá al final
 				comentarios: appointment.clientData.message,
@@ -82,6 +83,11 @@ export const sendAppointmentData = (isOnline) => {
 
 			if (Number(setHuecosResponse.errores && setHuecosResponse.errores?.cod) !== 0) {
 				dispatch(setErrorInAppointment(setHuecosResponse.errores));
+				if (Number(setHuecosResponse.errores.cod) === 27) {
+					query_params.endhour = appointment.calendar_hour.horaFin;
+					query_params.error = "Error 27";
+					await sendErrorEmail(query_params);
+				}
 			} else {
 				dispatch(setSuccessInAppointment());
 			}
