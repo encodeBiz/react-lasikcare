@@ -110,15 +110,16 @@
       @media (min-width: 1080px) {
         .card-container .container-form .checkbox label input[type="checkbox"] {
           width: 5%; } }
-    .card-container .container-form .checkbox label span {
+    .card-container .container-form .checkbox label a {
       font-size: 0.8rem;
       line-height: 15px;
       display: inline;
-      margin-left: 5px; }
+      margin-left: 5px;
+      text-decoration: none; }
       @media (min-width: 1080px) {
-        .card-container .container-form .checkbox label span {
+        .card-container .container-form .checkbox label a {
           font-size: 0.6rem; } }
-      .card-container .container-form .checkbox label span span {
+      .card-container .container-form .checkbox label a a {
         color: #FF9900; }
 
 .card-container .country-flags {
