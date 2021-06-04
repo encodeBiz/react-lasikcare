@@ -19,6 +19,7 @@ const parseQueryParams = (query_params)=>{
  * @param {Object} body Parametros de la consulta en el body
  * @param {Object} query_params Query params obj
  */
+
 export const fetch_helper = async (url,method,headers,body,query_params) => {
   if(query_params) query_params = parseQueryParams(query_params)
   url = query_params ? `${url}?${query_params.reduce((pre,current)=>`${pre}&${current}`)}` : url;
@@ -28,13 +29,22 @@ export const fetch_helper = async (url,method,headers,body,query_params) => {
   if(config.method === 'POST') config.body = JSON.stringify(body || {})
 
   try {
+    
+
+    const controller = new AbortController();
+    config.signal = controller.signal;
+
+    window.onbeforeunload = ()=>{
+      controller.abort();
+    }
+
     const response = await fetch(
       url,
       {...config, headers: headers || {}}
     ).then(res => res.json())
     return response
   } catch (error) {
-    alert('Error en el metodo helper fetch')
+    //alert('Error en el metodo helper fetch')
     console.error(error, 'ENDPOINT=>', url)
   }
 }
