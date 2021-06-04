@@ -46,7 +46,6 @@
 		}
 
 		.form-group {
-			
 			input,
 			label,
 			select {
@@ -70,17 +69,16 @@
 					@extend %texto-form;
 				}
 			}
-			
+
 			select {
 				background-image: url(../../../../assets/images/icons/arrow-select.svg);
 				background-repeat: no-repeat;
 				background-position: right;
 			}
-			
+
 			&.marg-from {
 				margin-bottom: 35px;
 			}
-		
 		}
 
 		.full-width {
@@ -112,17 +110,17 @@
 					}
 				}
 
-				span {
+				a {
 					font-size: 0.8rem;
 					line-height: 15px;
 					display: inline;
 					margin-left: 5px;
-
+					text-decoration: none;
 					@include desktop-small {
 						font-size: 0.6rem;
 					}
 
-					span {
+					a {
 						color: $tertiaryColor;
 					}
 				}
@@ -177,14 +175,14 @@
 	border: 0;
 	opacity: 0;
 	cursor: pointer;
-    color: transparent !important;
+	color: transparent !important;
 	option {
 		color: $texto;
 	}
 }
 
 .PhoneInputCountryIconUnicode {
-    font-size: 1.5em;
+	font-size: 1.5em;
 }
 
 .PhoneInputCountrySelect[disabled] {
