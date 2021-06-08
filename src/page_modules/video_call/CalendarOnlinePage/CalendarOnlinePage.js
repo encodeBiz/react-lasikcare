@@ -16,6 +16,8 @@ import Card from "../../../shared_modules/Card/Card";
 import opcionOne from "../../../assets/images/icons/type-free.svg";
 import opcionTwo from "../../../assets/images/icons/calendar-icon.svg";
 import { IMAGES_SERVER } from "../../../constants/constants";
+import { updateAvailableHours } from "../../../redux/available_hours/available_hours.actions";
+import { sendErrorEmail } from "../../../services/email.service";
 
 const CalendarOnlinePage = (properties) => {
 	const history = useHistory();
@@ -24,13 +26,14 @@ const CalendarOnlinePage = (properties) => {
 	const buttonRef = useRef(null);
 	const [calendarWidth, setCalendarWidth] = useState(null);
 	const [activeIndex, setActiveIndex] = useState(null);
-	const [initialDate] = useState(today);
 	const [dataCalendar, setDataCalendar] = useState([]);
 	const [selectedDate, setSelectedDate] = useState(null);
+	const [initialMonth, setInitialMonth] = useState(0);
+	const [isLoading, setIsLoading] = useState(false);
+	const [initialDate] = useState(today);
 	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
 	const [currentMonth, setCurrentMonth] = useState(currentMonthNumber);
-	const [initialMonth, setInitialMonth] = useState(0);
-	const { appointment, online_available_hours } = properties;
+	const { appointment, online_available_hours, available_hours } = properties;
 
 	const buttonsConfig = [
 		{
@@ -66,9 +69,17 @@ const CalendarOnlinePage = (properties) => {
 	 */
 
 	useEffect(() => {
-		const data = online_available_hours[currentMonth.toString()]
-			? online_available_hours[currentMonth.toString()]
-			: undefined;
+		let data;
+
+		if (appointment.type === "VIDEO") {
+			data = online_available_hours[currentMonth.toString()] ?? undefined;
+		} else if (appointment.type === "BIDI") {
+			data =
+				available_hours[appointment.city.keycli].data.BIDI[currentMonth.toString()] ?? undefined;
+			if (data.length <= 5) {
+				handleSendErrorEmail();
+			}
+		}
 
 		if (data && data.length > 0) {
 			const formattedDates = formatDates(data);
@@ -102,6 +113,7 @@ const CalendarOnlinePage = (properties) => {
 	 * @param {Number} width
 	 * Formatea la anchura del calendario para ajustarla a la anchura de la ventana
 	 */
+
 	const formatCalendarWidth = (width) => {
 		//a partir de 1080 no debe ejecutarse la función
 		if (width <= 360) return 35;
@@ -158,21 +170,37 @@ const CalendarOnlinePage = (properties) => {
 
 	const onNextMonthClick = async (currentDate) => {
 		try {
-			// Setea currentMonth al mes actual
+			// // Setea currentMonth al mes actual
 
-			// const month = moment(today, "DD/MM/YYYY").add(1, "month").format("M");
+			const month = moment(today, "DD/MM/YYYY").format("M");
 
-			setCurrentMonth(Number(currentMonth) + 1);
+			setCurrentMonth(month);
+
+			// Si está cargando todavía retornar
 
 			// Se setea la fecha seleccionada a null para que desaparezcan las horas seleccionadas
 			setSelectedDate(null);
 
 			// Setea la fecha del que se pasará al action. Se añade un mes exacto
 
-			const date = moment(currentDate).add(2, "month").format("DD/M/YYYY");
+			if (appointment.type === "VIDEO") {
+				const date = moment(currentDate).add(2, "month").format("DD/M/YYYY");
+				await properties.fetchOnlineAvailableHours(date);
+				setCurrentMonth((Number(currentMonth) + 1).toString());
 
-			await properties.fetchOnlineAvailableHours(date);
-			getInitialMonth(online_available_hours);
+				getInitialMonth(online_available_hours);
+			} else {
+				const date = moment(currentDate).add(1, "month").format("DD/M/YYYY");
+				const nextMonth = (Number(currentMonth) + 3).toString();
+				setCurrentMonth((Number(currentMonth) + 1).toString());
+				await properties.updateAvailableHours(
+					appointment.city.keycli,
+					appointment.type,
+					date,
+					nextMonth
+				);
+				getInitialMonth(available_hours);
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -239,16 +267,28 @@ const CalendarOnlinePage = (properties) => {
 	 * @param {String} type Tipo de cita seleccionado
 	 */
 
-	const handleClick2 = async (type, path) => {
+	const handleClick = async (type) => {
 		try {
-			properties.setAppoinmentConfig("type", type);
-			if (type === "BIDI") {
-				properties.setAppoinmentConfig("calendar_hour", null);
-				properties.setAppoinmentConfig("calendar_date", null);
-				history.push("/termintyp/vor-ort/datum/");
-			}
+			setIsLoading(true);
+			await properties.setAppoinmentConfig("type", type);
+
+			setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
+
+			const dates =
+				type === "BIDI"
+					? await available_hours[appointment.city.keycli].data.BIDI[currentMonth]
+					: await online_available_hours[currentMonth];
+
+			const filteredData = formatDates(dates);
+
+			setDataCalendar(filteredData);
+
+			setSelectedDate(null);
+
+			setIsLoading(false);
 		} catch (error) {
 			console.log(error);
+			setIsLoading(false);
 		}
 	};
 
@@ -306,6 +346,42 @@ const CalendarOnlinePage = (properties) => {
 	};
 
 	///////////////////////////////////////////
+	// ENVÍO DE ERRORES
+	///////////////////////////////////////////
+
+	/**
+	 *
+	 */
+	const handleSendErrorEmail = async () => {
+		const utm_source = window.utm_source || "";
+		const tmr = "";
+
+		const query_params = {
+			clinic_id: appointment.type === "VIDEO" ? "GRLCV" : appointment.city.keycli,
+			clinic_name: appointment.city.clinica,
+			clinic_address: appointment.city.address,
+			date: "",
+			hour: "",
+			horaFin: "",
+			keymed: "",
+			gender: "",
+			first_name: "",
+			last_name: "",
+			email: "",
+			phone: "",
+			message: "",
+			type: appointment.type,
+			utm_source,
+			tmr, //Se incluirá al final
+			comentarios: appointment.clientData.message,
+			sexo: appointment.clientData.gender,
+			error: `There are less than 5 available dates in ${appointment.city.clinica}`,
+		};
+
+		await sendErrorEmail(query_params);
+	};
+
+	///////////////////////////////////////////
 	// RENDERIZADO DEL COMPONENTE
 	///////////////////////////////////////////
 
@@ -318,7 +394,7 @@ const CalendarOnlinePage = (properties) => {
 					<Button action={redirectToTypes} styleType={"back-button"} label={"Zurück"} />
 				</div>
 				<div className="calendar-online-appointment-page">
-					<h1>1. Datum wählen</h1>
+					<h1>3. Datum wählen</h1>
 					<CardContainer isColumn={true}>
 						<div className="button-container">
 							{buttonsConfig.map((button, index) => {
@@ -327,7 +403,7 @@ const CalendarOnlinePage = (properties) => {
 									<Card
 										key={index}
 										customClass={`pointer ${customClass}`}
-										handleClick={handleClick2}
+										handleClick={handleClick}
 										clickParam={button.type}
 									>
 										<label>
@@ -353,7 +429,8 @@ const CalendarOnlinePage = (properties) => {
 							})}
 						</div>
 					</CardContainer>
-					{properties.loading.onlineGlobalLoading ? (
+					{properties.loading.onlineGlobalLoading ||
+					(appointment.type === "BIDI" && properties.loading.globalLoading) ? (
 						<CardContainer>
 							<div className="loading-center">
 								<Loading />
@@ -361,19 +438,21 @@ const CalendarOnlinePage = (properties) => {
 						</CardContainer>
 					) : (
 						<CardContainer className="change-margin">
-							<Calendar
-								initialMonth={initialMonth}
-								datesList={dataCalendar}
-								initialDate={initialDate}
-								width={width}
-								calendarWidth={calendarWidth}
-								handleDateChange={handleDateChange}
-								handleSelectedHour={handleSelectedHour}
-								selectedDate={selectedDate}
-								onNextMonthClick={onNextMonthClick}
-								onPreviousMonthClick={onPreviousMonthClick}
-								activeIndex={activeIndex}
-							/>
+							{!isLoading && (
+								<Calendar
+									datesList={dataCalendar}
+									initialMonth={initialMonth}
+									initialDate={initialDate}
+									width={width}
+									calendarWidth={calendarWidth}
+									handleDateChange={handleDateChange}
+									handleSelectedHour={handleSelectedHour}
+									selectedDate={selectedDate}
+									onNextMonthClick={onNextMonthClick}
+									onPreviousMonthClick={onPreviousMonthClick}
+									activeIndex={activeIndex}
+								/>
+							)}
 						</CardContainer>
 					)}
 					<div className="container-button" ref={buttonRef}>
@@ -392,7 +471,6 @@ const CalendarOnlinePage = (properties) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		/**
-		 *
 		 * @param {String} property  Propiedad del estado que se debe actualizar
 		 * @param {String || Object || number} data Datos con los que se actualizará la propiedad anterior
 		 * @description Actualiza un campo del objeto de appointment
@@ -401,12 +479,14 @@ const mapDispatchToProps = (dispatch) => {
 		setAppoinmentConfig: (property, data) => dispatch(setAppoinmentConfig(property, data)),
 
 		/**
-		 *
 		 * @param {String} date Día presente en formato dd/mm/yyyy
 		 * @returns {Object} Lista de citas online disponibles divididas por meses
 		 */
 
 		fetchOnlineAvailableHours: (date) => dispatch(fetchOnlineAvailableHours(date)),
+
+		updateAvailableHours: (keycli, type, date, nextMonth) =>
+			dispatch(updateAvailableHours(keycli, type, date, nextMonth)),
 	};
 };
 
@@ -419,9 +499,10 @@ const mapDispatchToProps = (dispatch) => {
  * que serán consumidas por el componente y sus hijos.
  */
 
-const mapStateToProps = ({ appointment, online_available_hours, loading }) => ({
+const mapStateToProps = ({ appointment, online_available_hours, available_hours, loading }) => ({
 	appointment,
 	online_available_hours,
+	available_hours,
 	loading,
 });
 

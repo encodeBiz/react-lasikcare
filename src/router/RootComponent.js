@@ -18,7 +18,6 @@ import CityAppointmentPage from "../page_modules/appointments/CityAppointmentPag
 import ConfirmAppointmentPage from "../page_modules/appointments/ConfirmAppointmentPage/ConfirmAppointmentPage";
 import TypeAppointmentPage from "../page_modules/appointments/TypeAppointmentPage/TypeAppointmentPage";
 import ThankAppointmentPage from "../page_modules/appointments/ThankAppointmentPage/ThankAppointmentPage"
-import ConfirmOnlinePage from "../page_modules/video_call/ConfirmOnlinePage/ConfirmOnlinePage";
 import CalendarOnlinePage from "../page_modules/video_call/CalendarOnlinePage/CalendarOnlinePage";
 // Estilos
 
@@ -58,7 +57,7 @@ const routes = [
 	},
 	{
 		path: "/termintyp/videoberatung/kontaktdaten",
-		component: ConfirmOnlinePage,
+		component: ConfirmAppointmentPage,
 		stepNumber: 2,
 	},
 ];

@@ -9,7 +9,8 @@ import Button from "../../../../shared_modules/Button/Button";
 import PhoneInput from "react-phone-number-input";
 // import "react-phone-number-input/style.css";
 import de from "react-phone-number-input/locale/de";
-import arrow from "../../../../assets/images/icons/arrow-select.svg";
+
+
 /**
  *
  * @param {Object} properties

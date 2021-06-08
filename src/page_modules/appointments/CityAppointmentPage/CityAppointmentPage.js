@@ -32,6 +32,7 @@ import { setIsGlobalLoading, setOnlineGlobalLoading } from "../../../redux/loadi
 import Loading from "../../../shared_modules/Loading/Loading";
 import { IMAGES_SERVER } from "../../../constants/constants";
 import { setIsTimerActive } from "../../../redux/timer/timer.actions";
+import { Link } from "react-router-dom";
 
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store
@@ -163,6 +164,10 @@ const CityAppointmentPage = (properties) => {
 	 * @param {Object} selectedCities
 	 * Por cada uno de las clínicas se hace una llamada para conseguir
 	 * los huecos tanto en "BI" (gratis) como en "BIDI" (de pago)
+	 * 
+	 * IMPORTANTE!! 
+	 * 
+	 * Únicamente se harán las llamadas de las ciudades existentes en el localStorage
 	 */
 
 	const getClinicsHours = async (selectedCities) => {
@@ -194,7 +199,12 @@ const CityAppointmentPage = (properties) => {
 
 			await Promise.all(firstMonthPromises);
 			await Promise.all(secondPromises);
-			properties.setIsGlobalLoading(false);
+
+			setTimeout(() => {
+				properties.setIsGlobalLoading(false);
+
+			}, 2000)
+
 		} catch (error) {
 			console.log(error);
 		}
@@ -213,6 +223,7 @@ const CityAppointmentPage = (properties) => {
 			await properties.fetchOnlineAvailableHours(currentMonth);
 			await properties.fetchOnlineAvailableHours(nextMonth);
 			await properties.fetchOnlineAvailableHours(nextSecondMonth);
+			
 			properties.setOnlineGlobalLoading(false);
 		} catch (error) {
 			properties.setOnlineGlobalLoading(false);
@@ -254,7 +265,7 @@ const CityAppointmentPage = (properties) => {
 
 			// Hace la llamada a la API
 
-			// getClinicsHours([{ keycli, name: clinica }]);
+			getClinicsHours([{ keycli, name: clinica }]);
 		}
 	};
 
@@ -292,6 +303,10 @@ const CityAppointmentPage = (properties) => {
 			<div className="title-seccion">
 				<h1>Bitte Standort wählen</h1>
 			</div>
+			<div>
+				<Link to="/sorry">To sorry page</Link>
+			</div>
+
 			<div className="city-appointment-container">
 				{isLoading ? (
 					<CardContainer>
