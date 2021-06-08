@@ -36,17 +36,22 @@ const Button = (properties) => {
 
 	const { icon } = properties;
 
+	console.log(properties.icon);
+
 	return (
 		<button
 			onClick={() => properties.action()}
 			className={`main-btn ${properties.styleType}`}
 			disabled={properties.disabled}
 			type={properties.type || "button"}
+			onMouseEnter={() => properties.hoverSwitch("enter")}
+			onMouseLeave={() => properties.hoverSwitch("leave")}
 		>
 			{icon ? (
-				<span>
+				<span className={properties.iconClass}>
 					<img
 						src={process.env.NODE_ENV === "development" ? icon : IMAGES_SERVER + icon}
+						className={properties.iconClass}
 						alt="..."
 					/>
 				</span>

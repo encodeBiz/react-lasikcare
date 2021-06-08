@@ -131,3 +131,12 @@
 .small-margin {
 	margin: 5px 0 !important;
 }
+
+.icon-button {
+	line-height: 40px;
+
+	img {
+		max-width: 25px;
+		transform: translate(-10px, 6px);
+	}
+}
