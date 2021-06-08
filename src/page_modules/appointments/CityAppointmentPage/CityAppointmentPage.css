@@ -41,3 +41,6 @@
   @media (min-width: 1080px) {
     .wrapper-general .city-appointment-container .card-container .card p {
       font-size: 0.9rem; } }
+
+.sorry-link:hover {
+  cursor: pointer; }
