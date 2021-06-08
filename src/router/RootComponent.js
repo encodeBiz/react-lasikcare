@@ -22,7 +22,7 @@ import CalendarOnlinePage from "../page_modules/video_call/CalendarOnlinePage/Ca
 // Estilos
 
 import "../styles/App.scss";
-//import SorryPage from "../page_modules/sorryPage/SorryPage";
+import SorryPage from "../page_modules/sorryPage/SorryPage";
 import ErrorToast from "../shared_modules/ErrorToast/ErrorToast";
 
 const routes = [

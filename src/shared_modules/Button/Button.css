@@ -91,10 +91,10 @@
 
 .transparent-button {
   background-color: transparent !important;
-  color: #FF9900; }
+  color: #FF9900 !important; }
   .transparent-button:hover {
     background-color: #FF9900 !important;
-    color: white; }
+    color: white !important; }
 
 .small-margin {
   margin: 5px 0; }

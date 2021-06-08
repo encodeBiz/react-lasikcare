@@ -23,7 +23,7 @@ const SorryPage = (properties) => {
 	return (
 		<div className="wrapper-general">
 			<div className="wrapper-img">
-				<img src={process.env.NODE_ENV ? lens : IMAGES_SERVER + lens} alt="" />
+				<img src={process.env.NODE_ENV === "development" ? lens : IMAGES_SERVER + lens} alt="" />
 			</div>
 
 			<div className="wrapper-text">

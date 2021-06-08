@@ -121,10 +121,10 @@
 
 .transparent-button {
 	background-color: transparent !important;
-	color: $tertiaryColor;
+	color: $tertiaryColor !important;
 	&:hover {
 		background-color: $tertiaryColor !important;
-		color: white;
+		color: white !important;
 	}
 }
 
