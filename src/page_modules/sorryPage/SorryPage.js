@@ -54,6 +54,7 @@ const SorryPage = (properties) => {
 			<div className="buttons-container">
 				<Button
 					styleType={"rounded-button small-margin icon-button"}
+					type={"rounded-button"}
 					label="KONTAKTIEREN SIE UNS"
 					action={() => goToHome()}
 					icon={telIcon}
