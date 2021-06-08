@@ -91,6 +91,10 @@ const ConfirmPage = (properties) => {
 			},
 		];
 
+		if (appointment.type === "VIDEO") {
+			children.shift();
+		}
+
 		setChildren(children);
 	};
 
@@ -141,7 +145,6 @@ const ConfirmPage = (properties) => {
 	};
 
 	const handleSubmit = async (values) => {
-
 		try {
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
