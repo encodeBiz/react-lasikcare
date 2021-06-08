@@ -164,9 +164,9 @@ const CityAppointmentPage = (properties) => {
 	 * @param {Object} selectedCities
 	 * Por cada uno de las clínicas se hace una llamada para conseguir
 	 * los huecos tanto en "BI" (gratis) como en "BIDI" (de pago)
-	 * 
-	 * IMPORTANTE!! 
-	 * 
+	 *
+	 * IMPORTANTE!!
+	 *
 	 * Únicamente se harán las llamadas de las ciudades existentes en el localStorage
 	 */
 
@@ -202,9 +202,7 @@ const CityAppointmentPage = (properties) => {
 
 			setTimeout(() => {
 				properties.setIsGlobalLoading(false);
-
-			}, 2000)
-
+			}, 2000);
 		} catch (error) {
 			console.log(error);
 		}
@@ -223,7 +221,7 @@ const CityAppointmentPage = (properties) => {
 			await properties.fetchOnlineAvailableHours(currentMonth);
 			await properties.fetchOnlineAvailableHours(nextMonth);
 			await properties.fetchOnlineAvailableHours(nextSecondMonth);
-			
+
 			properties.setOnlineGlobalLoading(false);
 		} catch (error) {
 			properties.setOnlineGlobalLoading(false);
@@ -303,9 +301,7 @@ const CityAppointmentPage = (properties) => {
 			<div className="title-seccion">
 				<h1>Bitte Standort wählen</h1>
 			</div>
-			<div>
-				<Link to="/sorry">To sorry page</Link>
-			</div>
+			<span onClick={() => history.push("/sorry")} className="sorry-link">To sorry page</span>
 
 			<div className="city-appointment-container">
 				{isLoading ? (

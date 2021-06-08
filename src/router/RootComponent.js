@@ -90,7 +90,7 @@ const Root = (properties) => {
 
 				<Route exact path={"/"} component={CityAppointmentPage} />
 				<Route exact path={"/sorry"} component={SorryPage} />
-
+				
 				{properties.clinics.status === "pending" ? (
 					<Redirect to={"/"} />
 				) : (
