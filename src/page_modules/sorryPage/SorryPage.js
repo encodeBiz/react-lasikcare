@@ -53,7 +53,7 @@ const SorryPage = (properties) => {
 			</div>
 			<div className="buttons-container">
 				<Button
-					styleType={"rounded-button small-margin icon-button"}
+					styleType={"rounded-button small-margin rld-churumbel"}
 					type={"rounded-button"}
 					label="KONTAKTIEREN SIE UNS"
 					action={() => goToHome()}
@@ -62,7 +62,7 @@ const SorryPage = (properties) => {
 					hoverSwitch={setTelephoneButtonIcon}
 				></Button>
 				<Button
-					styleType={"transparent-button small-margin icon-button"}
+					styleType={"transparent-button small-margin rld-churumbel"}
 					label="ZURÜCK ZU TERMINAUSWAHL"
 					action={() => goToCalendar()}
 					icon={calIcon}
