@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import Button from "../../shared_modules/Button/Button";
 import "./SorryPage.scss";
@@ -10,21 +10,32 @@ import {
 } from "../../redux/appointment_config/appointmentConfig.actions";
 import { connect } from "react-redux";
 import { IMAGES_SERVER } from "../../constants/constants";
+import telephone from "../../assets/images/icons/icon_sorrypage_tlf.svg";
+import telephoneOrange from "../../assets/images/icons/icon_sorrypage_tlf_orange.svg";
+import calendar from "../../assets/images/icons/icon_sorrypage_calendar.svg";
+import calendarWhite from "../../assets/images/icons/icon_sorrypage_calendar_white.svg";
 
 const SorryPage = (properties) => {
 	const history = useHistory();
+	const [telIcon, setTelIcon] = useState(telephone);
+	const [calIcon, setCalIcon] = useState(calendar);
 
 	const goToCalendar = () => {
 		setAppoinmentConfig("type", "BIDI");
 		history.push("/termintyp/vor-ort/datum/");
 	};
-	const goToHome = () => (window.location.href = "https://www.lasikcare.de/");
+	const goToHome = () => (window.location.href = "tel:080088886060");
 
 	const { clearAppointment } = properties;
 
 	// useEffect(() => {
 	// 	clearAppointment();
 	// }, []);
+
+	const setTelephoneButtonIcon = (hoverProp) =>
+		setTelIcon(hoverProp === "enter" ? telephoneOrange : telephone);
+	const setCalendarButtonIcon = (hoverProp) =>
+		setCalIcon(hoverProp === "enter" ? calendarWhite : calendar);
 
 	return (
 		<div className="wrapper-general">
@@ -42,14 +53,20 @@ const SorryPage = (properties) => {
 			</div>
 			<div className="buttons-container">
 				<Button
-					styleType={"rounded-button small-margin"}
+					styleType={"rounded-button small-margin icon-button"}
 					label="KONTAKTIEREN SIE UNS"
 					action={() => goToHome()}
+					icon={telIcon}
+					iconClass={"white-icon"}
+					hoverSwitch={setTelephoneButtonIcon}
 				></Button>
 				<Button
-					styleType={"transparent-button small-margin"}
+					styleType={"transparent-button small-margin icon-button"}
 					label="ZURÜCK ZU TERMINAUSWAHL"
 					action={() => goToCalendar()}
+					icon={calIcon}
+					iconClass={"orange-icon"}
+					hoverSwitch={setCalendarButtonIcon}
 				></Button>
 			</div>
 		</div>

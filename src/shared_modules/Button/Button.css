@@ -98,3 +98,9 @@
 
 .small-margin {
   margin: 5px 0; }
+
+.icon-button {
+  line-height: 40px; }
+  .icon-button img {
+    max-width: 25px;
+    transform: translate(-10px, 6px); }
