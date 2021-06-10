@@ -72,14 +72,15 @@ const CalendarOnlinePage = (properties) => {
 	useEffect(() => {
 		let data;
 
+
 		if (appointment.type === "VIDEO") {
 			data = online_available_hours[currentMonth.toString()] ?? undefined;
 		} else if (appointment.type === "BIDI") {
 			data =
 				available_hours[appointment.city.keycli].data.BIDI[currentMonth.toString()] ?? undefined;
-			if (data.length <= 5 && !hasSentEmail[currentMonth]) {
+
+			if (data?.length <= 5 && !hasSentEmail?.[currentMonth]) {
 				handleSendErrorEmail();
-				localStorage.setItem("hasSentEmail", JSON.stringify({ [currentMonth]: true }));
 			}
 		}
 
@@ -89,7 +90,7 @@ const CalendarOnlinePage = (properties) => {
 		} else {
 			setDataCalendar([]);
 		}
-	}, [currentMonth, online_available_hours, selectedDate]);
+	}, [currentMonth, online_available_hours, available_hours, selectedDate]);
 
 	/**
 	 * @description Setea la anchura del calendario
@@ -379,7 +380,11 @@ const CalendarOnlinePage = (properties) => {
 			sexo: appointment.clientData.gender,
 			error: `There are less than 5 available dates in ${appointment.city.clinica}`,
 		};
-
+		const data = {
+			...hasSentEmail,
+			[currentMonth]: true,
+		};
+		localStorage.setItem("hasSentEmail", JSON.stringify({ ...data }));
 		await sendErrorEmail(query_params);
 	};
 

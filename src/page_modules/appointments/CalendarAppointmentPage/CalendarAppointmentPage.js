@@ -105,14 +105,18 @@ const CalendarAppointmentPage = (properties) => {
 			// es BIDI y no se ha enviado un email antes
 			// se envía un email a marketing@care-vision.com
 
-			if (appointment.type === "BIDI" && filteredData.length <= 5 && !hasSentEmail[currentMonth]) {
+
+			if ( appointment.type === "BIDI" && filteredData.length <= 5 && !hasSentEmail?.[currentMonth] ) {
 				handleSendErrorEmail();
-				localStorage.setItem("hasSentEmail", JSON.stringify({ [currentMonth]: true }));
 			}
 
 			// Se setea el objeto de datos
 
 			setDataCalendar(filteredData);
+		} else {
+			if(appointment.type === "BIDI" && !hasSentEmail?.[currentMonth]){
+				handleSendErrorEmail();
+			}
 		}
 		// eslint-disable-next-line
 	}, [selectedType, selectedCity, currentMonth, properties.loading.globalLoading]);
@@ -164,7 +168,11 @@ const CalendarAppointmentPage = (properties) => {
 			sexo: appointment.clientData.gender,
 			error: `There are less than 5 available dates in ${appointment.city.clinica}`,
 		};
-
+		const data = {
+			...hasSentEmail,
+			[currentMonth]: true,
+		};
+		localStorage.setItem("hasSentEmail", JSON.stringify({ ...data }));
 		await sendErrorEmail(query_params);
 	};
 

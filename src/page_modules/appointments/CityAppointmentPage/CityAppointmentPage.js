@@ -206,9 +206,7 @@ const CityAppointmentPage = (properties) => {
 			await Promise.all(firstMonthPromises);
 			await Promise.all(secondPromises);
 
-			setTimeout(() => {
-				properties.setIsGlobalLoading(false);
-			}, 2000);
+			properties.setIsGlobalLoading(false);
 		} catch (error) {
 			console.log(error);
 		}
