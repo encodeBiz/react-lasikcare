@@ -56,6 +56,7 @@
 				padding: 0px 0px 5px 0px;
 				background: none;
 				-webkit-appearance: none;
+				color: #b9b9b9;
 
 				&:focus {
 					box-shadow: none;
@@ -180,8 +181,8 @@
 	opacity: 0;
 	cursor: pointer;
 	color: transparent !important;
-	option {
-		color: $texto;
+	option{
+		color: #808080;
 	}
 }
 
@@ -195,4 +196,13 @@
 
 .PhoneInputCountrySelectArrow {
 	display: hidden;
+}
+
+
+.option-valid {
+	color: #808080 !important;
+}
+
+.option-not-valid {
+	color: #b9b9b9 !important;
 }
