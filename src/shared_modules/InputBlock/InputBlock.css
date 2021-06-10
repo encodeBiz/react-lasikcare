@@ -22,26 +22,45 @@
   font-style: normal;
   font-display: swap; }
 
-label, .label {
+label,
+.label {
   position: relative;
   font-weight: 500; }
-  label > span:first-child, .label > span:first-child {
+  label > span:first-child,
+  .label > span:first-child {
     transform: translateX(12px); }
-  label span, .label span {
+  label span,
+  .label span {
     display: block;
     margin-bottom: 5px; }
 
 .label {
   transform: translateX(12px); }
 
-input:focus {
-  outline: 0px;
-  box-shadow: 0 0 0px 2px #7dbcea; }
+input {
+  color: #808080 !important; }
+  input:focus {
+    outline: 0px;
+    box-shadow: 0 0 0px 2px #7dbcea; }
 
 .password-group label {
   position: static; }
 
-.hide-password, .show-password {
+input[type="checkbox"] {
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.25);
+  /* IE */
+  -moz-transform: scale(1.25);
+  /* FF */
+  -webkit-transform: scale(1.25);
+  /* Safari and Chrome */
+  -o-transform: scale(1.25);
+  /* Opera */
+  transform: scale(1.25);
+  padding: 10px; }
+
+.hide-password,
+.show-password {
   position: absolute;
   top: 38px;
   right: 10px;
@@ -51,15 +70,19 @@ input:focus {
   background-repeat: no-repeat;
   margin-bottom: 0px; }
   @media (min-width: 1280px) {
-    .hide-password, .show-password {
+    .hide-password,
+    .show-password {
       top: 35px; } }
   @media (min-width: 540px) {
-    .hide-password, .show-password {
+    .hide-password,
+    .show-password {
       top: 28px; } }
   @media (min-width: 414px) {
-    .hide-password, .show-password {
+    .hide-password,
+    .show-password {
       top: 25px; } }
 
-.signin-card input[type=text]:first-of-type, .forgot-card input[type=text]:first-of-type {
+.signin-card input[type="text"]:first-of-type,
+.forgot-card input[type="text"]:first-of-type {
   background-size: 25px;
   background-position: 96% 50%; }

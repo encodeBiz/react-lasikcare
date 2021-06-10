@@ -10,7 +10,6 @@ import PhoneInput from "react-phone-number-input";
 // import "react-phone-number-input/style.css";
 import de from "react-phone-number-input/locale/de";
 
-
 /**
  *
  * @param {Object} properties
@@ -148,13 +147,14 @@ const ConfirmForm = (properties) => {
 										<div className="form-group full-width  marg-from full" onClick={clearErrors}>
 											<label>Telefonnummer</label>
 											<PhoneInput
+												countryCallingCodeEditable={false}
 												placeholder={"Telefonnummer"}
 												value={props.values.phoneNumber}
 												onChange={(e) => {
 													return e !== undefined ? (props.values.phoneNumber = e) : null;
 												}}
 												defaultCountry="DE"
-												withCountryCallingCode={true}
+												// withCountryCallingCode={true}
 												country={false}
 												labels={de}
 												international

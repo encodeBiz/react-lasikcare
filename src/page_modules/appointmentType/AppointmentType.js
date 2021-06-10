@@ -39,7 +39,7 @@ const AppointmentType = (properties) => {
 	 */
 
 	useEffect(() => {
-		properties.setAppoinmentConfig("currentStep", 0);
+		properties.setAppoinmentConfig("currentStep", 1);
 		properties.setAppoinmentConfig("isOnline", false);
 		// eslint-disable-next-line
 	}, []);
@@ -65,7 +65,7 @@ const AppointmentType = (properties) => {
 				<div className="top-content">
 					<Button action={goBack} styleType={"back-button"} label={"Zurück"} />
 				</div>
-				<h1>1. Bitte wählen Sie Ihren Wunschtermin:</h1>
+				<h1>Bitte wählen Sie Ihren Wunschtermin</h1>
 				<div className="presencial-online-wrapper">
 					<CardContainer>
 						{homeLinksConfig.map((link, index) => {

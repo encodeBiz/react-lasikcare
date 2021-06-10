@@ -55,7 +55,7 @@ const ConfirmOnlinePage = (properties) => {
 
 	useEffect(() => {
 		if (appointment.error) {
-			history.push("/sorry");
+			history.push("/termin-bereits-vergeben");
 		}
 		if (appointment.success) {
 			history.push("/danke");

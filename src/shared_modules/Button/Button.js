@@ -14,9 +14,7 @@ import "./Button.scss";
  * @param {} properties.ref
  */
 const Button = (properties) => {
-	const { icon } = properties;
-
-	console.log(properties.icon);
+	const { icon, hoverSwitch } = properties;
 
 	return (
 		<button
@@ -24,8 +22,8 @@ const Button = (properties) => {
 			className={`main-btn ${properties.styleType}`}
 			disabled={properties.disabled}
 			type={properties.type || "button"}
-			onMouseEnter={() => properties.hoverSwitch("enter")}
-			onMouseLeave={() => properties.hoverSwitch("leave")}
+			onMouseEnter={hoverSwitch ? () => hoverSwitch("enter") : null}
+			onMouseLeave={hoverSwitch ? () => hoverSwitch("leave") : null}
 		>
 			{icon ? (
 				<span className={properties.iconClass}>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 
 //Router
@@ -33,6 +34,7 @@ import Loading from "../../../shared_modules/Loading/Loading";
 import { IMAGES_SERVER } from "../../../constants/constants";
 import { setIsTimerActive } from "../../../redux/timer/timer.actions";
 import { Link } from "react-router-dom";
+import Stepper from "../../../shared_modules/Stepper/Stepper";
 
 /**
  * Seleccionde la ciudad, modifica el estado de configuracion de cita en el store
@@ -74,6 +76,10 @@ const CityAppointmentPage = (properties) => {
 	///////////////////////////////////////////
 	// LLAMADAS A APIS
 	///////////////////////////////////////////
+
+	useEffect(() => {
+		properties.setAppoinmentConfig("currentStep", 0);
+	}, []);
 
 	/**
 	 * ***************************************************************
@@ -292,48 +298,57 @@ const CityAppointmentPage = (properties) => {
 		}
 	};
 
+	const navigateTo = (url) => history.push(url);
+
 	//////////////////////////////////////////
 	// RENDERIZADO
 	///////////////////////////////////////////
 
 	return (
-		<div className="wrapper-general">
-			<div className="title-seccion">
-				<h1>Bitte Standort wählen</h1>
-			</div>
-			<span onClick={() => history.push("/sorry")} className="sorry-link">To sorry page</span>
+		<>
+			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
+			<div className="wrapper-general">
+				<div className="title-seccion">
+					<h1>Bitte Standort wählen</h1>
+				</div>
+				<span onClick={() => history.push("/termin-bereits-vergeben")} className="sorry-link">
+					To sorry page
+				</span>
 
-			<div className="city-appointment-container">
-				{isLoading ? (
-					<CardContainer>
-						<div className="loading-center">
-							<Loading />
-						</div>
-					</CardContainer>
-				) : (
-					<CardContainer isColumn={true}>
-						{properties.clinics.clinics?.length > 0 &&
-							properties.clinics.clinics.map((city, index) => {
-								const cityIcon = cities.find((cityWithIcon) => cityWithIcon.keycli === city.keycli);
-								return (
-									<Card key={index} handleClick={handleCitySelect} clickParam={city}>
-										<img
-											src={
-												process.env.NODE_ENV === "development"
-													? cityIcon?.icon
-													: IMAGES_SERVER + cityIcon?.icon
-											}
-											alt={cityIcon?.icon}
-											className="type-image-city"
-										/>
-										<p>{city.clinica}</p>
-									</Card>
-								);
-							})}
-					</CardContainer>
-				)}
+				<div className="city-appointment-container">
+					{isLoading ? (
+						<CardContainer>
+							<div className="loading-center">
+								<Loading />
+							</div>
+						</CardContainer>
+					) : (
+						<CardContainer isColumn={true}>
+							{properties.clinics.clinics?.length > 0 &&
+								properties.clinics.clinics.map((city, index) => {
+									const cityIcon = cities.find(
+										(cityWithIcon) => cityWithIcon.keycli === city.keycli
+									);
+									return (
+										<Card key={index} handleClick={handleCitySelect} clickParam={city}>
+											<img
+												src={
+													process.env.NODE_ENV === "development"
+														? cityIcon?.icon
+														: IMAGES_SERVER + cityIcon?.icon
+												}
+												alt={cityIcon?.icon}
+												className="type-image-city"
+											/>
+											<p>{city.clinica}</p>
+										</Card>
+									);
+								})}
+						</CardContainer>
+					)}
+				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

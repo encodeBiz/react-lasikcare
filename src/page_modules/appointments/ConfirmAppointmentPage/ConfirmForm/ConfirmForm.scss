@@ -96,7 +96,7 @@
 				input[type="checkbox"] {
 					-webkit-appearance: checkbox !important;
 					background: darkgoldenrod;
-					width: 12%;
+					width: 3%;
 					border-color: $texto;
 					opacity: 0.6;
 					margin: 0;
@@ -106,7 +106,7 @@
 					}
 
 					@include desktop-small {
-						width: 5%;
+						width: 3%;
 					}
 				}
 
@@ -122,6 +122,10 @@
 
 					a {
 						color: $tertiaryColor;
+					}
+
+					&:visited {
+						color: $texto;
 					}
 				}
 			}

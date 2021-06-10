@@ -69,6 +69,7 @@ const CalendarAppointmentPage = (properties) => {
 	const [loading, setLoading] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(null);
 	const [initialMonth, setInitialMonth] = useState("");
+	const hasSentEmail = JSON.parse(localStorage.getItem("hasSentEmail"));
 
 	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
 
@@ -100,9 +101,13 @@ const CalendarAppointmentPage = (properties) => {
 		if (data && data.length > 0) {
 			const filteredData = filterData(data);
 
-			// Si filtered data tiene menos de 5 citas disponibles se envía un email a marketing@care-vision.com
-			if (appointment.type === "BIDI" && filteredData.length <= 5) {
+			// Si filtered data tiene menos de 5 citas disponibles,
+			// es BIDI y no se ha enviado un email antes
+			// se envía un email a marketing@care-vision.com
+
+			if (appointment.type === "BIDI" && filteredData.length <= 5 && !hasSentEmail[currentMonth]) {
 				handleSendErrorEmail();
+				localStorage.setItem("hasSentEmail", JSON.stringify({ [currentMonth]: true }));
 			}
 
 			// Se setea el objeto de datos
@@ -414,7 +419,7 @@ const CalendarAppointmentPage = (properties) => {
 					<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
 				</div>
 				<div className="calendar-appointment-page">
-					<h1>3. Datum wählen</h1>
+					<h1>Datum wählen</h1>
 					<CardContainer isColumn={true}>
 						<div className="button-container">
 							{buttonsConfig.map((button, index) => {

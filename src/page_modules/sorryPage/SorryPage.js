@@ -26,7 +26,7 @@ const SorryPage = (properties) => {
 	};
 	const goToHome = () => (window.location.href = "tel:080088886060");
 
-	const { clearAppointment } = properties;
+	// const { clearAppointment } = properties;
 
 	// useEffect(() => {
 	// 	clearAppointment();
@@ -55,7 +55,7 @@ const SorryPage = (properties) => {
 				<Button
 					styleType={"rounded-button small-margin rld-churumbel"}
 					type={"rounded-button"}
-					label="KONTAKTIEREN SIE UNS"
+					label="0800.8888.60.60"
 					action={() => goToHome()}
 					icon={telIcon}
 					iconClass={"white-icon"}

@@ -31,5 +31,11 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		@include phone-small {
+			width: 100%;
+		}
+		@include phone-large {
+			width: 100%;
+		}
 	}
 }
