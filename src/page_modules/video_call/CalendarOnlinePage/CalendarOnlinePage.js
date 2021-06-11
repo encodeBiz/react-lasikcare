@@ -34,6 +34,7 @@ const CalendarOnlinePage = (properties) => {
 	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
 	const [currentMonth, setCurrentMonth] = useState(currentMonthNumber);
 	const { appointment, online_available_hours, available_hours } = properties;
+	const hasSentEmail = JSON.parse(localStorage.getItem("hasSentEmail"));
 
 	const buttonsConfig = [
 		{
@@ -71,12 +72,14 @@ const CalendarOnlinePage = (properties) => {
 	useEffect(() => {
 		let data;
 
+
 		if (appointment.type === "VIDEO") {
 			data = online_available_hours[currentMonth.toString()] ?? undefined;
 		} else if (appointment.type === "BIDI") {
 			data =
 				available_hours[appointment.city.keycli].data.BIDI[currentMonth.toString()] ?? undefined;
-			if (data.length <= 5) {
+
+			if (data?.length <= 5 && !hasSentEmail?.[currentMonth]) {
 				handleSendErrorEmail();
 			}
 		}
@@ -87,7 +90,7 @@ const CalendarOnlinePage = (properties) => {
 		} else {
 			setDataCalendar([]);
 		}
-	}, [currentMonth, online_available_hours, selectedDate]);
+	}, [currentMonth, online_available_hours, available_hours, selectedDate]);
 
 	/**
 	 * @description Setea la anchura del calendario
@@ -377,7 +380,11 @@ const CalendarOnlinePage = (properties) => {
 			sexo: appointment.clientData.gender,
 			error: `There are less than 5 available dates in ${appointment.city.clinica}`,
 		};
-
+		const data = {
+			...hasSentEmail,
+			[currentMonth]: true,
+		};
+		localStorage.setItem("hasSentEmail", JSON.stringify({ ...data }));
 		await sendErrorEmail(query_params);
 	};
 
@@ -394,7 +401,7 @@ const CalendarOnlinePage = (properties) => {
 					<Button action={redirectToTypes} styleType={"back-button"} label={"Zurück"} />
 				</div>
 				<div className="calendar-online-appointment-page">
-					<h1>3. Datum wählen</h1>
+					<h1>Datum wählen</h1>
 					<CardContainer isColumn={true}>
 						<div className="button-container">
 							{buttonsConfig.map((button, index) => {

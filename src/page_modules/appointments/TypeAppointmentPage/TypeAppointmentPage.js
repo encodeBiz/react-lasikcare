@@ -108,7 +108,7 @@ const TypeAppointmentPage = (properties) => {
 				</div>
 				<div className="appointment-type-container">
 					<div>
-						<h1>2. Terminart wählen</h1>
+						<h1>Terminart wählen</h1>
 					</div>
 					<CardContainer isColumn={true}>
 						{appointmentTypes.map((typeItem, index) => {

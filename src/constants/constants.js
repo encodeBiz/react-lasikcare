@@ -14,12 +14,12 @@ export const videoConferenceSteps = [
 export const appointmentSteps = [
 	{
 		stepNumber: 0,
-		stepText: "Terminart",
+		stepText: "Standort",
 		url: "/termintyp",
 	},
 	{
 		stepNumber: 1,
-		stepText: "Standort",
+		stepText: "Terminart",
 		url: "/termintyp/vor-ort/",
 	},
 	{

@@ -17,26 +17,7 @@ import "./Button.scss";
  * @param {} properties.ref
  */
 const Button = (properties) => {
-	const styleBtn = {
-		backgroundColor: '#f90 !important',
-    width: '100% !important',
-    height: 'max-content !important',
-    padding: '15px !important',
-    fontFamily: '"Gilroy" !important',
-    fontSize: '1.1rem !important',
-    fontWeight: '700 !important',
-    color: '#fff !important',
-    border: '1.7px solid #f90 !important',
-    borderRadius: '50px !important',
-    cursor: 'pointer !important',
-    margin: '30px 0 !important',
-    textTransform:'uppercase !important',
-    transition: 'all .3s ease-in-out !important'
-}
-
-	const { icon } = properties;
-
-	console.log(properties.icon);
+	const { icon, hoverSwitch } = properties;
 
 	return (
 		<button
@@ -44,8 +25,8 @@ const Button = (properties) => {
 			className={`main-btn ${properties.styleType}`}
 			disabled={properties.disabled}
 			type={properties.type || "button"}
-			onMouseEnter={() => properties.hoverSwitch("enter")}
-			onMouseLeave={() => properties.hoverSwitch("leave")}
+			onMouseEnter={hoverSwitch ? () => hoverSwitch("enter") : null}
+			onMouseLeave={hoverSwitch ? () => hoverSwitch("leave") : null}
 		>
 			{icon ? (
 				<span className={properties.iconClass}>

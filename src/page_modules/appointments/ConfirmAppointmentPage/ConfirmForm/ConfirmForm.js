@@ -10,7 +10,6 @@ import PhoneInput from "react-phone-number-input";
 // import "react-phone-number-input/style.css";
 import de from "react-phone-number-input/locale/de";
 
-
 /**
  *
  * @param {Object} properties
@@ -68,6 +67,7 @@ const ConfirmForm = (properties) => {
 					validateOnChange={false}
 				>
 					{(props) => {
+						console.log(props.values);
 						return (
 							<Form onSubmit={props.handleSubmit}>
 								{/* Grupo de edad */}
@@ -76,7 +76,11 @@ const ConfirmForm = (properties) => {
 										<div className="inline-form-group marg-from">
 											<div className="form-group" onClick={clearErrors}>
 												<label htmlFor="ageGroup">
-													<Field as="select" name="ageGroup">
+													<Field
+														as="select"
+														name="ageGroup"
+														className={props.values.ageGroup ? "option-valid" : "option-not-valid"}
+													>
 														<option value="" defaultValue disabled>
 															Altersgruppe
 														</option>
@@ -93,7 +97,11 @@ const ConfirmForm = (properties) => {
 
 											<div className="form-group  marg-from" onClick={clearErrors}>
 												<label htmlFor="gender">
-													<Field as="select" name="gender">
+													<Field
+														as="select"
+														name="gender"
+														className={props.values.gender ? "option-valid" : "option-not-valid"}
+													>
 														<option value="" defaultValue disabled>
 															Anrede
 														</option>
@@ -148,13 +156,14 @@ const ConfirmForm = (properties) => {
 										<div className="form-group full-width  marg-from full" onClick={clearErrors}>
 											<label>Telefonnummer</label>
 											<PhoneInput
+												countryCallingCodeEditable={false}
 												placeholder={"Telefonnummer"}
 												value={props.values.phoneNumber}
 												onChange={(e) => {
 													return e !== undefined ? (props.values.phoneNumber = e) : null;
 												}}
 												defaultCountry="DE"
-												withCountryCallingCode={true}
+												// withCountryCallingCode={true}
 												country={false}
 												labels={de}
 												international

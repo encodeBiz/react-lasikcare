@@ -81,7 +81,6 @@ const Root = (properties) => {
 	return (
 		<React.Fragment>
 			{errors.notDefault && <ErrorToast />}
-			{/* <Navbar></Navbar> */}
 			<Switch>
 				{/* Estas dos rutas deben de renderizarse aquí 
 					para poder redireccionar a home cuando se 
@@ -89,7 +88,7 @@ const Root = (properties) => {
 				*/}
 
 				<Route exact path={"/"} component={CityAppointmentPage} />
-				<Route exact path={"/sorry"} component={SorryPage} />
+				<Route exact path={"/termin-bereits-vergeben"} component={SorryPage} />
 				
 				{properties.clinics.status === "pending" ? (
 					<Redirect to={"/"} />
@@ -100,16 +99,6 @@ const Root = (properties) => {
 						))}
 					</>
 				)}
-
-				{/* {properties.clinics.status === "pending" ? (
-					<Redirect to={"/"} />
-				) : (
-					<>
-						{routes.map((route, i) => (
-							<RouteWithSubRoutes key={i} {...route} />
-						))}
-					</>
-				)} */}
 			</Switch>
 		</React.Fragment>
 	);
