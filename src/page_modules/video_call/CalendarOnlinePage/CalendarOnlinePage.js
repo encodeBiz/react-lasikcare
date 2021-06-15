@@ -72,7 +72,6 @@ const CalendarOnlinePage = (properties) => {
 	useEffect(() => {
 		let data;
 
-
 		if (appointment.type === "VIDEO") {
 			data = online_available_hours[currentMonth.toString()] ?? undefined;
 		} else if (appointment.type === "BIDI") {
@@ -272,6 +271,10 @@ const CalendarOnlinePage = (properties) => {
 
 	const handleClick = async (type) => {
 		try {
+			if (properties.loading.onlineGlobalLoading || properties.loading.globalLoading) {
+				return;
+			}
+
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("type", type);
 
@@ -392,6 +395,7 @@ const CalendarOnlinePage = (properties) => {
 	// RENDERIZADO DEL COMPONENTE
 	///////////////////////////////////////////
 
+
 	return (
 		<React.Fragment>
 			<Stepper currentStepIndex={properties.appointment?.currentStep} isVideoConference={false} />
@@ -409,7 +413,11 @@ const CalendarOnlinePage = (properties) => {
 								return (
 									<Card
 										key={index}
-										customClass={`pointer ${customClass}`}
+										customClass={`pointer ${customClass} ${
+											properties.loading.onlineGlobalLoading || properties.loading.globalLoading
+												? "is-loading"
+												: ""
+										} `}
 										handleClick={handleClick}
 										clickParam={button.type}
 									>

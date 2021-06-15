@@ -105,8 +105,11 @@ const CalendarAppointmentPage = (properties) => {
 			// es BIDI y no se ha enviado un email antes
 			// se envía un email a marketing@care-vision.com
 
-
-			if ( appointment.type === "BIDI" && filteredData.length <= 5 && !hasSentEmail?.[currentMonth] ) {
+			if (
+				appointment.type === "BIDI" &&
+				filteredData.length <= 5 &&
+				!hasSentEmail?.[currentMonth]
+			) {
 				handleSendErrorEmail();
 			}
 
@@ -114,7 +117,7 @@ const CalendarAppointmentPage = (properties) => {
 
 			setDataCalendar(filteredData);
 		} else {
-			if(appointment.type === "BIDI" && !hasSentEmail?.[currentMonth]){
+			if (appointment.type === "BIDI" && !hasSentEmail?.[currentMonth]) {
 				handleSendErrorEmail();
 			}
 		}
@@ -195,6 +198,8 @@ const CalendarAppointmentPage = (properties) => {
 		}
 
 		// De lo contrario se suma 1 por cada mes consecutivo sin fechas disponibles.
+
+
 		for (let month in months) {
 			if (!month) {
 				addToMonth++;
@@ -359,6 +364,9 @@ const CalendarAppointmentPage = (properties) => {
 
 	const handleClick = async (type) => {
 		try {
+			if (properties.loading.globalLoading) {
+				return;
+			}
 			// Se setea el loading a true ya que al cargar nuevos datos es posible que de un undefined.
 
 			setLoading(true);
@@ -435,7 +443,9 @@ const CalendarAppointmentPage = (properties) => {
 								return (
 									<Card
 										key={index}
-										customClass={`pointer ${customClass}`}
+										customClass={`pointer ${customClass} ${
+											properties.loading.globalLoading ? "is-loading" : ""
+										}`}
 										handleClick={handleClick}
 										clickParam={button.type}
 									>

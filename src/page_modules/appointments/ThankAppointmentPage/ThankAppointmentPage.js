@@ -114,7 +114,7 @@ const ThankAppointmentPage = (properties) => {
 	};
 	const thankYouTexts = {
 		BI: "Unverbindliches Informationsgespräch",
-		BIDI: "Unverbindliches Informationsgespräch + Ärltliche Voruntersuchung(ca. 40€)",
+		BIDI: "Unverbindliches Informationsgespräch + Ärltliche Voruntersuchung (ca. 40€)",
 		VIDEO: "Online Video-Beratung von zu Hause aus",
 	};
 
