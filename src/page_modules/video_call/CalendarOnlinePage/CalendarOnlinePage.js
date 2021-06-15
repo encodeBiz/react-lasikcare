@@ -70,20 +70,17 @@ const CalendarOnlinePage = (properties) => {
 	 */
 
 	useEffect(() => {
-		let data;
+		const data =
+			appointment.type === "VIDEO"
+				? online_available_hours[currentMonth.toString()]
+				: available_hours[appointment.city.keycli].data.BIDI[currentMonth.toString()];
 
-		if (appointment.type === "VIDEO") {
-			data = online_available_hours[currentMonth.toString()] ?? undefined;
-		} else if (appointment.type === "BIDI") {
-			data =
-				available_hours[appointment.city.keycli].data.BIDI[currentMonth.toString()] ?? undefined;
-
-			if (data?.length <= 5 && !hasSentEmail?.[currentMonth]) {
-				handleSendErrorEmail();
-			}
+		if (data?.length <= 5 && !hasSentEmail?.[currentMonth]) {
+			handleSendErrorEmail();
 		}
 
-		if (data && data.length > 0) {
+
+		if ((data && data.length > 0) || data !== undefined) {
 			const formattedDates = formatDates(data);
 			setDataCalendar(formattedDates);
 		} else {
@@ -105,10 +102,46 @@ const CalendarOnlinePage = (properties) => {
 	 */
 
 	useEffect(() => {
-		if (!properties.loading.onlineGlobalLoading) {
-			getInitialMonth(online_available_hours);
+		if (!properties.loading.onlineGlobalLoading && !properties.loading.globalLoading) {
+			const data =
+				appointment.type === "BIDI"
+					? available_hours?.[appointment.city.keycli]?.data?.BIDI
+					: online_available_hours;
+
+			getInitialMonth(data);
 		}
-	}, [properties.loading.onlineGlobalLoading]);
+	}, [
+		properties.loading.onlineGlobalLoading,
+		properties.loading.globalLoading,
+		properties.appointment.type,
+		available_hours,
+	]);
+
+	/**
+	 * Se ejecuta cuando se cambia de mes
+	 */
+
+	useEffect(() => {
+		const month = Number(moment(today, "DD/MM/YYYY").format("M")) + initialMonth;
+
+		setCurrentMonth(month.toString());
+		const data =
+			appointment.type === "BIDI"
+				? available_hours?.[appointment.city.keycli]?.data?.BIDI?.[month.toString()]
+				: online_available_hours[month.toString()];
+
+		// Se formatean las horas seleccioonadas
+
+		const filteredData = formatDates(data);
+
+		// Se setean los datos formateados como nuevos datos que el calendario debera pintar
+
+		setDataCalendar(filteredData);
+
+		// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
+
+		setSelectedDate(null);
+	}, [initialMonth]);
 
 	/**
 	 *
@@ -128,23 +161,23 @@ const CalendarOnlinePage = (properties) => {
 	 * Hace un loop sobre una lista de meses y
 	 * si el mes está vacío pasa al siguiente
 	 * hasta que se encuentre uno que no lo está
-	 * @param {Object} appointmentObject Objeto con los meses guardados en el store
+	 * @param {Object} monthObject Objeto con los meses guardados en el store
 	 * @returns {string} retorna el numero del mes en formato string
 	 */
 
 	const getInitialMonth = (appointmentObject) => {
 		let addToMonth = 0;
 		const months = Object.values(appointmentObject);
-
 		// Si no hay ninguna fecha en los próximos meses se debe de retornar
 
-		if (months.every === undefined) {
+		if (months.every((month) => month === undefined || month.length <= 0)) {
 			return setInitialMonth(addToMonth);
 		}
 
 		// De lo contrario se suma 1 por cada mes consecutivo sin fechas disponibles.
-		for (let month in months) {
-			if (!month) {
+
+		for (let i = 0; i < months.length; i++) {
+			if (!months[i] === undefined || months[i].length <= 0) {
 				addToMonth++;
 			} else {
 				return setInitialMonth(addToMonth);
@@ -189,8 +222,6 @@ const CalendarOnlinePage = (properties) => {
 				const date = moment(currentDate).add(2, "month").format("DD/M/YYYY");
 				await properties.fetchOnlineAvailableHours(date);
 				setCurrentMonth((Number(currentMonth) + 1).toString());
-
-				getInitialMonth(online_available_hours);
 			} else {
 				const date = moment(currentDate).add(1, "month").format("DD/M/YYYY");
 				const nextMonth = (Number(currentMonth) + 3).toString();
@@ -201,7 +232,6 @@ const CalendarOnlinePage = (properties) => {
 					date,
 					nextMonth
 				);
-				getInitialMonth(available_hours);
 			}
 		} catch (error) {
 			console.log(error);
@@ -278,7 +308,7 @@ const CalendarOnlinePage = (properties) => {
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("type", type);
 
-			setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
+			// setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
 
 			const dates =
 				type === "BIDI"
@@ -395,7 +425,6 @@ const CalendarOnlinePage = (properties) => {
 	// RENDERIZADO DEL COMPONENTE
 	///////////////////////////////////////////
 
-
 	return (
 		<React.Fragment>
 			<Stepper currentStepIndex={properties.appointment?.currentStep} isVideoConference={false} />
@@ -455,7 +484,7 @@ const CalendarOnlinePage = (properties) => {
 						<CardContainer className="change-margin">
 							{!isLoading && (
 								<Calendar
-									datesList={dataCalendar}
+									datesList={dataCalendar || []}
 									initialMonth={initialMonth}
 									initialDate={initialDate}
 									width={width}

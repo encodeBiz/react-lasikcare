@@ -68,7 +68,7 @@ const CalendarAppointmentPage = (properties) => {
 	const [selectedDate, setSelectedDate] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(null);
-	const [initialMonth, setInitialMonth] = useState("");
+	const [initialMonth, setInitialMonth] = useState(0);
 	const hasSentEmail = JSON.parse(localStorage.getItem("hasSentEmail"));
 
 	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
@@ -139,9 +139,33 @@ const CalendarAppointmentPage = (properties) => {
 
 	useEffect(() => {
 		if (!properties.loading.globalLoading) {
-			getInitialMonth(available_hours);
+			getInitialMonth(available_hours[appointment.city.keycli].data[appointment.type]);
 		}
-	}, [properties.loading.globalLoading]);
+	}, [properties.loading.globalLoading, properties.appointment.type]);
+
+	/**
+	 * Se ejecuta cuando se ha de cambiar de mes
+	 */
+
+	useEffect(() => {
+		const month = Number(currentMonth) + initialMonth;
+
+		setCurrentMonth(month.toString());
+		const data =
+			available_hours?.[appointment.city.keycli]?.data?.[appointment.type]?.[month.toString()];
+
+		// Se formatean las horas seleccioonadas
+
+		const filteredData = filterData(data);
+
+		// Se setean los datos formateados como nuevos datos que el calendario debera pintar
+
+		setDataCalendar(filteredData);
+
+		// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
+
+		setSelectedDate(null);
+	}, [initialMonth]);
 
 	/**
 	 *
@@ -193,15 +217,14 @@ const CalendarAppointmentPage = (properties) => {
 
 		// Si no hay ninguna fecha en los próximos meses se debe de retornar
 
-		if (months.every === undefined) {
+		if (months.every((month) => month === undefined || month.length <= 0)) {
 			return setInitialMonth(addToMonth);
 		}
 
 		// De lo contrario se suma 1 por cada mes consecutivo sin fechas disponibles.
 
-
-		for (let month in months) {
-			if (!month) {
+		for (let i = 0; i < months.length; i++) {
+			if (!months[i] === undefined || months[i].length <= 0) {
 				addToMonth++;
 			} else {
 				return setInitialMonth(addToMonth);
@@ -296,8 +319,6 @@ const CalendarAppointmentPage = (properties) => {
 				date,
 				nextMonth
 			);
-
-			getInitialMonth(available_hours);
 		} catch (error) {
 			console.log(error);
 		}

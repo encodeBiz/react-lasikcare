@@ -29,46 +29,51 @@ const Calendar = (properties) => {
 		setFocused(date);
 	};
 
+
 	return (
 		<div className="calendar-container">
-			<DayPickerSingleDateController
-				initialVisibleMonth={() => moment().add(properties.initialMonth, "months")}
-				numberOfMonths={1}
-				hideKeyboardShortcutsPanel={true}
-				daySize={properties.calendarWidth}
-				focused={true}
-				// Si hay datos de fechas se pintan los días seleccionados
-				// Si no se pone un condicional para comprobar que properties.datesList no llega undefined
-				// Calendar rompe la aplicación
+			{properties.datesList && (
+				<>
+					<DayPickerSingleDateController
+						initialVisibleMonth={() => moment().add(properties.initialMonth, "months")}
+						numberOfMonths={1}
+						hideKeyboardShortcutsPanel={true}
+						daySize={properties.calendarWidth}
+						focused={true}
+						// Si hay datos de fechas se pintan los días seleccionados
+						// Si no se pone un condicional para comprobar que properties.datesList no llega undefined
+						// Calendar rompe la aplicación
 
-				isDayHighlighted={(day1) =>
-					properties.datesList?.length > 0 &&
-					properties.datesList
-						.map((item) => item.formattedDate)
-						.some((day2) => isSameDay(day1, day2))
-				}
-				date={date} // momentPropTypes.momentObj or null
-				onDateChange={onChange} // PropTypes.func.isRequired
-				// focused={false} // PropTypes.bool
-				// onFocusChange={(item) => console.log(item)} // PropTypes.func.isRequired
-				onNextMonthClick={(e) => properties.onNextMonthClick(e)}
-				onPrevMonthClick={(e) => properties.onPreviousMonthClick(e)}
-				// isOutsideRange={(day1) =>
-				// 	properties.datesList?.length > 0 &&
-				// 	properties.datesList
-				// 		.map((item) => item.formattedDate)
-				// 		.some((day2) => {
-				// 			// console.log(day1);
-				// 			// console.log(day2);
-				// 			return !isSameDay(day1, day2);
-				// 		})
-				// }
-			></DayPickerSingleDateController>
-			<CalendarHour
-				activeIndex={properties.activeIndex}
-				free_hours={properties.selectedDate || []}
-				selectHour={properties.handleSelectedHour}
-			></CalendarHour>
+						isDayHighlighted={(day1) =>
+							properties.datesList?.length > 0 &&
+							properties.datesList
+								.map((item) => item.formattedDate)
+								.some((day2) => isSameDay(day1, day2))
+						}
+						date={date} // momentPropTypes.momentObj or null
+						onDateChange={onChange} // PropTypes.func.isRequired
+						// focused={false} // PropTypes.bool
+						// onFocusChange={(item) => console.log(item)} // PropTypes.func.isRequired
+						onNextMonthClick={(e) => properties.onNextMonthClick(e)}
+						onPrevMonthClick={(e) => properties.onPreviousMonthClick(e)}
+						// isOutsideRange={(day1) =>
+						// 	properties.datesList?.length > 0 &&
+						// 	properties.datesList
+						// 		.map((item) => item.formattedDate)
+						// 		.some((day2) => {
+						// 			// console.log(day1);
+						// 			// console.log(day2);
+						// 			return !isSameDay(day1, day2);
+						// 		})
+						// }
+					></DayPickerSingleDateController>
+					<CalendarHour
+						activeIndex={properties.activeIndex}
+						free_hours={properties.selectedDate || []}
+						selectHour={properties.handleSelectedHour}
+					></CalendarHour>
+				</>
+			)}
 		</div>
 	);
 };
