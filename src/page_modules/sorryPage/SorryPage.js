@@ -22,7 +22,7 @@ const SorryPage = (properties) => {
 
 	const goToCalendar = () => {
 		setAppoinmentConfig("type", "BIDI");
-		history.push("/termintyp/vor-ort/datum/");
+		history.push("/termintyp/vor-ort/voruntersuchung");
 	};
 	const goToHome = () => (window.location.href = "tel:080088886060");
 

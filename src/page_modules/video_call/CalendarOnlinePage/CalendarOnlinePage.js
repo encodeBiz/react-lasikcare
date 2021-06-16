@@ -41,6 +41,7 @@ const CalendarOnlinePage = (properties) => {
 			text: "Online Video-Beratung von zu Hause aus",
 			type: "VIDEO",
 			img: opcionOne,
+			url: "/termintyp/zu-hause/videoberatung",
 		},
 		{
 			action: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
@@ -48,7 +49,7 @@ const CalendarOnlinePage = (properties) => {
 			// label: "40€",
 			type: "BIDI",
 			img: opcionTwo,
-			path: "/termintyp/vor-ort/datum/",
+			url: "/termintyp/zu-hause/voruntersuchung",
 		},
 	];
 
@@ -78,7 +79,6 @@ const CalendarOnlinePage = (properties) => {
 		if (data?.length <= 5 && !hasSentEmail?.[currentMonth]) {
 			handleSendErrorEmail();
 		}
-
 
 		if ((data && data.length > 0) || data !== undefined) {
 			const formattedDates = formatDates(data);
@@ -115,6 +115,7 @@ const CalendarOnlinePage = (properties) => {
 		properties.loading.globalLoading,
 		properties.appointment.type,
 		available_hours,
+		online_available_hours,
 	]);
 
 	/**
@@ -129,6 +130,8 @@ const CalendarOnlinePage = (properties) => {
 			appointment.type === "BIDI"
 				? available_hours?.[appointment.city.keycli]?.data?.BIDI?.[month.toString()]
 				: online_available_hours[month.toString()];
+
+		console.log(data);
 
 		// Se formatean las horas seleccioonadas
 
@@ -299,7 +302,7 @@ const CalendarOnlinePage = (properties) => {
 	 * @param {String} type Tipo de cita seleccionado
 	 */
 
-	const handleClick = async (type) => {
+	const handleClick = async (type, url) => {
 		try {
 			if (properties.loading.onlineGlobalLoading || properties.loading.globalLoading) {
 				return;
@@ -310,18 +313,7 @@ const CalendarOnlinePage = (properties) => {
 
 			// setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
 
-			const dates =
-				type === "BIDI"
-					? await available_hours[appointment.city.keycli].data.BIDI[currentMonth]
-					: await online_available_hours[currentMonth];
-
-			const filteredData = formatDates(dates);
-
-			setDataCalendar(filteredData);
-
-			setSelectedDate(null);
-
-			setIsLoading(false);
+			history.push(url);
 		} catch (error) {
 			console.log(error);
 			setIsLoading(false);
@@ -447,8 +439,7 @@ const CalendarOnlinePage = (properties) => {
 												? "is-loading"
 												: ""
 										} `}
-										handleClick={handleClick}
-										clickParam={button.type}
+										handleClick={() => handleClick(button.type, button.url)}
 									>
 										<label>
 											<input

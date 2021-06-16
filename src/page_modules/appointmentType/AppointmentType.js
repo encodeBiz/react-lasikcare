@@ -18,7 +18,7 @@ const AppointmentType = (properties) => {
 			title: "Zu Hause",
 			image: iconVideo,
 			subtitle: "Persönliche Video-Beratung von zu Hause aus",
-			url: "/termintyp/videoberatung",
+			url: "/termintyp/zu-hause/videoberatung",
 			type: "VIDEO",
 		},
 		{
@@ -53,7 +53,7 @@ const AppointmentType = (properties) => {
 
 	const handleClick = (type) => {
 		properties.setAppoinmentConfig("type", type);
-		history.push(type === "online" ? "/termintyp/videoberatung" : "/termintyp/vor-ort/");
+		history.push(type === "online" ? "/termintyp/zu-hause/videoberatung" : "/termintyp/vor-ort/");
 	};
 
 	const goBack = () => history.push("/");
