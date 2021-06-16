@@ -30,7 +30,7 @@ const Calendar = (properties) => {
 		setFocused(date);
 	};
 
-
+	console.log(properties);
 	return (
 		<div className="calendar-container">
 			{properties.datesList !== undefined && (
@@ -68,11 +68,13 @@ const Calendar = (properties) => {
 						// 		})
 						// }
 					></DayPickerSingleDateController>
-					<CalendarHour
-						activeIndex={properties.activeIndex}
-						free_hours={properties.selectedDate || []}
-						selectHour={properties.handleSelectedHour}
-					></CalendarHour>
+					{properties.selectedDate && (
+						<CalendarHour
+							activeIndex={properties.activeIndex}
+							free_hours={properties.selectedDate || []}
+							selectHour={properties.handleSelectedHour}
+						></CalendarHour>
+					)}
 				</>
 			)}
 		</div>
