@@ -2,7 +2,7 @@ export const videoConferenceSteps = [
 	{
 		stepNumber: 0,
 		stepText: "Datum",
-		url: "/termintyp/videoberatung",
+		url: "/termintyp/zu-hause/videoberatung",
 	},
 	{
 		stepNumber: 1,
@@ -25,7 +25,7 @@ export const appointmentSteps = [
 	{
 		stepNumber: 2,
 		stepText: "Datum",
-		url: "/termintyp/vor-ort/datum/",
+		url: "/termintyp/vor-ort/voruntersuchung",
 	},
 	{
 		stepNumber: 3,

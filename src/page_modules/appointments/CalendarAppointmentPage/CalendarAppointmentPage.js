@@ -399,7 +399,7 @@ const CalendarAppointmentPage = (properties) => {
 			await properties.setAppoinmentConfig("type", type);
 
 			if (type === "VIDEO") {
-				history.push("/termintyp/videoberatung");
+				history.push("/termintyp/zu-hause/videoberatung");
 				return;
 			}
 

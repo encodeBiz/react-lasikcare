@@ -94,7 +94,7 @@ const TypeAppointmentPage = (properties) => {
 
 	const onAppointmentTypeSelection = (type) => {
 		properties.setAppoinmentConfig("type", type);
-		history.push("/termintyp/vor-ort/datum/");
+		history.push("/termintyp/vor-ort/voruntersuchung");
 	};
 
 	const goBack = () => history.push("/termintyp");

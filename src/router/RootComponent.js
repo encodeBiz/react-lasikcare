@@ -9,7 +9,6 @@ import { Redirect, Route, Switch } from "react-router";
 import { connect } from "react-redux";
 // Helper
 
-
 // Componentes
 
 import AppointmentType from "../page_modules/appointmentType/AppointmentType";
@@ -17,7 +16,7 @@ import CalendarAppointmentPage from "../page_modules/appointments/CalendarAppoin
 import CityAppointmentPage from "../page_modules/appointments/CityAppointmentPage/CityAppointmentPage";
 import ConfirmAppointmentPage from "../page_modules/appointments/ConfirmAppointmentPage/ConfirmAppointmentPage";
 import TypeAppointmentPage from "../page_modules/appointments/TypeAppointmentPage/TypeAppointmentPage";
-import ThankAppointmentPage from "../page_modules/appointments/ThankAppointmentPage/ThankAppointmentPage"
+import ThankAppointmentPage from "../page_modules/appointments/ThankAppointmentPage/ThankAppointmentPage";
 import CalendarOnlinePage from "../page_modules/video_call/CalendarOnlinePage/CalendarOnlinePage";
 // Estilos
 
@@ -31,12 +30,17 @@ const routes = [
 		component: AppointmentType,
 	},
 	{
-		path: "/termintyp/vor-ort/", 
+		path: "/termintyp/vor-ort/",
 		component: TypeAppointmentPage,
 		stepNumber: 1,
 	},
 	{
-		path: "/termintyp/vor-ort/datum/",
+		path: "/termintyp/vor-ort/voruntersuchung",
+		component: CalendarAppointmentPage,
+		stepNumber: 2,
+	},
+	{
+		path: "/termintyp/vor-ort/informationsgespräch",
 		component: CalendarAppointmentPage,
 		stepNumber: 2,
 	},
@@ -51,7 +55,12 @@ const routes = [
 		stepNumber: 4,
 	},
 	{
-		path: "/termintyp/videoberatung",
+		path: "/termintyp/zu-hause/videoberatung",
+		component: CalendarOnlinePage,
+		stepNumber: 1,
+	},
+	{
+		path: "/termintyp/zu-hause/voruntersuchung",
 		component: CalendarOnlinePage,
 		stepNumber: 1,
 	},
@@ -89,7 +98,7 @@ const Root = (properties) => {
 
 				<Route exact path={"/"} component={CityAppointmentPage} />
 				<Route exact path={"/termin-bereits-vergeben"} component={SorryPage} />
-				
+
 				{properties.clinics.status === "pending" ? (
 					<Redirect to={"/"} />
 				) : (
