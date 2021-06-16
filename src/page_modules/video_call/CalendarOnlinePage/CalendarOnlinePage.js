@@ -64,7 +64,7 @@ const CalendarOnlinePage = (properties) => {
 	useEffect(() => {
 		properties.setAppoinmentConfig("currentStep", 2);
 		setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
-	}, []);
+	}, [appointment.type]);
 
 	/**
 	 * @description Gestiona la llegada de datos procedentes de Redux store
@@ -86,7 +86,12 @@ const CalendarOnlinePage = (properties) => {
 		} else {
 			setDataCalendar([]);
 		}
-	}, [currentMonth, online_available_hours, available_hours, selectedDate]);
+	}, [
+		appointment.type,
+		currentMonth,
+		properties.loading.globalLoading,
+		properties.loading.onlineGlobalLoading,
+	]);
 
 	/**
 	 * @description Setea la anchura del calendario
@@ -114,8 +119,6 @@ const CalendarOnlinePage = (properties) => {
 		properties.loading.onlineGlobalLoading,
 		properties.loading.globalLoading,
 		properties.appointment.type,
-		available_hours,
-		online_available_hours,
 	]);
 
 	/**
@@ -131,19 +134,19 @@ const CalendarOnlinePage = (properties) => {
 				? available_hours?.[appointment.city.keycli]?.data?.BIDI?.[month.toString()]
 				: online_available_hours[month.toString()];
 
-		console.log(data);
+		if (data) {
+			// Se formatean las horas seleccioonadas
 
-		// Se formatean las horas seleccioonadas
+			const filteredData = formatDates(data);
 
-		const filteredData = formatDates(data);
+			// Se setean los datos formateados como nuevos datos que el calendario debera pintar
 
-		// Se setean los datos formateados como nuevos datos que el calendario debera pintar
+			setDataCalendar(filteredData);
 
-		setDataCalendar(filteredData);
+			// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
 
-		// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
-
-		setSelectedDate(null);
+			setSelectedDate(null);
+		}
 	}, [initialMonth]);
 
 	/**
@@ -304,7 +307,7 @@ const CalendarOnlinePage = (properties) => {
 
 	const handleClick = async (type, url) => {
 		try {
-			if (properties.loading.onlineGlobalLoading || properties.loading.globalLoading) {
+			if (properties.loading.onlineGlobalLoading || properties.loading.globalLoading || appointment.type === type) {
 				return;
 			}
 
@@ -475,7 +478,7 @@ const CalendarOnlinePage = (properties) => {
 						<CardContainer className="change-margin">
 							{!isLoading && (
 								<Calendar
-									datesList={dataCalendar || []}
+									datesList={dataCalendar}
 									initialMonth={initialMonth}
 									initialDate={initialDate}
 									width={width}

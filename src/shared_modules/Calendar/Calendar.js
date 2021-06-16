@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Calendar.scss";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
@@ -24,28 +24,19 @@ import moment from "moment";
 
 const Calendar = (properties) => {
 	const [date, setFocused] = useState(properties.initialDate);
-	const [initialMonthInCalendar, setInitialMonthInCalendar] = useState(0);
 
-	useEffect(() => {
-		setInitialMonthInCalendar(properties.initialMonth);
-	}, [properties.initialMonth]);
 	const onChange = (date) => {
 		properties.handleDateChange(date);
 		setFocused(date);
 	};
 
-	console.log(properties.initialMonth);
-	console.log(properties.datesList);
 
 	return (
 		<div className="calendar-container">
-			{properties.datesList && (
+			{properties.datesList !== undefined && (
 				<>
 					<DayPickerSingleDateController
-						initialVisibleMonth={() => {
-							console.log("Entra en mes", initialMonthInCalendar);
-							return moment().add(initialMonthInCalendar, "months");
-						}}
+						initialVisibleMonth={() => moment().add(properties.initialMonth, "months")}
 						numberOfMonths={1}
 						hideKeyboardShortcutsPanel={true}
 						daySize={properties.calendarWidth}

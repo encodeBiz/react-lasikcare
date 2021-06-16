@@ -18,6 +18,7 @@ import opcionTwo from "../../../assets/images/icons/calendar-icon.svg";
 import Loading from "../../../shared_modules/Loading/Loading";
 import { IMAGES_SERVER } from "../../../constants/constants";
 import { sendErrorEmail } from "../../../services/email.service";
+import { setIsGlobalLoading } from "../../../redux/loading/loading.actions";
 
 /**
  *
@@ -43,6 +44,7 @@ const CalendarAppointmentPage = (properties) => {
 			// label: "40€",
 			type: "BIDI",
 			img: opcionTwo,
+			url: "/termintyp/vor-ort/voruntersuchung",
 		},
 		{
 			action: "Unverbindliches Informationsgespräch",
@@ -50,6 +52,7 @@ const CalendarAppointmentPage = (properties) => {
 			label: "",
 			type: "BI",
 			img: opcionOne,
+			url: "/termintyp/vor-ort/informationsgespräch",
 		},
 	];
 
@@ -70,6 +73,7 @@ const CalendarAppointmentPage = (properties) => {
 	const [activeIndex, setActiveIndex] = useState(null);
 	const [initialMonth, setInitialMonth] = useState(0);
 	const hasSentEmail = JSON.parse(localStorage.getItem("hasSentEmail"));
+	const [isInitialMonthSet, setIsInitialMonthSet] = useState(false);
 
 	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
 
@@ -114,7 +118,6 @@ const CalendarAppointmentPage = (properties) => {
 			}
 
 			// Se setea el objeto de datos
-
 			setDataCalendar(filteredData);
 		} else {
 			if (appointment.type === "BIDI" && !hasSentEmail?.[currentMonth]) {
@@ -138,10 +141,10 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 
 	useEffect(() => {
-		if (!properties.loading.globalLoading) {
-			getInitialMonth(available_hours[appointment.city.keycli].data[appointment.type]);
+		if (!properties.loading.globalLoading && available_hours) {
+			getInitialMonth(available_hours?.[appointment.city.keycli]?.data?.[appointment.type]);
 		}
-	}, [properties.loading.globalLoading, properties.appointment.type]);
+	}, [properties.loading.globalLoading, properties.appointment.type, available_hours]);
 
 	/**
 	 * Se ejecuta cuando se ha de cambiar de mes
@@ -159,7 +162,6 @@ const CalendarAppointmentPage = (properties) => {
 		const filteredData = filterData(data);
 
 		// Se setean los datos formateados como nuevos datos que el calendario debera pintar
-
 		setDataCalendar(filteredData);
 
 		// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
@@ -218,7 +220,8 @@ const CalendarAppointmentPage = (properties) => {
 		// Si no hay ninguna fecha en los próximos meses se debe de retornar
 
 		if (months.every((month) => month === undefined || month.length <= 0)) {
-			return setInitialMonth(addToMonth);
+			setInitialMonth(addToMonth);
+			return setIsInitialMonthSet(true);
 		}
 
 		// De lo contrario se suma 1 por cada mes consecutivo sin fechas disponibles.
@@ -227,7 +230,8 @@ const CalendarAppointmentPage = (properties) => {
 			if (!months[i] === undefined || months[i].length <= 0) {
 				addToMonth++;
 			} else {
-				return setInitialMonth(addToMonth);
+				setInitialMonth(addToMonth);
+				return setIsInitialMonthSet(true);
 			}
 		}
 	};
@@ -383,18 +387,16 @@ const CalendarAppointmentPage = (properties) => {
 	 * @param {String} type Tipo de cita seleccionado
 	 */
 
-	const handleClick = async (type) => {
+	const handleClick = async (type, url) => {
 		try {
-			if (properties.loading.globalLoading) {
+			if (properties.loading.globalLoading || appointment.type === type) {
 				return;
 			}
-			// Se setea el loading a true ya que al cargar nuevos datos es posible que de un undefined.
-
-			setLoading(true);
 
 			// Setea el tipo
 
 			setType(type);
+			setIsInitialMonthSet(false);
 
 			await properties.setAppoinmentConfig("type", type);
 
@@ -403,31 +405,7 @@ const CalendarAppointmentPage = (properties) => {
 				return;
 			}
 
-			// Setea el currentMonth al mes actual ya que se recarga el calendario
-
-			setCurrentMonth(moment(today, "DD/MM/YYYY").format("M"));
-
-			// Se cambia el tipo de cita en el estado
-
-			// Se seleccionan desde el estado las fechas correspondientes al nuevo tipo de cita
-
-			const selectedHours = await available_hours[selectedCity].data[selectedType][currentMonth];
-
-			// Se formatean las horas seleccioonadas
-
-			const filteredData = filterData(selectedHours);
-
-			// Se setean los datos formateados como nuevos datos que el calendario debera pintar
-
-			setDataCalendar(filteredData);
-
-			// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
-
-			setSelectedDate(null);
-
-			// Se setea el loading a false
-
-			setLoading(false);
+			history.push(url);
 		} catch (error) {
 			console.log(error);
 		}
@@ -453,7 +431,11 @@ const CalendarAppointmentPage = (properties) => {
 
 			<div className="wrapper-general">
 				<div className="top-content">
-					<Button action={history.goBack} styleType={"back-button"} label={"Zurück"} />
+					<Button
+						action={() => history.push("/termintyp/vor-ort/")}
+						styleType={"back-button"}
+						label={"Zurück"}
+					/>
 				</div>
 				<div className="calendar-appointment-page">
 					<h1>Datum wählen</h1>
@@ -467,8 +449,8 @@ const CalendarAppointmentPage = (properties) => {
 										customClass={`pointer ${customClass} ${
 											properties.loading.globalLoading ? "is-loading" : ""
 										}`}
-										handleClick={handleClick}
-										clickParam={button.type}
+										handleClick={() => handleClick(button.type, button.url)}
+										// clickParam={button.type}
 									>
 										<label>
 											<input
@@ -501,7 +483,7 @@ const CalendarAppointmentPage = (properties) => {
 						</CardContainer>
 					) : (
 						<CardContainer className="change-margin">
-							{!loading && (
+							{isInitialMonthSet && (
 								<Calendar
 									datesList={dataCalendar}
 									initialMonth={initialMonth}
@@ -551,6 +533,8 @@ const mapDispatchToProps = (dispatch) => {
 
 		updateAvailableHours: (keycli, type, date, nextMonth) =>
 			dispatch(updateAvailableHours(keycli, type, date, nextMonth)),
+
+		setIsGlobalLoading: (value) => dispatch(setIsGlobalLoading(value)),
 	};
 };
 
