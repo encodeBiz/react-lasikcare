@@ -45,6 +45,8 @@ const ConfirmForm = (properties) => {
 
 	const appointmentValues = properties.appointmentValues;
 
+	console.log(appointmentValues);
+
 	return (
 		<>
 			<div className="form-summary">
@@ -67,7 +69,7 @@ const ConfirmForm = (properties) => {
 					validateOnChange={false}
 				>
 					{(props) => {
-						console.log(props.values);
+						console.log(props.values.accepted);
 						return (
 							<Form onSubmit={props.handleSubmit}>
 								{/* Grupo de edad */}
@@ -220,6 +222,7 @@ const ConfirmForm = (properties) => {
 														value={props.values.accepted}
 														onChange={(e) => props.handleChange(e.target.value)}
 														onBlur={props.handleBlur}
+														onClick={() => props.setFieldValue('accepted', !props.values.accepted)}
 													/>
 													<a
 														href="https://www.lasikcare.de/datenschutz/"
@@ -234,12 +237,17 @@ const ConfirmForm = (properties) => {
 									</div>
 								</CardContainer>
 								<div className="container-button">
-									<div 
-										className = {'main-btn'}
-										onClick = {props.isValid ? props.handleSubmit : ()=>{}}
-									>
-									JETZT TERMIN VEREINBAREN
-									</div>
+									<Button
+										// type={"rounded-button"}
+										label={" JETZT TERMIN VEREINBAREN"}
+										action={() => {}}
+										type={"submit"}
+										disabled={
+											!(props.isValid && props.dirty) ||
+											props.isSubmitting ||
+											props.values.accepted
+										}
+									/>
 								</div>
 							</Form>
 						);
