@@ -233,6 +233,9 @@ const ConfirmForm = (properties) => {
 														Datenschutzbestimmungen akzeptieren
 													</a>
 												</label>
+												{props.touched.accepted ? (
+												<ErrorDialog text={'Datenschutzbestimmungen akzeptieren'} />
+											) : null}
 											</div>
 										</div>
 									</div>
@@ -243,11 +246,11 @@ const ConfirmForm = (properties) => {
 										label={" JETZT TERMIN VEREINBAREN"}
 										action={() => {}}
 										type={"submit"}
-										disabled={
-											!(props.isValid && props.dirty) ||
-											props.isSubmitting ||
-											!props.values.accepted
-										}
+										// disabled={
+										// 	!(props.isValid && props.dirty) ||
+										// 	props.isSubmitting ||
+										// 	!props.values.accepted
+										// }
 									/>
 								</div>
 							</Form>
