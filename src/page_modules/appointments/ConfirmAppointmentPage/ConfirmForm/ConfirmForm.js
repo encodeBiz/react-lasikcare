@@ -64,6 +64,7 @@ const ConfirmForm = (properties) => {
 						accepted: appointmentValues.accepted,
 					}}
 					onSubmit={async (values, actions) => {
+
 						await properties.handleSubmit(values);
 					}}
 					validateOnChange={false}
@@ -245,7 +246,7 @@ const ConfirmForm = (properties) => {
 										disabled={
 											!(props.isValid && props.dirty) ||
 											props.isSubmitting ||
-											props.values.accepted
+											!props.values.accepted
 										}
 									/>
 								</div>
