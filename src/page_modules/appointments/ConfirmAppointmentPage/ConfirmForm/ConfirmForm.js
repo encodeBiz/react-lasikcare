@@ -233,7 +233,7 @@ const ConfirmForm = (properties) => {
 														Datenschutzbestimmungen akzeptieren
 													</a>
 												</label>
-												{props.touched.accepted ? (
+												{props.touched.accepted && !props.values.accepted ? (
 												<ErrorDialog text={'Datenschutzbestimmungen akzeptieren'} />
 											) : null}
 											</div>
