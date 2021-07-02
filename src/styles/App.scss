@@ -76,12 +76,8 @@ body #erw-root {
 	}
 
 	.wrapper-general {
-		max-width: 87%;
+		max-width: 100%;
 		margin: auto;
-
-		@include phone-small {
-			max-width: 90%;
-		}
 
 		@include tablet-medium {
 			max-width: 70%;

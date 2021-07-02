@@ -17,7 +17,7 @@ const AppointmentType = (properties) => {
 		{
 			title: "Zu Hause",
 			image: iconVideo,
-			subtitle: "Persönliche Video-Beratung von zu Hause aus",
+			subtitle: "Persönliche Video Beratung",
 			url: "/termintyp/zu-hause/videoberatung",
 			type: "VIDEO",
 		},

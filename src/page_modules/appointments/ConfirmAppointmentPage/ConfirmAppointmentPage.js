@@ -66,7 +66,7 @@ const ConfirmPage = (properties) => {
 	const texts = {
 		BIDI: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
 		BI: "Unverbindliches Informationsgespräch",
-		VIDEO: "Online Video-Beratung von zu Hause aus",
+		VIDEO: "Online Video Beratung",
 	};
 	/**
 	 * Setea la información que recibirá el appointment summary
