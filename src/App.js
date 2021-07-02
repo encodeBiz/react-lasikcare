@@ -24,7 +24,7 @@ function App(properties) {
 		{
 			title: "Zu Hause",
 			image: null,
-			subtitle: "Online Video-Beratung von zu Hause aus",
+			subtitle: "Online Video Beratung",
 			url: "/videollamadas",
 		},
 		{

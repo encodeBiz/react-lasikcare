@@ -38,7 +38,7 @@ const CalendarOnlinePage = (properties) => {
 
 	const buttonsConfig = [
 		{
-			text: "Online Video-Beratung von zu Hause aus",
+			text: "Online Video Beratung",
 			type: "VIDEO",
 			img: opcionOne,
 			url: "/termintyp/zu-hause/videoberatung",
