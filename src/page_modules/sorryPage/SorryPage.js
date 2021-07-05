@@ -7,6 +7,7 @@ import lens from "../../assets/images/icons/icon-search.svg";
 import {
 	clearAppointment,
 	setAppoinmentConfig,
+	getAppoinmentConfig
 } from "../../redux/appointment_config/appointmentConfig.actions";
 import { connect } from "react-redux";
 import { IMAGES_SERVER } from "../../constants/constants";
@@ -21,8 +22,12 @@ const SorryPage = (properties) => {
 	const [calIcon, setCalIcon] = useState(calendar);
 
 	const goToCalendar = () => {
-		setAppoinmentConfig("type", "BIDI");
-		history.push("/termintyp/vor-ort/voruntersuchung");
+		console.log(properties.appointment.type)
+		if(properties.appointment.type === 'VIDEO'){
+			history.push("/termintyp/zu-hause/videoberatung");
+		}else{
+			history.push("/termintyp/vor-ort/voruntersuchung");
+		} 
 	};
 	const goToHome = () => (window.location.href = "tel:080088886060");
 
@@ -86,4 +91,20 @@ const mapDispatchToProps = (dispatch) => ({
 	clearAppointment: () => dispatch(clearAppointment()),
 });
 
-export default connect(undefined, mapDispatchToProps)(SorryPage);
+/**
+ *
+ * @param {Object} store
+ * @param {Object} store.appointment Configuración de la cita hasta el momento desde redux
+ * @param {Object} store.available_hours Horas disponibles por tipo y ciudad desde redux
+ * @description Transforma el appointments reducer a props
+ * que serán consumidas por el componente y sus hijos.
+ */
+
+ const mapStateToProps = (store) => {
+	return {
+		appointment: store.appointment,
+		available_hours: store.available_hours
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SorryPage);
