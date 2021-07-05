@@ -8,10 +8,11 @@
 /enpoints
 /.pnp
 .pnp.js
+*.css
 .eslintcache
 # testing
 /coverage
-
+*.css
 # production
 /build
 
