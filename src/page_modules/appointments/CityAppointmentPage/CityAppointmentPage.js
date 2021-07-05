@@ -189,6 +189,7 @@ const CityAppointmentPage = (properties) => {
 					properties.updateAvailableHours(clinic.keycli, "BIDI", currentMonth, currentMonthNum)
 				);
 			});
+
 			selectedCities.forEach((clinic) => {
 				secondPromises.push(
 					properties.updateAvailableHours(clinic.keycli, "BI", nextMonth, nextMonthNum),
@@ -203,8 +204,8 @@ const CityAppointmentPage = (properties) => {
 				);
 			});
 
-			await Promise.all(firstMonthPromises);
-			await Promise.all(secondPromises);
+			await Promise.all(firstMonthPromises.concat(secondPromises));
+			
 
 			properties.setIsGlobalLoading(false);
 		} catch (error) {
@@ -254,6 +255,11 @@ const CityAppointmentPage = (properties) => {
 	const handleCitySelect = ({ keycli, clinica, address }) => {
 		if (keycli) {
 			// Setea la ciudad en el local storage
+			const cities = JSON.parse(localStorage.getItem("tempCities"));
+			let isCachedCity;
+			if(cities){
+				isCachedCity  = cities.find(city => city.keycli === keycli)
+			}
 
 			setCityInStorage({ keycli, clinica, address });
 
@@ -266,8 +272,10 @@ const CityAppointmentPage = (properties) => {
 			history.push("/termintyp");
 
 			// Hace la llamada a la API
-
-			getClinicsHours([{ keycli, name: clinica }]);
+			
+			if(!isCachedCity || !properties.timer.isTimerActive){
+				getClinicsHours([{ keycli, name: clinica }]);
+			}
 		}
 	};
 

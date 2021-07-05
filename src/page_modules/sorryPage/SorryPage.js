@@ -22,7 +22,6 @@ const SorryPage = (properties) => {
 	const [calIcon, setCalIcon] = useState(calendar);
 
 	const goToCalendar = () => {
-		console.log(properties.appointment.type)
 		if(properties.appointment.type === 'VIDEO'){
 			history.push("/termintyp/zu-hause/videoberatung");
 		}else{
