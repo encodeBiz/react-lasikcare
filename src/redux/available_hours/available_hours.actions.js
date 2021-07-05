@@ -35,6 +35,7 @@ export const updateHours = (keycli, appointments_type, data, nextMonth) => ({
  */
 
 export const fetchAvailableHours = (keycli, type, date) => {
+	console.log('fetchAvailableHours');
 	return async (dispatch) => {
 		try {
 			let dateToSend = "";
@@ -59,6 +60,7 @@ export const fetchAvailableHours = (keycli, type, date) => {
 };
 
 export const updateAvailableHours = (keycli, type, date, nextMonth) => {
+	console.log('updateAvailableHours');
 	return async (dispatch) => {
 		try {
 			const res = await getHuecos({ keycli, date, type });

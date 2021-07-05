@@ -28,7 +28,7 @@ const ConfirmForm = (properties) => {
 		phoneNumber: yup.string().required("Dieses Feld wird benötigt"),
 		email: yup.string().email("ungültige E-Mail").required("Dieses Feld wird benötigt"),
 		message: yup.string().max(140),
-		accepted: yup.boolean().required(),
+		accepted: yup.bool().oneOf([true]),
 	});
 
 	/**
@@ -64,13 +64,11 @@ const ConfirmForm = (properties) => {
 						accepted: appointmentValues.accepted,
 					}}
 					onSubmit={async (values, actions) => {
-
 						await properties.handleSubmit(values);
 					}}
 					validateOnChange={false}
 				>
 					{(props) => {
-						console.log(props.values.accepted);
 						return (
 							<Form onSubmit={props.handleSubmit}>
 								{/* Grupo de edad */}
@@ -246,11 +244,6 @@ const ConfirmForm = (properties) => {
 										label={" JETZT TERMIN VEREINBAREN"}
 										action={() => {}}
 										type={"submit"}
-										// disabled={
-										// 	!(props.isValid && props.dirty) ||
-										// 	props.isSubmitting ||
-										// 	!props.values.accepted
-										// }
 									/>
 								</div>
 							</Form>
