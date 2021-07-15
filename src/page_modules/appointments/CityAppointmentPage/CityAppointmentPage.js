@@ -136,13 +136,13 @@ const CityAppointmentPage = (properties) => {
 			// La llamada al timer tiene que hacerse aquí después de que
 			// la llamada a getClinics modifique el Loading del que
 			// depende este useEffect
-
+			
 			startTimer();
 			const cities = JSON.parse(localStorage.getItem("tempCities"));
 			if (cities) {
 				getClinicsHours(cities);
 			}
-
+			
 			properties.setAppoinmentConfig("currentStep", 0);
 		}
 		if (isLoading) {
@@ -230,7 +230,6 @@ const CityAppointmentPage = (properties) => {
 			properties.setOnlineGlobalLoading(false);
 		} catch (error) {
 			properties.setOnlineGlobalLoading(false);
-			console.log(error);
 		}
 	};
 
