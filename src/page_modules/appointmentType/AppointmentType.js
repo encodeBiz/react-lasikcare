@@ -42,6 +42,12 @@ const AppointmentType = (properties) => {
 		properties.setAppoinmentConfig("currentStep", 1);
 		properties.setAppoinmentConfig("isOnline", false);
 		// eslint-disable-next-line
+		window.dataLayer.push({
+			"event": "virtual-pageview",
+			"ga_pagepath": "/online_termin/step-2"
+		});
+
+		console.log('Step #2 - Pageview', window.dataLayer)
 	}, []);
 
 	/**
@@ -52,8 +58,19 @@ const AppointmentType = (properties) => {
 	 */
 
 	const handleClick = (type) => {
+		console.log(type)
+		window.dataLayer.push({
+			event: 'gaEvent',
+			gaEventCategory: 'online booking',
+			gaEventAction: 'step 2',
+			gaEventLabel: 'appointment location',
+			gaEventValue: undefined,
+			gaEventNonInt: 0,
+			dimension1: type === "VIDEO" ? 'zu house' : 'von ort'
+		});
+		console.log('Step #2 - Events 0' , window.dataLayer)
 		properties.setAppoinmentConfig("type", type);
-		history.push(type === "online" ? "/termintyp/zu-hause/videoberatung" : "/termintyp/vor-ort/");
+		history.push(type === "VIDEO" ? "/termintyp/zu-hause/videoberatung" : "/termintyp/vor-ort/");
 	};
 
 	const goBack = () => history.push("/");

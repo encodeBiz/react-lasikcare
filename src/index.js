@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 let store = createStore(combineReducers(reducers), applyMiddleware(thunk));
+if(!window.dataLayer) window.dataLayer = [];
 
 ReactDOM.render(
 	<Provider store={store}>
