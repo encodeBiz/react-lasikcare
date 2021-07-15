@@ -78,6 +78,12 @@ const CityAppointmentPage = (properties) => {
 	///////////////////////////////////////////
 
 	useEffect(() => {
+		window.dataLayer.push({
+			"event": "virtual-pageview",
+			"ga_pagepath": "/online_termin/step-1"
+			});
+		console.log('STEP 1', window.dataLayer)
+
 		properties.setAppoinmentConfig("currentStep", 0);
 	}, []);
 
@@ -252,6 +258,18 @@ const CityAppointmentPage = (properties) => {
 	 *
 	 */
 	const handleCitySelect = ({ keycli, clinica, address }) => {
+		if(!clinica) clinica = 'münich';
+		window.dataLayer.push({
+			event: 'gaEvent',
+			gaEventCategory: 'online booking',
+			gaEventAction: 'step 1',
+			gaEventLabel: 'standort',
+			gaEventValue: undefined,
+			gaEventNonInt: 0,
+			dimension1: clinica.toLowerCase() // Clicked City name in lowercase
+		});
+		console.log('Step #1 - Events 1' , window.dataLayer)
+		
 		if (keycli) {
 			// Setea la ciudad en el local storage
 			const cities = JSON.parse(localStorage.getItem("tempCities"));

@@ -84,6 +84,11 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 
 	useEffect(() => {
+		window.dataLayer.push({
+			"event": "virtual-pageview",
+			"ga_pagepath": "/online_termin/step-3"
+		});
+		console.log('Step #3 - Pageview', window.dataLayer)
 		properties.setAppoinmentConfig("currentStep", 2);
 		setType(properties.appointment.type);
 		setCity(properties.appointment.city.keycli);
@@ -261,6 +266,16 @@ const CalendarAppointmentPage = (properties) => {
 
 	const handleDateChange = (date) => {
 		// Se setea a null para evitar que salga una hora por defecto
+		window.dataLayer.push({
+			event: 'gaEvent',
+			gaEventCategory: 'online booking',
+			gaEventAction: 'step 3',
+			gaEventLabel: 'datum selected',
+			gaEventValue: undefined,
+			gaEventNonInt: 0,
+			dimension1: undefined
+			});
+		console.log('Step #3 - Events 1' , window.dataLayer)
 
 		if (activeIndex !== null) {
 			setActiveIndex(null);
@@ -346,6 +361,17 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 
 	const handleSelectedHour = (hour, index) => {
+		window.dataLayer.push({
+			event: 'gaEvent',
+			gaEventCategory: 'online booking',
+			gaEventAction: 'step 3',
+			gaEventLabel: 'uhrzeit selected',
+			gaEventValue: undefined,
+			gaEventNonInt: 0,
+			dimension1: undefined
+			});
+		console.log('Step #3 - Events 2', window.dataLayer)
+		
 		properties.setAppoinmentConfig("calendar_hour", hour);
 		setActiveIndex(index);
 		handleScroll();

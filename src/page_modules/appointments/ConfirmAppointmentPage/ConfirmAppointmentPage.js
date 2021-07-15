@@ -34,6 +34,12 @@ const ConfirmPage = (properties) => {
 	 */
 
 	useEffect(() => {
+		window.dataLayer.push({
+			"event": "virtual-pageview",
+			"ga_pagepath": "/online_termin/step-4"
+			});
+		console.log('Step #4 - Pageview')
+		
 		window.scrollTo(0, 0);
 		properties.setAppoinmentConfig("currentStep", 3);
 	}, []);

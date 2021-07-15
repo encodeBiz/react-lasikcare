@@ -60,7 +60,6 @@ export const fetchAvailableHours = (keycli, type, date) => {
 };
 
 export const updateAvailableHours = (keycli, type, date, nextMonth) => {
-	console.log('updateAvailableHours');
 	return async (dispatch) => {
 		try {
 			const res = await getHuecos({ keycli, date, type });

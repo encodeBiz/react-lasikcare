@@ -38,6 +38,7 @@ function App(properties) {
 	useEffect(() => {
 		const city = localStorage.getItem("city");
 		setClinics(properties.clinics);
+		
 		if (city) {
 			// setClientCity(city);
 		}
