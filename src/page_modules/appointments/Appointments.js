@@ -14,6 +14,7 @@ import "./appointments.style.css";
  */
 
 function Appointments(properties) {
+	
 	return (
 		<Switch>
 			{properties.routes.map((route, i) => (
