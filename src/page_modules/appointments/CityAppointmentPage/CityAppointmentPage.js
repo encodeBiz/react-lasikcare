@@ -80,12 +80,6 @@ const CityAppointmentPage = (properties) => {
 	///////////////////////////////////////////
 
 	useEffect(() => {
-		window.dataLayer.push({
-			"event": "virtual-pageview",
-			"ga_pagepath": "/online_termin/step-1"
-			});
-		console.log('STEP 1', window.dataLayer)
-
 		properties.setAppoinmentConfig("currentStep", 0);
 	}, []);
 

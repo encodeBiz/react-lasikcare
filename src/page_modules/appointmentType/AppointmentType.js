@@ -42,12 +42,7 @@ const AppointmentType = (properties) => {
 		properties.setAppoinmentConfig("currentStep", 1);
 		properties.setAppoinmentConfig("isOnline", false);
 		// eslint-disable-next-line
-		window.dataLayer.push({
-			"event": "virtual-pageview",
-			"ga_pagepath": "/online_termin/step-2"
-		});
-
-		console.log('Step #2 - Pageview', window.dataLayer)
+		
 	}, []);
 
 	/**

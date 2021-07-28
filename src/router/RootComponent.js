@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 // Router
 
-import { Redirect, Route, Switch } from "react-router";
+import { Redirect, Route, Switch, useHistory } from "react-router";
 
 // Redux
 
@@ -25,50 +25,50 @@ import SorryPage from "../page_modules/sorryPage/SorryPage";
 import ErrorToast from "../shared_modules/ErrorToast/ErrorToast";
 
 const routes = [
-	{
-		path: "/termintyp",
-		component: AppointmentType,
-	},
-	{
-		path: "/termintyp/vor-ort/",
-		component: TypeAppointmentPage,
-		stepNumber: 1,
-	},
-	{
-		path: "/termintyp/vor-ort/voruntersuchung",
-		component: CalendarAppointmentPage,
-		stepNumber: 2,
-	},
-	{
-		path: "/termintyp/vor-ort/informationsgespräch",
-		component: CalendarAppointmentPage,
-		stepNumber: 2,
-	},
-	{
-		path: "/termintyp/vor-ort/datum/kontaktdaten/",
-		component: ConfirmAppointmentPage,
-		stepNumber: 3,
-	},
-	{
-		path: "/danke",
-		component: ThankAppointmentPage,
-		stepNumber: 4,
-	},
-	{
-		path: "/termintyp/zu-hause/videoberatung",
-		component: CalendarOnlinePage,
-		stepNumber: 1,
-	},
-	{
-		path: "/termintyp/zu-hause/voruntersuchung",
-		component: CalendarOnlinePage,
-		stepNumber: 1,
-	},
-	{
-		path: "/termintyp/videoberatung/kontaktdaten",
-		component: ConfirmAppointmentPage,
-		stepNumber: 2,
-	},
+  {
+    path: "/termintyp",
+    component: AppointmentType,
+  },
+  {
+    path: "/termintyp/vor-ort/",
+    component: TypeAppointmentPage,
+    stepNumber: 1,
+  },
+  {
+    path: "/termintyp/vor-ort/voruntersuchung",
+    component: CalendarAppointmentPage,
+    stepNumber: 2,
+  },
+  {
+    path: "/termintyp/vor-ort/informationsgespräch",
+    component: CalendarAppointmentPage,
+    stepNumber: 2,
+  },
+  {
+    path: "/termintyp/vor-ort/datum/kontaktdaten/",
+    component: ConfirmAppointmentPage,
+    stepNumber: 3,
+  },
+  {
+    path: "/danke",
+    component: ThankAppointmentPage,
+    stepNumber: 4,
+  },
+  {
+    path: "/termintyp/zu-hause/videoberatung",
+    component: CalendarOnlinePage,
+    stepNumber: 1,
+  },
+  {
+    path: "/termintyp/zu-hause/voruntersuchung",
+    component: CalendarOnlinePage,
+    stepNumber: 1,
+  },
+  {
+    path: "/termintyp/videoberatung/kontaktdaten",
+    component: ConfirmAppointmentPage,
+    stepNumber: 2,
+  },
 ];
 
 /**
@@ -80,44 +80,62 @@ const routes = [
  * @param {String} properties.errors.message Mensaje del error
  */
 const Root = (properties) => {
-	const { errors } = properties;
-	useEffect(() => {
-		if (process.env.NODE_ENV === "production") {
-			window.console.log = () => false;
-		}
-	}, []);
+  const { errors } = properties;
+  const history = useHistory();
 
-	return (
-		<React.Fragment>
-			{errors.notDefault && <ErrorToast />}
-			<Switch>
-				{/* Estas dos rutas deben de renderizarse aquí 
+  useEffect(() => {
+    if (process.env.NODE_ENV === "production") {
+      window.console.log = () => false;
+    }
+		window.dataLayer.push({
+			event: "virtual-pageview",
+			ga_pagepath: '/'})
+			
+    history.listen((location, action) => {
+      window.dataLayer.push({
+        event: "virtual-pageview",
+        ga_pagepath: location.pathname,
+      });
+      console.log(window.dataLayer);
+    });
+  }, []);
+
+  return (
+    <React.Fragment>
+      {errors.notDefault && <ErrorToast />}
+      <Switch>
+        {/* Estas dos rutas deben de renderizarse aquí 
 					para poder redireccionar a home cuando se 
 					recarga la página
 				*/}
 
-				<Route exact path={"/"} component={CityAppointmentPage} />
-				<Route exact path={"/termin-bereits-vergeben"} component={SorryPage} />
+        <Route exact path={"/"} component={CityAppointmentPage} />
+        <Route exact path={"/termin-bereits-vergeben"} component={SorryPage} />
 
-				{properties.clinics.status === "pending" ? (
-					<Redirect to={"/"} />
-				) : (
-					<>
-						{routes.map((route, i) => (
-							<Route key={i} exact path={route.path} component={route.component} />
-						))}
-					</>
-				)}
-			</Switch>
-		</React.Fragment>
-	);
+        {properties.clinics.status === "pending" ? (
+          <Redirect to={"/"} />
+        ) : (
+          <>
+            {routes.map((route, i) => (
+              <Route
+                key={i}
+                exact
+                path={route.path}
+                component={route.component}
+              />
+            ))}
+          </>
+        )}
+      </Switch>
+    </React.Fragment>
+  );
 };
 
 const mapStateToProps = (state) => ({
-	errors: state.errors,
-	clinics: state.clinics,
-	available_hours: state.available_hours,
-	state: state,
+  errors: state.errors,
+  clinics: state.clinics,
+  available_hours: state.available_hours,
+  state: state,
 });
 
 export default connect(mapStateToProps)(Root);

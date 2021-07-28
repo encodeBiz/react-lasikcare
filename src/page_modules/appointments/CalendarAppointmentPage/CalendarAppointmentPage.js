@@ -84,11 +84,6 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 
 	useEffect(() => {
-		window.dataLayer.push({
-			"event": "virtual-pageview",
-			"ga_pagepath": "/online_termin/step-3"
-		});
-		console.log('Step #3 - Pageview', window.dataLayer)
 		properties.setAppoinmentConfig("currentStep", 2);
 		setType(properties.appointment.type);
 		setCity(properties.appointment.city.keycli);

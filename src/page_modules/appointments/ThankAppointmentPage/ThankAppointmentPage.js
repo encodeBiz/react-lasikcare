@@ -49,17 +49,20 @@ const ThankAppointmentPage = (properties) => {
 	 */
 
 	useEffect(() => {
+		console.log(appointment)
 		window.dataLayer.push({
 			event: 'virtual-pageview',
 			ga_pagepath: '/online_termin/thank-you',
-			clinic_id: undefined,
+			clinic_id: appointment.city.keycli,
 			clinic_name: appointment.city.clinica,
 			clinic_address: appointment.city.address,
-			appointment_date: appointment.calendar_date.locale("de").format("DD-MM-YYYY"),
+			appointment_date: appointment.calendar_date.locale("de").format("YYYY-MM-DD"),
 			appointment_hour: moment(appointment.calendar_hour.horaInicio, "HH:mm").format('HH:mm'),
-			appointment_id: '12547895' // Internal Appointment Save ID
+			appointment_id: '12547895', // Internal Appointment Save ID,
+			appointment_location_type: appointment.type === 'VIDEO' ? 'Zu Hause' : 'Von Ort',
+			appointment_type : appointment.type
 			});
-		console.log('Thank You - Pageview', window.dataLayer)
+
 		setCityInStorage(appointment.city);
 		setAppointmentType(appointment.type);
 		setUserEmail(appointment.clientData.email);

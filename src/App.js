@@ -18,6 +18,8 @@ import { IMAGES_SERVER } from "./constants/constants";
  * @param {Funcion} properties.setGlobalError Acción para setear un error
  */
 function App(properties) {
+ 
+
   const [clinics, setClinics] = useState([]);
 
   const homeLinksConfig = [
