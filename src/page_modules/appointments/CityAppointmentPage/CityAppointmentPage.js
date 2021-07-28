@@ -46,11 +46,13 @@ const CityAppointmentPage = (properties) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	const currentMonthNum = moment().format("M");
-	const nextMonthNum = moment().add(1, "month").format("M");
-	const nextSecondMonthNum = moment().add(2, "month").format("M");
 	const currentMonth = moment().format("DD/MM/YYYY");
-	const nextMonth = moment().add(1, "month").format("DD/MM/YYYY");
-	const nextSecondMonth = moment().add(2, "month").format("DD/MM/YYYY");
+
+	const nextMonthNum = moment().set('date', 1).add(1, "month").format("M");
+	const nextMonth = moment().set('date', 1).add(1, "month").format("DD/MM/YYYY");
+
+	const nextSecondMonthNum = moment().set('date', 1).add(2, "month").format("M");
+	const nextSecondMonth = moment().set('date', 1).add(2, "month").format("DD/MM/YYYY");
 
 	const cities = [
 		{
@@ -210,9 +212,10 @@ const CityAppointmentPage = (properties) => {
 				);
 			});
 
-			await Promise.all(firstMonthPromises.concat(secondPromises));
+			//await Promise.all(firstMonthPromises.concat(secondPromises));
 			
-
+			await Promise.all(firstMonthPromises);
+			await Promise.all(secondPromises);
 			properties.setIsGlobalLoading(false);
 		} catch (error) {
 			console.log(error);
