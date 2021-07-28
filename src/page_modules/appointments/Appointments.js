@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { RouteWithSubRoutes } from "../../router/RouterHelper";
 import "./appointments.style.css";
 
@@ -14,6 +14,7 @@ import "./appointments.style.css";
  */
 
 function Appointments(properties) {
+
 	return (
 		<Switch>
 			{properties.routes.map((route, i) => (

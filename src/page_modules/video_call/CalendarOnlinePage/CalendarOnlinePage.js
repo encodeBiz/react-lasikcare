@@ -140,9 +140,8 @@ const CalendarOnlinePage = (properties) => {
 			const filteredData = formatDates(data);
 
 			// Se setean los datos formateados como nuevos datos que el calendario debera pintar
-
+		
 			setDataCalendar(filteredData);
-
 			// Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
 
 			setSelectedDate(null);
@@ -226,8 +225,8 @@ const CalendarOnlinePage = (properties) => {
 
 			if (appointment.type === "VIDEO") {
 				const date = moment(currentDate).add(2, "month").format("DD/M/YYYY");
-				await properties.fetchOnlineAvailableHours(date);
 				setCurrentMonth((Number(currentMonth) + 1).toString());
+				await properties.fetchOnlineAvailableHours(date);
 			} else {
 				const date = moment(currentDate).add(1, "month").format("DD/M/YYYY");
 				const nextMonth = (Number(currentMonth) + 3).toString();

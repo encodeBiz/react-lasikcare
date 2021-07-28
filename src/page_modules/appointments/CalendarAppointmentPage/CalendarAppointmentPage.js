@@ -34,7 +34,7 @@ const CalendarAppointmentPage = (properties) => {
 	const navigateTo = (url) => history.push(url);
 	const today = moment();
 	const { available_hours, appointment } = properties;
-
+	
 	const buttonRef = useRef(null);
 
 	const buttonsConfig = [
@@ -84,11 +84,6 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 
 	useEffect(() => {
-		window.dataLayer.push({
-			"event": "virtual-pageview",
-			"ga_pagepath": "/online_termin/step-3"
-		});
-		console.log('Step #3 - Pageview', window.dataLayer)
 		properties.setAppoinmentConfig("currentStep", 2);
 		setType(properties.appointment.type);
 		setCity(properties.appointment.city.keycli);
@@ -219,6 +214,7 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 
 	const getInitialMonth = (appointmentObject) => {
+		console.log('getInitialMonth',appointmentObject)
 		let addToMonth = 0;
 		const months = Object.values(appointmentObject);
 
@@ -299,11 +295,12 @@ const CalendarAppointmentPage = (properties) => {
 	 */
 
 	const onNextMonthClick = async (currentDate) => {
+		console.log('onNextMonthClick PRECENCIAL')
 		try {
 			// // Setea currentMonth al mes actual
 
 			const month = moment(today, "DD/MM/YYYY").format("M");
-
+			
 			setCurrentMonth(month);
 
 			// Si está cargando todavía retornar
@@ -341,6 +338,8 @@ const CalendarAppointmentPage = (properties) => {
 		} catch (error) {
 			console.log(error);
 		}
+
+
 	};
 
 	/**
