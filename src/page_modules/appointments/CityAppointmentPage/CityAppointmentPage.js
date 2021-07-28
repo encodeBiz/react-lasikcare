@@ -146,10 +146,12 @@ const CityAppointmentPage = (properties) => {
 			// depende este useEffect
 
 			startTimer();
-			const cities = JSON.parse(localStorage.getItem("tempCities"));
+			//Descomentar si queremos habilitar las llamadas de cacheo
+			/* const cities = JSON.parse(localStorage.getItem("tempCities"));
+			
 			if (cities) {
 				getClinicsHours(cities);
-			}
+			} */
 
 			properties.setAppoinmentConfig("currentStep", 0);
 		}
@@ -185,6 +187,9 @@ const CityAppointmentPage = (properties) => {
 	 */
 
 	const getClinicsHours = async (selectedCities) => {
+
+		console.log('getAllOnlineHours')
+
 		properties.setIsGlobalLoading(true);
 
 		let firstMonthPromises = [];
@@ -212,10 +217,9 @@ const CityAppointmentPage = (properties) => {
 				);
 			});
 
-			//await Promise.all(firstMonthPromises.concat(secondPromises));
+			await Promise.all(firstMonthPromises.concat(secondPromises));
 			
-			await Promise.all(firstMonthPromises);
-			await Promise.all(secondPromises);
+			
 			properties.setIsGlobalLoading(false);
 		} catch (error) {
 			console.log(error);
@@ -272,17 +276,18 @@ const CityAppointmentPage = (properties) => {
 			gaEventNonInt: 0,
 			dimension1: clinica.toLowerCase() // Clicked City name in lowercase
 		});
-		console.log('Step #1 - Events 1' , window.dataLayer)
+		
 		
 		if (keycli) {
 			// Setea la ciudad en el local storage
 			const cities = JSON.parse(localStorage.getItem("tempCities"));
-			let isCachedCity;
-			if(cities){
+			let isCachedCity = false;
+			//Descomentar si queremos habilitar las llamadas de cacheo
+			/* if(cities){
 				isCachedCity  = cities.find(city => city.keycli === keycli)
-			}
+			} */
 
-			setCityInStorage({ keycli, clinica, address });
+			setCityInStorage({ keycli, clinica, address }); 
 
 			// Setea la ciudad en redux
 
@@ -293,10 +298,11 @@ const CityAppointmentPage = (properties) => {
 			history.push("/termintyp");
 
 			// Hace la llamada a la API
-			
-			if(!isCachedCity || !properties.timer.isTimerActive){
+			//Descomentar si queremos habilitar las llamadas de cacheo
+			/* if(!isCachedCity || !properties.timer.isTimerActive){
 				getClinicsHours([{ keycli, name: clinica }]);
-			}
+			} */
+			getClinicsHours([{ keycli, name: clinica }]);
 		}
 	};
 

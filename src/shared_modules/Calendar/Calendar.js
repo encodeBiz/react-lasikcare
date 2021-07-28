@@ -29,8 +29,7 @@ const Calendar = (properties) => {
 		properties.handleDateChange(date);
 		setFocused(date);
 	};
-
-	console.log(properties);
+	
 	return (
 		<div className="calendar-container">
 			{properties.datesList !== undefined && (
