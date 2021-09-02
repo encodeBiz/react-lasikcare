@@ -31,6 +31,7 @@ const CalendarOnlinePage = (properties) => {
 	const [initialMonth, setInitialMonth] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
 	const [initialDate] = useState(today);
+	const [isInitialMonthSet, setIsInitialMonthSet] = useState(false);
 	const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
 	const [currentMonth, setCurrentMonth] = useState(currentMonthNumber);
 	const { appointment, online_available_hours, available_hours } = properties;
@@ -113,7 +114,7 @@ const CalendarOnlinePage = (properties) => {
 					? available_hours?.[appointment.city.keycli]?.data?.BIDI
 					: online_available_hours;
 
-			getInitialMonth(data);
+			if(data) getInitialMonth(data);
 		}
 	}, [
 		properties.loading.onlineGlobalLoading,
@@ -129,6 +130,7 @@ const CalendarOnlinePage = (properties) => {
 		const month = Number(moment(today, "DD/MM/YYYY").format("M")) + initialMonth;
 
 		setCurrentMonth(month.toString());
+		console.log('useEffect initialMonth' ,initialMonth);
 		const data =
 			appointment.type === "BIDI"
 				? available_hours?.[appointment.city.keycli]?.data?.BIDI?.[month.toString()]
@@ -174,18 +176,22 @@ const CalendarOnlinePage = (properties) => {
 		let addToMonth = 0;
 		const months = Object.values(appointmentObject);
 		// Si no hay ninguna fecha en los próximos meses se debe de retornar
-
 		if (months.every((month) => month === undefined || month.length <= 0)) {
-			return setInitialMonth(addToMonth);
+			console.log('useEffect getInitialMonth 1' ,addToMonth);
+			setInitialMonth(addToMonth);
+			return setIsInitialMonthSet(true);
 		}
 
 		// De lo contrario se suma 1 por cada mes consecutivo sin fechas disponibles.
 
 		for (let i = 0; i < months.length; i++) {
-			if (!months[i] === undefined || months[i].length <= 0) {
+			if (!months[i] === undefined || months[i]?.length <= 0) {
+				console.log('useEffect getInitialMonth 2'  ,addToMonth);
 				addToMonth++;
 			} else {
-				return setInitialMonth(addToMonth);
+				console.log('useEffect getInitialMonth 3'  ,addToMonth);
+				setInitialMonth(addToMonth);
+				return setIsInitialMonthSet(true);
 			}
 		}
 	};

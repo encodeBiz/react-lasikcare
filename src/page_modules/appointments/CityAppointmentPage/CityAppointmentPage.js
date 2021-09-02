@@ -195,6 +195,30 @@ const CityAppointmentPage = (properties) => {
 					properties.updateAvailableHours(clinic.keycli, "BI", currentMonth, currentMonthNum),
 					properties.updateAvailableHours(clinic.keycli, "BIDI", currentMonth, currentMonthNum)
 				);
+
+				/* properties.updateAvailableHours(clinic.keycli, "BI", currentMonth, currentMonthNum)
+				.then(()=>{
+					properties.updateAvailableHours(clinic.keycli, "BIDI", currentMonth, currentMonthNum)
+					.then(()=>{
+						properties.updateAvailableHours(clinic.keycli, "BI", nextMonth, nextMonthNum)
+						.then(()=>{
+							properties.updateAvailableHours(clinic.keycli, "BIDI", nextMonth, nextMonthNum)
+							.then(()=>{
+								properties.setIsGlobalLoading(false)
+								properties.updateAvailableHours(clinic.keycli, "BI", nextSecondMonth, nextSecondMonthNum)
+								.then(()=>{
+									properties.updateAvailableHours(
+										clinic.keycli,
+										"BIDI",
+										nextSecondMonth,
+										nextSecondMonthNum
+									).then(()=>	console.log('LOADED'))
+								})
+							})
+						})
+					})
+				}) */
+				
 			});
 
 			selectedCities.forEach((clinic) => {
