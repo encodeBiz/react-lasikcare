@@ -1,20 +1,20 @@
-import React from 'react';
-import {render} from 'react-dom';
-import './styles/index.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import Root from "./router/RootComponent";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import * as reducers from "./redux";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
 
+let store = createStore(combineReducers(reducers), applyMiddleware(thunk));
+if(!window.dataLayer) window.dataLayer = [];
 
-import { Router, Route } from 'react-router';
-import Root from './router/root.component';
-import { createStore, combineReducers } from 'redux';
-import { Provider } from 'react-redux';
-import * as reducers from './redux'
-
-
-
-let store = createStore(combineReducers(reducers))
-
-render(
-  <Root store={store} />,
-  document.getElementById('root')
-)
-
+ReactDOM.render(
+	<Provider store={store}>
+		<BrowserRouter>
+			<Root />
+		</BrowserRouter>
+	</Provider>,
+	document.getElementById("root")
+);

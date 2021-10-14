@@ -1,0 +1,23 @@
+.hours-container {
+  width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-bottom: 20px; }
+  .hours-container .hour-item {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 0px 10px 10px 0px;
+    text-align: center;
+    color: #808080;
+    font-weight: 800;
+    font-size: 0.9rem; }
+    @media (min-width: 1080px) {
+      .hours-container .hour-item {
+        font-size: 0.7rem; } }
+    .hours-container .hour-item:hover {
+      cursor: pointer; }
+  .hours-container .select-hour {
+    border: 1px solid #00619e;
+    color: #00619e; }

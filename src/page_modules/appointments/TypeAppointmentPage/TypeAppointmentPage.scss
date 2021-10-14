@@ -1,0 +1,49 @@
+.appointment-type-container{
+
+    .card-container{
+
+        .card{
+         min-height: 145px;
+
+            &:nth-child(1){
+            margin-bottom: 12px; 
+
+                p{
+                position: relative;
+                box-sizing: border-box;
+                padding-top: 20px;
+
+                &:before{
+                content: "";
+                background-image: url(../../../assets/images/icons/most_popular_new.svg);
+                background-repeat: no-repeat;
+                width: 98px;
+                height: 23px;
+                position: absolute;
+                top: -9px;
+                }
+             }
+            }
+
+            .type-image{
+                max-width: 30%;
+            }
+
+        }
+    }
+
+}
+
+
+
+
+// &:nth-child(1){
+//     margin-bottom: 12px;
+
+//        p{
+//       position: relative;
+//       box-sizing: border-box;
+//       padding-top: 20px;
+
+
+//        }

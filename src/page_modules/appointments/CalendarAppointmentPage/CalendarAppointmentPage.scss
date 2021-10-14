@@ -1,0 +1,77 @@
+@import "../../../styles/partials/variables";
+@import "../../../styles/partials/mixins";
+
+.calendar-appointment-page {
+	.card-container {
+		@include phone-small {
+			display: flex;
+			justify-content: center;
+		}
+		margin-bottom: 20px;
+		.button-container {
+			padding: 20px;
+			.redirect-options {
+				margin-bottom: 12px;
+			}
+
+			.card {
+				min-height: 55px;
+
+				&:nth-child(1) {
+					margin-bottom: 10px;
+				}
+
+				label {
+					color: #808080;
+					font-weight: bold;
+					position: relative;
+					width: 100%;
+					display: flex;
+					align-items: center;
+
+					@include desktop-small {
+						font-size: 0.8rem;
+					}
+
+					strong {
+						font-weight: 300;
+						position: absolute;
+						right: 0;
+					}
+
+					img {
+						max-width: 40px;
+						margin-right: 10px;
+					}
+				}
+
+				input {
+					margin-right: 10px;
+				}
+			}
+
+			.card-highlighted {
+				label {
+					color: white;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+
+	.card-container {
+		padding: 0px;
+	}
+}
+.loading-center {
+  width: 100%; 
+	display: flex;
+	justify-content: center;
+}
+input[type="radio" i] {
+	background-color: red;
+}
+
+.button-fake-height {
+	height: 100px;
+}

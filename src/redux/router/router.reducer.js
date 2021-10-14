@@ -1,9 +1,5 @@
-
-import { NAVIGATE } from './router.actions'
-const initialState = {
-  pre_url: null,
-  url: '/'
-}
+import { NAVIGATE } from "./router.actions";
+const initialState = { pre_url: null, url: "/", };
 
 /**
  * Reducer para la navegación de la aplicación
@@ -12,14 +8,15 @@ const initialState = {
  * @param {String} action.payload Estado de la navegación
  */
 
-export default (state = initialState, action)=>{
-  switch (action.type) {
-    case NAVIGATE: 
-      return {
-        ...state,
-        ...action.payload
-      }
-    default:
-      return state;
-  }
-}
+// eslint-disable-next-line import/no-anonymous-default-export
+export default (state = initialState, action) => {
+	switch (action.type) {
+		case NAVIGATE:
+			return {
+				...state,
+				...action.payload,
+			};
+		default:
+			return state;
+	}
+};

@@ -1,0 +1,41 @@
+@import "../../styles/App.scss";
+@import "../../styles/partials/mixins";
+@import "../../styles/partials/variables";
+
+.wrapper-general {
+	padding: 20px;
+	max-width: 50%;
+	.wrapper-img {
+		img {
+			display: block;
+			margin: auto;
+		}
+	}
+	.wrapper-text {
+		.uns-leid {
+			color: $secondaryColor;
+		}
+		margin: 0 auto;
+		margin-top: 20px;
+		max-width: 70%;
+		text-align: center;
+		@include phone-small {
+			max-width: 100%;
+		}
+	}
+	.buttons-container {
+		width: 70%;
+		margin: 0 auto;
+		margin-top: 50px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		@include phone-small {
+			width: 100%;
+		}
+		@include phone-large {
+			width: 100%;
+		}
+	}
+}

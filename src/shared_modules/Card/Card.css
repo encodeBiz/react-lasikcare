@@ -1,0 +1,69 @@
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Regular.eot");
+  src: url("../../assets/fonts/Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Regular.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Regular.woff") format("woff"), url("../../assets/fonts/Gilroy-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Bold.eot");
+  src: url("../../assets/fonts/Gilroy-Bold.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Bold.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Bold.woff") format("woff"), url("../../assets/fonts/Gilroy-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Light.eot");
+  src: url("../../assets/fonts/Gilroy-Light.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Light.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Light.woff") format("woff"), url("../../assets/fonts/Gilroy-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap; }
+
+.hoverable:hover {
+  cursor: pointer; }
+
+.is-loading {
+  opacity: 0.5; }
+
+.card {
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  position: relative; }
+  .card:active {
+    border: 1.2px solid #FF9900; }
+    .card:active:after {
+      content: "";
+      position: absolute;
+      top: -15px;
+      right: 0;
+      background-image: url(../../assets/images/icons/tick.svg);
+      background-repeat: no-repeat;
+      width: 35px;
+      height: 35px; }
+  .card p {
+    color: #808080;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-left: 15px; }
+    @media (min-width: 360px) {
+      .card p {
+        font-size: 0.8rem; } }
+    @media (min-width: 540px) {
+      .card p {
+        font-size: 1.1rem; } }
+    @media (min-width: 1080px) {
+      .card p {
+        font-size: 0.8rem; } }
+
+.pointer {
+  cursor: pointer; }
+
+.card-highlighted {
+  background: #FF9900;
+  color: #ffffff; }

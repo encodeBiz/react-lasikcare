@@ -1,0 +1,63 @@
+@import "../../../styles/partials/mixins";
+@import "../../../styles/partials/variables";
+
+.wrapper-general {
+	h2 {
+		color: $texto;
+		margin: 0px 0px 15px 0px;
+
+		@include desktop-small {
+			font-size: 1rem;
+		}
+	}
+
+	.flex-responsive {
+		@include desktop-medium {
+			display: flex;
+			justify-content: space-between;
+			padding-top: 40px;
+		}
+
+		.appointment-summary {
+			padding: 30px 0px 25px 0px;
+
+			@include desktop-medium {
+				width: 37%;
+				padding: 0px;
+			}
+
+			.card-container {
+				flex-direction: column;
+
+				h3 {
+					color: $texto;
+					text-align: center;
+					font-size: 1rem;
+					margin: 0;
+
+					@include desktop-medium {
+						font-size: 0.9rem;
+						line-height: 20px;
+					}
+				}
+			}
+		}
+
+		.wrapper-form {
+			@include desktop-medium {
+				width: 60%;
+			}
+
+			.main-btn {
+				@include desktop-medium {
+					width: 60%;
+				}
+			}
+		}
+	}
+	.loading-center {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+}

@@ -1,0 +1,56 @@
+@import "../../styles/partials/mixins";
+
+.navbar-container{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    padding: 15px 10px;
+    box-shadow: 0px 2px 12px 0px rgba(237, 237, 237, 0.50);
+
+    @include tablet-medium{
+    padding: 15px; 
+    }
+    
+    .second-nav{
+        display: flex;
+        align-items: center;
+
+        .hamburguer{
+         margin-left: 10px;
+
+           @include phone-large{
+           margin-left: 20px;
+           }
+
+           @include tablet-small{
+           width: 20%;
+           }
+
+            div{
+                width: 30px;
+                height: 2px;
+                background-color: grey;
+                margin: 6px 0;
+                border-radius: 2px;
+            }
+    
+        } 
+    }
+
+
+    .logo{
+     max-width: 30%;
+
+     @include phone-large{
+     max-width: 50%;
+     }
+
+      img{
+      width: 100%;
+      height: auto;
+      }
+    }
+}

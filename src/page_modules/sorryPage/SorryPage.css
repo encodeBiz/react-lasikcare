@@ -1,0 +1,138 @@
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Regular.eot");
+  src: url("../../assets/fonts/Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Regular.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Regular.woff") format("woff"), url("../../assets/fonts/Gilroy-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Bold.eot");
+  src: url("../../assets/fonts/Gilroy-Bold.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Bold.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Bold.woff") format("woff"), url("../../assets/fonts/Gilroy-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url("../../assets/fonts/Gilroy-Light.eot");
+  src: url("../../assets/fonts/Gilroy-Light.eot?#iefix") format("embedded-opentype"), url("../../assets/fonts/Gilroy-Light.woff2") format("woff2"), url("../../assets/fonts/Gilroy-Light.woff") format("woff"), url("../../assets/fonts/Gilroy-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap; }
+
+body {
+  margin: 0px;
+  padding: 0px; }
+
+* {
+  box-sizing: border-box; }
+
+a {
+  text-decoration: none; }
+
+ul {
+  list-style-type: none;
+  padding: 0px; }
+
+html {
+  font-size: 15px; }
+  @media (min-width: 1080px) {
+    html {
+      font-size: 20px; } }
+
+body {
+  background: #f0f9f9;
+  background-image: url(../assets/images/icons/bg-lasik.png);
+  background-repeat: no-repeat;
+  background-size: 360px;
+  background-position-y: 500px;
+  background-position-x: right;
+  font-family: "Gilroy";
+  font-size: 1rem;
+  color: #cccccc; }
+  @media (min-width: 768px) {
+    body {
+      background-size: 500px; } }
+  @media (min-width: 1500px) {
+    body {
+      background-size: 700px; } }
+  body .wrapper-general {
+    max-width: 100%;
+    margin: auto; }
+    @media (min-width: 768px) {
+      body .wrapper-general {
+        max-width: 70%; } }
+    @media (min-width: 1080px) {
+      body .wrapper-general {
+        max-width: 55%; } }
+    @media (min-width: 1360px) {
+      body .wrapper-general {
+        max-width: 45%; } }
+    body .wrapper-general h1 {
+      font-size: 1.6rem;
+      color: #808080;
+      margin: 30px 0px 10px 0px; }
+      @media (min-width: 1080px) {
+        body .wrapper-general h1 {
+          font-size: 1.3rem; } }
+
+.loading-center {
+  width: 100%;
+  display: flex;
+  justify-content: center; }
+
+.container-button {
+  display: flex;
+  justify-content: center; }
+
+.card-container .summary-icon {
+  padding-top: 23px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center; }
+  .card-container .summary-icon p {
+    color: #808080;
+    margin: 0px;
+    padding-top: 5px;
+    font-weight: 300;
+    font-size: 0.9rem; }
+    @media (min-width: 1080px) {
+      .card-container .summary-icon p {
+        font-size: 0.7rem; } }
+
+@media (min-width: 1360px) {
+  .change-width {
+    max-width: 65% !important; } }
+
+.wrapper-general {
+  padding: 20px;
+  max-width: 50%; }
+  .wrapper-general .wrapper-img img {
+    display: block;
+    margin: auto; }
+  .wrapper-general .wrapper-text {
+    margin: 0 auto;
+    margin-top: 20px;
+    max-width: 70%;
+    text-align: center; }
+    .wrapper-general .wrapper-text .uns-leid {
+      color: #00619e; }
+    @media (min-width: 360px) {
+      .wrapper-general .wrapper-text {
+        max-width: 100%; } }
+  .wrapper-general .buttons-container {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    @media (min-width: 360px) {
+      .wrapper-general .buttons-container {
+        width: 100%; } }
+    @media (min-width: 414px) {
+      .wrapper-general .buttons-container {
+        width: 100%; } }

@@ -1,0 +1,130 @@
+@import "../../styles/partials/variables";
+@import "../../styles/partials/mixins";
+
+.calendar-container {
+	@include phone-large {
+		margin: auto;
+	}
+
+	.DayPicker__withBorder {
+		box-shadow: none !important;
+		border-radius: 100px;
+
+		.DayPicker_weekHeader {
+			top: 72px;
+
+			ul {
+				li {
+					small {
+						color: $texto;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+
+		.DayPicker_focusRegion {
+			.DayPickerNavigation_button__default {
+				width: 38px;
+				height: 38px;
+				border: 0px;
+				border-radius: 50px;
+				background-color: $secondaryColor;
+
+				.DayPickerNavigation_svg__horizontal {
+					fill: $light;
+					margin-top: 3px;
+				}
+			}
+		}
+
+		.CalendarMonth_caption {
+			strong {
+				font-size: 1.1rem;
+				color: $secondaryColor;
+
+				@include desktop-small {
+					font-size: 0.9rem;
+				}
+			}
+		}
+
+		.CalendarMonth_table {
+			margin-top: 15px;
+
+			.CalendarDay {
+				opacity: 0.6;
+			}
+
+			.CalendarDay__highlighted_calendar {
+				opacity: 1;
+				background-color: transparent;
+				font-weight: 900 !important;
+				&:focus {
+					background: transparent;
+				}
+			}
+
+			.CalendarDay__default {
+				border-color: transparent;
+				color: $texto;
+				font-weight: 300;
+				font-size: 0.8rem;
+
+				@include desktop-small {
+					font-size: 0.7rem;
+				}
+
+				&:hover {
+					// background-color: transparent;
+					// cursor: default;
+				}
+			}
+
+			.CalendarDay__selected {
+				background-color: $tertiaryColor;
+				color: $light;
+				font-weight: bold;
+				border-radius: 50px;
+			}
+
+			.CalendarDay__today {
+				background-color: transparent;
+				color: $texto;
+				font-weight: 300;
+			}
+		}
+	}
+}
+
+// NOTE: the order of these styles DO matter
+
+// Will edit everything selected including everything between a range of dates
+.CalendarDay__selected_span {
+	background: #82e0aa; //background
+	color: white; //text
+	border: 1px solid red; //default styles include a border
+}
+
+// Will edit selected date or the endpoints of a range of dates
+.CalendarDay__selected {
+	background: blue;
+	color: white;
+}
+
+// Will edit when hovered over. _span style also has this property
+.CalendarDay__selected:hover {
+	background: orange;
+	color: white;
+}
+
+// Will edit when the second date (end date) in a range of dates
+// is not yet selected. Edits the dates between your mouse and said date
+.CalendarDay__hovered_span:hover,
+.CalendarDay__hovered_span {
+	background: brown;
+}
+
+.DayPickerNavigation_button:hover {
+	border: none;
+}

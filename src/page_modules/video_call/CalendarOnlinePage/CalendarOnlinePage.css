@@ -1,0 +1,50 @@
+.calendar-online-appointment-page .card-container {
+  margin-bottom: 20px; }
+  @media (min-width: 360px) {
+    .calendar-online-appointment-page .card-container {
+      display: flex;
+      justify-content: center; } }
+  .calendar-online-appointment-page .card-container .button-container {
+    padding: 10px; }
+    .calendar-online-appointment-page .card-container .button-container .redirect-options {
+      margin-bottom: 12px; }
+    .calendar-online-appointment-page .card-container .button-container .card {
+      min-height: 55px; }
+      .calendar-online-appointment-page .card-container .button-container .card:nth-child(1) {
+        margin-bottom: 10px; }
+      .calendar-online-appointment-page .card-container .button-container .card label {
+        color: #808080;
+        font-weight: bold;
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center; }
+        @media (min-width: 1080px) {
+          .calendar-online-appointment-page .card-container .button-container .card label {
+            font-size: 0.8rem; } }
+        .calendar-online-appointment-page .card-container .button-container .card label strong {
+          font-weight: 300;
+          position: absolute;
+          right: 0; }
+        .calendar-online-appointment-page .card-container .button-container .card label img {
+          max-width: 40px;
+          margin-right: 10px; }
+      .calendar-online-appointment-page .card-container .button-container .card input {
+        margin-right: 10px; }
+    .calendar-online-appointment-page .card-container .button-container .card-highlighted label {
+      color: white;
+      font-weight: bold; }
+
+.calendar-online-appointment-page .card-container {
+  padding: 0px; }
+
+.loading-center {
+  width: 100%;
+  display: flex;
+  justify-content: center; }
+
+input[type="radio" i] {
+  background-color: red; }
+
+.button-fake-height {
+  height: 100px; }

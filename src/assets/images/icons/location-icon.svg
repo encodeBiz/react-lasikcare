@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="68px" height="69px" viewBox="0 0 68 69" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 8</title>
+    <defs>
+        <polygon id="path-1" points="0 0.023052 22.127574 0.023052 22.127574 33.0989949 0 33.0989949"></polygon>
+    </defs>
+    <g id="Presencial" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="step-4" transform="translate(-48.000000, -297.000000)">
+            <g id="Group-8" transform="translate(48.000000, 297.800000)">
+                <circle id="Oval" fill="#38B3B6" opacity="0.2" cx="33.8" cy="34" r="28.8"></circle>
+                <circle id="Oval-Copy" stroke="#38B3B6" stroke-width="0.6" opacity="0.6" cx="34" cy="34" r="33.7"></circle>
+                <g id="Group-6" transform="translate(23.000000, 16.200000)">
+                    <g id="Group-3" transform="translate(0.000000, 0.027948)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Clip-2"></g>
+                        <path d="M22.1276046,11.0868339 C22.1276046,4.9764729 17.1741786,0.0230469 11.0638176,0.0230469 C4.9534056,0.0230469 -2.04e-05,4.9764729 -2.04e-05,11.0868339 C-2.04e-05,12.6051039 0.3060816,14.0517699 0.8594826,15.3689469 L0.8510676,15.3489039 C0.8510676,15.3489039 3.1386726,21.1134339 11.0638176,33.0989949 C18.9888606,21.1134339 21.2765166,15.3489039 21.2765166,15.3489039 L21.2681016,15.3689469 C21.8215026,14.0517699 22.1276046,12.6051039 22.1276046,11.0868339" id="Fill-1" fill="#2D82B7" mask="url(#mask-2)"></path>
+                    </g>
+                    <path d="M18.3476274,11.1147819 C18.3476274,15.1375089 15.0865854,18.3986019 11.0638074,18.3986019 C7.0410294,18.3986019 3.7799364,15.1375089 3.7799364,11.1147819 C3.7799364,7.0920039 7.0410294,3.8309109 11.0638074,3.8309109 C15.0865854,3.8309109 18.3476274,7.0920039 18.3476274,11.1147819" id="Fill-4" fill="#FFFFFF"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

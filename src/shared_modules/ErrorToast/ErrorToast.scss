@@ -1,0 +1,75 @@
+@import "../../styles/partials/variables";
+
+
+
+.snackbar {
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: $primaryColorBg;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: $texto;
+    text-align: center;
+    padding: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: fixed;
+    z-index: 100000;
+    left: 50%;
+    bottom: 30px;
+    visibility: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+  
+    &.visible {
+      visibility: visible;
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 3.5s;
+      animation: fadein 0.5s, fadeout 0.5s 3.5s;
+      animation-fill-mode: forwards;
+    }
+  
+    .snackbar-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+  
+    .close-button {
+      background: url(../../assets/images/icons/close-g.svg) no-repeat transparent;
+      border: none;
+      height: 15px;
+      width: 15px;
+      background-size: 100%;
+      cursor: pointer;
+  
+      &:focus {
+        outline: 0px;
+      }
+  
+      &:hover {
+        background: url(../../assets/images/icons/close-o.svg) no-repeat transparent;
+      }
+    }
+  }
+  
+  @-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }

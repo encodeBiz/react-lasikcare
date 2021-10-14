@@ -1,0 +1,33 @@
+@import "../../../styles/partials/variables";
+@import "../../../styles/partials/mixins";
+
+.hours-container {
+	width: 90%;
+	margin: auto;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	padding-bottom: 20px;
+
+	.hour-item {
+		background-color: #f9f9f9;
+		border-radius: 10px;
+		padding: 15px;
+		margin: 0px 10px 10px 0px;
+		text-align: center;
+		color: $texto;
+		font-weight: 800;
+		font-size: 0.9rem;
+
+		@include desktop-small {
+			font-size: 0.7rem;
+		}
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.select-hour {
+		border: 1px solid $secondaryColor;
+		color: $secondaryColor;
+	}
+}

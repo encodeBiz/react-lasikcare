@@ -1,0 +1,105 @@
+.wrapper-general .card-container .thank-you-message p, .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions .info-item p {
+  color: #808080;
+  font-size: 0.9rem;
+  font-weight: 300; }
+
+.wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions:nth-child(1) .info-item h5:before, .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions:nth-child(2) .info-item h5:before, .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions:nth-child(3) .info-item h5:before {
+  content: "";
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 29px;
+  height: 29px;
+  position: absolute;
+  top: -6px;
+  left: -37px; }
+
+.wrapper-general .card-container .thank-you-message {
+  text-align: center;
+  margin: auto; }
+  .wrapper-general .card-container .thank-you-message h3 {
+    color: #00619e;
+    margin: 0;
+    font-size: 1.1rem;
+    margin-top: 10px; }
+    @media (min-width: 1080px) {
+      .wrapper-general .card-container .thank-you-message h3 {
+        font-size: 1rem; } }
+  .wrapper-general .card-container .thank-you-message p {
+    max-width: 90%;
+    margin: auto;
+    padding-top: 10px; }
+    @media (min-width: 1080px) {
+      .wrapper-general .card-container .thank-you-message p {
+        font-size: 0.8rem; } }
+    .wrapper-general .card-container .thank-you-message p strong {
+      font-weight: bold; }
+
+@media (min-width: 1280px) {
+  .wrapper-general .flex-desktop {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 30px; } }
+
+.wrapper-general .flex-desktop .appointment-summary {
+  margin: 20px 0px; }
+  @media (min-width: 1280px) {
+    .wrapper-general .flex-desktop .appointment-summary {
+      width: 40%; } }
+  .wrapper-general .flex-desktop .appointment-summary h3 {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #808080;
+    margin: 0; }
+    @media (min-width: 1280px) {
+      .wrapper-general .flex-desktop .appointment-summary h3 {
+        font-size: 0.9rem;
+        line-height: 20px; } }
+
+@media (min-width: 1280px) {
+  .wrapper-general .flex-desktop .wrapper-instructions {
+    width: 55%; } }
+
+.wrapper-general .flex-desktop .wrapper-instructions h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px; }
+  @media (min-width: 1080px) {
+    .wrapper-general .flex-desktop .wrapper-instructions h2 {
+      font-size: 1.1rem; } }
+
+.wrapper-general .flex-desktop .wrapper-instructions .card-container {
+  display: inherit;
+  margin-bottom: 30px; }
+  .wrapper-general .flex-desktop .wrapper-instructions .card-container h2 {
+    margin: 0px 0px 5px 0px;
+    font-size: 1.3rem; }
+  .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions:not(:last-child) {
+    margin-bottom: 20px; }
+  .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions:nth-child(1) .info-item h5 {
+    position: relative; }
+    .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions:nth-child(1) .info-item h5:before {
+      background-image: url(../../../assets/images/icons/number-one.svg); }
+  .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions:nth-child(2) .info-item h5 {
+    position: relative; }
+    .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions:nth-child(2) .info-item h5:before {
+      background-image: url(../../../assets/images/icons/number-two.svg); }
+  .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions:nth-child(3) .info-item h5 {
+    position: relative; }
+    .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions:nth-child(3) .info-item h5:before {
+      background-image: url(../../../assets/images/icons/number-three.svg); }
+  .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions .info-item h5 {
+    margin: 0px;
+    color: #00619e;
+    font-size: 1rem;
+    margin-left: 33px; }
+    @media (min-width: 1080px) {
+      .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions .info-item h5 {
+        font-size: 0.8rem; } }
+  .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions .info-item p {
+    margin: 0px 0px 0px 33px;
+    padding-top: 10px; }
+    @media (min-width: 1080px) {
+      .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions .info-item p {
+        font-size: 0.7rem;
+        padding-top: 5px; } }
+    .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions .info-item p span {
+      font-weight: bold; }

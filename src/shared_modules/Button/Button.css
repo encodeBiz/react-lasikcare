@@ -1,0 +1,106 @@
+.main-btn {
+  background-color: #FF9900;
+  width: 100%;
+  height: max-content;
+  padding: 15px;
+  margin: auto;
+  font-family: "Gilroy";
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffffff;
+  border: 1.7px solid #FF9900;
+  border-radius: 50px;
+  cursor: pointer;
+  margin: 30px 0px;
+  text-transform: uppercase;
+  transition: all 300ms ease-in-out; }
+  .main-btn:disabled {
+    background-color: #808080;
+    border: 1.7px solid #808080; }
+  .main-btn:hover {
+    color: #FF9900;
+    background-color: transparent; }
+  .main-btn:focus {
+    outline: 0; }
+  @media (min-width: 768px) {
+    .main-btn {
+      width: 70%; } }
+  @media (min-width: 980px) {
+    .main-btn {
+      width: 80%; } }
+  @media (min-width: 1080px) {
+    .main-btn {
+      font-size: 0.8rem; } }
+  @media (min-width: 1280px) {
+    .main-btn {
+      width: 70%; } }
+  .main-btn.secondary-btn {
+    background-color: transparent; }
+  .main-btn.back-button {
+    position: relative;
+    font-size: 1rem;
+    background-color: transparent;
+    color: #FF9900;
+    width: max-content;
+    text-transform: initial;
+    box-sizing: border-box;
+    padding: 10px 25px 10px 36px;
+    margin: 0px; }
+    .main-btn.back-button:hover {
+      background-color: #FF9900;
+      color: white; }
+      .main-btn.back-button:hover:after {
+        background-image: url(../../assets/images/icons/arrow-white.svg); }
+    .main-btn.back-button:after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      background-image: url(../../assets/images/icons/back.svg);
+      background-repeat: no-repeat;
+      width: 35px;
+      height: 35px; }
+      @media (min-width: 1080px) {
+        .main-btn.back-button:after {
+          top: 8px;
+          width: 35px;
+          height: 35px; } }
+    @media (min-width: 1080px) {
+      .main-btn.back-button {
+        font-size: 0.7rem; } }
+  .main-btn.nav-number {
+    border-radius: 0px;
+    margin: 0px;
+    font-size: 0.9rem;
+    padding: 12px 12px 12px 30px;
+    position: relative; }
+    .main-btn.nav-number:after {
+      content: "";
+      background-image: url(../../assets/images/icons/telf.svg);
+      background-repeat: no-repeat;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 6px;
+      top: 10px; }
+    @media (min-width: 768px) {
+      .main-btn.nav-number {
+        width: 100%; } }
+    @media (min-width: 1080px) {
+      .main-btn.nav-number {
+        font-size: 0.7rem; } }
+
+.transparent-button {
+  background-color: transparent !important;
+  color: #FF9900; }
+  .transparent-button:hover {
+    background-color: #FF9900 !important;
+    color: white; }
+
+.small-margin {
+  margin: 5px 0; }
+
+.rld-churumbel {
+  line-height: 40px; }
+  .rld-churumbel img {
+    max-width: 25px;
+    transform: translate(-10px, 6px); }
