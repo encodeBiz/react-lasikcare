@@ -150,7 +150,7 @@ const CityAppointmentPage = (properties) => {
 			properties.setAppoinmentConfig("currentStep", 0);
 		}
 		if (isLoading) {
-			getAllOnlineHours();
+			//getAllOnlineHours();
 		}
 
 		// eslint-disable-next-line

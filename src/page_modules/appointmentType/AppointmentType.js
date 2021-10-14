@@ -43,7 +43,7 @@ const AppointmentType = (properties) => {
 		properties.setAppoinmentConfig("isOnline", false);
 		// eslint-disable-next-line
 		
-	}, []);
+	});
 
 	/**
 	 *
@@ -63,7 +63,6 @@ const AppointmentType = (properties) => {
 			gaEventNonInt: 0,
 			dimension1: type === "VIDEO" ? 'zu house' : 'von ort'
 		});
-		console.log('Step #2 - Events 0' , window.dataLayer)
 		properties.setAppoinmentConfig("type", type);
 		history.push(type === "VIDEO" ? "/termintyp/zu-hause/videoberatung" : "/termintyp/vor-ort/");
 	};

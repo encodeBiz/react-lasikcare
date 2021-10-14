@@ -18,8 +18,6 @@ import { IMAGES_SERVER } from "./constants/constants";
  * @param {Funcion} properties.setGlobalError Acción para setear un error
  */
 function App(properties) {
- 
-
   const [clinics, setClinics] = useState([]);
 
   const homeLinksConfig = [
@@ -37,35 +35,34 @@ function App(properties) {
     },
   ];
 
-  useEffect(() => {
-    const city = localStorage.getItem("city");
-    setClinics(properties.clinics);
+  // useEffect(() => {
+  //   const city = localStorage.getItem("city");
+  //   setClinics(properties.clinics);
 
-    if (city) {
-      // setClientCity(city);
-    }
+  //   if (city) {
+  //     setClientCity(city);
+  //   }
+  //   getAsyncData();
+  //   // eslint-disable-next-line
+  // }, [clinics]);
 
-    getAsyncData();
-    // eslint-disable-next-line
-  }, [clinics]);
+  // const getAsyncData = async () => {
+  //   try {
+  //     //   await properties.setClinicAppointments();
 
-  const getAsyncData = async () => {
-    try {
-      //   await properties.setClinicAppointments();
+  //     //   await getAllClinicsHours();
+  //     await getAllOnlineHours();
+  //   } catch (error) {
+  //     properties.setGlobalError(error);
+  //   }
+  // };
 
-      //   await getAllClinicsHours();
-      await getAllOnlineHours();
-    } catch (error) {
-      properties.setGlobalError(error);
-    }
-  };
-
-  const getAllOnlineHours = async () => {
-    const onlineHoursPromises = ["BI", "BIDI"].forEach((item) =>
-      properties.fetchOnlineAvailableHours(item)
-    );
-    const res = await Promise.all(onlineHoursPromises);
-  };
+  // const getAllOnlineHours = async () => {
+  //   const onlineHoursPromises = ["BI", "BIDI"].forEach((item) =>
+  //     properties.fetchOnlineAvailableHours(item)
+  //   );
+  //   const res = await Promise.all(onlineHoursPromises);
+  // };
 
   return (
     <React.Fragment>
