@@ -35,7 +35,6 @@ export const updateHours = (keycli, appointments_type, data, nextMonth) => ({
  */
 
 export const fetchAvailableHours = (keycli, type, date) => {
-	console.log('fetchAvailableHours');
 	return async (dispatch) => {
 		try {
 			let dateToSend = "";
@@ -63,10 +62,18 @@ export const updateAvailableHours = (keycli, type, date, nextMonth) => {
 	return async (dispatch) => {
 		try {
 			const res = await getHuecos({ keycli, date, type });
+		
 			if (Number(res?.errores?.cod) !== 0) {
 				return dispatch(setGlobalError(Number(res?.errores?.cod)));
 			}
-			const data = res.huecos ? { [keycli]: { [type]: res.huecos } } : {};
+			let data;
+			
+			if(res.huecos.hueco){
+				const huecos = Array.isArray(res.huecos.hueco) ? res.huecos : {hueco : [res.huecos.hueco]}
+				data = { [keycli]: { [type]: huecos } };
+			}else{
+				data = { [keycli]: { [type]: {hueco: []} } }
+			}
 			return dispatch(updateHours(keycli, type, data, nextMonth));
 		} catch (error) {
 			console.log(error);

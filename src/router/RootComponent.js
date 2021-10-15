@@ -96,7 +96,6 @@ const Root = (properties) => {
         event: "virtual-pageview",
         ga_pagepath: location.pathname,
       });
-      console.log(window.dataLayer);
     });
   }, []);
 

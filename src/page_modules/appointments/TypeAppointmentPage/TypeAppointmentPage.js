@@ -102,7 +102,7 @@ const TypeAppointmentPage = (properties) => {
 			gaEventNonInt: 0,
 			dimension1: type.toLowerCase() // bi or bidi
 		});
-		console.log('Step #2 - Events 1', window.dataLayer)
+		
 
 		properties.setAppoinmentConfig("type", type);
 		history.push("/termintyp/vor-ort/voruntersuchung");

@@ -1,18 +1,6 @@
 
 
-
-// export const get_clinicas = 'https://www.lasikcare.de/termine-ws-v2/api_react/getClinicas.php'
-// export const get_huecos = 'https://us-central1-rload-3e789.cloudfunctions.net/getHuecos'
-// export const set_huecos = 'https://www.lasikcare.de/termine-ws-v2/api_react/setHuecos.php' 
-// export const send_error_email = "https://www.lasikcare.de/termine-ws-v2/api_react/sendMailError.php"
-///TEST LOCAL///Test
- export const get_clinicas = 'http://localhost:8888/termine-ws-v2/api/getClinicas.php'
- export const get_huecos = 'http://localhost:8888/termine-ws-v2/api/getHuecos.php'
- export const set_huecos = 'http://localhost:8888/termine-ws-v2/api/setHuecos.php' 
- export const send_error_email = "http://localhost:8888/termine-ws-v2/api/sendMailError.php"
-
-
-
-
-
-
+export const get_clinicas = 'https://www.lasikcare.de/termine-ws-v2/api_react/getClinicas.php'
+export const get_huecos = 'https://www.lasikcare.de/termine-ws-v2/api_react/getHuecos.php'
+export const set_huecos = 'https://www.lasikcare.de/termine-ws-v2/api_react/setHuecos.php' 
+export const send_error_email = "https://www.lasikcare.de/termine-ws-v2/api_react/sendMailError.php"
