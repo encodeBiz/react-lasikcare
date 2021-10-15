@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import doctorIcon from "./assets/images/icons/doctor-color-icon.svg";
 import "./styles/App.scss";
@@ -18,10 +18,6 @@ import { IMAGES_SERVER } from "./constants/constants";
  * @param {Funcion} properties.setGlobalError Acción para setear un error
  */
 function App(properties) {
- 
-
-  const [clinics, setClinics] = useState([]);
-
   const homeLinksConfig = [
     {
       title: "Zu Hause",
@@ -37,35 +33,7 @@ function App(properties) {
     },
   ];
 
-  useEffect(() => {
-    const city = localStorage.getItem("city");
-    setClinics(properties.clinics);
-
-    if (city) {
-      // setClientCity(city);
-    }
-
-    getAsyncData();
-    // eslint-disable-next-line
-  }, [clinics]);
-
-  const getAsyncData = async () => {
-    try {
-      //   await properties.setClinicAppointments();
-
-      //   await getAllClinicsHours();
-      await getAllOnlineHours();
-    } catch (error) {
-      properties.setGlobalError(error);
-    }
-  };
-
-  const getAllOnlineHours = async () => {
-    const onlineHoursPromises = ["BI", "BIDI"].forEach((item) =>
-      properties.fetchOnlineAvailableHours(item)
-    );
-    const res = await Promise.all(onlineHoursPromises);
-  };
+ 
 
   return (
     <React.Fragment>

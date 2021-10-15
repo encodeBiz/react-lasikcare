@@ -33,7 +33,7 @@ import { setIsGlobalLoading, setOnlineGlobalLoading } from "../../../redux/loadi
 import Loading from "../../../shared_modules/Loading/Loading";
 import { IMAGES_SERVER } from "../../../constants/constants";
 import { setIsTimerActive } from "../../../redux/timer/timer.actions";
-import { Link } from "react-router-dom";
+
 import Stepper from "../../../shared_modules/Stepper/Stepper";
 
 /**
@@ -100,7 +100,7 @@ const CityAppointmentPage = (properties) => {
 			setIsLoading(false);
 		}
 		// eslint-disable-next-line
-	}, []);
+	},[]);
 
 	/**
 	 *  Se gestiona la llamada para conseguir la lista de clínicas
@@ -150,6 +150,7 @@ const CityAppointmentPage = (properties) => {
 			properties.setAppoinmentConfig("currentStep", 0);
 		}
 		if (isLoading) {
+			//Esto es para habilitar la llamada a las en cahce de videochat
 			getAllOnlineHours();
 		}
 
@@ -181,63 +182,34 @@ const CityAppointmentPage = (properties) => {
 	 */
 
 	const getClinicsHours = async (selectedCities) => {
-
-		console.log('getAllOnlineHours')
-
 		properties.setIsGlobalLoading(true);
-
 		let firstMonthPromises = [];
 		let secondPromises = [];
-
 		try {
 			selectedCities.forEach((clinic) => {
 				firstMonthPromises.push(
 					properties.updateAvailableHours(clinic.keycli, "BI", currentMonth, currentMonthNum),
 					properties.updateAvailableHours(clinic.keycli, "BIDI", currentMonth, currentMonthNum)
 				);
-
-				/* properties.updateAvailableHours(clinic.keycli, "BI", currentMonth, currentMonthNum)
-				.then(()=>{
-					properties.updateAvailableHours(clinic.keycli, "BIDI", currentMonth, currentMonthNum)
-					.then(()=>{
-						properties.updateAvailableHours(clinic.keycli, "BI", nextMonth, nextMonthNum)
-						.then(()=>{
-							properties.updateAvailableHours(clinic.keycli, "BIDI", nextMonth, nextMonthNum)
-							.then(()=>{
-								properties.setIsGlobalLoading(false)
-								properties.updateAvailableHours(clinic.keycli, "BI", nextSecondMonth, nextSecondMonthNum)
-								.then(()=>{
-									properties.updateAvailableHours(
-										clinic.keycli,
-										"BIDI",
-										nextSecondMonth,
-										nextSecondMonthNum
-									).then(()=>	console.log('LOADED'))
-								})
-							})
-						})
-					})
-				}) */
-				
 			});
 
 			selectedCities.forEach((clinic) => {
 				secondPromises.push(
+					//Pedir los sigientes meses
+					/*
 					properties.updateAvailableHours(clinic.keycli, "BI", nextMonth, nextMonthNum),
 					properties.updateAvailableHours(clinic.keycli, "BIDI", nextMonth, nextMonthNum),
-					properties.updateAvailableHours(clinic.keycli, "BI", nextSecondMonth, nextSecondMonthNum),
+				 	properties.updateAvailableHours(clinic.keycli, "BI", nextSecondMonth, nextSecondMonthNum),
 					properties.updateAvailableHours(
 						clinic.keycli,
 						"BIDI",
 						nextSecondMonth,
 						nextSecondMonthNum
-					)
+					)*/
 				);
 			});
-
+			
 			await Promise.all(firstMonthPromises.concat(secondPromises));
-			
-			
 			properties.setIsGlobalLoading(false);
 		} catch (error) {
 			console.log(error);
@@ -252,12 +224,11 @@ const CityAppointmentPage = (properties) => {
 
 	const getAllOnlineHours = async () => {
 		properties.setOnlineGlobalLoading(true);
-
 		try {
 			await properties.fetchOnlineAvailableHours(currentMonth);
-			await properties.fetchOnlineAvailableHours(nextMonth);
+			/* await properties.fetchOnlineAvailableHours(nextMonth);
 			await properties.fetchOnlineAvailableHours(nextSecondMonth);
-
+ */
 			properties.setOnlineGlobalLoading(false);
 		} catch (error) {
 			properties.setOnlineGlobalLoading(false);
@@ -298,14 +269,14 @@ const CityAppointmentPage = (properties) => {
 		
 		if (keycli) {
 			// Setea la ciudad en el local storage
-			const cities = JSON.parse(localStorage.getItem("tempCities"));
-			let isCachedCity = false;
+			//const cities = JSON.parse(localStorage.getItem("tempCities"));
+			//let isCachedCity = false;
 			//Descomentar si queremos habilitar las llamadas de cacheo
 			/* if(cities){
 				isCachedCity  = cities.find(city => city.keycli === keycli)
 			} */
 
-			setCityInStorage({ keycli, clinica, address }); 
+			//setCityInStorage({ keycli, clinica, address }); 
 
 			// Setea la ciudad en redux
 
