@@ -43,7 +43,7 @@ const AppointmentType = (properties) => {
 		properties.setAppoinmentConfig("isOnline", false);
 		// eslint-disable-next-line
 		
-	});
+	}, []);
 
 	/**
 	 *
@@ -53,7 +53,6 @@ const AppointmentType = (properties) => {
 	 */
 
 	const handleClick = (type) => {
-		console.log(type)
 		window.dataLayer.push({
 			event: 'gaEvent',
 			gaEventCategory: 'online booking',
@@ -80,7 +79,6 @@ const AppointmentType = (properties) => {
 				<div className="presencial-online-wrapper">
 					<CardContainer>
 						{homeLinksConfig.map((link, index) => {
-							console.log('test', link.image)
 							return (
 								<Link to={link.url} key={index} className="card-link">
 									<Card key={index} handleClick={handleClick} clickParam={link.type}>
