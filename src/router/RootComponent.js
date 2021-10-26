@@ -89,13 +89,22 @@ const Root = (properties) => {
     }
 		window.dataLayer.push({
 			event: "virtual-pageview",
-			ga_pagepath: '/'})
+			ga_pagepath: '/online-termine/'})
 			
     history.listen((location, action) => {
-      window.dataLayer.push({
-        event: "virtual-pageview",
-        ga_pagepath: location.pathname,
-      });
+      const path = '/online-termine'+location.pathname;
+      /**
+       * @type {Array<any>}
+       */
+      const dl = window.dataLayer
+
+      const exist = dl.findIndex(item => item.ga_pagepath === path);
+      if(exist === -1){
+        window.dataLayer.push({
+          event: "virtual-pageview",
+          ga_pagepath: path,
+        });
+      }
     });
   }, []);
 

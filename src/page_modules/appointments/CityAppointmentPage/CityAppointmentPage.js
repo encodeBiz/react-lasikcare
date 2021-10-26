@@ -333,9 +333,9 @@ const CityAppointmentPage = (properties) => {
 				<div className="title-seccion">
 					<h1>Bitte Standort wählen</h1>
 				</div>
-				<span onClick={() => history.push("/termin-bereits-vergeben")} className="sorry-link">
+			{/* 	<span onClick={() => history.push("/termin-bereits-vergeben")} className="sorry-link">
 					To sorry page
-				</span>
+				</span> */}
 
 				<div className="city-appointment-container">
 					{isLoading ? (
