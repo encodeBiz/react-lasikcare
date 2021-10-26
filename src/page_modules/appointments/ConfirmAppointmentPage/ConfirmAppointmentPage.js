@@ -151,6 +151,13 @@ const ConfirmPage = (properties) => {
 			await properties.sendAppointmentData();
 			if (values.ageGroup === "moreThan50") {
 				await sendEmail();
+				window.dataLayer.push({
+					"event": "leadSent",
+					"lead_id": Math.floor(Math.random() * 100000000),
+					"session_id": '(not-set)',
+					"lead_source": 'online_termine',
+					"lead_type": "online_termine"
+				});
 			}
 			const city = appointment.city.clinica;
 			localStorage.setItem("city", city);

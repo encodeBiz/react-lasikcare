@@ -49,7 +49,6 @@ const ThankAppointmentPage = (properties) => {
 	 */
 
 	useEffect(() => {
-		console.log(appointment)
 		window.dataLayer.push({
 			event: 'virtual-pageview',
 			ga_pagepath: '/online_termin/thank-you',

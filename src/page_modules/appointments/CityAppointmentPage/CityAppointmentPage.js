@@ -138,8 +138,8 @@ const CityAppointmentPage = (properties) => {
 			// La llamada al timer tiene que hacerse aquí después de que
 			// la llamada a getClinics modifique el Loading del que
 			// depende este useEffect
-			
-			startTimer();
+
+			//startTimer();
 			//Descomentar si queremos habilitar las llamadas de cacheo
 			/* const cities = JSON.parse(localStorage.getItem("tempCities"));
 			
@@ -332,9 +332,9 @@ const CityAppointmentPage = (properties) => {
 				<div className="title-seccion">
 					<h1>Bitte Standort wählen</h1>
 				</div>
-				<span onClick={() => history.push("/termin-bereits-vergeben")} className="sorry-link">
+			{/* 	<span onClick={() => history.push("/termin-bereits-vergeben")} className="sorry-link">
 					To sorry page
-				</span>
+				</span> */}
 
 				<div className="city-appointment-container">
 					{isLoading ? (
