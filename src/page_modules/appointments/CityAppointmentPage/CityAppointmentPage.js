@@ -139,7 +139,7 @@ const CityAppointmentPage = (properties) => {
 			// la llamada a getClinics modifique el Loading del que
 			// depende este useEffect
 
-			startTimer();
+			//startTimer();
 			//Descomentar si queremos habilitar las llamadas de cacheo
 			/* const cities = JSON.parse(localStorage.getItem("tempCities"));
 			

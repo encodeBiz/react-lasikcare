@@ -25,7 +25,7 @@ const ConfirmForm = (properties) => {
 		gender: yup.string(),
 		name: yup.string().required("Dieses Feld wird benötigt"),
 		surname: yup.string().required("Dieses Feld wird benötigt"),
-		phoneNumber: yup.string().required("Dieses Feld wird benötigt"),
+		phoneNumber: yup.string().required("Dieses Feld wird benötigt").min(8, 'Dieses Feld wird benötigt'),
 		email: yup.string().email("ungültige E-Mail").required("Dieses Feld wird benötigt"),
 		message: yup.string().max(140),
 		accepted: yup.bool().oneOf([true]),
