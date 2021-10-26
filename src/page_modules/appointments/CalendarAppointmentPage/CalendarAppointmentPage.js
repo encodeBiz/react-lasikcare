@@ -336,13 +336,6 @@ const CalendarAppointmentPage = (properties) => {
       // Setea la fecha del que se pasará al action. Se añade un mes exacto
       const momentDate = moment(currentDate).set('date', 1)
       const date = momentDate.format("DD/M/YYYY");
-      // Setea el mes que se utilizará para ubicar los nuevos datos en su lugar en el state
-      // Como ya se tienen los 3 primeros meses incluyendo el presente se setea el siguiente
-      // mes a presente mes + 3
-      const next = moment(Date.now()).set('date',1).add(1, 'M')
-      setDisable_next(momentDate.isAfter(next)) 
-      setDisable_prev(false) 
-
       const nextMonth = (Number(currentMonth) + 1).toString();
 
       // Acción que llama a la API para conseguir los datos del mes siguiente
@@ -373,9 +366,6 @@ const CalendarAppointmentPage = (properties) => {
    */
 
   const onPreviousMonthClick = (e) => {
-    setDisable_prev(e.isBefore(today)) 
-    setDisable_next(false) 
-
     setSelectedDate(null);
     setCurrentMonth((Number(currentMonth) - 1).toString());
    
@@ -560,8 +550,6 @@ const CalendarAppointmentPage = (properties) => {
                   selectedDate={selectedDate}
                   onNextMonthClick={onNextMonthClick}
                   onPreviousMonthClick={onPreviousMonthClick}
-                  disable_next={disable_next}
-                  disable_prev={disable_prev}
                   activeIndex={activeIndex}
                 />
               )}

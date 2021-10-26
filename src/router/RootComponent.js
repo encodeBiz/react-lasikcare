@@ -87,19 +87,21 @@ const Root = (properties) => {
     if (process.env.NODE_ENV === "production") {
       window.console.log = () => false;
     }
-		window.dataLayer.push({
-			event: "virtual-pageview",
-			ga_pagepath: '/online-termine/'})
-			
+
+    window.dataLayer.push({
+      event: "virtual-pageview",
+      ga_pagepath: "/online-termine/",
+    });
+
     history.listen((location, action) => {
-      const path = '/online-termine'+location.pathname;
+      const path = "/online-termine" + location.pathname;
       /**
        * @type {Array<any>}
        */
-      const dl = window.dataLayer
+      const dl = window.dataLayer;
 
-      const exist = dl.findIndex(item => item.ga_pagepath === path);
-      if(exist === -1){
+      const exist = dl[dl.length - 1].ga_pagepath === path;
+      if (!exist && location.pathname != "/danke") {
         window.dataLayer.push({
           event: "virtual-pageview",
           ga_pagepath: path,

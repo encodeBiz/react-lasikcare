@@ -49,7 +49,10 @@ export const fetchOnlineAvailableHours = (date) => {
 			// Si no hay errores continuar ejecutando y enviar respuesta
 
 			const month = moment(dateToSend, "DD/MM/YYYY").format("M");
-			const data = res.huecos ? res.huecos.hueco : {};
+			let data = res.huecos?.hueco ? res.huecos.hueco : [];
+		
+			
+
 			return dispatch(setOnlineHours({ data, month }));
 		} catch (error) {
 			return dispatch(setGlobalError(error));

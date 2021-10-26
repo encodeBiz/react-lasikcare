@@ -74,22 +74,22 @@ const CalendarOnlinePage = (properties) => {
    */
 
   useEffect(() => {
-    const data =
+    let data =
       appointment.type === "VIDEO"
         ? online_available_hours[currentMonth.toString()]
         : available_hours[appointment.city.keycli].data.BIDI[
             currentMonth.toString()
           ];
-
-    if (data?.length <= 5 && !hasSentEmail?.[currentMonth]) {
+    if(!data) data = [];
+    if (data?.length <= 0 && !hasSentEmail?.[currentMonth]) {
       handleSendErrorEmail();
     }
-
-    if ((data && data.length > 0) || data !== undefined) {
+    
+    if (data && data.length > 0) {
       const formattedDates = formatDates(data);
       setDataCalendar(formattedDates);
     } else {
-      setDataCalendar([]);
+      setDataCalendar(data);
     }
   }, [
     appointment.type,
@@ -144,8 +144,8 @@ const CalendarOnlinePage = (properties) => {
             month.toString()
           ]
         : online_available_hours[month.toString()];
-
-    if (data) {
+    
+    if (data.length > 0) {
       // Se formatean las horas seleccioonadas
 
       const filteredData = formatDates(data);
@@ -153,6 +153,7 @@ const CalendarOnlinePage = (properties) => {
       // Se setean los datos formateados como nuevos datos que el calendario debera pintar
 
       setDataCalendar(filteredData);
+     
       // Para que no se pinten horas que no corresponden a ninguna de las fechas seleccionadas se limpia el estado de fecha seleccionada
 
       setSelectedDate(null);
@@ -238,7 +239,7 @@ const CalendarOnlinePage = (properties) => {
 
       // Setea la fecha del que se pasará al action. Se añade un mes exacto
       const date = moment(currentDate).set("date", 1).format("DD/M/YYYY");
-
+      
       if (appointment.type === "VIDEO") {
         if (!online_available_hours[moment(date, "DD/MM/YYYY").format("M")]) {
           setLoading(true);
@@ -520,9 +521,10 @@ const CalendarOnlinePage = (properties) => {
             </CardContainer>
           ) : (
             <CardContainer className="change-margin">
+               
               {!isLoading && (
                 <Calendar
-                  datesList={dataCalendar}
+                  datesList={dataCalendar }
                   initialMonth={initialMonth}
                   initialDate={initialDate}
                   width={width}

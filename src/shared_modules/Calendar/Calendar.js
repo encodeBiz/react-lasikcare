@@ -26,63 +26,84 @@ import Loading from "../Loading/Loading";
  */
 
 const Calendar = (properties) => {
-	const [date, setFocused] = useState(properties.initialDate);
+  const [date, setFocused] = useState(properties.initialDate);
 
-	const onChange = (date) => {
-		properties.handleDateChange(date);
-		setFocused(date);
-	};
-	return (
-		<div className={"calendar-container " + (properties.disable_next && " disable_next ") + (properties.disable_prev && " disable_prev ")} style={{position:'relative'}}>
-			
-			{properties.datesList !== undefined && (
-				<>
-				{properties.loading && (
-                <div className="loading-center" style={{
-									position:'absolute',
-									top:'0%',
-									left:0,
-									background: 'white',
-									zIndex: 9999
-								}}>
-                  <Loading />
-                </div>
-              )}
-					<DayPickerSingleDateController
-						initialVisibleMonth={() => moment().add(properties.initialMonth, "months")}
-						numberOfMonths={1}
-						hideKeyboardShortcutsPanel={true}
-						daySize={properties.calendarWidth}
-						focused={true}
-						// Si hay datos de fechas se pintan los días seleccionados
-						// Si no se pone un condicional para comprobar que properties.datesList no llega undefined
-						// Calendar rompe la aplicación
-						
-						isDayHighlighted={(day1) =>
-							properties.datesList?.length > 0 &&
-							properties.datesList
-								.map((item) => item.formattedDate)
-								.some((day2) => isSameDay(day1, day2))
-						}
-						date={date} // momentPropTypes.momentObj or null
-						onDateChange={onChange} // PropTypes.func.isRequired
-						onNextMonthClick={(e) =>{
-							properties.onNextMonthClick(e)
-						}}
-						onPrevMonthClick={(e) => properties.onPreviousMonthClick(e)}
-						
-					></DayPickerSingleDateController>
-					{properties.selectedDate && (
-						<CalendarHour
-							activeIndex={properties.activeIndex}
-							free_hours={properties.selectedDate || []}
-							selectHour={properties.handleSelectedHour}
-						></CalendarHour>
-					)}
-				</>
-			)}
-		</div>
-	);
+  const [disable_next, setDisable_next] = useState(false);
+  const [disable_prev, setDisable_prev] = useState(true);
+
+  const onChange = (date) => {
+    properties.handleDateChange(date);
+    setFocused(date);
+  };
+  return (
+    <div
+      className={
+        "calendar-container " +
+        (disable_next && " disable_next ") +
+        (disable_prev && " disable_prev ")
+      }
+      style={{ position: "relative" }}
+    >
+      {properties.datesList !== undefined && (
+        <>
+          {properties.loading && (
+            <div
+              className="loading-center"
+              style={{
+                position: "absolute",
+                top: "0%",
+                left: 0,
+                background: "white",
+                zIndex: 9999,
+              }}
+            >
+              <Loading />
+            </div>
+          )}
+					{console.log('DayPickerSingleDateController',properties.datesList)}
+          <DayPickerSingleDateController
+            initialVisibleMonth={() =>
+              moment().add(properties.initialMonth, "months")
+            }
+            numberOfMonths={1}
+            hideKeyboardShortcutsPanel={true}
+            daySize={properties.calendarWidth}
+            focused={true}
+            // Si hay datos de fechas se pintan los días seleccionados
+            // Si no se pone un condicional para comprobar que properties.datesList no llega undefined
+            // Calendar rompe la aplicación
+
+            isDayHighlighted={(day1) =>
+              properties.datesList?.length > 0 &&
+              properties.datesList
+                .map((item) => item.formattedDate)
+                .some((day2) => isSameDay(day1, day2))
+            }
+            date={date} // momentPropTypes.momentObj or null
+            onDateChange={onChange} // PropTypes.func.isRequired
+            onNextMonthClick={(e) => {
+              const next = moment(Date.now()).set("date", 1).add(2, "M");
+              setDisable_next(e.isAfter(next));
+              setDisable_prev(false);
+              properties.onNextMonthClick(e);
+            }}
+            onPrevMonthClick={(e) => {
+              setDisable_prev(e.isBefore(moment(Date.now())));
+              setDisable_next(false);
+              properties.onPreviousMonthClick(e);
+            }}
+          ></DayPickerSingleDateController>
+          {properties.selectedDate && (
+            <CalendarHour
+              activeIndex={properties.activeIndex}
+              free_hours={properties.selectedDate || []}
+              selectHour={properties.handleSelectedHour}
+            ></CalendarHour>
+          )}
+        </>
+      )}
+    </div>
+  );
 };
 
 export default Calendar;
