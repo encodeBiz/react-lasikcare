@@ -20,8 +20,9 @@ import Loading from "../Loading/Loading";
  * @param {Date} properties.initialDate
  * @param {String} properties.initialMonthString
  * @param {Number} properties.initialMonth
- * * @param {boolean} properties.loading
- *
+ * @param {boolean} properties.loading
+ * @param {boolean} properties.disable_next
+ * @param {boolean} properties.disable_prev
  */
 
 const Calendar = (properties) => {
@@ -31,9 +32,9 @@ const Calendar = (properties) => {
 		properties.handleDateChange(date);
 		setFocused(date);
 	};
-
 	return (
-		<div className="calendar-container" style={{position:'relative'}}>
+		<div className={"calendar-container " + (properties.disable_next && " disable_next ") + (properties.disable_prev && " disable_prev ")} style={{position:'relative'}}>
+			
 			{properties.datesList !== undefined && (
 				<>
 				{properties.loading && (
@@ -65,7 +66,9 @@ const Calendar = (properties) => {
 						}
 						date={date} // momentPropTypes.momentObj or null
 						onDateChange={onChange} // PropTypes.func.isRequired
-						onNextMonthClick={(e) => properties.onNextMonthClick(e)}
+						onNextMonthClick={(e) =>{
+							properties.onNextMonthClick(e)
+						}}
 						onPrevMonthClick={(e) => properties.onPreviousMonthClick(e)}
 						
 					></DayPickerSingleDateController>

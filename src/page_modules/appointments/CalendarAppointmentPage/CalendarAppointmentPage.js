@@ -19,6 +19,7 @@ import Loading from "../../../shared_modules/Loading/Loading";
 import { IMAGES_SERVER } from "../../../constants/constants";
 import { sendErrorEmail } from "../../../services/email.service";
 import { setIsGlobalLoading } from "../../../redux/loading/loading.actions";
+import { date } from "yup";
 
 /**
  *
@@ -32,7 +33,7 @@ import { setIsGlobalLoading } from "../../../redux/loading/loading.actions";
 const CalendarAppointmentPage = (properties) => {
   const history = useHistory();
   const navigateTo = (url) => history.push(url);
-  const today = moment();
+  const today = moment(Date.now());
   const { available_hours, appointment } = properties;
 
   const buttonRef = useRef(null);
@@ -74,6 +75,9 @@ const CalendarAppointmentPage = (properties) => {
   const [initialMonth, setInitialMonth] = useState(0);
   const hasSentEmail = JSON.parse(localStorage.getItem("hasSentEmail"));
   const [isInitialMonthSet, setIsInitialMonthSet] = useState(false);
+   
+  const [disable_next, setDisable_next] = useState(false);
+  const [disable_prev, setDisable_prev] = useState(true);
 
   const currentMonthNumber = moment(today, "DD/MM/YYYY").format("M");
 
@@ -310,7 +314,7 @@ const CalendarAppointmentPage = (properties) => {
    * llamada para conseguir los huecos del mes siguiente
    *
    */
-
+  
   const onNextMonthClick = async (currentDate) => {
     try {
       // // Setea currentMonth al mes actual
@@ -330,11 +334,14 @@ const CalendarAppointmentPage = (properties) => {
       setSelectedDate(null);
 
       // Setea la fecha del que se pasará al action. Se añade un mes exacto
-
-      const date = moment(currentDate).set('date', 1).format("DD/M/YYYY");
+      const momentDate = moment(currentDate).set('date', 1)
+      const date = momentDate.format("DD/M/YYYY");
       // Setea el mes que se utilizará para ubicar los nuevos datos en su lugar en el state
       // Como ya se tienen los 3 primeros meses incluyendo el presente se setea el siguiente
       // mes a presente mes + 3
+      const next = moment(Date.now()).set('date',1).add(1, 'M')
+      setDisable_next(momentDate.isAfter(next)) 
+      setDisable_prev(false) 
 
       const nextMonth = (Number(currentMonth) + 1).toString();
 
@@ -365,9 +372,13 @@ const CalendarAppointmentPage = (properties) => {
    * Cuando se va al mes anterior se resta uno al currentMonth
    */
 
-  const onPreviousMonthClick = () => {
+  const onPreviousMonthClick = (e) => {
+    setDisable_prev(e.isBefore(today)) 
+    setDisable_next(false) 
+
     setSelectedDate(null);
     setCurrentMonth((Number(currentMonth) - 1).toString());
+   
   };
 
   /**
@@ -472,14 +483,13 @@ const CalendarAppointmentPage = (properties) => {
   /////////////////////////////
   // Renderizado del componente
   /////////////////////////////
-
+  
   return (
     <React.Fragment>
       <Stepper
         currentStepIndex={properties.appointment?.currentStep}
         navigateTo={navigateTo}
       />
-
       <div className="wrapper-general">
         <div className="top-content">
           <Button
@@ -550,6 +560,8 @@ const CalendarAppointmentPage = (properties) => {
                   selectedDate={selectedDate}
                   onNextMonthClick={onNextMonthClick}
                   onPreviousMonthClick={onPreviousMonthClick}
+                  disable_next={disable_next}
+                  disable_prev={disable_prev}
                   activeIndex={activeIndex}
                 />
               )}

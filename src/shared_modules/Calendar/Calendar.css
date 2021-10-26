@@ -72,3 +72,9 @@
 
 .DayPickerNavigation_button:hover {
   border: none; }
+
+.calendar-container.disable_prev .DayPickerNavigation_leftButton__horizontalDefault {
+  display: none; }
+
+.calendar-container.disable_next .DayPickerNavigation_rightButton__horizontalDefault {
+  display: none; }
