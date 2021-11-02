@@ -102,7 +102,7 @@ const CalendarAppointmentPage = (properties) => {
    */
   useEffect(() => {
     // Selecciona del store los datos correspondientes al mes que se muestra en el calendario
-	
+    console.log('CALENDAR LOADING', properties.loading.globalLoading);
     const data =
       selectedCity && selectedType
         ? properties.available_hours[selectedCity]?.data[selectedType]?.[
@@ -153,7 +153,7 @@ const CalendarAppointmentPage = (properties) => {
    */
 
   useEffect(() => {
-    if (!properties.loading.globalLoading && available_hours) {
+    if (!properties.loading.globalLoading[appointment.type] && available_hours) {
       getInitialMonth(
         available_hours?.[appointment.city.keycli]?.data?.[appointment.type]
       );
@@ -527,7 +527,7 @@ const CalendarAppointmentPage = (properties) => {
               })}
             </div>
           </CardContainer>
-          {properties.loading.globalLoading ? (
+          {properties.loading.globalLoading[appointment.type] ? (
             <CardContainer>
               <div className="loading-center">
                 <Loading />

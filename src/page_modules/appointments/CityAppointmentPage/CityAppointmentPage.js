@@ -182,21 +182,32 @@ const CityAppointmentPage = (properties) => {
 	 */
 
 	const getClinicsHours = async (selectedCities) => {
-		properties.setIsGlobalLoading(true);
+		let globalLoading = {BI: true, BIDI:true} 
+		properties.setIsGlobalLoading(globalLoading);
+	
 		let firstMonthPromises = [];
 		let secondPromises = [];
 		try {
 			selectedCities.forEach((clinic) => {
 				firstMonthPromises.push(
-					properties.updateAvailableHours(clinic.keycli, "BI", currentMonth, currentMonthNum),
-					properties.updateAvailableHours(clinic.keycli, "BIDI", currentMonth, currentMonthNum)
+					properties.updateAvailableHours(clinic.keycli, "BI", currentMonth, currentMonthNum).then((velue) => {
+						globalLoading.BI = false
+						properties.setIsGlobalLoading({...globalLoading})
+						
+					}), 
+					properties.updateAvailableHours(clinic.keycli, "BIDI", currentMonth, currentMonthNum).then((velue) => {
+						globalLoading.BIDI = false
+						properties.setIsGlobalLoading({...globalLoading})
+					})
 				);
 			});
 
-			selectedCities.forEach((clinic) => {
+
+			//Pedir los sigientes meses
+			/* selectedCities.forEach((clinic) => {
 				secondPromises.push(
-					//Pedir los sigientes meses
-					/*
+					
+					
 					properties.updateAvailableHours(clinic.keycli, "BI", nextMonth, nextMonthNum),
 					properties.updateAvailableHours(clinic.keycli, "BIDI", nextMonth, nextMonthNum),
 				 	properties.updateAvailableHours(clinic.keycli, "BI", nextSecondMonth, nextSecondMonthNum),
@@ -205,12 +216,13 @@ const CityAppointmentPage = (properties) => {
 						"BIDI",
 						nextSecondMonth,
 						nextSecondMonthNum
-					)*/
+					)
 				);
-			});
+			}); */
 			
 			await Promise.all(firstMonthPromises.concat(secondPromises));
 			properties.setIsGlobalLoading(false);
+			console.log('END')
 		} catch (error) {
 			console.log(error);
 		}
