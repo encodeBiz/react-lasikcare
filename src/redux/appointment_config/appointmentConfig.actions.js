@@ -89,6 +89,7 @@ export const sendAppointmentData = (isOnline) => {
 					await sendErrorEmail(query_params);
 					return setHuecosResponse;
 				}
+				dispatch(setSuccessInAppointment());
 			} else {
 				dispatch(setSuccessInAppointment());
 				return setHuecosResponse;
