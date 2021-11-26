@@ -51,7 +51,7 @@ const ThankAppointmentPage = (properties) => {
 	useEffect(() => {
 		window.dataLayer.push({
 			event: 'virtual-pageview',
-			ga_pagepath: '/online_termin/thank-you',
+			ga_pagepath: '/online-termine/thank-you',
 			clinic_id: appointment.city.keycli,
 			clinic_name: appointment.city.clinica,
 			clinic_address: appointment.city.address,
