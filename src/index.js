@@ -14,7 +14,7 @@ if(!window.dataLayer) window.dataLayer = [];
 if (target) { 
 	ReactDOM.render(
 		<Provider store={store}>
-			<BrowserRouter basename={"/termine-ws-react"}>
+			<BrowserRouter basename={"/online-termine"}>
 				<Root />
 			</BrowserRouter>
 		</Provider>,
