@@ -144,19 +144,37 @@ const ConfirmPage = (properties) => {
 		await sendErrorEmail(query_params);
 	};
 
+	const  getCookie = (cname) => {
+		let name = cname + "=";
+		let ca = document.cookie.split(';');
+		for(let i = 0; i < ca.length; i++) {
+			let c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+
 	const handleSubmit = async (values) => {
 		try {
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
-			await properties.sendAppointmentData();
-			await sendEmail();
-			window.dataLayer.push({
-				"event": "leadSent",
-				"lead_id": Math.floor(Math.random() * 100000000),
-				"session_id": '(not-set)',
-				"lead_source": 'online_termine',
-				"lead_type": "online_termine"
-			});
+			const res =  await properties.sendAppointmentData();
+			const lead_id = res.urlFormulario.split('&keyhis=')[1];
+			const session_id = getCookie('PHPSESSID')
+
+				await sendEmail();
+				window.dataLayer.push({
+					"event": "leadSent",
+					"lead_id": lead_id || Math.floor(Math.random() * 100000000),
+					"session_id": session_id || Math.floor(Math.random() * 100000000),
+					"lead_source": 'online_termine',
+					"lead_type": "online_termine"
+				});
 			const city = appointment.city.clinica;
 			localStorage.setItem("city", city);
 		} catch (error) {
