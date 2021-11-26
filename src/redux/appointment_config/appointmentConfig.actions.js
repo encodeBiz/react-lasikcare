@@ -87,9 +87,11 @@ export const sendAppointmentData = (isOnline) => {
 					query_params.endhour = appointment.calendar_hour.horaFin;
 					query_params.error = "Error 27";
 					await sendErrorEmail(query_params);
+					return setHuecosResponse;
 				}
 			} else {
 				dispatch(setSuccessInAppointment());
+				return setHuecosResponse;
 			}
 		} catch (error) {}
 	};
