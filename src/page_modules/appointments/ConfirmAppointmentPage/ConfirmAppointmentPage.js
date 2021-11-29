@@ -163,11 +163,11 @@ const ConfirmPage = (properties) => {
 		try {
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
-			const res =  await properties.sendAppointmentData();
+			const res = await properties.sendAppointmentData();
 			const lead_id = res.urlFormulario.split('&keyhis=')[1];
 			const session_id = getCookie('PHPSESSID')
-
-				await sendEmail();
+				
+			  await sendEmail();
 				window.dataLayer.push({
 					"event": "leadSent",
 					"lead_id": lead_id || Math.floor(Math.random() * 100000000),
