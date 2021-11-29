@@ -107,7 +107,7 @@ const ConfirmForm = (properties) => {
 															Anrede
 														</option>
 														<option value={"woman"}>Frau</option>
-														<option value={"man"}>Mann</option>
+														<option value={"man"}>Herr</option>
 													</Field>
 												</label>
 												{props.touched.gender && props.errors.gender ? (

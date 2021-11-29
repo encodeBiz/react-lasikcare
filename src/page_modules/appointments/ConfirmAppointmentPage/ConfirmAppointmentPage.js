@@ -18,7 +18,7 @@ import ConfirmForm from "./ConfirmForm/ConfirmForm";
 import "../../../styles/App.scss";
 import Loading from "../../../shared_modules/Loading/Loading";
 import { IMAGES_SERVER } from "../../../constants/constants";
-import { sendErrorEmail } from "../../../services/email.service";
+import { sendEmail, sendErrorEmail } from "../../../services/email.service";
 
 const ConfirmPage = (properties) => {
 	const [children, setChildren] = useState([]);
@@ -115,7 +115,7 @@ const ConfirmPage = (properties) => {
 	 *
 	 */
 
-	const sendEmail = async (values) => {
+	const sendEmailClinic = async (values) => {
 		const utm_source = window.utm_source || "";
 		const tmr = "";
 
@@ -131,8 +131,9 @@ const ConfirmPage = (properties) => {
 			first_name: values.name,
 			last_name: values.surname,
 			email: values.email,
-			phone: values.phoneNumber,
+			phone: '00' + values.phoneNumber,
 			message: values.message,
+			age: values.ageGroup,
 			type: appointment.type,
 			utm_source,
 			tmr, //Se incluirá al final
@@ -141,7 +142,7 @@ const ConfirmPage = (properties) => {
 			error: `This patient is older than 50`,
 		};
 
-		await sendErrorEmail(query_params);
+		await sendEmail(query_params);
 	};
 
 	const  getCookie = (cname) => {
@@ -166,10 +167,8 @@ const ConfirmPage = (properties) => {
 			const res = await properties.sendAppointmentData();
 			const lead_id = res.urlFormulario.split('&keyhis=')[1];
 			const session_id = getCookie('PHPSESSID')
-			if(values.ageGroup == 'moreThan50'){
-				await sendEmail(values); //EMAIL PARA LAS PERSONAS MAYORES DE 50
-			}
-				
+			
+			await sendEmailClinic(values); //EMAIL PARA LAS PERSONAS MAYORES DE 50
 			window.dataLayer.push({
 				"event": "leadSent",
 				"lead_id": lead_id || Math.floor(Math.random() * 100000000),

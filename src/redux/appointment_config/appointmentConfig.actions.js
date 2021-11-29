@@ -68,8 +68,9 @@ export const sendAppointmentData = (isOnline) => {
 				first_name: appointment.clientData.name,
 				last_name: appointment.clientData.surname,
 				email: appointment.clientData.email,
-				phone: appointment.clientData.phoneNumber,
+				phone: '00' + appointment.clientData.phoneNumber,
 				message: appointment.clientData.message,
+				age: appointment.clientData.ageGroup,
 				type: appointment.type,
 				utm_source,
 				tmr, //Se incluirá al final
