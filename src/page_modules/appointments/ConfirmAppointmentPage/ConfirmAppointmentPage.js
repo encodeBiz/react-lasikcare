@@ -127,17 +127,17 @@ const ConfirmPage = (properties) => {
 			hour: appointment.calendar_hour.horaInicio,
 			horaFin: appointment.calendar_hour.horaFin,
 			keymed: appointment.calendar_hour.keymed,
-			gender: appointment.clientData.gender,
-			first_name: appointment.clientData.name,
-			last_name: appointment.clientData.surname,
-			email: appointment.clientData.email,
-			phone: appointment.clientData.phoneNumber,
-			message: appointment.clientData.message,
+			gender: values.gender,
+			first_name: values.name,
+			last_name: values.surname,
+			email: values.email,
+			phone: values.phoneNumber,
+			message: values.message,
 			type: appointment.type,
 			utm_source,
 			tmr, //Se incluirá al final
-			comentarios: appointment.clientData.message,
-			sexo: appointment.clientData.gender,
+			comentarios: values.message,
+			sexo: values.gender,
 			error: `This patient is older than 50`,
 		};
 
@@ -166,15 +166,18 @@ const ConfirmPage = (properties) => {
 			const res = await properties.sendAppointmentData();
 			const lead_id = res.urlFormulario.split('&keyhis=')[1];
 			const session_id = getCookie('PHPSESSID')
+			if(values.ageGroup == 'moreThan50'){
+				await sendEmail(values); //EMAIL PARA LAS PERSONAS MAYORES DE 50
+			}
 				
-			  await sendEmail();
-				window.dataLayer.push({
-					"event": "leadSent",
-					"lead_id": lead_id || Math.floor(Math.random() * 100000000),
-					"session_id": session_id || Math.floor(Math.random() * 100000000),
-					"lead_source": 'online_termine',
-					"lead_type": "online_termine"
-				});
+			window.dataLayer.push({
+				"event": "leadSent",
+				"lead_id": lead_id || Math.floor(Math.random() * 100000000),
+				"session_id": session_id || Math.floor(Math.random() * 100000000),
+				"lead_source": 'online_termine',
+				"lead_type": "online_termine"
+			});
+				
 			const city = appointment.city.clinica;
 			localStorage.setItem("city", city);
 		} catch (error) {

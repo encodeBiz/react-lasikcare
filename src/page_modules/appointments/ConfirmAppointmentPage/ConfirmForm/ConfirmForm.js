@@ -60,7 +60,7 @@ const ConfirmForm = (properties) => {
 						surname: appointmentValues.surname,
 						phoneNumber: appointmentValues.phoneNumber,
 						email: appointmentValues.email,
-						message: appointmentValues.message,
+						message: appointmentValues.message ?? '',
 						accepted: appointmentValues.accepted,
 					}}
 					onSubmit={async (values, actions) => {
