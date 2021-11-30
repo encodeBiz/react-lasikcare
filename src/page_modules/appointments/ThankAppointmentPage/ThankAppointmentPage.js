@@ -248,7 +248,10 @@ const ThankAppointmentPage = (properties) => {
 							return (
 								<div className="instructions" key={index}>
 									<div className="info-item">
-										<h5>{item.title}</h5>
+								
+										<h5>	<span className="dot">
+    								<span className="inner-dot">{index}</span>
+  								</span> {item.title}</h5>
 										<p dangerouslySetInnerHTML={{ __html: item.text }}></p>
 									</div>
 								</div>
