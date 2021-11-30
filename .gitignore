@@ -15,7 +15,7 @@
 *.css
 # production
 /build
-
+/src/enpoints
 # misc
 .DS_Store
 .env.local

@@ -26,20 +26,84 @@ const ThankAppointmentPage = (properties) => {
 	const [userEmail, setUserEmail] = useState("");
 	const [appointmentType, setAppointmentType] = useState("");
 
-	const info = [
-		{
-			title: "Terminbestätigung",
-			text: `Sie erhalten eine automatisierte E-Mail mit der Zusammenfassung der Termininformationen. Bitte überprüfen Sie den Eingang der E-Mail in Ihrem Posteingang oder Spam-Ordner.`,
+	const info = {
+		BI:{
+			h3:'Bitte beachten Sie:',
+			ul:[
+				{
+				title: 'Informationsgespräch',
+				text: 'Bitte planen Sie für das Informationsgespräch etwa 1 Stunde ein. Gerne beantworten wir Ihnen Ihre Fragen rund um die Augenbehandlung.',
+				},
+				{
+				title: 'Kontaktlinsen',
+				text: 'Wenn möglich, tragen Sie Ihre weichen Kontaktlinsen 2 Tage oder Ihre harten Kontaktlinsen 1 Woche vor diesem Termin nicht mehr. Sollte dies nicht möglich sein, geben Sie bei Ihrem Termin bitte gleich zu Beginn dem Empfangspersonal Bescheid und bringen Sie den Aufbewahrungsbehälter und Ihre Linsenflüssigkeit mit.',
+				},
+				{
+				title: 'Brille  ',
+				text: 'Falls Sie eine Brille besitzen, bringen Sie diese bitte zu dem Informationsgespräch mit, damit wir die Sehstärken entsprechend vergleichen können.',
+				},
+				{
+					title: '3G-Regel',
+					text: 'Bitte beachten Sie, dass wir aufgrund der derzeitigen besonderen Situation der „3G“-Regel Folge leisten müssen. Demnach müssen Sie für einen Besuch bei Lasik Care entweder… \na)…einen Impf-Nachweis vorlegen (gilt ab dem 15. Tag nach der Zweitimpfung), \n b)…oder einen Genesenen-Nachweis vorweisen, der nicht älter als 6 Monate, aber mindestens 28 Tage alt ist, \nc)…oder einen negativen Corona-Test mit offiziellem Nachweis einer Teststation mitbringen, der nicht älter als 24 Stunden (Schnelltest) bzw. nicht älter als 48 Stunden (PCR-Test) ist.',
+				},
+				{
+				title: 'Begleitperson(en)',
+				text: 'Als Schutzmaßnahme zur Eindämmung der COVID-19 Pandemie bitten wir Ihre Begleitperson(en), außerhalb unserer Räumlichkeiten zu warten. Dadurch können wir die Anzahl der Personen in unseren Warteräumen so gering wie möglich halten.',
+				},
+				
+			]
 		},
-		{
-			title: "Weiterleitung",
-			text: "Sie erhalten am Tag Ihrer persönlichen Videoberatung von uns eine E-Mail mit dem Zugangslink über E-Mail zugeschickt.",
+		BIDI:{
+			h3:'Bitte beachten Sie:',
+			ul:[
+				{
+				title: "Bitte planen Sie etwa 2,5 Stunden für das Informationsgespräch und die augenärztliche Untersuchung ein.",
+				text: '',
+				},
+				{
+				title: "Kontaktlinsen",
+				text: "Falls Sie weiche Kontaktlinsen tragen, setzen Sie diese bitte 2 Tage vor den Terminen nicht mehr ein. Bei harten Kontaktlinsen beträgt der Zeitraum 1 Woche bei Nacht- bzw. Ortho-K Linsen 1 Monat.",
+				},
+				{
+				title: "Brille",
+				text: "Falls Sie eine Brille besitzen, bringen Sie diese bitte zu dem Termin mit, damit wir die Sehstärken entsprechend vergleichen können.",
+				},
+				{
+					title: "",
+					text: "Um Ihre Augen zu schonen, empfehlen wir nach der augenärztlichen Untersuchung eine Sonnenbrille zu tragen.",
+				},
+				{
+					title: "",
+					text: "Sollten Sie mit dem Auto anreisen, bitten wir Sie, für die Rückfahrt eine Begleitperson mitzubringen (beachten Sie hierbei jedoch unten stehenden Hinweis), da Sie pupillenerweiternde Augentropfen erhalten werden.",
+				},
+				{
+					title: "Begleitperson(en)",
+					text: "Sollten Sie mit dem Auto anreisen, bitten wir Sie, für die Rückfahrt eine Begleitperson mitzubringen (beachten Sie hierbei jedoch unten stehenden Hinweis), da Sie pupillenerweiternde Augentropfen erhalten werden.",
+				},
+				{
+					title: '3G-Regel',
+					text: 'Bitte beachten Sie, dass wir aufgrund der derzeitigen besonderen Situation der „3G“-Regel Folge leisten müssen. Demnach müssen Sie für einen Besuch bei Lasik Care entweder… \na)…einen Impf-Nachweis vorlegen (gilt ab dem 15. Tag nach der Zweitimpfung), \nb)…oder einen Genesenen-Nachweis vorweisen, der nicht älter als 6 Monate, aber mindestens 28 Tage alt ist, \nc)…oder einen negativen Corona-Test mit offiziellem Nachweis einer Teststation mitbringen, der nicht älter als 24 Stunden (Schnelltest) bzw. nicht älter als 48 Stunden (PCR) ist.',
+				}
+			]
 		},
-		{
-			title: "Terminbestätigung",
-			text: "Nach positiver Prüfung Ihres Terminwunsches durch die Klinik erhalten Sie Ihre Terminbestätigung.",
-		},
-	];
+		VIDEO:{
+			h3:'Wie es weiter geht',
+			ul:[
+				{
+				title: "Terminbestätigung",
+				text: `Sie erhalten in kurze eine automatisierte E-Mail mit der Zusammenfassung der Termininformationen und dem Zugangslink.`,
+				},
+				{
+				title: "Bitte überprüfen Sie den Eingang der E-Mail in Ihrem Posteingang oder Spam-Ordner",
+				text: "",
+				},
+				{
+				title: "Für Terminänderung ",
+				text: "Um Ihren Termin zu ändern oder zu stornieren, rufen Sie uns gerne an: 0800 8888 474 oder schreiben sie uns unter: information@care-vision.com",
+				}
+			]
+		}
+	};
 
 	/**
 	 *  Setear nueva ciudad en el localStorage
@@ -130,7 +194,7 @@ const ThankAppointmentPage = (properties) => {
 		BIDI: "Unverbindliches Informationsgespräch + Ärltliche Voruntersuchung (ca. 40€)",
 		VIDEO: "Online Video Beratung",
 	};
-
+	
 	return (
 		<div className="wrapper-general change-width">
 			<CardContainer>
@@ -178,9 +242,9 @@ const ThankAppointmentPage = (properties) => {
 				</div>
 
 				<div className="wrapper-instructions">
-					<h2>Wie es weiter geht</h2>
-					<CardContainer>
-						{info.map((item, index) => {
+					{<h2>{info[appointmentType]?.h3}</h2>}
+					{<CardContainer>
+						{info[appointmentType]?.ul.map((item, index) => {
 							return (
 								<div className="instructions" key={index}>
 									<div className="info-item">
@@ -190,7 +254,7 @@ const ThankAppointmentPage = (properties) => {
 								</div>
 							);
 						})}
-					</CardContainer>
+					</CardContainer>}
 				</div>
 			</div>
 		</div>
