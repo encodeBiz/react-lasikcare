@@ -1,7 +1,7 @@
-import React from "react";
-import { Switch, Route, Redirect, useHistory } from "react-router-dom";
-import { RouteWithSubRoutes } from "../../router/RouterHelper";
-import "./appointments.style.css";
+import React from 'react'
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
+import { RouteWithSubRoutes } from '../../router/RouterHelper'
+import './appointments.style.css'
 
 /**
  * Root de las citas y punto de entrada
@@ -13,20 +13,17 @@ import "./appointments.style.css";
  * @param {[String]} properties.routes Subrutas de citas
  */
 
-function Appointments(properties) {
-
-	return (
-		<Switch>
-			{properties.routes.map((route, i) => (
-				<RouteWithSubRoutes key={i} {...route} />
-			))}
-			<Route to="/appointments">
-				<Redirect to="/termintyp/vor-ort/"></Redirect>
-			</Route>
-		</Switch>
-	);
+function Appointments (properties) {
+  return (
+    <Switch>
+      {properties.routes.map((route, i) => (
+        <RouteWithSubRoutes key={i} {...route} />
+      ))}
+      <Route to='/appointments'>
+        <Redirect to='/termintyp/vor-ort/'></Redirect>
+      </Route>
+    </Switch>
+  )
 }
-
-
 
 export default Appointments

@@ -110,9 +110,15 @@
           .info-item {
             h5 {
               position: relative;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
             }
             p{
               white-space: pre-line;
+            }
+            a{
+              color: #00619e;
             }
             .dot {
               border-radius: 100%;

@@ -90,9 +90,14 @@
   .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions:not(:last-child) {
     margin-bottom: 20px; }
   .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions .info-item h5 {
-    position: relative; }
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; }
   .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions .info-item p {
     white-space: pre-line; }
+  .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions .info-item a {
+    color: #00619e; }
   .wrapper-general .flex-desktop .wrapper-instructions .card-container .instructions .info-item .dot {
     border-radius: 100%;
     height: 25px;
