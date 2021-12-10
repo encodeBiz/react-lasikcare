@@ -166,7 +166,7 @@ const ConfirmPage = (properties) => {
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
 			const res = await properties.sendAppointmentData();
-			if(res.errores.cod === 0){
+			if(res.errores && parseInt(res.errores.cod) ===   0){
 				const lead_id = res.urlFormulario.split('&keyhis=')[1];
 				const session_id = getCookie('PHPSESSID')
 				
