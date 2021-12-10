@@ -104,9 +104,8 @@ const ThankAppointmentPage = properties => {
         {
           title: 'Termindauer',
           text: (
-            <p style={{ fontWeight: 'bold' }}>
-              Bitte planen Sie{' '}
-              <span style={{ fontWeight: 'lighter' }}>etwa 2,5 Stunden</span>{' '}
+            <p>
+              Bitte planen Sie <strong>etwa 2,5 Stunden</strong>
               für das Informationsgespräch und die augenärztliche Untersuchung
               ein.
             </p>
@@ -119,7 +118,7 @@ const ThankAppointmentPage = properties => {
               Falls Sie <strong>weiche Kontaktlinsen</strong> tragen, setzen Sie
               diese bitte <strong>2 Tage vor den Terminen</strong> nicht mehr
               ein. Bei <strong>harten Kontaktlinsen</strong> beträgt der
-              Zeitraum <strong>1 Woche</strong> bei{' '}
+              Zeitraum <strong>1 Woche</strong> bei
               <strong>Nacht- bzw. Ortho-K Linsen 1 Monat</strong>.
             </p>
           )
@@ -202,7 +201,10 @@ const ThankAppointmentPage = properties => {
               Sie erhalten in kurze eine automatisierte E-Mail mit der
               Zusammenfassung der Termininformationen und dem Zugangslink.{' '}
               <br></br>
-							<span style={{fontWeight:'bold', color:'#00619e'}}>Bitte überprüfen Sie den Eingang der E-Mail in Ihrem Posteingang oder Spam-Ordner</span>
+              <span style={{ fontWeight: 'bold', color: '#00619e' }}>
+                Bitte überprüfen Sie den Eingang der E-Mail in Ihrem Posteingang
+                oder Spam-Ordner
+              </span>
             </p>
           )
         },
@@ -212,11 +214,9 @@ const ThankAppointmentPage = properties => {
           text: (
             <p>
               Um Ihren Termin zu ändern oder zu stornieren, rufen Sie uns gerne
-              an: <a href={'tel:00498954888894250'}>+49 89 54 8888 94 250</a> oder schreiben
-              sie uns unter:{' '}
-              <a href={'mailto:info@lasikcare.de'}>
-							info@lasikcare.de
-              </a>
+              an: <a href={'tel:00498954888894250'}>+49 89 54 8888 94 250</a>{' '}
+              oder schreiben sie uns unter:{' '}
+              <a href={'mailto:info@lasikcare.de'}>info@lasikcare.de</a>
             </p>
           )
         }
@@ -374,28 +374,28 @@ const ThankAppointmentPage = properties => {
         </div>
 
         <div className='wrapper-instructions'>
-            {<h2>{info[appointmentType]?.h3}</h2>}
-            {
-              <CardContainer>
-                {info[appointmentType]?.ul.map((item, index) => {
-                  return (
-                    <div className='instructions' key={index}>
-                      <div className='info-item'>
-                        <h5>
-                          {' '}
-                          <span className='dot'>
-                            <span className='inner-dot'>{index + 1}</span>
-                          </span>{' '}
-                          {item.title}
-                        </h5>
-                        {item.text}
-                      </div>
+          {<h2>{info[appointmentType]?.h3}</h2>}
+          {
+            <CardContainer>
+              {info[appointmentType]?.ul.map((item, index) => {
+                return (
+                  <div className='instructions' key={index}>
+                    <div className='info-item'>
+                      <h5>
+                        {' '}
+                        <span className='dot'>
+                          <span className='inner-dot'>{index + 1}</span>
+                        </span>{' '}
+                        {item.title}
+                      </h5>
+                      {item.text}
                     </div>
-                  )
-                })}
-              </CardContainer>
-            }
-          </div>
+                  </div>
+                )
+              })}
+            </CardContainer>
+          }
+        </div>
       </div>
     </div>
   )

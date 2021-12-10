@@ -8,7 +8,7 @@ import {
 
 const initialState = {
 	error: false,
-	errorData: {},
+	errorData: false,
 	success: false,
 	currentStep: 0,
 	type: "",
@@ -36,8 +36,9 @@ const appoinmentConfig = (state = initialState, action) => {
 			const { property, data } = action;
 			return { ...state, [property]: data };
 		case SET_ERROR_ON_CONFIRM:
-			const { errorData } = action;
-			return { ...state, error: true, errorData };
+			const { errorData, error } = action;
+			console.log('reducer', { errorData, error })
+			return { ...state, error: error || true, errorData };
 		case SET_SUCCESS_ON_CONFIRM:
 			return { ...state, success: true };
 		case CLEAR_APPOINTMENT_INFO:

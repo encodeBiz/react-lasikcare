@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import Button from '../../shared_modules/Button/Button'
 import './SorryPage.scss'
@@ -7,6 +7,7 @@ import lens from '../../assets/images/icons/icon-search.svg'
 import {
   clearAppointment,
   setAppoinmentConfig,
+  setErrorInAppointment,
   getAppoinmentConfig
 } from '../../redux/appointment_config/appointmentConfig.actions'
 import { connect } from 'react-redux'
@@ -31,12 +32,14 @@ const SorryPage = properties => {
   }
   const goToHome = () => (window.location.href = 'tel:080088886060')
 
-  // const { clearAppointment } = properties;
+  
 
-  // useEffect(() => {
-  // 	clearAppointment();
-  // }, []);
-
+  useEffect(() => {
+    properties.setErrorInAppointment(false)
+  }, []);
+  useEffect(() => {
+    console.log(properties.appointment) 
+  }, [properties]);
   const setTelephoneButtonIcon = hoverProp =>
     setTelIcon(hoverProp === 'enter' ? telephoneOrange : telephone)
   const setCalendarButtonIcon = hoverProp =>
@@ -96,7 +99,8 @@ const mapDispatchToProps = dispatch => ({
   setAppoinmentConfig: (property, data) =>
     dispatch(setAppoinmentConfig(property, data)),
 
-  clearAppointment: () => dispatch(clearAppointment())
+  clearAppointment: () => dispatch(clearAppointment()),
+  setErrorInAppointment: () => 	dispatch(setErrorInAppointment(false, false))
 })
 
 /**

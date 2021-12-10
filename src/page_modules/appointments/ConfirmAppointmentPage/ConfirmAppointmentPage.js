@@ -55,13 +55,14 @@ const ConfirmPage = (properties) => {
 	 */
 
 	useEffect(() => {
-		if (appointment.error) {
+		console.log('Confirm Appoiment',appointment)
+		if (appointment.errorData) {
 			history.push("/termin-bereits-vergeben");
 		}
 		if (appointment.success) {
 			history.push("/danke");
 		}
-	}, [appointment.error, appointment.success, history]);
+	}, [appointment.errorData, appointment.success, history]);
 
 	const texts = {
 		BIDI: "Ärztliche Voruntersuchung (ca. 40 €) Abrechnung nach GOÄ",
@@ -165,20 +166,19 @@ const ConfirmPage = (properties) => {
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
 			const res = await properties.sendAppointmentData();
-			const lead_id = res.urlFormulario.split('&keyhis=')[1];
-			const session_id = getCookie('PHPSESSID')
-			
-			await sendEmailClinic(values); //EMAIL PARA LAS PERSONAS MAYORES DE 50
-			window.dataLayer.push({
-				"event": "leadSent",
-				"lead_id": lead_id || Math.floor(Math.random() * 100000000),
-				"session_id": session_id || Math.floor(Math.random() * 100000000),
-				"lead_source": 'online_termine',
-				"lead_type": "online_termine"
-			});
+			if(res.errores.cod === 0){
+				const lead_id = res.urlFormulario.split('&keyhis=')[1];
+				const session_id = getCookie('PHPSESSID')
 				
-			const city = appointment.city.clinica;
-			localStorage.setItem("city", city);
+				await sendEmailClinic(values); //EMAIL PARA LAS PERSONAS MAYORES DE 50
+				window.dataLayer.push({
+					"event": "leadSent",
+					"lead_id": lead_id || Math.floor(Math.random() * 100000000),
+					"session_id": session_id || Math.floor(Math.random() * 100000000),
+					"lead_source": 'online_termine',
+					"lead_type": "online_termine"
+				});
+			}
 		} catch (error) {
 			console.log(error);
 		}

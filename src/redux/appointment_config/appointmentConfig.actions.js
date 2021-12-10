@@ -35,7 +35,10 @@ export const clearAppointment = () => ({ type: CLEAR_APPOINTMENT_INFO });
  * @returns
  */
 
-export const setErrorInAppointment = (errorData) => ({ type: SET_ERROR_ON_CONFIRM, errorData });
+export const setErrorInAppointment = (errorData, error?) => {
+	console.log('ACTION setErrorInAppointment', { type: SET_ERROR_ON_CONFIRM, errorData , error});
+	return { type: SET_ERROR_ON_CONFIRM, errorData , error};
+};
 
 /**
  *
@@ -83,14 +86,16 @@ export const sendAppointmentData = (isOnline) => {
 				: await setHuecos(query_params);
 
 			if (Number(setHuecosResponse.errores && setHuecosResponse.errores?.cod) !== 0) {
-				dispatch(setErrorInAppointment(setHuecosResponse.errores));
 				if (Number(setHuecosResponse.errores.cod) === 27) {
 					query_params.endhour = appointment.calendar_hour.horaFin;
 					query_params.error = "Error 27";
 					await sendErrorEmail(query_params);
+					dispatch(setErrorInAppointment(setHuecosResponse.errores));
 					return setHuecosResponse;
 				}
-				dispatch(setSuccessInAppointment());
+				console.log(setHuecosResponse.errores)
+				dispatch(setErrorInAppointment(setHuecosResponse.errores));
+				
 			} else {
 				dispatch(setSuccessInAppointment());
 				return setHuecosResponse;
