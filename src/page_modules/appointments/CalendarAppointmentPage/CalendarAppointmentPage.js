@@ -102,7 +102,6 @@ const CalendarAppointmentPage = (properties) => {
    */
   useEffect(() => {
     // Selecciona del store los datos correspondientes al mes que se muestra en el calendario
-    console.log('CALENDAR LOADING', properties.loading.globalLoading);
     const data =
       selectedCity && selectedType
         ? properties.available_hours[selectedCity]?.data[selectedType]?.[
@@ -336,8 +335,7 @@ const CalendarAppointmentPage = (properties) => {
       // Setea la fecha del que se pasará al action. Se añade un mes exacto
       const momentDate = moment(currentDate).set('date', 1)
       const date = momentDate.format("DD/M/YYYY");
-      const nextMonth = (Number(currentMonth) + 1).toString();
-
+      const nextMonth = momentDate.format("M").toString();
       // Acción que llama a la API para conseguir los datos del mes siguiente
 		
 			const isData = properties.available_hours[selectedCity]?.data[selectedType]?.[
