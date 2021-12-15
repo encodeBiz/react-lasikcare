@@ -85,6 +85,7 @@ const CalendarOnlinePage = (properties) => {
       handleSendErrorEmail();
     }
     
+    
     if (data && data.length > 0) {
       const formattedDates = formatDates(data);
       setDataCalendar(formattedDates);
@@ -187,7 +188,6 @@ const CalendarOnlinePage = (properties) => {
     const months = Object.values(appointmentObject);
     // Si no hay ninguna fecha en los próximos meses se debe de retornar
     if (months.every((month) => month === undefined || month.length <= 0)) {
-      console.log("useEffect getInitialMonth 1", addToMonth);
       setInitialMonth(addToMonth);
       return setIsInitialMonthSet(true);
     }
@@ -196,10 +196,8 @@ const CalendarOnlinePage = (properties) => {
 
     for (let i = 0; i < months.length; i++) {
       if (!months[i] === undefined || months[i]?.length <= 0) {
-        console.log("useEffect getInitialMonth 2", addToMonth);
         addToMonth++;
       } else {
-        console.log("useEffect getInitialMonth 3", addToMonth);
         setInitialMonth(addToMonth);
         return setIsInitialMonthSet(true);
       }
@@ -239,14 +237,14 @@ const CalendarOnlinePage = (properties) => {
 
       // Setea la fecha del que se pasará al action. Se añade un mes exacto
       const date = moment(currentDate).set("date", 1).format("DD/M/YYYY");
-      
+      const nextMonth = moment(date, "DD/MM/YYYY").format("M");
       if (appointment.type === "VIDEO") {
-        if (!online_available_hours[moment(date, "DD/MM/YYYY").format("M")]) {
+        if (!online_available_hours[nextMonth]) {
           setLoading(true);
           await properties.fetchOnlineAvailableHours(date);
         }
+        
       } else {
-        const nextMonth = (Number(currentMonth) + 1).toString();
         if (
           !available_hours[appointment.city.keycli].data.BIDI[
             nextMonth.toString()
@@ -262,7 +260,7 @@ const CalendarOnlinePage = (properties) => {
         }
       }
       setLoading(false);
-      setCurrentMonth((Number(currentMonth) + 1).toString());
+      setCurrentMonth(nextMonth);
     } catch (error) {
       console.log(error);
     }
@@ -274,7 +272,8 @@ const CalendarOnlinePage = (properties) => {
 
   const onPreviousMonthClick = () => {
     setSelectedDate(null);
-    setCurrentMonth((Number(currentMonth) - 1).toString());
+    const preMonth = moment(currentMonth, "M").set("date", -1).format("M")
+    setCurrentMonth(preMonth.toString());
   };
 
   /**

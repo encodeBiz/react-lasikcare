@@ -367,8 +367,8 @@ const CalendarAppointmentPage = (properties) => {
 
   const onPreviousMonthClick = (e) => {
     setSelectedDate(null);
-    setCurrentMonth((Number(currentMonth) - 1).toString());
-   
+    const preMonth = moment(currentMonth, "M").set("date", -1).format("M")
+    setCurrentMonth(preMonth.toString());
   };
 
   /**
