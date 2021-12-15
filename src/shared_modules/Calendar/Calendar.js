@@ -60,7 +60,6 @@ const Calendar = (properties) => {
               <Loading />
             </div>
           )}
-					{console.log('DayPickerSingleDateController',properties.datesList)}
           <DayPickerSingleDateController
             initialVisibleMonth={() =>
               moment().add(properties.initialMonth, "months")

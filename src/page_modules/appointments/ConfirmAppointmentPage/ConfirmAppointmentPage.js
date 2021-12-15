@@ -170,7 +170,7 @@ const ConfirmPage = (properties) => {
 				const lead_id = res.urlFormulario.split('&keyhis=')[1];
 				const session_id = getCookie('PHPSESSID')
 				
-				await sendEmailClinic(values); //EMAIL PARA LAS PERSONAS MAYORES DE 50
+				await sendEmailClinic(values);
 				window.dataLayer.push({
 					"event": "leadSent",
 					"lead_id": lead_id || Math.floor(Math.random() * 100000000),
