@@ -174,7 +174,8 @@ const ConfirmOnlinePage = (properties) => {
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
 			const res = await properties.sendAppointmentData(true);
-			if(res.errores.cod === 0){
+			console.log('ONLINE PAGE', res.errores)
+			if(res.errores && parseInt(res.errores.cod) ===   0){
 				const lead_id = res.urlFormulario.split('&keyhis=')[1];
 				const session_id = getCookie('PHPSESSID')
 				

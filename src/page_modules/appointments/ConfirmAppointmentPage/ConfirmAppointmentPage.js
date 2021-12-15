@@ -166,8 +166,12 @@ const ConfirmPage = (properties) => {
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
 			const res = await properties.sendAppointmentData();
+			console.log('PRECEM¿NCILA PAGE', res.errores)
+
 			if(res.errores && parseInt(res.errores.cod) ===   0){
-				const lead_id = res.urlFormulario.split('&keyhis=')[1];
+				let lead_id;
+				if(res.urlFormulario)
+					lead_id = res.urlFormulario.split('&keyhis=')[1];
 				const session_id = getCookie('PHPSESSID')
 				
 				await sendEmailClinic(values);
