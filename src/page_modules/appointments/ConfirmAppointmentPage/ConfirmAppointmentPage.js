@@ -166,7 +166,6 @@ const ConfirmPage = (properties) => {
 			setIsLoading(true);
 			await properties.setAppoinmentConfig("clientData", values);
 			const res = await properties.sendAppointmentData();
-			console.log('PRECEM¿NCILA PAGE', res.errores)
 
 			if(res.errores && parseInt(res.errores.cod) ===   0){
 				let lead_id;

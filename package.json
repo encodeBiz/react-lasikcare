@@ -1,6 +1,6 @@
 {
   "name": "react-lasikcare",
-  "version": "0.2.18",
+  "version": "1.0.3",
   "private": true,
   "homepage": "/wp-content/plugins/react-wp/react-lasikcare/build",
   "dependencies": {
