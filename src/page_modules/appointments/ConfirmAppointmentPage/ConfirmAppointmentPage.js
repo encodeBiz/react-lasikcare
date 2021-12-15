@@ -136,13 +136,13 @@ const ConfirmPage = (properties) => {
 			message: values.message,
 			age: values.ageGroup,
 			type: appointment.type,
+			type_text: appointment.type,
 			utm_source,
 			tmr, //Se incluirá al final
 			comentarios: values.message,
 			sexo: values.gender,
-			error: `This patient is older than 50`,
 		};
-
+		console.log(query_params);
 		await sendEmail(query_params);
 	};
 
