@@ -41,8 +41,8 @@ const AppointmentType = (properties) => {
 	useEffect(() => {
 		properties.setAppoinmentConfig("currentStep", 1);
 		properties.setAppoinmentConfig("isOnline", false);
+		handleClick('presencial');
 		// eslint-disable-next-line
-		
 	}, []);
 
 	/**

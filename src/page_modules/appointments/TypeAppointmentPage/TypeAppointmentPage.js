@@ -40,7 +40,7 @@ const TypeAppointmentPage = (properties) => {
 
 	const appointmentTypes = [
 		{
-			text: "Ärztliche Voruntersuchung (ca. 40 €) - Termin vor Ort",
+			text: "Ärztliche Voruntersuchung (ca. 50 €) - Termin vor Ort",
 			image: iconPay,
 			type: "BIDI",
 		},
@@ -108,7 +108,7 @@ const TypeAppointmentPage = (properties) => {
 		history.push("/termintyp/vor-ort/voruntersuchung");
 	};
 
-	const goBack = () => history.push("/termintyp");
+	const goBack = () => history.push("/");
 
 	return (
 		<React.Fragment>
