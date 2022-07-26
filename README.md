@@ -5,3 +5,5 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+
+Correr sobre node 12.22.x pra evitar problemas de compatibilidad.
