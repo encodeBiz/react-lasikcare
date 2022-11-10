@@ -25,6 +25,7 @@ import iconPay from "../../../assets/images/icons/type-free.svg";
 
 import "./TypeAppointmentPage.scss";
 import { IMAGES_SERVER } from "../../../constants/constants";
+import { BIDI_CITY_ENABLE, BIDY_CITY_ENABLE, BI_CITY_ENABLE } from "../../../constants/enable_type_appointment";
 /**
  *
  * @param {Object} properties
@@ -35,6 +36,7 @@ import { IMAGES_SERVER } from "../../../constants/constants";
 
 const TypeAppointmentPage = (properties) => {
 	const [stateType, setStateType] = useState(null);
+	const { keycli } = properties.appointment.city;
 
 	/**@description Configuración cards */
 
@@ -109,7 +111,6 @@ const TypeAppointmentPage = (properties) => {
 	};
 
 	const goBack = () => history.push("/");
-
 	return (
 		<React.Fragment>
 			<Stepper currentStepIndex={properties.appointment?.currentStep} navigateTo={navigateTo} />
@@ -123,7 +124,9 @@ const TypeAppointmentPage = (properties) => {
 					</div>
 					<CardContainer isColumn={true}>
 						{appointmentTypes.map((typeItem, index) => {
-							return (
+							const enable_type = typeItem.type === 'BIDI' ? BIDI_CITY_ENABLE.includes(keycli) : BI_CITY_ENABLE.includes(keycli);
+							
+							return enable_type ? (
 								<Card
 									key={index}
 									handleClick={onAppointmentTypeSelection}
@@ -141,7 +144,7 @@ const TypeAppointmentPage = (properties) => {
 									/>
 									<p>{typeItem.text}</p>
 								</Card>
-							);
+							) : <></>;
 						})}
 					</CardContainer>
 				</div>
