@@ -318,7 +318,7 @@ const ThankAppointmentPage = properties => {
   const thankYouTexts = {
     BI: 'Unverbindliches Informationsgespräch',
     BIDI:
-      'Unverbindliches Informationsgespräch + Ärltliche Voruntersuchung (ca. 50€)',
+      'Unverbindliches Informationsgespräch + Ärztliche Voruntersuchung (ca. 50€)',
     VIDEO: 'Online Video Beratung'
   }
 
