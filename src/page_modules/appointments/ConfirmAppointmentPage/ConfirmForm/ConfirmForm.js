@@ -23,11 +23,11 @@ const ConfirmForm = (properties) => {
 	const validationSchema = yup.object({
 		ageGroup: yup.string(),
 		gender: yup.string(),
-		name: yup.string().required("Dieses Feld wird benötigt"),
-		surname: yup.string().required("Dieses Feld wird benötigt"),
-		phoneNumber: yup.string().required("Dieses Feld wird benötigt").min(8, 'Dieses Feld wird benötigt'),
-		email: yup.string().email("ungültige E-Mail").required("Dieses Feld wird benötigt"),
-		message: yup.string().max(140),
+		name: yup.string().max(20, 'Maximale Zeichenzahl 20').required("Dieses Feld wird benötigt"),
+		surname: yup.string().max(20, 'Maximale Zeichenzahl 20').required("Dieses Feld wird benötigt"),
+		phoneNumber: yup.string().max(20, 'Maximale Zeichenzahl 20').required("Dieses Feld wird benötigt").min(8, 'Dieses Feld wird benötigt'),
+		email: yup.string().max(80, 'Maximale Zeichenzahl 80').email("ungültige E-Mail").required("Dieses Feld wird benötigt"),
+		message: yup.string().max(40, 'Maximale Zeichenzahl 40'),
 		accepted: yup.bool().oneOf([true]),
 	});
 
@@ -45,7 +45,6 @@ const ConfirmForm = (properties) => {
 
 	const appointmentValues = properties.appointmentValues;
 
-	console.log(appointmentValues);
 
 	return (
 		<>

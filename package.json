@@ -1,6 +1,7 @@
 {
   "name": "react-lasikcare",
-  "version": "1.0.3",
+  "version": "1.0.4",
+  "description": "Validando limite de caracteres en el formulario de datos",
   "private": true,
   "homepage": "/wp-content/plugins/react-wp/react-lasikcare/build",
   "dependencies": {
