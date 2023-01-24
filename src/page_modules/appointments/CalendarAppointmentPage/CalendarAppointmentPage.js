@@ -20,6 +20,7 @@ import { IMAGES_SERVER } from "../../../constants/constants";
 import { sendErrorEmail } from "../../../services/email.service";
 import { setIsGlobalLoading } from "../../../redux/loading/loading.actions";
 import { date } from "yup";
+import { BIDI_CITY_ENABLE, BI_CITY_ENABLE } from "../../../constants/enable_type_appointment";
 
 /**
  *
@@ -491,9 +492,12 @@ const CalendarAppointmentPage = (properties) => {
           <CardContainer isColumn={true}>
             <div className="button-container">
               {buttonsConfig.map((button, index) => {
+                const { keycli } = appointment.city;
+                const enable_type = button.type === 'BIDI' ? BIDI_CITY_ENABLE.includes(keycli) : BI_CITY_ENABLE.includes(keycli);
+
                 const customClass =
                   appointment.type === button.type ? "card-highlighted" : "";
-                return (
+                return enable_type ? (
                   <Card
                     key={index}
                     customClass={`pointer ${customClass} ${
@@ -521,7 +525,7 @@ const CalendarAppointmentPage = (properties) => {
                       {button.text} <strong>{button.label}</strong>
                     </label>
                   </Card>
-                );
+                ) : <></>;
               })}
             </div>
           </CardContainer>
