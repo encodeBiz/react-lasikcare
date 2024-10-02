@@ -63,7 +63,7 @@ const ThankAppointmentPage = properties => {
               vergleichen können.
             </p>
           )
-        },
+        },/* 
         {
           title: '3G-Regel',
           text: (
@@ -95,7 +95,7 @@ const ThankAppointmentPage = properties => {
               Warteräumen so gering wie möglich halten.
             </p>
           )
-        }
+        } */
       ]
     },
     BIDI: {
@@ -156,7 +156,7 @@ const ThankAppointmentPage = properties => {
               , da Sie pupillenerweiternde Augentropfen erhalten werden.
             </p>
           )
-        },
+        },/* 
         {
           title: 'Begleitperson(en)',
           text: (
@@ -188,7 +188,7 @@ const ThankAppointmentPage = properties => {
               ist.
             </p>
           )
-        }
+        } */
       ]
     },
     VIDEO: {
